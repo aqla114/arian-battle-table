@@ -14,7 +14,7 @@ type CharacterProps = {
     actionPriority: number;
     hp: number;
     physicalDefence: number;
-    magicalDegence: number;
+    magicalDefence: number;
 };
 
 type CharacterElementProps = CharacterProps & {
@@ -31,9 +31,9 @@ function Character(
     actionPriority: number,
     hp: number,
     physicalDefence: number,
-    magicalDegence: number,
+    magicalDefence: number,
 ): CharacterProps {
-    return { name, actionPriority, hp, physicalDefence, magicalDegence };
+    return { name, actionPriority, hp, physicalDefence, magicalDefence };
 }
 
 class CharacterList extends React.Component<{}, CharacterListState> {
@@ -41,9 +41,12 @@ class CharacterList extends React.Component<{}, CharacterListState> {
         super(props);
         this.state = {
             characters: [
-                Character('john', 20, 90, 15, 10),
+                Character('ジョン', 19, 90, 15, 10),
                 Character('kiwi', 9, 150, 20, 30),
-                Character('karina', 36, 100, 1, 5),
+                Character('カリーナ', 36, 100, 1, 5),
+                Character('抹茶', 22, 100, 1, 5),
+                Character('太郎', 38, 100, 1, 5),
+                Character('パルム', 4, 100, 1, 5)
             ].sort((a, b) => b.actionPriority - a.actionPriority),
         };
     }
@@ -83,7 +86,7 @@ class CharacterList extends React.Component<{}, CharacterListState> {
                         <td>actionPriority</td>
                         <td>hp</td>
                         <td>physicalDefence</td>
-                        <td>magicalDegence</td>
+                        <td>magicalDefence</td>
                     </tr>
                 </thead>
                 <tbody>{characterElement}</tbody>
@@ -101,15 +104,39 @@ function CharacterElement(props: CharacterElementProps) {
             <td>
                 <input
                     type="text"
-                    className="character-table__character__actionPriority"
+                    className="character-table__character__action-priority"
                     name={'actionPriority'}
                     value={props.actionPriority}
                     onChange={props.onElementChange}
                 />
             </td>
-            <td>{props.hp}</td>
-            <td>{props.physicalDefence}</td>
-            <td>{props.magicalDegence}</td>
+            <td>
+                <input
+                    type="text"
+                    className="character-table__character__hp"
+                    name={'hp'}
+                    value={props.hp}
+                    onChange={props.onElementChange}
+                />
+            </td>
+            <td>
+                <input
+                    type="text"
+                    className="character-table__character__physical-defence"
+                    name={'physicalDefence'}
+                    value={props.physicalDefence}
+                    onChange={props.onElementChange}
+                />
+            </td>
+            <td>
+                <input
+                    type="text"
+                    className="character-table__character__magical-defence"
+                    name={'magicalDefence'}
+                    value={props.magicalDefence}
+                    onChange={props.onElementChange}
+                />
+            </td>
         </tr>
     );
 }
