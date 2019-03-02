@@ -6,7 +6,6 @@ type CharacterListState = {
 }
 
 type CharacterProps = {
-    id: string,
     name: string,
     actionPriority: number,
     hp: number,
@@ -18,6 +17,11 @@ type CharacterElementProps = CharacterProps & {
     onElementChange: (e: any) => void,
 }
 
+type CharacterAttributePros = {
+    kind: string,
+    value: string,
+}
+
 function Character(
     name: string,
     actionPriority: number,
@@ -25,8 +29,7 @@ function Character(
     physicalDefence: number,
     magicalDegence: number
 ): CharacterProps {
-    return {id: name,
-            name,
+    return {name,
             actionPriority,
             hp,
             physicalDefence,
@@ -64,7 +67,7 @@ class CharacterList extends React.Component<{}, CharacterListState> {
         console.log(this.state.characters)
 
         const characterElement = this.state.characters.map(character => (
-            <CharacterElement key={character.id} {...character} onElementChange={(e) => this.handleChange(e, character.name)}/>
+            <CharacterElement key={character.name} {...character} onElementChange={(e) => this.handleChange(e, character.name)}/>
         ));
 
         return (
@@ -98,44 +101,20 @@ function CharacterElement(props: CharacterElementProps) {
                     onChange={props.onElementChange}
                 />
             </td>
-            <td>{props.actionPriority}</td>
+            <td>
+                <input
+                    type='text'
+                    className='character-table__character__name'
+                    name={'name'}
+                    value={props.name}
+                    onChange={props.onElementChange}
+                />
+            </td>
             <td>{props.hp}</td>
             <td>{props.physicalDefence}</td>
             <td>{props.magicalDegence}</td>
         </tr>
     )
 }
-
-// class CharacterElement extends React.Component<CharacterElementProps, {}> {
-//     constructor(props: CharacterElementProps) {
-//         super(props);
-//         this.handleChange = this.handleChange.bind(this);
-//     }
-
-//     handleChange(e: any) {
-//         this.props.onElementChange(e);
-//     }
-
-//     render() {
-//         const props = this.props;
-//         return (
-//             <tr className={`character-table__character`}>
-//                 <td>
-//                     <input
-//                         type='text'
-//                         className={`character-table__character$__name`}
-//                         name={'name'}
-//                         value={props.name}
-//                         onChange={props.onElementChange}
-//                     />
-//                 </td>
-//                 <td>{props.actionPriority}</td>
-//                 <td>{props.hp}</td>
-//                 <td>{props.physicalDefence}</td>
-//                 <td>{props.magicalDegence}</td>
-//             </tr>
-//         )
-//     }
-// }
 
 ReactDOM.render(<CharacterList />, document.getElementById('root'));
