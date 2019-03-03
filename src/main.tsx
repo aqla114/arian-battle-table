@@ -28,6 +28,7 @@ export type CharacterProps = {
     hp: number;
     physicalDefence: number;
     magicalDefence: number;
+    isKnockBack: boolean;
 };
 
 function Character(
@@ -37,7 +38,7 @@ function Character(
     physicalDefence: number,
     magicalDefence: number,
 ): CharacterProps {
-    return { name, actionPriority, hp, physicalDefence, magicalDefence };
+    return { name, actionPriority, hp, physicalDefence, magicalDefence, isKnockBack: false };
 }
 
 class CharacterList extends React.Component<{}, CharacterListState> {
@@ -49,15 +50,35 @@ class CharacterList extends React.Component<{}, CharacterListState> {
         };
     }
 
-    updateCharacterAttribute(e: any, name: string) {
-        const newCharacters = this.state.characters.slice();
-        const idx = newCharacters.map(x => x.name).indexOf(name);
-        (newCharacters as ICharacterProps)[idx][e.target.name] = e.target.value;
+    updateCharacterAttributeText(e: any, name: string) {
+        const characters = this.state.characters.slice();
+        const idx = characters.map(x => x.name).indexOf(name);
+        (characters as ICharacterProps)[idx][e.target.name] = e.target.value;
+        characters.sort((a, b) => b.actionPriority - a.actionPriority);
 
-        newCharacters.sort((a, b) => b.actionPriority - a.actionPriority);
 
         this.setState({
-            characters: newCharacters,
+            characters,
+        });
+    }
+
+    updateCharacterIsKnockBack(e: any, name: string) {
+        console.log(this.state.characters);
+        console.log(e.target);
+        const characters = this.state.characters.slice();
+        const idx = characters.map(x => x.name).indexOf(name);
+        (characters as ICharacterProps)[idx].isKnockBack = !(characters as ICharacterProps)[idx].isKnockBack;
+
+        if ((characters as ICharacterProps)[idx].isKnockBack) {
+            (characters as ICharacterProps)[idx].actionPriority -= 10;
+        } else {
+            (characters as ICharacterProps)[idx].actionPriority += 10;
+        }
+
+        characters.sort((a, b) => b.actionPriority - a.actionPriority);
+
+        this.setState({
+            characters,
         });
     }
 
@@ -102,8 +123,9 @@ class CharacterList extends React.Component<{}, CharacterListState> {
             <CharacterElement
                 key={character.name}
                 {...character}
-                onChangeElement={e => this.updateCharacterAttribute(e, character.name)}
-                onDeleteCharacter={e => this.deleteCharacter(e, character.name)}
+                onChangeElementText={(e) => this.updateCharacterAttributeText(e, character.name)}
+                onChangeElementCheckbox={(e) => this.updateCharacterIsKnockBack(e, character.name)}
+                onDeleteCharacter={(e) => this.deleteCharacter(e, character.name)}
             />
         ));
 
@@ -117,6 +139,7 @@ class CharacterList extends React.Component<{}, CharacterListState> {
                             <td>HP</td>
                             <td>物理防御力</td>
                             <td>魔法防御力</td>
+                            <td>ノックバック(2)</td>
                             <td>キャラクターの削除</td>
                         </tr>
                     </thead>
@@ -124,7 +147,7 @@ class CharacterList extends React.Component<{}, CharacterListState> {
                 </table>
                 <AddCharacterForm
                     name={this.state.currentNewCharacter.name}
-                    onChangeCharacterForm={e => this.updateCurrentNewCharacter(e)}
+                    onChangeCharacterForm={(e) => this.updateCurrentNewCharacter(e)}
                     onClickAddCharacter={() => this.addCharacter()}
                 />
             </div>

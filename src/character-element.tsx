@@ -3,7 +3,8 @@ import * as React from 'react';
 import { CharacterProps } from './main';
 
 type CharacterElementProps = CharacterProps & {
-    onChangeElement: (e: any) => void;
+    onChangeElementText: (e: any) => void;
+    onChangeElementCheckbox: (e: any) => void;
     onDeleteCharacter: (e: any) => void;
 };
 
@@ -19,7 +20,7 @@ export function CharacterElement(props: CharacterElementProps) {
                     className="character-table__character__action-priority"
                     name={'actionPriority'}
                     value={props.actionPriority}
-                    onChange={props.onChangeElement}
+                    onChange={props.onChangeElementText}
                 />
             </td>
             <td>
@@ -28,7 +29,7 @@ export function CharacterElement(props: CharacterElementProps) {
                     className="character-table__character__hp"
                     name={'hp'}
                     value={props.hp}
-                    onChange={props.onChangeElement}
+                    onChange={props.onChangeElementText}
                 />
             </td>
             <td>
@@ -37,7 +38,7 @@ export function CharacterElement(props: CharacterElementProps) {
                     className="character-table__character__physical-defence"
                     name={'physicalDefence'}
                     value={props.physicalDefence}
-                    onChange={props.onChangeElement}
+                    onChange={props.onChangeElementText}
                 />
             </td>
             <td>
@@ -46,7 +47,16 @@ export function CharacterElement(props: CharacterElementProps) {
                     className="character-table__character__magical-defence"
                     name={'magicalDefence'}
                     value={props.magicalDefence}
-                    onChange={props.onChangeElement}
+                    onChange={props.onChangeElementText}
+                />
+            </td>
+            <td>
+                <input
+                    type="checkbox"
+                    className="character-table__character__knock-back"
+                    name={'isKnockBack'}
+                    value={'checked'}
+                    onClick={props.onChangeElementCheckbox}
                 />
             </td>
             <td>
