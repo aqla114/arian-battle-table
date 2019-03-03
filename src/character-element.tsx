@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { CharacterProps } from './main';
+import { CharacterProps } from './characters-list';
 
 type CharacterElementProps = CharacterProps & {
     onChangeElementText: (e: any) => void;

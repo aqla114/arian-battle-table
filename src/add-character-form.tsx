@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { CharacterProps } from './main';
 
 type AddCharacterFormProps = {
     name: string,
