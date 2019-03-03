@@ -2,23 +2,24 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import { CharacterElement } from './character-element';
+import { AddCharacterForm } from './add-character-form';
 
 const defaultCharacters = [
-    Character('ジョン', 19, 90, 15, 10),
-    Character('kiwi', 9, 150, 20, 30),
-    Character('カリーナ', 36, 100, 1, 5),
-    Character('抹茶', 22, 100, 1, 5),
-    Character('太郎', 38, 100, 1, 5),
-    Character('パルム', 4, 100, 1, 5),
-]
+    // Character('ジョン', 19, 90, 15, 10),
+    Character('kiwi', 9, 147, 20, 30),
+    Character('カリーナ', 36, 125, 1, 5),
+    Character('抹茶', 22, 91, 1, 5),
+    Character('太郎', 38, 107, 1, 5),
+    Character('パルム', 6, 161, 1, 5),
+];
 
 interface ICharacterProps {
-    [key: string]: any,
+    [key: string]: any;
 }
 
 type CharacterListState = {
-    characters: CharacterProps[],
-    currentNewCharacter: CharacterProps,
+    characters: CharacterProps[];
+    currentNewCharacter: CharacterProps;
 };
 
 export type CharacterProps = {
@@ -28,7 +29,6 @@ export type CharacterProps = {
     physicalDefence: number;
     magicalDefence: number;
 };
-
 
 function Character(
     name: string,
@@ -54,7 +54,7 @@ class CharacterList extends React.Component<{}, CharacterListState> {
         const idx = newCharacters.map(x => x.name).indexOf(name);
         (newCharacters as ICharacterProps)[idx][e.target.name] = e.target.value;
 
-        newCharacters.sort((a, b) => b.actionPriority - a.actionPriority)
+        newCharacters.sort((a, b) => b.actionPriority - a.actionPriority);
 
         this.setState({
             characters: newCharacters,
@@ -62,18 +62,12 @@ class CharacterList extends React.Component<{}, CharacterListState> {
     }
 
     updateCurrentNewCharacter(e: any) {
-        console.log(this);
-        const characters = this.state.characters.slice();
         this.setState({
-            characters: characters,
             currentNewCharacter: Character(e.target.value, 0, 0, 0, 0),
         });
     }
 
-    addNewCharacter() {
-        console.log('add new character');
-        console.log(this.state.currentNewCharacter);
-
+    addCharacter() {
         const characters = this.state.characters.slice();
 
         if (characters.some(x => x.name === this.state.currentNewCharacter.name)) {
@@ -81,13 +75,26 @@ class CharacterList extends React.Component<{}, CharacterListState> {
             return;
         }
 
+        if (this.state.currentNewCharacter.name === '') {
+            window.alert('キャラクターネームが空白です。');
+            return;
+        }
+
         characters.push(this.state.currentNewCharacter);
         characters.sort((a, b) => b.actionPriority - a.actionPriority);
 
         this.setState({
-            characters: characters,
+            characters,
             currentNewCharacter: Character('', 0, 0, 0, 0),
-        })
+        });
+    }
+
+    deleteCharacter(e: any, name: string) {
+        const characters = this.state.characters.slice().filter(x => x.name !== name);
+
+        this.setState({
+            characters,
+        });
     }
 
     render() {
@@ -95,7 +102,8 @@ class CharacterList extends React.Component<{}, CharacterListState> {
             <CharacterElement
                 key={character.name}
                 {...character}
-                onElementChange={e => this.updateCharacterAttribute(e, character.name)}
+                onChangeElement={e => this.updateCharacterAttribute(e, character.name)}
+                onDeleteCharacter={e => this.deleteCharacter(e, character.name)}
             />
         ));
 
@@ -104,30 +112,20 @@ class CharacterList extends React.Component<{}, CharacterListState> {
                 <table className="character-table">
                     <thead>
                         <tr>
-                            <td>name</td>
-                            <td>actionPriority</td>
-                            <td>hp</td>
-                            <td>physicalDefence</td>
-                            <td>magicalDefence</td>
+                            <td>名前</td>
+                            <td>行動値</td>
+                            <td>HP</td>
+                            <td>物理防御力</td>
+                            <td>魔法防御力</td>
+                            <td>キャラクターの削除</td>
                         </tr>
                     </thead>
-                    <tbody>
-                        {characterElement}
-                    </tbody>
+                    <tbody>{characterElement}</tbody>
                 </table>
-                <input
-                    type="text"
-                    className="character-table__character__add-input"
-                    name={'add-input'}
-                    value={this.state.currentNewCharacter.name}
-                    onChange={e => this.updateCurrentNewCharacter(e)}
-                />
-                <input
-                    type="button"
-                    className="character-table__character__add-button"
-                    name={'add-button'}
-                    value={'新しくキャラクターを追加'}
-                    onClick={e => this.addNewCharacter()}
+                <AddCharacterForm
+                    name={this.state.currentNewCharacter.name}
+                    onChangeCharacterForm={e => this.updateCurrentNewCharacter(e)}
+                    onClickAddCharacter={() => this.addCharacter()}
                 />
             </div>
         );

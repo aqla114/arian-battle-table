@@ -1,51 +1,48 @@
-body {
-    font: 14px "Century Gothic", Futura, sans-serif;
-    margin: 20px;
-  }
-  
-  ol, ul {
-    padding-left: 30px;
-  }
-  
-  .board-row:after {
-    clear: both;
-    content: "";
-    display: table;
-  }
-  
-  .status {
-    margin-bottom: 10px;
-  }
-  
-  .square {
-    background: #fff;
-    border: 1px solid #999;
-    float: left;
-    font-size: 24px;
-    font-weight: bold;
-    line-height: 34px;
-    height: 34px;
-    margin-right: -1px;
-    margin-top: -1px;
-    padding: 0;
-    text-align: center;
-    width: 34px;
-  }
-  
-  .square:focus {
-    outline: none;
-  }
-  
-  .kbd-navigation .square:focus {
-    background: #ddd;
-  }
-  
-  .game {
-    display: flex;
-    flex-direction: row;
-  }
-  
-  .game-info {
-    margin-left: 20px;
-  }
-  
+.character-table {
+  font: 16px;
+  margin: 20px;
+  border-spacing: 12px;
+  text-align: center;
+}
+.character-table__character__name,
+.character-table__character__action-priority,
+.character-table__character__hp,
+.character-table__character__physical-defence,
+.character-table__character__magical-defence {
+  font-size: 16px;
+  height: 20px;
+  width: 40px;
+  border-radius: 3px;
+}
+.character-table__character__delete-button {
+  padding: 6px;
+  width: 100px;
+  color: #fff;
+  background-color: #f44242;
+}
+.character-table__character__delete-button:hover {
+  background-color: #d63939;
+  cursor: pointer;
+}
+.add-character {
+  font: 16px;
+  margin: 20px;
+  border-spacing: 8px;
+}
+.add-character__input {
+  font-size: 16px;
+  height: 24px;
+  width: 150px;
+  border-radius: 3px;
+}
+.add-character__button {
+  margin-left: 20px;
+  padding: 6px;
+  width: 200px;
+  color: #fff;
+  background-color: #42d4f4;
+}
+.add-character__button:hover {
+  background-color: #36afc9;
+  cursor: pointer;
+}
