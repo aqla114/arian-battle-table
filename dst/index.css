@@ -49,3 +49,31 @@
   font: 16px;
   margin: 20px;
 }
+.dice-roller__dice-count,
+.dice-roller__dice-max {
+  margin: 10px;
+  width: 55px;
+  height: 30px;
+  border: 1px solid #bbb;
+  font-size: 16px;
+}
+.dice-roller__roll-button {
+  margin-left: 10px;
+  width: 80px;
+  height: 30px;
+  background-color: #bbb;
+}
+.dice-roller__roll-button:hover {
+  background-color: #a8a8a8;
+  cursor: pointer;
+}
+.dice-roller__result__sum {
+  margin: 0px 15px;
+  font-size: 20px;
+}
+.dice-roller__result__critical {
+  color: #ffd326;
+}
+.dice-roller__result__fanble {
+  color: #f00;
+}

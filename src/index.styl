@@ -40,3 +40,25 @@
 .dice-roller
     font: 16px;
     margin: 20px;
+    &__dice-count, &__dice-max
+        margin: 10px;
+        width: 55px;
+        height: 30px
+        border: 1px solid #bbbbbb;
+        font-size: 16px;
+    &__roll-button
+        margin-left: 10px;
+        width: 80px;
+        height: 30px;
+        background-color: #bbbbbb;
+        &:hover
+            background-color: #a8a8a8;
+            cursor: pointer;
+    &__result
+        &__sum
+            margin: 0px 15px
+            font-size: 20px;
+        &__critical
+            color: #ffd326;
+        &__fanble
+            color: red;

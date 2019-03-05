@@ -9,7 +9,7 @@ const defaultCharacters = [
     Character('kiwi', 9, 147, 20, 30),
     Character('カリーナ', 36, 125, 1, 5),
     Character('抹茶', 22, 91, 1, 5),
-    Character('太郎', 38, 107, 1, 5),
+    Character('太郎', 30, 107, 1, 5),
     Character('パルム', 6, 161, 1, 5),
 ];
 
