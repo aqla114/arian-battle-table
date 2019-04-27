@@ -3,11 +3,11 @@ import * as Koa from 'koa';
 import * as Pug from 'koa-pug';
 import * as serve from 'koa-static';
 
-const WORKDIR: string = '/workdir/dst';
+const WORKDIR: string = '/workdir';
 
 const app = new Koa();
 
-app.use(serve(WORKDIR));
+app.use(serve(path.join(WORKDIR, 'dst')));
 
 const pug = new Pug({
     app: app,
