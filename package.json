@@ -4,6 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
+    "@types/koa": "^2.0.48",
+    "@types/koa-static": "^4.0.1",
     "@types/node": "^11.13.8",
     "prettier": "^1.16.4",
     "rollup": "^1.2.3",
@@ -17,6 +19,8 @@
   "dependencies": {
     "@types/react": "^16.8.5",
     "@types/react-dom": "^16.8.2",
+    "koa": "2",
+    "koa-static": "^5.0.0",
     "npm-run-all": "^4.1.5",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",

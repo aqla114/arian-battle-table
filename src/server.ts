@@ -1,34 +1,37 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import * as http from 'http';
+import * as Koa from 'koa';
+import * as serve from 'koa-static';
 
 const WORKDIR: string = '/workdir/dst';
 
-http.createServer((req, res) => {
-    const url = req.url || '';
+const app = new Koa();
+
+app.use(async (ctx, next) => {
+    const url = ctx.url || '';
     const tmp = url.split('.');
     const extention = tmp[tmp.length - 1];
+
     switch (extention) {
         case 'js':
-            fs.readFile(path.join(WORKDIR, url), function(_err, data) {
-                res.writeHead(200, { 'Content-Type': 'text/javascript' });
-                res.end(data, 'utf-8');
-            });
+            ctx.type = 'text/javascript';
+            ctx.status = 200;
+            ctx.body = fs.readFileSync(path.join(WORKDIR, url));
             break;
         case 'css':
-            fs.readFile(path.join(WORKDIR, url), function(_err, data) {
-                res.writeHead(200, { 'Content-Type': 'text/css' });
-                res.end(data, 'utf-8');
-            });
+            ctx.type = 'text/css';
+            ctx.status = 200;
+            ctx.body = fs.readFileSync(path.join(WORKDIR, url));
             break;
         case '/':
-            fs.readFile(path.join(WORKDIR, 'index.html'), function(_err, data) {
-                res.writeHead(200, { 'Content-Type': 'text/html' });
-                res.write(data, 'utf-8');
-                res.end();
-            });
+            ctx.type = 'text/html';
+            ctx.status = 200;
+            ctx.body = fs.readFileSync(path.join(WORKDIR, 'index.html'));
+
             break;
     }
-}).listen(8000);
+});
+
+app.listen(8000);
 
 console.log('Server running at http://localhost:8000/');
