@@ -9,20 +9,45 @@ module.exports = [
                 {
                     test: /\.tsx?$/,
                     use: 'ts-loader',
-                    exclude: /node_modules/
+                    exclude: /node_modules/,
                 },
                 {
                     test: /\.mjs$/,
                     type: 'javascript/auto',
                 },
-            ]
+            ],
         },
         resolve: {
-            extensions: ['.js', '.tsx', '.ts', '.mjs']
+            extensions: ['.js', '.tsx', '.ts', '.mjs'],
         },
         output: {
             filename: 'main.js',
-            path: path.resolve(__dirname, './dst')
+            path: path.resolve(__dirname, './dst'),
         },
-    }
-]
+    },
+    {
+        entry: './src/server.ts',
+        mode: 'development',
+        target: 'node',
+        module: {
+            rules: [
+                {
+                    test: /\.ts?$/,
+                    use: 'ts-loader',
+                    exclude: /node_modules/,
+                },
+                {
+                    test: /\.mjs$/,
+                    type: 'javascript/auto',
+                },
+            ],
+        },
+        resolve: {
+            extensions: ['.js', '.tsx', '.ts', '.mjs'],
+        },
+        output: {
+            filename: 'server.js',
+            path: path.resolve(__dirname, './dst'),
+        },
+    },
+];

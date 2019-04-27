@@ -1,0 +1,11 @@
+version: '3'
+services:
+  main:
+    build: .
+    image: node:8.9.4-alpine
+    container_name: arian-table
+    command: node /workdir/dst/server.js
+    volumes:
+      - .:/workdir
+    ports:
+      - 8000:8000
