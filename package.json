@@ -5,29 +5,33 @@
   "license": "MIT",
   "devDependencies": {
     "@types/koa": "^2.0.48",
+    "@types/koa-pug": "^3.0.4",
     "@types/koa-static": "^4.0.1",
     "@types/node": "^11.13.8",
+    "@types/react": "^16.8.14",
+    "@types/react-dom": "^16.8.4",
     "prettier": "^1.16.4",
     "rollup": "^1.2.3",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-babel-minify": "^7.0.0",
     "rollup-plugin-commonjs": "^9.2.1",
+    "ts-loader": "^5.4.4",
     "tslint": "^5.13.1",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.3.3333"
+    "typescript": "^3.3.3333",
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.1",
+    "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "@types/react": "^16.8.5",
-    "@types/react-dom": "^16.8.2",
     "koa": "2",
+    "koa-pug": "^3.0.0-2",
+    "koa-serve-static": "^1.0.0",
     "koa-static": "^5.0.0",
     "npm-run-all": "^4.1.5",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
-    "stylus": "^0.54.5",
-    "ts-loader": "^5.3.3",
-    "webpack": "^4.29.5",
-    "webpack-cli": "^3.2.3"
+    "stylus": "^0.54.5"
   },
   "scripts": {
     "watch": "npm-run-all --parallel watch:*",
