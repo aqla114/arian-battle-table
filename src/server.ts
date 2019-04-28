@@ -1,11 +1,26 @@
 import * as path from 'path';
 import * as Koa from 'koa';
+import * as Router from 'koa-router';
 import * as Pug from 'koa-pug';
 import * as serve from 'koa-static';
 
 const WORKDIR: string = '/workdir';
 
 const app = new Koa();
+const router = new Router();
+
+function Character(name: string, actionPriority: number, hp: number, physicalDefence: number, magicalDefence: number) {
+    return { name, actionPriority, hp, physicalDefence, magicalDefence, isKnockBack: false };
+}
+
+const defaultCharacters = [
+    Character('ジョン', 19, 90, 15, 10),
+    Character('kiwi', 9, 147, 20, 30),
+    Character('カリーナ', 36, 125, 1, 5),
+    Character('抹茶', 22, 91, 1, 5),
+    Character('太郎', 30, 107, 1, 5),
+    Character('パルム', 6, 161, 1, 5),
+];
 
 app.use(serve(path.join(WORKDIR, 'dst')));
 
@@ -16,10 +31,20 @@ const pug = new Pug({
 
 pug.use(app);
 
-app.use((ctx, _) => {
+app.use((ctx, next) => {
+    console.log(ctx.url);
     ctx.status = 200;
     ctx.render('index');
+
+    return next();
 });
+
+router.get('/test', (ctx, next) => {
+    ctx.body = defaultCharacters;
+    return next();
+});
+
+app.use(router.routes());
 
 app.listen(8000);
 

@@ -1,17 +1,9 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import * as Request from 'superagent';
 
 import { CharacterElement } from './character-element';
 import { AddCharacterForm } from './add-character-form';
-
-const defaultCharacters = [
-    // Character('ジョン', 19, 90, 15, 10),
-    Character('kiwi', 9, 147, 20, 30),
-    Character('カリーナ', 36, 125, 1, 5),
-    Character('抹茶', 22, 91, 1, 5),
-    Character('太郎', 30, 107, 1, 5),
-    Character('パルム', 6, 161, 1, 5),
-];
 
 interface ICharacterProps {
     [key: string]: any;
@@ -44,10 +36,23 @@ function Character(
 export class CharactersList extends React.Component<{}, CharacterListState> {
     constructor(props: any) {
         super(props);
+
         this.state = {
-            characters: defaultCharacters.sort((a, b) => b.actionPriority - a.actionPriority),
+            characters: [],
             currentNewCharacter: Character('', 0, 0, 0, 0),
         };
+    }
+
+    componentDidMount() {
+        Request.get('/test').end((err, res) => {
+            console.log(res.body);
+
+            const defaultCharacters: CharacterProps[] = res.body;
+
+            this.setState({
+                characters: defaultCharacters.sort((a, b) => b.actionPriority - a.actionPriority),
+            });
+        });
     }
 
     updateCharacterAttributeText(e: any, name: string) {
@@ -55,7 +60,6 @@ export class CharactersList extends React.Component<{}, CharacterListState> {
         const idx = characters.map(x => x.name).indexOf(name);
         (characters as ICharacterProps)[idx][e.target.name] = e.target.value;
         characters.sort((a, b) => b.actionPriority - a.actionPriority);
-
 
         this.setState({
             characters,
@@ -123,9 +127,9 @@ export class CharactersList extends React.Component<{}, CharacterListState> {
             <CharacterElement
                 key={character.name}
                 {...character}
-                onChangeElementText={(e) => this.updateCharacterAttributeText(e, character.name)}
-                onChangeElementCheckbox={(e) => this.updateCharacterIsKnockBack(e, character.name)}
-                onDeleteCharacter={(e) => this.deleteCharacter(e, character.name)}
+                onChangeElementText={e => this.updateCharacterAttributeText(e, character.name)}
+                onChangeElementCheckbox={e => this.updateCharacterIsKnockBack(e, character.name)}
+                onDeleteCharacter={e => this.deleteCharacter(e, character.name)}
             />
         ));
 
@@ -147,7 +151,7 @@ export class CharactersList extends React.Component<{}, CharacterListState> {
                 </table>
                 <AddCharacterForm
                     name={this.state.currentNewCharacter.name}
-                    onChangeCharacterForm={(e) => this.updateCurrentNewCharacter(e)}
+                    onChangeCharacterForm={e => this.updateCurrentNewCharacter(e)}
                     onClickAddCharacter={() => this.addCharacter()}
                 />
             </div>
