@@ -3,7 +3,7 @@ const nodeExternals = require('webpack-node-externals'); //server側は無理に
 
 module.exports = [
     {
-        entry: './src/main.tsx',
+        entry: './src/frontend/main.tsx',
         mode: 'development',
         module: {
             rules: [
@@ -27,7 +27,7 @@ module.exports = [
         },
     },
     {
-        entry: './src/server.ts',
+        entry: './src/server/server.ts',
         mode: 'development',
         target: 'node',
         module: {
