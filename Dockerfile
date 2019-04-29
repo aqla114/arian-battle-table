@@ -1,9 +1,5 @@
-FROM node:8.9.4-alpine
+FROM node:10.14.0
 
 ENV NODE_ENV=development
 
-RUN apk add --no-cache nodejs yarn && yarn install
-
 WORKDIR /workdir
-
-# EXPOSE 8000

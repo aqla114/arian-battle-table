@@ -4,6 +4,18 @@ import * as Router from 'koa-router';
 import * as Pug from 'koa-pug';
 import * as serve from 'koa-static';
 
+import * as mysql from 'mysql';
+
+const connection = mysql.createConnection({
+    host: 'mysql',
+    user: 'arian',
+    password: 'arian',
+});
+
+connection.query('SHOW DATABASES;', (err, res, fields) => {
+    console.log(err, res, fields);
+});
+
 const WORKDIR: string = '/workdir';
 
 const app = new Koa();

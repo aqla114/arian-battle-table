@@ -2,10 +2,28 @@ version: '3'
 services:
   main:
     build: .
-    image: node:8.9.4-alpine
     container_name: arian-table
     command: node /workdir/dst/server.js
+    depends_on:
+      - mysql
     volumes:
       - .:/workdir
     ports:
       - 8000:8000
+  mysql:
+    image: mysql:5.7.19
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: arian_db
+      MYSQL_USER: arian
+      MYSQL_PASSWORD: arian
+      MYSQL_HOST: mysql
+      TZ: 'Asia/Tokyo'
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+    - arian-mysql-store:/var/lib/mysql
+    ports:
+    - 3306:3306
+volumes:
+  arian-mysql-store:
