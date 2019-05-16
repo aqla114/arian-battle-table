@@ -1,8 +1,19 @@
 import { CreateDateColumn, Index, PrimaryGeneratedColumn, UpdateDateColumn, ManyToOne, Column, Entity } from 'typeorm';
-import { BattleSet } from './battle-set';
+import { BattleSession } from './battle-set';
 
 @Entity('character')
 export class Character {
+    public static mk(
+        name: string,
+        actionPriority: number,
+        hp: number,
+        physicalDefence: number,
+        magicalDefence: number,
+    ): Character {
+        const c = new Character();
+        return Object.assign(c, { name, actionPriority, hp, physicalDefence, magicalDefence, isKnockBack: false });
+    }
+
     @PrimaryGeneratedColumn()
     id!: number;
 
@@ -18,8 +29,8 @@ export class Character {
     @Index()
     updatedAt!: Date;
 
-    @ManyToOne(type => BattleSet, battleSet => battleSet.characters)
-    battleSet!: BattleSet;
+    @ManyToOne(type => BattleSession, battleSession => battleSession.characters)
+    battleSession!: BattleSession;
 
     @Column({ default: '' })
     name!: string;
@@ -35,4 +46,7 @@ export class Character {
 
     @Column({ default: 0, name: 'magical_defence' })
     magicalDefence!: number;
+
+    @Column({ default: 0, name: 'is_knock_back' })
+    isKnockBack!: boolean;
 }

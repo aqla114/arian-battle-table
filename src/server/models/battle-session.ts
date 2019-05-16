@@ -1,8 +1,8 @@
 import { CreateDateColumn, Index, PrimaryGeneratedColumn, UpdateDateColumn, OneToMany, Entity, Column } from 'typeorm';
 import { Character } from './character';
 
-@Entity('battle_set')
-export class BattleSet {
+@Entity('battle_session')
+export class BattleSession {
     @PrimaryGeneratedColumn()
     id!: number;
 
@@ -18,9 +18,11 @@ export class BattleSet {
     @Index()
     updatedAt!: Date;
 
-    @OneToMany(type => Character, character => character.battleSet)
-    characters!: Character[];
+    @Column({
+        name: 'session_name',
+    })
+    sessionName!: string;
 
-    @Column()
-    name!: string;
+    @OneToMany(type => Character, character => character.battleSession)
+    characters!: Character[];
 }

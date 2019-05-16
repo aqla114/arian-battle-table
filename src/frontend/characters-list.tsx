@@ -44,7 +44,7 @@ export class CharactersList extends React.Component<{}, CharacterListState> {
     }
 
     componentDidMount() {
-        Request.get('/test').end((err, res) => {
+        Request.get('/get/1').end((err, res) => {
             console.log(res.body);
 
             const defaultCharacters: CharacterProps[] = res.body;
