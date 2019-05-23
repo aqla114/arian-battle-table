@@ -5,9 +5,9 @@ import * as Request from 'superagent';
 import { CharacterElement } from './character-element';
 import { AddCharacterForm } from './add-character-form';
 
-interface ICharacterProps {
-    [key: string]: any;
-}
+type ICharacterProps = {
+    [key: string]: string | number | boolean;
+};
 
 type CharacterListState = {
     characters: CharacterProps[];
@@ -55,10 +55,10 @@ export class CharactersList extends React.Component<{}, CharacterListState> {
         });
     }
 
-    updateCharacterAttributeText(e: any, name: string) {
+    updateCharacterAttributeText(e: React.ChangeEvent<HTMLInputElement>, name: string) {
         const characters = this.state.characters.slice();
         const idx = characters.map(x => x.name).indexOf(name);
-        (characters as ICharacterProps)[idx][e.target.name] = e.target.value;
+        characters[idx][e.target.name as keyof CharacterProps] = e.target.value;
         characters.sort((a, b) => b.actionPriority - a.actionPriority);
 
         this.setState({
@@ -66,17 +66,17 @@ export class CharactersList extends React.Component<{}, CharacterListState> {
         });
     }
 
-    updateCharacterIsKnockBack(e: any, name: string) {
+    updateCharacterIsKnockBack(e: React.MouseEvent<HTMLInputElement, MouseEvent>, name: string) {
         console.log(this.state.characters);
         console.log(e.target);
         const characters = this.state.characters.slice();
         const idx = characters.map(x => x.name).indexOf(name);
-        (characters as ICharacterProps)[idx].isKnockBack = !(characters as ICharacterProps)[idx].isKnockBack;
+        characters[idx].isKnockBack = !characters[idx].isKnockBack;
 
-        if ((characters as ICharacterProps)[idx].isKnockBack) {
-            (characters as ICharacterProps)[idx].actionPriority -= 10;
+        if (characters[idx].isKnockBack) {
+            characters[idx].actionPriority -= 10;
         } else {
-            (characters as ICharacterProps)[idx].actionPriority += 10;
+            characters[idx].actionPriority += 10;
         }
 
         characters.sort((a, b) => b.actionPriority - a.actionPriority);
@@ -86,7 +86,7 @@ export class CharactersList extends React.Component<{}, CharacterListState> {
         });
     }
 
-    updateCurrentNewCharacter(e: any) {
+    updateCurrentNewCharacter(e: React.ChangeEvent<HTMLInputElement>) {
         this.setState({
             currentNewCharacter: Character(e.target.value, 0, 0, 0, 0),
         });
@@ -114,7 +114,7 @@ export class CharactersList extends React.Component<{}, CharacterListState> {
         });
     }
 
-    deleteCharacter(e: any, name: string) {
+    deleteCharacter(e: React.MouseEvent<HTMLInputElement, MouseEvent>, name: string) {
         const characters = this.state.characters.slice().filter(x => x.name !== name);
 
         this.setState({

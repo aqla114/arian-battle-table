@@ -1,8 +1,7 @@
 import { Repository } from 'typeorm';
 import { Character } from '../models/character';
 import { BattleSession } from '../models/battle-session';
-import { ParameterizedContext } from 'koa';
-import * as Router from 'koa-router';
+import { Context } from '../../types';
 
 const defaultCharacters = [
     Character.mk('ジョン', 19, 90, 15, 10),
@@ -12,8 +11,6 @@ const defaultCharacters = [
     Character.mk('太郎', 30, 107, 1, 5),
     Character.mk('パルム', 6, 161, 1, 5),
 ];
-
-type Context = ParameterizedContext<any, Router.IRouterParamContext<any, {}>>;
 
 export async function updateBattleSession(ctx: Context, sessionName: string) {
     const battleSessionRepo: Repository<BattleSession> = ctx.ports.battleSession;

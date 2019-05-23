@@ -3,9 +3,9 @@ import * as React from 'react';
 import { CharacterProps } from './characters-list';
 
 type CharacterElementProps = CharacterProps & {
-    onChangeElementText: (e: any) => void;
-    onChangeElementCheckbox: (e: any) => void;
-    onDeleteCharacter: (e: any) => void;
+    onChangeElementText: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChangeElementCheckbox: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
+    onDeleteCharacter: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
 };
 
 export function CharacterElement(props: CharacterElementProps) {
