@@ -1,5 +1,5 @@
 import { CreateDateColumn, Index, PrimaryGeneratedColumn, UpdateDateColumn, ManyToOne, Column, Entity } from 'typeorm';
-import { BattleSession } from './battle-set';
+import { BattleSession } from './battle-session';
 
 @Entity('character')
 export class Character {
