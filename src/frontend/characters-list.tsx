@@ -24,11 +24,11 @@ export type CharacterProps = {
 };
 
 function Character(
-    name: string,
-    actionPriority: number,
-    hp: number,
-    physicalDefence: number,
-    magicalDefence: number,
+    name: string = '',
+    actionPriority: number = 0,
+    hp: number = 0,
+    physicalDefence: number = 0,
+    magicalDefence: number = 0,
 ): CharacterProps {
     return { name, actionPriority, hp, physicalDefence, magicalDefence, isKnockBack: false };
 }
@@ -39,7 +39,7 @@ export class CharactersList extends React.Component<{}, CharacterListState> {
 
         this.state = {
             characters: [],
-            currentNewCharacter: Character('', 0, 0, 0, 0),
+            currentNewCharacter: Character(),
         };
     }
 
