@@ -9,7 +9,7 @@ type ICharacterProps = {
     [key: string]: string | number | boolean;
 };
 
-type CharacterListState = {
+type CharacterTableState = {
     characters: CharacterProps[];
     currentNewCharacter: CharacterProps;
 };
@@ -33,7 +33,7 @@ function Character(
     return { name, actionPriority, hp, physicalDefence, magicalDefence, isKnockBack: false };
 }
 
-export class CharactersList extends React.Component<{}, CharacterListState> {
+export class CharactersTable extends React.Component<{}, CharacterTableState> {
     constructor(props: any) {
         super(props);
 
@@ -159,4 +159,4 @@ export class CharactersList extends React.Component<{}, CharacterListState> {
     }
 }
 
-ReactDOM.render(<CharactersList />, document.getElementById('root'));
+ReactDOM.render(<CharactersTable />, document.getElementById('root'));

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { CharacterProps } from './characters-list';
+import { CharacterProps } from './characters-table';
 
 type CharacterElementProps = CharacterProps & {
     onChangeElementText: (e: React.ChangeEvent<HTMLInputElement>) => void;
