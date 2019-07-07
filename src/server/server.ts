@@ -8,6 +8,7 @@ import { Character } from './models/character';
 import { BattleSession } from './models/battle-session';
 import { mkRouter } from './mk-router';
 import { pathCanonicalizer } from 'koa-path-canonicalizer';
+import * as bodyParser from 'koa-bodyparser';
 
 async function mkApp(): Promise<void> {
     const connection = await createConnection({
@@ -37,6 +38,12 @@ async function mkApp(): Promise<void> {
     });
 
     app.use(pathCanonicalizer());
+
+    app.use(
+        bodyParser({
+            enableTypes: ['json'],
+        }),
+    );
 
     app.use(serve(path.join(WORKDIR, 'dst')));
 

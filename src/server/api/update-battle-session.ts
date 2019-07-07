@@ -12,14 +12,26 @@ const defaultCharacters = [
     Character.mk('パルム', 6, 161, 1, 5),
 ];
 
-export async function updateBattleSession(ctx: Context, sessionName: string) {
+export async function updateBattleSession(ctx: Context) {
     const battleSessionRepo: Repository<BattleSession> = ctx.ports.battleSession;
+    const characterRepo: Repository<Character> = ctx.ports.character;
 
-    await ctx.ports.character.save(defaultCharacters);
+    const characters: Character[] = ctx.request.body || defaultCharacters;
 
-    const battleSession = new BattleSession();
-    battleSession.sessionName = sessionName;
-    battleSession.characters = defaultCharacters;
+    const battleSession = await battleSessionRepo.findOne({
+        where: { id: ctx.params['id'] },
+        relations: ['characters'],
+    });
+
+    if (!battleSession) {
+        console.error('The battle session is not found.');
+        return;
+    }
+
+    await characterRepo.save(characters);
+
+    battleSession.characters = characters;
+    battleSession.sessionName = 'test_session';
 
     const res = await battleSessionRepo.save(battleSession);
 

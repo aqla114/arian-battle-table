@@ -5,10 +5,6 @@ import * as Request from 'superagent';
 import { CharacterElement } from './character-element';
 import { AddCharacterForm } from './add-character-form';
 
-type ICharacterProps = {
-    [key: string]: string | number | boolean;
-};
-
 type CharacterTableState = {
     characters: CharacterProps[];
     currentNewCharacter: CharacterProps;
@@ -44,7 +40,7 @@ export class CharactersTable extends React.Component<{}, CharacterTableState> {
     }
 
     componentDidMount() {
-        Request.get('/get/1').end((err, res) => {
+        Request.get(`/api/${location.pathname.slice(1)}/get`).end((err, res) => {
             console.log(res.body);
 
             const defaultCharacters: CharacterProps[] = res.body;
@@ -122,6 +118,20 @@ export class CharactersTable extends React.Component<{}, CharacterTableState> {
         });
     }
 
+    saveCurrentCharacter() {
+        console.log('save');
+
+        Request.post(`/api/${location.pathname.slice(1)}/update`)
+            .send(this.state.characters)
+            .end((err, res) => {
+                if (err) {
+                    console.error(err);
+                } else {
+                    console.log('Response/saveCurrentCharacter : ', res.body);
+                }
+            });
+    }
+
     render() {
         const characterElement = this.state.characters.map(character => (
             <CharacterElement
@@ -154,6 +164,15 @@ export class CharactersTable extends React.Component<{}, CharacterTableState> {
                     onChangeCharacterForm={e => this.updateCurrentNewCharacter(e)}
                     onClickAddCharacter={() => this.addCharacter()}
                 />
+                <div className="save-container">
+                    <input
+                        type="button"
+                        className="save-container__save-button"
+                        name="save-button"
+                        value="保存"
+                        onClick={() => this.saveCurrentCharacter()}
+                    />
+                </div>
             </div>
         );
     }
