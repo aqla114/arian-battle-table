@@ -2600,6 +2600,11 @@ koa-is-json@^1.0.0:
   resolved "https://registry.yarnpkg.com/koa-is-json/-/koa-is-json-1.0.0.tgz#273c07edcdcb8df6a2c1ab7d59ee76491451ec14"
   integrity sha1-JzwH7c3Ljfaiwat9We52SRRR7BQ=
 
+koa-path-canonicalizer@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/koa-path-canonicalizer/-/koa-path-canonicalizer-0.1.0.tgz#200722530ff6c1b84857f86d4443e74c92627a36"
+  integrity sha512-JjMSptfgq26J64bjnimQWBoqLtwbWJJUqtbFi6kpuQnqno4b6fQehWMyAJzBw181W6pqxuQDRmDjq4eJ72n3iw==
+
 koa-pug@^3.0.0-2:
   version "3.0.0-2"
   resolved "https://registry.yarnpkg.com/koa-pug/-/koa-pug-3.0.0-2.tgz#97fa68d2796d693ec3de2bbeaecba7c69c895c80"

@@ -30,6 +30,7 @@
   "dependencies": {
     "koa": "2",
     "koa-bodyparser": "^4.2.1",
+    "koa-path-canonicalizer": "^0.1.0",
     "koa-pug": "^3.0.0-2",
     "koa-router": "^7.4.0",
     "koa-serve-static": "^1.0.0",

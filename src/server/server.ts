@@ -7,6 +7,7 @@ import { createConnection } from 'typeorm';
 import { Character } from './models/character';
 import { BattleSession } from './models/battle-session';
 import { mkRouter } from './mk-router';
+import { pathCanonicalizer } from 'koa-path-canonicalizer';
 
 async function mkApp(): Promise<void> {
     const connection = await createConnection({
@@ -34,6 +35,8 @@ async function mkApp(): Promise<void> {
 
         return next();
     });
+
+    app.use(pathCanonicalizer());
 
     app.use(serve(path.join(WORKDIR, 'dst')));
 
