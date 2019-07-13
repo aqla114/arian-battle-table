@@ -41,13 +41,24 @@ export class CharactersTable extends React.Component<{}, CharacterTableState> {
 
     componentDidMount() {
         Request.get(`/api/${location.pathname.slice(1)}/get`).end((err, res) => {
-            console.log(res.body);
+            if (err) {
+                console.error(err);
+            } else {
+                console.log(res.body);
 
-            const defaultCharacters: CharacterProps[] = res.body;
+                const characters: CharacterProps[] = res.body.map((character: CharacterProps) => ({
+                    name: character.name,
+                    actionPriority: character.actionPriority,
+                    hp: character.hp,
+                    physicalDefence: character.physicalDefence,
+                    magicalDefence: character.magicalDefence,
+                    isKnockBack: character.isKnockBack,
+                }));
 
-            this.setState({
-                characters: defaultCharacters.sort((a, b) => b.actionPriority - a.actionPriority),
-            });
+                this.setState({
+                    characters: characters.sort((a, b) => b.actionPriority - a.actionPriority),
+                });
+            }
         });
     }
 
@@ -118,7 +129,7 @@ export class CharactersTable extends React.Component<{}, CharacterTableState> {
         });
     }
 
-    saveCurrentCharacter() {
+    saveCurrentTable() {
         console.log('save');
 
         Request.post(`/api/${location.pathname.slice(1)}/update`)
@@ -127,7 +138,22 @@ export class CharactersTable extends React.Component<{}, CharacterTableState> {
                 if (err) {
                     console.error(err);
                 } else {
-                    console.log('Response/saveCurrentCharacter : ', res.body);
+                    console.log('Response/saveCurrentTable : ', res.body);
+                }
+            });
+    }
+
+    saveNewlyCurrentTable() {
+        console.log('save newly');
+
+        Request.post(`/api/create`)
+            .send(this.state.characters)
+            .end((err, res) => {
+                if (err) {
+                    console.error(err);
+                } else {
+                    console.log('Response/saveNewlyCurrentTable : ', res.body);
+                    location.href = `${res.body.id}`;
                 }
             });
     }
@@ -170,7 +196,14 @@ export class CharactersTable extends React.Component<{}, CharacterTableState> {
                         className="save-container__save-button"
                         name="save-button"
                         value="保存"
-                        onClick={() => this.saveCurrentCharacter()}
+                        onClick={() => this.saveCurrentTable()}
+                    />
+                    <input
+                        type="button"
+                        className="save-container__create-save-button"
+                        name="create-save-button"
+                        value="新規セッションとして保存"
+                        onClick={() => this.saveNewlyCurrentTable()}
                     />
                 </div>
             </div>

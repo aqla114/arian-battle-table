@@ -1,6 +1,7 @@
 import * as Router from 'koa-router';
 import { getBattleSession } from './api/get-battle-session';
 import { updateBattleSession } from './api/update-battle-session';
+import { createBattleSession } from './api/creare-battle-session';
 
 export function mkRouter(router: Router): Router {
     router.get('/:id', (ctx, next) => {
@@ -27,11 +28,33 @@ export function mkRouter(router: Router): Router {
     });
 
     router.post('/api/:id/update', async (ctx, next) => {
+        console.log('update');
         console.log(ctx.request.body);
 
         const battleSession = await updateBattleSession(ctx);
-        ctx.status = 200;
-        ctx.body = battleSession;
+
+        if (!battleSession) {
+            ctx.status = 404;
+        } else {
+            ctx.status = 200;
+            ctx.body = battleSession;
+        }
+
+        return next();
+    });
+
+    router.post('/api/create', async (ctx, next) => {
+        console.log('create');
+        console.log(ctx.request.body);
+
+        const battleSession = await createBattleSession(ctx);
+
+        if (!battleSession) {
+            ctx.status = 500;
+        } else {
+            ctx.status = 200;
+            ctx.body = battleSession;
+        }
 
         return next();
     });

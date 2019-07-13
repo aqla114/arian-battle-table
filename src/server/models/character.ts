@@ -1,6 +1,11 @@
 import { CreateDateColumn, Index, PrimaryGeneratedColumn, UpdateDateColumn, ManyToOne, Column, Entity } from 'typeorm';
 import { BattleSession } from './battle-session';
 
+export type CharacterWithoutId = Pick<
+    Character,
+    'name' | 'actionPriority' | 'hp' | 'physicalDefence' | 'magicalDefence' | 'isKnockBack'
+>;
+
 @Entity('character')
 export class Character {
     public static mk(
