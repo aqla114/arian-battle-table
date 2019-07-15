@@ -7,7 +7,7 @@ import * as Request from 'superagent';
 
 export interface Actions {
     updateCharacterAttributeText: (v: ChangeActionProps) => Action<string>;
-    updateCharacterIsKnockBack: (v: MouseActionProps) => Action<string>;
+    updateCharacterIsKnockBack: (v: ChangeActionProps) => Action<string>;
     deleteCharacter: (v: MouseActionProps) => Action<string>;
     updateCurrentNewCharacter: (v: React.ChangeEvent<HTMLInputElement>) => Action<string>;
     addNewCharacter: () => Action<string>;
@@ -23,7 +23,7 @@ function mapStateToProps(state: State): CharacterTableState {
 function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
     return {
         updateCharacterAttributeText: (v: ChangeActionProps) => dispatch(actions.updateCharacterAttributeText(v)),
-        updateCharacterIsKnockBack: (v: MouseActionProps) => dispatch(actions.updateCharacterIsKnockBack(v)),
+        updateCharacterIsKnockBack: (v: ChangeActionProps) => dispatch(actions.updateCharacterIsKnockBack(v)),
         deleteCharacter: (v: MouseActionProps) => dispatch(actions.deleteCharacter(v)),
         updateCurrentNewCharacter: (v: React.ChangeEvent<HTMLInputElement>) =>
             dispatch(actions.updateCurrentNewCharacter(v)),

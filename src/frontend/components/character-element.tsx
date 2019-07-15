@@ -4,7 +4,7 @@ import { CharacterProps } from './characters-table';
 
 type CharacterElementProps = CharacterProps & {
     onChangeElementText: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    onChangeElementCheckbox: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
+    onChangeElementCheckbox: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onDeleteCharacter: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
 };
 
@@ -56,7 +56,8 @@ export function CharacterElement(props: CharacterElementProps) {
                     className="character-table__character__knock-back"
                     name={'isKnockBack'}
                     value={'checked'}
-                    onClick={props.onChangeElementCheckbox}
+                    checked={props.isKnockBack}
+                    onChange={props.onChangeElementCheckbox}
                 />
             </td>
             <td>
