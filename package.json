@@ -13,6 +13,7 @@
     "@types/node": "^11.13.8",
     "@types/react": "^16.8.14",
     "@types/react-dom": "^16.8.4",
+    "@types/react-redux": "^7.1.1",
     "@types/superagent": "^4.1.1",
     "prettier": "^1.16.4",
     "rollup": "^1.2.3",
@@ -39,9 +40,12 @@
     "npm-run-all": "^4.1.5",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
+    "react-redux": "^7.1.0",
     "stylus": "^0.54.5",
     "superagent": "^5.0.3",
-    "typeorm": "^0.2.16"
+    "typeorm": "^0.2.16",
+    "typescript-fsa": "^3.0.0-beta-2",
+    "typescript-fsa-reducers": "^1.2.1"
   },
   "scripts": {
     "watch": "npm-run-all --parallel watch:*",
