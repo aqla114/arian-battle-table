@@ -1,15 +1,18 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-
-import { CharactersTable } from './characters-table';
+import MainContainer from './container';
 import { DiceRoller } from './dice-roller';
+import { Provider } from 'react-redux';
+import store from './store';
 
 function Container() {
     return (
-        <div className="container">
-            <CharactersTable />
-            <DiceRoller />
-        </div>
+        <Provider store={store}>
+            <div className="container">
+                <MainContainer />
+                <DiceRoller />
+            </div>
+        </Provider>
     );
 }
 
