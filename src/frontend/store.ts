@@ -1,6 +1,6 @@
 import { createStore, combineReducers } from 'redux';
 import { tableReducer } from './reducers/reducers';
-import { CharacterTableState } from './characters-table';
+import { CharacterTableState } from './components/characters-table';
 
 export type State = {
     charactersTabel: CharacterTableState;

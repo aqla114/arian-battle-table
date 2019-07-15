@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { CharactersTable, CharacterTableState, CharacterProps } from './characters-table';
+import { CharactersTable, CharacterTableState, CharacterProps } from './components/characters-table';
 import { Dispatch, Action } from 'redux';
 import { actions, ChangeActionProps, MouseActionProps } from './actions/actions';
 import { State } from './store';

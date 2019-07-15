@@ -1,5 +1,5 @@
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
-import { CharacterTableState, Character, CharacterProps } from '../characters-table';
+import { CharacterTableState, Character, CharacterProps } from '../components/characters-table';
 import { actions } from '../actions/actions';
 
 const initialState: CharacterTableState = {

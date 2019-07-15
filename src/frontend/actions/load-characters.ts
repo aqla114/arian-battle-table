@@ -1,5 +1,5 @@
 import actionCreatorFactory, { ActionCreator, Failure, Success } from 'typescript-fsa';
-import { CharacterProps } from '../characters-table';
+import { CharacterProps } from '../components/characters-table';
 
 const actionCreator = actionCreatorFactory();
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import MainContainer from './container';
-import { DiceRoller } from './dice-roller';
+import { DiceRoller } from './components/dice-roller';
 import { Provider } from 'react-redux';
 import store from './store';
 
