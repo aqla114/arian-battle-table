@@ -55,7 +55,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                         <td>HP</td>
                         <td>物理防御力</td>
                         <td>魔法防御力</td>
-                        <td>ノックバック(2)</td>
+                        <td>ノックバック(6)</td>
                         <td>キャラクターの削除</td>
                     </tr>
                 </thead>

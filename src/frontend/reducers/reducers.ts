@@ -27,9 +27,9 @@ export const tableReducer = reducerWithInitialState(initialState)
         characters[idx].isKnockBack = !characters[idx].isKnockBack;
 
         if (characters[idx].isKnockBack) {
-            characters[idx].actionPriority -= 10;
+            characters[idx].actionPriority -= 30;
         } else {
-            characters[idx].actionPriority += 10;
+            characters[idx].actionPriority += 30;
         }
 
         characters.sort((a, b) => b.actionPriority - a.actionPriority);
