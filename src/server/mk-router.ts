@@ -4,12 +4,29 @@ import { updateBattleSession } from './api/update-battle-session';
 import { createBattleSession } from './api/creare-battle-session';
 
 export function mkRouter(router: Router): Router {
-    router.get('/:id', (ctx, next) => {
+    router.get('/', (ctx, next) => {
+        ctx.status = 303;
+        ctx.redirect('/list-battles');
+
+        return next();
+    });
+
+    router.get('/list-battles', (ctx, next) => {
         console.log(ctx.url);
         ctx.status = 200;
         ctx.render('index');
 
+        return next();
+    });
+
+    router.get('/battle/:id', (ctx, next) => {
         ctx.id = ctx.params['id'];
+        ctx.status = 200;
+        ctx.render('index', {
+            header: {
+                mountedPath: '/',
+            },
+        });
 
         return next();
     });

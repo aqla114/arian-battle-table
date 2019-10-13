@@ -38,7 +38,9 @@ function loadCharactersMapper(dispatch: Dispatch<Action<string>>) {
     return () => {
         dispatch(actions.startedLoading({}));
 
-        Request.get(`/api/${location.pathname.slice(1)}/get`).end((err, res) => {
+        const id = location.pathname.split('/').slice(-1)[0];
+
+        Request.get(`/api/${id}/get`).end((err, res) => {
             if (err) {
                 console.error(err);
                 dispatch(actions.failedLoading({ params: {}, error: {} }));
@@ -69,7 +71,9 @@ function saveCharactersMapper(dispatch: Dispatch<Action<string>>) {
     return (characters: CharacterProps[]) => {
         dispatch(actions.startedSaving({}));
 
-        Request.post(`/api/${location.pathname.slice(1)}/update`)
+        const id = location.pathname.split('/').slice(-1)[0];
+
+        Request.post(`/api/${id}/update`)
             .send(characters)
             .end((err, res) => {
                 if (err) {

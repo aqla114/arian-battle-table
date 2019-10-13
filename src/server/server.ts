@@ -50,6 +50,9 @@ async function mkApp(): Promise<void> {
     const pug = new Pug({
         app: app,
         viewPath: path.join(WORKDIR, 'template'),
+        locals: {
+            mountedPath: '/',
+        },
     });
 
     pug.use(app);
