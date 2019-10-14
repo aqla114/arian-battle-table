@@ -119,7 +119,7 @@ function saveCharactersNewlyMapper(dispatch: Dispatch<Action<string>>) {
     };
 }
 
-export default connect(
+export const ShowBattleContainer = connect(
     mapStateToProps,
     mapDispatchToProps,
 )(CharactersTable);

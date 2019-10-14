@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { CharacterElement } from './character-element';
 import { AddCharacterForm } from './add-character-form';
-import { Actions } from '../container';
+import { Actions } from '../show-battle-container';
 
 export type CharacterTableState = {
     characters: CharacterProps[];
