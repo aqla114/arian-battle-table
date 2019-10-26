@@ -17,7 +17,7 @@ export interface Actions {
 }
 
 function mapStateToProps(state: State): CharacterTableState {
-    return Object.assign({}, state.charactersTabel);
+    return Object.assign({}, state.charactersTable);
 }
 
 function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {

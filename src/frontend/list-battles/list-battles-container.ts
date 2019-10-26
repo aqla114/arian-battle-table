@@ -2,14 +2,15 @@ import { connect } from 'react-redux';
 import { Dispatch, Action } from 'redux';
 import { actions } from './actions/actions';
 import * as Request from 'superagent';
-import { BattlesList } from '../list-battles/components/battles-list';
+import { BattlesList, BattlesListState } from '../list-battles/components/battles-list';
+import { State } from './store';
 
 export interface Actions {
     loadBattleSessions: () => void;
 }
 
-function mapStateToProps(state: {}) {
-    return state;
+function mapStateToProps(state: State): BattlesListState {
+    return Object.assign({}, state.battlesList);
 }
 
 function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
