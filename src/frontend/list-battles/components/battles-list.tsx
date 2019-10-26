@@ -1,6 +1,13 @@
 import * as React from 'react';
+import { Actions } from '../list-battles-container';
 
-export const BattlesList: React.SFC = (props: any) => {
+type BattlesListProps = Actions | any;
+
+export const BattlesList: React.SFC = (props: BattlesListProps) => {
+    React.useEffect(() => {
+        props.loadBattleSessions();
+    }, []);
+
     return (
         <div>
             <table className="battles-list">

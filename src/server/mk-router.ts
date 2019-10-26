@@ -1,4 +1,5 @@
 import * as Router from 'koa-router';
+import { listBattleSession } from './api/list-battle-session';
 import { getBattleSession } from './api/get-battle-session';
 import { updateBattleSession } from './api/update-battle-session';
 import { createBattleSession } from './api/creare-battle-session';
@@ -27,6 +28,19 @@ export function mkRouter(router: Router): Router {
                 mountedPath: '/',
             },
         });
+
+        return next();
+    });
+
+    router.get('/api/list', async (ctx, next) => {
+        const battleSessions = await listBattleSession(ctx);
+
+        if (battleSessions) {
+            ctx.body = battleSessions;
+            ctx.status = 200;
+        } else {
+            ctx.status = 404;
+        }
 
         return next();
     });

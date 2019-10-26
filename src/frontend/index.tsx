@@ -5,11 +5,13 @@ import { DiceRoller } from './show-battle/components/dice-roller';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import store from './show-battle/store';
-import { BattlesList } from './list-battles/components/battles-list';
+import { BattlesListContainer } from './list-battles/list-battles-container';
 
 const list = () => (
     <Provider store={store}>
-        <BattlesList />
+        <div className="container">
+            <BattlesListContainer />
+        </div>
     </Provider>
 );
 

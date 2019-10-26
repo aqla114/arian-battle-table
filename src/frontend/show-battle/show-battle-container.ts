@@ -36,14 +36,14 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
 
 function loadCharactersMapper(dispatch: Dispatch<Action<string>>) {
     return () => {
-        dispatch(actions.startedLoading({}));
+        dispatch(actions.startedLoadingCharacters({}));
 
         const id = location.pathname.split('/').slice(-1)[0];
 
         Request.get(`/api/${id}/get`).end((err, res) => {
             if (err) {
                 console.error(err);
-                dispatch(actions.failedLoading({ params: {}, error: {} }));
+                dispatch(actions.failedLoadingCharacters({ params: {}, error: {} }));
             } else {
                 console.log(res.body);
 
@@ -57,7 +57,7 @@ function loadCharactersMapper(dispatch: Dispatch<Action<string>>) {
                 }));
 
                 dispatch(
-                    actions.doneLoading({
+                    actions.doneLoadingCharacters({
                         params: {},
                         result: { characters: characters.sort((a, b) => b.actionPriority - a.actionPriority) },
                     }),

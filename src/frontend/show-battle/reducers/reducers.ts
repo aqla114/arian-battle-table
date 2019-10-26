@@ -68,7 +68,7 @@ export const tableReducer = reducerWithInitialState(initialState)
 
         return { ...state, characters, currentNewCharacter: Character('', 0, 0, 0, 0) };
     })
-    .case(actions.doneLoading, (state, props) => {
+    .case(actions.doneLoadingCharacters, (state, props) => {
         return { ...state, characters: props.result.characters };
     })
     .default(state => {
