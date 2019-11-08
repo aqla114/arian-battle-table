@@ -113,7 +113,7 @@ function saveCharactersNewlyMapper(dispatch: Dispatch<Action<string>>) {
                         }),
                     );
 
-                    location.href = `${res.body.id}`;
+                    location.href = `/battle/${res.body.id}`;
                 }
             });
     };
