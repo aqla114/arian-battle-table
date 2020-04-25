@@ -8,6 +8,7 @@ import { State } from './store';
 export interface Actions {
     loadBattleSessions: () => void;
     createBattleSession: (sessionName: string) => void;
+    updateCurrentSessionName: (v: React.ChangeEvent<HTMLInputElement>) => Action<string>;
 }
 
 function mapStateToProps(state: State): BattlesListState {
@@ -18,6 +19,8 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
     return {
         loadBattleSessions: loadBattleSessionsMapper(dispatch),
         createBattleSession: createBattleSessionMapper(dispatch),
+        updateCurrentSessionName: (e: React.ChangeEvent<HTMLInputElement>) =>
+            dispatch(actions.updateCurrentSessionName(e)),
     };
 }
 

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Actions } from '../list-battles-container';
+import { CreateSessionForm } from './create-session-form';
 
 type BattleSession = {
     id: number;
@@ -9,6 +10,7 @@ type BattleSession = {
 };
 
 export type BattlesListState = {
+    sessionName: string;
     battlesList: BattleSession[];
 };
 
@@ -36,12 +38,10 @@ export const BattlesList: React.SFC<BattlesListProps> = (props: BattlesListProps
 
     return (
         <div>
-            <input
-                type="button"
-                className="create-session-button"
-                name="create-session-button"
-                value="sessionを新しく作る"
-                onClick={() => props.createBattleSession('hogeSession')}
+            <CreateSessionForm
+                sessionName={props.sessionName}
+                onChangeSessionNameForm={e => props.updateCurrentSessionName(e)}
+                onClickCreateSession={() => props.createBattleSession(props.sessionName)}
             />
             <table className="battles-list">
                 <thead>

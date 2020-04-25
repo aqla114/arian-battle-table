@@ -3,6 +3,7 @@ import { actions } from '../actions/actions';
 import { BattlesListState } from '../components/battles-list';
 
 const initialState: BattlesListState = {
+    sessionName: '',
     battlesList: [],
 };
 
@@ -12,6 +13,9 @@ export const tableReducer = reducerWithInitialState(initialState)
     })
     .case(actions.doneCreateBattleSession, (state, _) => {
         return { ...state };
+    })
+    .case(actions.updateCurrentSessionName, (state, props) => {
+        return { ...state, sessionName: props.target.value };
     })
     .default(state => {
         console.log('The default reducer is used.');
