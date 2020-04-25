@@ -7,6 +7,7 @@ import { State } from './store';
 
 export interface Actions {
     loadBattleSessions: () => void;
+    createBattleSession: (sessionName: string) => void;
 }
 
 function mapStateToProps(state: State): BattlesListState {
@@ -16,6 +17,31 @@ function mapStateToProps(state: State): BattlesListState {
 function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
     return {
         loadBattleSessions: loadBattleSessionsMapper(dispatch),
+        createBattleSession: createBattleSessionMapper(dispatch),
+    };
+}
+
+function createBattleSessionMapper(dispatch: Dispatch<Action<string>>) {
+    return (sessionName: string) => {
+        dispatch(actions.startedCreateBattleSession({}));
+
+        Request.post(`/api/create`)
+            .send({ sessionName })
+            .end((err, res) => {
+                if (err) {
+                    console.log(err);
+                    dispatch(actions.failedCreateBattleSession({ params: {}, error: {} }));
+                } else {
+                    console.log(res.body);
+
+                    dispatch(
+                        actions.doneCreateBattleSession({
+                            params: {},
+                            result: {},
+                        }),
+                    );
+                }
+            });
     };
 }
 

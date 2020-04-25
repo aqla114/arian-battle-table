@@ -10,6 +10,9 @@ export const tableReducer = reducerWithInitialState(initialState)
     .case(actions.doneLoadingBattleSessions, (state, props) => {
         return { ...state, battlesList: props.result.battleSessions };
     })
+    .case(actions.doneCreateBattleSession, (state, _) => {
+        return { ...state };
+    })
     .default(state => {
         console.log('The default reducer is used.');
         return state;

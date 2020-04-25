@@ -36,6 +36,13 @@ export const BattlesList: React.SFC<BattlesListProps> = (props: BattlesListProps
 
     return (
         <div>
+            <input
+                type="button"
+                className="create-session-button"
+                name="create-session-button"
+                value="sessionを新しく作る"
+                onClick={() => props.createBattleSession('hogeSession')}
+            />
             <table className="battles-list">
                 <thead>
                     <tr>

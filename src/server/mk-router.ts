@@ -75,7 +75,7 @@ export function mkRouter(router: Router): Router {
     });
 
     router.post('/api/create', async (ctx, next) => {
-        console.log('create');
+        console.log('/create');
         console.log(ctx.request.body);
 
         const battleSession = await createBattleSession(ctx);
