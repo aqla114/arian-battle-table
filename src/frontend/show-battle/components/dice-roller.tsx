@@ -10,7 +10,7 @@ type DiceRollerProps = {
     onRoll: () => void;
 };
 
-const diceCountOptions = [...Array(30).keys()].map(x => (
+const diceCountOptions = [...Array(40).keys()].map(x => (
     <option value={x + 1} key={x + 1}>
         {x + 1}
     </option>
