@@ -13,7 +13,7 @@ export interface Actions {
     addNewCharacter: () => Action<string>;
     loadCharacters: () => void;
     saveCharacters: (v: CharacterProps[]) => void;
-    saveCharactersNewly: (v: CharacterProps[]) => void;
+    saveCharactersNewly: (sessionName: string, characters: CharacterProps[]) => void;
 }
 
 function mapStateToProps(state: State): CharacterTableState {
@@ -94,11 +94,11 @@ function saveCharactersMapper(dispatch: Dispatch<Action<string>>) {
 }
 
 function saveCharactersNewlyMapper(dispatch: Dispatch<Action<string>>) {
-    return (characters: CharacterProps[]) => {
+    return (sessionName: string, characters: CharacterProps[]) => {
         dispatch(actions.startedSavingNewly({}));
 
         Request.post(`/api/create`)
-            .send(characters)
+            .send({ sessionName, characters })
             .end((err, res) => {
                 if (err) {
                     console.error(err);
