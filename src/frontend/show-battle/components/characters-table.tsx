@@ -5,6 +5,7 @@ import { AddCharacterForm } from './add-character-form';
 import { Actions } from '../show-battle-container';
 
 export type CharacterTableState = {
+    sessionName: string;
     characters: CharacterProps[];
     currentNewCharacter: CharacterProps;
 };
@@ -79,7 +80,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                     className="save-container__create-save-button"
                     name="create-save-button"
                     value="新規セッションとして保存"
-                    onClick={() => props.saveCharactersNewly(props.characters)}
+                    onClick={() => props.saveCharactersNewly('test_session', props.characters)}
                 />
             </div>
         </div>

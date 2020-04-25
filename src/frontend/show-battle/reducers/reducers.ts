@@ -3,6 +3,7 @@ import { CharacterTableState, Character, CharacterProps } from '../components/ch
 import { actions } from '../actions/actions';
 
 const initialState: CharacterTableState = {
+    sessionName: '',
     characters: [],
     currentNewCharacter: Character(),
 };

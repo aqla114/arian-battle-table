@@ -26,7 +26,7 @@ function createBattleSessionMapper(dispatch: Dispatch<Action<string>>) {
         dispatch(actions.startedCreateBattleSession({}));
 
         Request.post(`/api/create`)
-            .send({ sessionName })
+            .send({ sessionName, characters: [] })
             .end((err, res) => {
                 if (err) {
                     console.log(err);
