@@ -28,6 +28,12 @@ function createBattleSessionMapper(dispatch: Dispatch<Action<string>>) {
     return (sessionName: string) => {
         dispatch(actions.startedCreateBattleSession({}));
 
+        if (sessionName === '') {
+            window.alert('無名のセッションを作ることはできません');
+            dispatch(actions.failedCreateBattleSession({ params: {}, error: {} }));
+            return;
+        }
+
         Request.post(`/api/create`)
             .send({ sessionName, characters: [] })
             .end((err, res) => {
