@@ -35,6 +35,15 @@ export function CharacterElement(props: CharacterElementProps) {
             <td>
                 <input
                     type="text"
+                    className="character-table__character__max-hp"
+                    name={'maxHp'}
+                    value={props.maxHp}
+                    onChange={props.onChangeElementText}
+                />
+            </td>
+            <td>
+                <input
+                    type="text"
                     className="character-table__character__physical-defence"
                     name={'physicalDefence'}
                     value={props.physicalDefence}

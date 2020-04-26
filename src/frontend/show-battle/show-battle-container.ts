@@ -51,6 +51,7 @@ function loadCharactersMapper(dispatch: Dispatch<Action<string>>) {
                     name: character.name,
                     actionPriority: character.actionPriority,
                     hp: character.hp,
+                    maxHp: character.maxHp,
                     physicalDefence: character.physicalDefence,
                     magicalDefence: character.magicalDefence,
                     isKnockBack: character.isKnockBack,
