@@ -3,7 +3,7 @@ import { BattleSession } from './battle-session';
 
 export type CharacterWithoutId = Pick<
     Character,
-    'name' | 'actionPriority' | 'hp' | 'physicalDefence' | 'magicalDefence' | 'isKnockBack'
+    'name' | 'actionPriority' | 'hp' | 'maxHp' | 'physicalDefence' | 'magicalDefence' | 'isKnockBack'
 >;
 
 @Entity('character')
@@ -12,11 +12,20 @@ export class Character {
         name: string,
         actionPriority: number,
         hp: number,
+        maxHp: number,
         physicalDefence: number,
         magicalDefence: number,
     ): Character {
         const c = new Character();
-        return Object.assign(c, { name, actionPriority, hp, physicalDefence, magicalDefence, isKnockBack: false });
+        return Object.assign(c, {
+            name,
+            actionPriority,
+            hp,
+            maxHp,
+            physicalDefence,
+            magicalDefence,
+            isKnockBack: false,
+        });
     }
 
     @PrimaryGeneratedColumn()
@@ -45,6 +54,9 @@ export class Character {
 
     @Column({ default: 0, name: 'hp' })
     hp!: number;
+
+    @Column({ default: 0, name: 'max_hp' })
+    maxHp!: number;
 
     @Column({ default: 0, name: 'physical_defence' })
     physicalDefence!: number;
