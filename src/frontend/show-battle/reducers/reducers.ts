@@ -20,20 +20,25 @@ export const tableReducer = reducerWithInitialState(initialState)
 
         return { ...state, characters };
     })
-    .case(actions.updateCharacterIsKnockBack, (state, props) => {
+    .case(actions.updateCharacterCheckbox, (state, props) => {
         const { e, name } = props;
         const characters = state.characters.slice().map(x => ({ ...x }));
         const idx = characters.map(x => x.name).indexOf(name);
 
-        characters[idx].isKnockBack = !characters[idx].isKnockBack;
+        const action = e.target.name;
 
-        if (characters[idx].isKnockBack) {
-            characters[idx].actionPriority -= 30;
-        } else {
-            characters[idx].actionPriority += 30;
+        if (action === 'isKnockBack') {
+            characters[idx].isKnockBack = !characters[idx].isKnockBack;
+
+            if (characters[idx].isKnockBack) {
+                characters[idx].actionPriority -= 30;
+            } else {
+                characters[idx].actionPriority += 30;
+            }
+            characters.sort((a, b) => b.actionPriority - a.actionPriority);
+        } else if (action === 'isActed') {
+            characters[idx].isActed = !characters[idx].isActed;
         }
-
-        characters.sort((a, b) => b.actionPriority - a.actionPriority);
 
         return { ...state, characters };
     })

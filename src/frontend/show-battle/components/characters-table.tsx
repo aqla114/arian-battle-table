@@ -44,7 +44,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
             key={character.name}
             {...character}
             onChangeElementText={e => props.updateCharacterAttributeText({ e, name: character.name })}
-            onChangeElementCheckbox={e => props.updateCharacterIsKnockBack({ e, name: character.name })}
+            onChangeElementCheckbox={e => props.updateCharacterCheckbox({ e, name: character.name })}
             onDeleteCharacter={e => props.deleteCharacter({ e, name: character.name })}
         />
     ));
@@ -54,7 +54,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
             <table className="character-table">
                 <thead>
                     <tr>
-                        <td />
+                        <td>行動済</td>
                         <td>名前</td>
                         <td>行動値</td>
                         <td>HP</td>

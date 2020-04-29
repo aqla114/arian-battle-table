@@ -22,7 +22,7 @@ const actionCreator = actionCreatorFactory();
 
 export const actions = {
     updateCharacterAttributeText: actionCreator<ChangeActionProps>('UPDATE_CHARACTER_ATTRIBUTE_TEXT'),
-    updateCharacterIsKnockBack: actionCreator<ChangeActionProps>('UPDATE_CHARACTER_IS_KNOCKBACK'),
+    updateCharacterCheckbox: actionCreator<ChangeActionProps>('UPDATE_CHARACTER_IS_KNOCKBACK'),
     deleteCharacter: actionCreator<MouseActionProps>('DELETE_CHARACTER'),
     updateCurrentNewCharacter: actionCreator<React.ChangeEvent<HTMLInputElement>>('UPDATE_CURRENT_NEW_CHARACTER'),
     addNewCharacter: actionCreator('ADD_NEW_CHARACTER'),
