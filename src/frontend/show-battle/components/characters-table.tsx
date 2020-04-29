@@ -18,6 +18,7 @@ export type CharacterProps = {
     physicalDefence: number;
     magicalDefence: number;
     isKnockBack: boolean;
+    isActed: boolean;
 };
 
 export function Character(
@@ -28,7 +29,7 @@ export function Character(
     physicalDefence: number = 0,
     magicalDefence: number = 0,
 ): CharacterProps {
-    return { name, actionPriority, hp, maxHp, physicalDefence, magicalDefence, isKnockBack: false };
+    return { name, actionPriority, hp, maxHp, physicalDefence, magicalDefence, isKnockBack: false, isActed: false };
 }
 
 type CharacterTableProps = CharacterTableState & Actions;

@@ -48,13 +48,7 @@ function loadCharactersMapper(dispatch: Dispatch<Action<string>>) {
                 console.log(res.body);
 
                 const characters: CharacterProps[] = res.body.map((character: CharacterProps) => ({
-                    name: character.name,
-                    actionPriority: character.actionPriority,
-                    hp: character.hp,
-                    maxHp: character.maxHp,
-                    physicalDefence: character.physicalDefence,
-                    magicalDefence: character.magicalDefence,
-                    isKnockBack: character.isKnockBack,
+                    ...character,
                 }));
 
                 dispatch(
