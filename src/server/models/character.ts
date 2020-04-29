@@ -3,7 +3,7 @@ import { BattleSession } from './battle-session';
 
 export type CharacterWithoutId = Pick<
     Character,
-    'name' | 'actionPriority' | 'hp' | 'maxHp' | 'physicalDefence' | 'magicalDefence' | 'isKnockBack'
+    'name' | 'actionPriority' | 'hp' | 'maxHp' | 'physicalDefence' | 'magicalDefence' | 'isKnockBack' | 'isActed'
 >;
 
 @Entity('character')
@@ -24,6 +24,7 @@ export class Character {
             maxHp,
             physicalDefence,
             magicalDefence,
+            isActed: false,
             isKnockBack: false,
         });
     }
@@ -66,4 +67,7 @@ export class Character {
 
     @Column({ default: 0, name: 'is_knock_back' })
     isKnockBack!: boolean;
+
+    @Column({ default: 0, name: 'is_acted' })
+    isActed!: boolean;
 }
