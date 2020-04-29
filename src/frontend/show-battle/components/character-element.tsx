@@ -12,6 +12,16 @@ export function CharacterElement(props: CharacterElementProps) {
     return (
         <tr className="character-table__character">
             <td>
+                <input
+                    type="checkbox"
+                    className="character-table__character__acted"
+                    name={'isActed'}
+                    value={'checked'}
+                    checked={props.isActed}
+                    onChange={props.onChangeElementCheckbox}
+                />
+            </td>
+            <td>
                 <span className="character-table__character__name">{props.name}</span>
             </td>
             <td>

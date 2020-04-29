@@ -54,6 +54,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
             <table className="character-table">
                 <thead>
                     <tr>
+                        <td />
                         <td>名前</td>
                         <td>行動値</td>
                         <td>HP</td>
