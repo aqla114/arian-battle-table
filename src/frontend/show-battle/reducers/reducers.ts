@@ -14,7 +14,13 @@ export const tableReducer = reducerWithInitialState(initialState)
         const characters = state.characters.slice().map(x => ({ ...x }));
         const idx = characters.map(x => x.name).indexOf(name);
 
-        characters[idx][e.target.name as keyof CharacterProps] = e.target.value;
+        if (e.target.value === '' || e.target.value === '-') {
+            characters[idx] = { ...characters[idx], [e.target.name as keyof CharacterProps]: e.target.value };
+        }
+        const targetValue: number = parseInt(e.target.value);
+        if (!isNaN(targetValue)) {
+            characters[idx] = { ...characters[idx], [e.target.name as keyof CharacterProps]: targetValue };
+        }
 
         characters.sort((a, b) => b.actionPriority - a.actionPriority);
 
