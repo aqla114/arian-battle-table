@@ -15,6 +15,7 @@
       "strict": true,
       "pretty": true,
       "noEmitOnError": true,
+      "noUnusedLocals": true,
       "target": "es2017",
       "typeRoots": [
         "./node_modules/@types"

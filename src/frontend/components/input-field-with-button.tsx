@@ -2,8 +2,6 @@ import * as React from 'react';
 import { InputField } from './input-field';
 import { Button } from './button';
 
-type Kind = 'number' | 'text';
-
 type Props = {
     name: string;
     value: string | number | string[];

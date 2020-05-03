@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Actions } from '../list-battles-container';
-import { CreateSessionForm } from './create-session-form';
 import { InputFieldWithButton } from '../../components/input-field-with-button';
 
 type BattleSession = {
