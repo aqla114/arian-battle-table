@@ -1,14 +1,14 @@
 import * as React from 'react';
 
-type Mode = 'primary' | 'secondary' | 'delete';
+type Kind = 'primary' | 'secondary' | 'delete';
 
 type Props = {
     name: string;
     value: string;
-    mode: Mode;
+    kind: Kind;
     onClick: (e: any) => void;
 };
 
 export const Button: React.SFC<Props> = (props: Props) => {
-    return <input type="button" className={`button__${props.mode}`} {...props} />;
+    return <input type="button" className={`button__${props.kind}`} {...props} />;
 };

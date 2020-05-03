@@ -15,12 +15,12 @@ export const Dialog: React.SFC<Props> = (props: Props) => {
             <div className="dialog-window">
                 <div className="dialog-window__description">{props.description}</div>
                 <div className="dialog-window__enter-button">
-                    <Button name="enter-button" mode="delete" value={props.enterLabel} onClick={props.onClickEnter} />
+                    <Button name="enter-button" kind="delete" value={props.enterLabel} onClick={props.onClickEnter} />
                 </div>
                 <div className="dialog-window__cancel-button">
                     <Button
                         name="cancel-button"
-                        mode="secondary"
+                        kind="secondary"
                         value={props.cancelLabel}
                         onClick={props.onClickCancel}
                     />

@@ -58,7 +58,7 @@ export class DiceRoller extends React.Component<{}, DiceRollerState> {
                     options={diceMaxOptions}
                     onChange={e => this.setState({ max: Number(e.target.value) })}
                 />
-                <Button mode="primary" name="roll-button" value="ロール" onClick={() => this.roll()} />
+                <Button kind="primary" name="roll-button" value="ロール" onClick={() => this.roll()} />
                 <div className="dice-roller__result">
                     <span className="dice-roller__result__dices">{this.state.result.join(', ')}</span>
                     <span className="dice-roller__result__sum">{this.state.result.reduce((acc, v) => acc + v)}</span>

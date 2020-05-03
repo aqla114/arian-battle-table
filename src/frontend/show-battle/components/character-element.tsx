@@ -55,7 +55,7 @@ export function CharacterElement(props: CharacterElementProps) {
                 <CheckBox name="isKnockBack" checked={props.isKnockBack} onChange={props.onChangeElementCheckbox} />
             </td>
             <td>
-                <Button name="delete" value="削除" mode="delete" onClick={props.onDeleteCharacter} />
+                <Button name="delete" value="削除" kind="delete" onClick={props.onDeleteCharacter} />
             </td>
         </tr>
     );
