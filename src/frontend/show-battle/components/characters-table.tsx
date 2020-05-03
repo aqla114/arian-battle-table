@@ -4,6 +4,7 @@ import { CharacterElement } from './character-element';
 import { AddCharacterForm } from './add-character-form';
 import { Actions } from '../show-battle-container';
 import { Button } from '../../components/button';
+import { InputFieldWithButton } from '../../components/input-field-with-button';
 
 export type CharacterTableState = {
     sessionName: string;
@@ -73,10 +74,13 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                 </thead>
                 <tbody>{characterElement}</tbody>
             </table>
-            <AddCharacterForm
-                name={props.currentNewCharacter.name}
-                onChangeCharacterForm={e => props.updateCurrentNewCharacter(e)}
-                onClickAddCharacter={() => props.addNewCharacter()}
+            <InputFieldWithButton
+                name={'character-name'}
+                value={props.currentNewCharacter.name}
+                buttonLabel={'新しくキャラクターを追加'}
+                placeholder={'キャラクター名'}
+                onChange={e => props.updateCurrentNewCharacter(e)}
+                onClick={() => props.addNewCharacter()}
             />
             <div className="save-container">
                 <Button

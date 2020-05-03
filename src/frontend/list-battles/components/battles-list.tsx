@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Actions } from '../list-battles-container';
 import { CreateSessionForm } from './create-session-form';
+import { InputFieldWithButton } from '../../components/input-field-with-button';
 
 type BattleSession = {
     id: number;
@@ -38,10 +39,13 @@ export const BattlesList: React.SFC<BattlesListProps> = (props: BattlesListProps
 
     return (
         <div>
-            <CreateSessionForm
-                sessionName={props.sessionName}
-                onChangeSessionNameForm={e => props.updateCurrentSessionName(e)}
-                onClickCreateSession={() => props.createBattleSession(props.sessionName)}
+            <InputFieldWithButton
+                name={'session-name'}
+                value={props.sessionName}
+                buttonLabel={'新しくセッションを追加'}
+                placeholder={'セッション名'}
+                onChange={e => props.updateCurrentSessionName(e)}
+                onClick={() => props.createBattleSession(props.sessionName)}
             />
             <table className="battles-list">
                 <thead>

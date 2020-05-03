@@ -31,6 +31,10 @@
   width: 160px;
   border-radius: 3px;
 }
+.input-field-with-button {
+  font: 16px;
+  margin: 20px;
+}
 .character-table {
   font: 16px;
   margin: 20px;
@@ -44,10 +48,6 @@
 }
 .character-table__character.--next {
   background-color: #ffa500;
-}
-.add-character {
-  font: 16px;
-  margin: 20px;
 }
 .dice-roller {
   font: 16px;
@@ -86,25 +86,4 @@
   margin: 20px;
   border-spacing: 12px;
   text-align: center;
-}
-.create-session {
-  font: 16px;
-  margin: 20px;
-}
-.create-session__input {
-  font-size: 16px;
-  height: 24px;
-  width: 150px;
-  border-radius: 3px;
-}
-.create-session__button {
-  margin-left: 20px;
-  padding: 6px;
-  width: 200px;
-  color: #fff;
-  background-color: #42d4f4;
-}
-.create-session__button:hover {
-  background-color: #36afc9;
-  cursor: pointer;
 }
