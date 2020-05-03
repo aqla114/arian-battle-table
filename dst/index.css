@@ -18,6 +18,18 @@
   background-color: #77aeff;
   cursor: pointer;
 }
+.button__secondary {
+  padding: 6px;
+  color: #292b2c;
+  width: 100px;
+  background-color: #fff;
+  border-color: #ccc;
+}
+.button__secondary:hover {
+  background-color: #e6e6e6;
+  border-color: #adadad;
+  cursor: pointer;
+}
 .input-field__number {
   font-size: 16px;
   height: 20px;

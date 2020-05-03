@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-type Mode = 'primary' | 'delete';
+type Mode = 'primary' | 'secondary' | 'delete';
 
 type Props = {
     name: string;
