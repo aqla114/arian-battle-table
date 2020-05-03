@@ -4,6 +4,9 @@
   border-spacing: 12px;
   text-align: center;
 }
+.character-table__character--next {
+  background-color: #ffa500;
+}
 .character-table__character__name,
 .character-table__character__action-priority,
 .character-table__character__hp,

@@ -39,15 +39,20 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
         props.loadCharacters();
     }, []);
 
-    const characterElement = props.characters.map(character => (
-        <CharacterElement
-            key={character.name}
-            {...character}
-            onChangeElementText={e => props.updateCharacterAttributeText({ e, name: character.name })}
-            onChangeElementCheckbox={e => props.updateCharacterCheckbox({ e, name: character.name })}
-            onDeleteCharacter={e => props.deleteCharacter({ e, name: character.name })}
-        />
-    ));
+    const nextActionPriority = Math.max(...props.characters.filter(x => !x.isActed).map(x => x.actionPriority));
+
+    const characterElement = props.characters.map(character => {
+        return (
+            <CharacterElement
+                key={character.name}
+                {...character}
+                isNextPrior={character.actionPriority === nextActionPriority}
+                onChangeElementText={e => props.updateCharacterAttributeText({ e, name: character.name })}
+                onChangeElementCheckbox={e => props.updateCharacterCheckbox({ e, name: character.name })}
+                onDeleteCharacter={e => props.deleteCharacter({ e, name: character.name })}
+            />
+        );
+    });
 
     return (
         <div>

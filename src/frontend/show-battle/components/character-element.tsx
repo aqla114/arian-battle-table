@@ -3,6 +3,7 @@ import * as React from 'react';
 import { CharacterProps } from './characters-table';
 
 type CharacterElementProps = CharacterProps & {
+    isNextPrior: boolean;
     onChangeElementText: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onChangeElementCheckbox: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onDeleteCharacter: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
@@ -10,7 +11,7 @@ type CharacterElementProps = CharacterProps & {
 
 export function CharacterElement(props: CharacterElementProps) {
     return (
-        <tr className="character-table__character">
+        <tr className={`character-table__character${props.isNextPrior ? '--next' : ''}`}>
             <td>
                 <input
                     type="checkbox"
