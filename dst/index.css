@@ -3,6 +3,11 @@
   margin: 20px;
   border-spacing: 12px;
   text-align: center;
+  border-spacing: 0px;
+}
+.character-table__character td {
+  width: 80px;
+  height: 50px;
 }
 .character-table__character--next {
   background-color: #ffa500;
