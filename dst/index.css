@@ -1,3 +1,24 @@
+.button__delete {
+  padding: 6px;
+  color: #fff;
+  width: 100px;
+  background-color: #f44242;
+}
+.button__delete:hover {
+  background-color: #d63939;
+  cursor: pointer;
+}
+.button__primary {
+  padding: 6px;
+  color: #fff;
+  margin-left: 20px;
+  width: 160px;
+  background-color: #4c94ff;
+}
+.button__primary:hover {
+  background-color: #77aeff;
+  cursor: pointer;
+}
 .character-table {
   font: 16px;
   margin: 20px;
@@ -23,16 +44,6 @@
   width: 50px;
   border-radius: 3px;
 }
-.character-table__character__delete-button {
-  padding: 6px;
-  width: 100px;
-  color: #fff;
-  background-color: #f44242;
-}
-.character-table__character__delete-button:hover {
-  background-color: #d63939;
-  cursor: pointer;
-}
 .add-character {
   font: 16px;
   margin: 20px;
@@ -40,19 +51,8 @@
 .add-character__input {
   font-size: 16px;
   height: 24px;
-  width: 150px;
+  width: 160px;
   border-radius: 3px;
-}
-.add-character__button {
-  margin-left: 20px;
-  padding: 6px;
-  width: 200px;
-  color: #fff;
-  background-color: #42d4f4;
-}
-.add-character__button:hover {
-  background-color: #36afc9;
-  cursor: pointer;
 }
 .dice-roller {
   font: 16px;

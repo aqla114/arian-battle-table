@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { CharacterProps } from './characters-table';
+import { Button } from '../../components/button';
 
 type CharacterElementProps = CharacterProps & {
     isNextPrior: boolean;
@@ -81,13 +82,7 @@ export function CharacterElement(props: CharacterElementProps) {
                 />
             </td>
             <td>
-                <input
-                    type="button"
-                    className="character-table__character__delete-button"
-                    name={'delete'}
-                    value={'削除'}
-                    onClick={props.onDeleteCharacter}
-                />
+                <Button name="delete" value="削除" mode="delete" onClick={props.onDeleteCharacter} />
             </td>
         </tr>
     );

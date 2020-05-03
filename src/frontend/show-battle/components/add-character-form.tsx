@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Button } from '../../components/button';
 
 type AddCharacterFormProps = {
     name: string;
@@ -17,10 +18,9 @@ export function AddCharacterForm(props: AddCharacterFormProps) {
                 value={props.name}
                 onChange={props.onChangeCharacterForm}
             />
-            <input
-                type="button"
-                className="add-character__button"
-                name="add-button"
+            <Button
+                name="add-character"
+                mode="primary"
                 value="新しくキャラクターを追加"
                 onClick={props.onClickAddCharacter}
             />

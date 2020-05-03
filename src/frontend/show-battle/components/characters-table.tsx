@@ -3,6 +3,7 @@ import * as React from 'react';
 import { CharacterElement } from './character-element';
 import { AddCharacterForm } from './add-character-form';
 import { Actions } from '../show-battle-container';
+import { Button } from '../../components/button';
 
 export type CharacterTableState = {
     sessionName: string;
@@ -78,18 +79,16 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                 onClickAddCharacter={() => props.addNewCharacter()}
             />
             <div className="save-container">
-                <input
-                    type="button"
-                    className="save-container__save-button"
-                    name="save-button"
+                <Button
+                    name="save"
                     value="保存"
+                    mode="primary"
                     onClick={() => props.saveCharacters(props.characters)}
                 />
-                <input
-                    type="button"
-                    className="save-container__create-save-button"
-                    name="create-save-button"
+                <Button
+                    name="save-newly"
                     value="新規セッションとして保存"
+                    mode="primary"
                     onClick={() => props.saveCharactersNewly('test_session', props.characters)}
                 />
             </div>
