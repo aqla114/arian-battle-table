@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import { ShowBattleContainer } from './show-battle/show-battle-container';
 import { DiceRoller } from './show-battle/components/dice-roller';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import ShowBattleStore from './show-battle/store';
 import ListBattlesStore from './list-battles/store';
 import { BattlesListContainer } from './list-battles/list-battles-container';

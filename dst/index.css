@@ -35,6 +35,13 @@
   font: 16px;
   margin: 20px;
 }
+.dropdown {
+  margin: 10px;
+  width: 55px;
+  height: 30px;
+  border: 1px solid #bbb;
+  font-size: 16px;
+}
 .character-table {
   font: 16px;
   margin: 20px;
@@ -52,14 +59,6 @@
 .dice-roller {
   font: 16px;
   margin: 20px;
-}
-.dice-roller__dice-count,
-.dice-roller__dice-max {
-  margin: 10px;
-  width: 55px;
-  height: 30px;
-  border: 1px solid #bbb;
-  font-size: 16px;
 }
 .dice-roller__roll-button {
   margin-left: 10px;

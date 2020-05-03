@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { Dropdown } from '../../components/atoms/dropdown';
+import { Button } from '../../components/atoms/button';
 
 type DiceRollerState = {
     count: number;
@@ -6,15 +8,12 @@ type DiceRollerState = {
     result: number[];
 };
 
-type DiceRollerProps = {
-    onRoll: () => void;
-};
-
 const diceCountOptions = [...Array(40).keys()].map(x => (
     <option value={x + 1} key={x + 1}>
         {x + 1}
     </option>
 ));
+
 const diceMaxOptions = [6, 10, 100].map(x => (
     <option key={x} value={x}>
         {x}
@@ -48,28 +47,18 @@ export class DiceRoller extends React.Component<{}, DiceRollerState> {
         return (
             <div className="dice-roller">
                 <div>だいすろーる</div>
-                <select
-                    className="dice-roller__dice-count"
-                    value={`${this.state.count}`}
+                <Dropdown
+                    value={this.state.count}
+                    options={diceCountOptions}
                     onChange={e => this.setState({ count: Number(e.target.value) })}
-                >
-                    {diceCountOptions}
-                </select>
-                <span>D</span>
-                <select
-                    className="dice-roller__dice-max"
-                    value={`${this.state.max}`}
-                    onChange={e => this.setState({ max: Number(e.target.value) })}
-                >
-                    {diceMaxOptions}
-                </select>
-                <input
-                    type="button"
-                    className="dice-roller__roll-button"
-                    name="roll-button"
-                    value="ロール"
-                    onClick={() => this.roll()}
                 />
+                <span>D</span>
+                <Dropdown
+                    value={this.state.max}
+                    options={diceMaxOptions}
+                    onChange={e => this.setState({ max: Number(e.target.value) })}
+                />
+                <Button mode="primary" name="roll-button" value="ロール" onClick={() => this.roll()} />
                 <div className="dice-roller__result">
                     <span className="dice-roller__result__dices">{this.state.result.join(', ')}</span>
                     <span className="dice-roller__result__sum">{this.state.result.reduce((acc, v) => acc + v)}</span>

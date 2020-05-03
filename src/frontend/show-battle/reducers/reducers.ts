@@ -49,7 +49,7 @@ export const tableReducer = reducerWithInitialState(initialState)
         return { ...state, characters };
     })
     .case(actions.deleteCharacter, (state, props) => {
-        const { e, name } = props;
+        const { name } = props;
         const characters = state.characters
             .slice()
             .map(x => ({ ...x }))
