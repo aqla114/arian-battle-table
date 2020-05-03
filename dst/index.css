@@ -42,7 +42,7 @@
   width: 80px;
   height: 50px;
 }
-.character-table__character--next {
+.character-table__character.--next {
   background-color: #ffa500;
 }
 .add-character {

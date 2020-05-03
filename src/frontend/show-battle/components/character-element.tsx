@@ -14,7 +14,7 @@ type CharacterElementProps = CharacterProps & {
 
 export function CharacterElement(props: CharacterElementProps) {
     return (
-        <tr className={`character-table__character${props.isNextPrior ? '--next' : ''}`}>
+        <tr className={`character-table__character ${props.isNextPrior ? '--next' : ''}`}>
             <td>
                 <CheckBox name="isActed" checked={props.isActed} onChange={props.onChangeElementCheckbox} />
             </td>
