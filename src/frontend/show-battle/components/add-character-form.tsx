@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Button } from '../../components/button';
+import { InputField } from '../../components/input-field';
 
 type AddCharacterFormProps = {
     name: string;
@@ -10,10 +11,9 @@ type AddCharacterFormProps = {
 export function AddCharacterForm(props: AddCharacterFormProps) {
     return (
         <div className="add-character">
-            <input
-                type="text"
-                className="add-character__input"
-                name="add-input"
+            <InputField
+                kind="text"
+                name="character-nae"
                 placeholder="キャラクター名"
                 value={props.name}
                 onChange={props.onChangeCharacterForm}

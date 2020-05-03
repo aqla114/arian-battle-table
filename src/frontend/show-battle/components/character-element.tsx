@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { CharacterProps } from './characters-table';
 import { Button } from '../../components/button';
+import { InputField } from '../../components/input-field';
 
 type CharacterElementProps = CharacterProps & {
     isNextPrior: boolean;
@@ -27,46 +28,31 @@ export function CharacterElement(props: CharacterElementProps) {
                 <span className="character-table__character__name">{props.name}</span>
             </td>
             <td>
-                <input
-                    type="text"
-                    className="character-table__character__action-priority"
-                    name={'actionPriority'}
+                <InputField
+                    kind="number"
+                    name="actionPriority"
                     value={props.actionPriority}
                     onChange={props.onChangeElementText}
                 />
             </td>
             <td>
-                <input
-                    type="text"
-                    className="character-table__character__hp"
-                    name={'hp'}
-                    value={props.hp}
-                    onChange={props.onChangeElementText}
-                />
+                <InputField kind="number" name="hp" value={props.hp} onChange={props.onChangeElementText} />
             </td>
             <td>
-                <input
-                    type="text"
-                    className="character-table__character__max-hp"
-                    name={'maxHp'}
-                    value={props.maxHp}
-                    onChange={props.onChangeElementText}
-                />
+                <InputField kind="number" name="maxHp" value={props.maxHp} onChange={props.onChangeElementText} />
             </td>
             <td>
-                <input
-                    type="text"
-                    className="character-table__character__physical-defence"
-                    name={'physicalDefence'}
+                <InputField
+                    kind="number"
+                    name="physicalDefence"
                     value={props.physicalDefence}
                     onChange={props.onChangeElementText}
                 />
             </td>
             <td>
-                <input
-                    type="text"
-                    className="character-table__character__magical-defence"
-                    name={'magicalDefence'}
+                <InputField
+                    kind="number"
+                    name="magicalDefence"
                     value={props.magicalDefence}
                     onChange={props.onChangeElementText}
                 />
