@@ -3,6 +3,7 @@ import * as React from 'react';
 import { CharacterProps } from './characters-table';
 import { Button } from '../../components/button';
 import { InputField } from '../../components/input-field';
+import { CheckBox } from '../../components/checkbox';
 
 type CharacterElementProps = CharacterProps & {
     isNextPrior: boolean;
@@ -15,14 +16,7 @@ export function CharacterElement(props: CharacterElementProps) {
     return (
         <tr className={`character-table__character${props.isNextPrior ? '--next' : ''}`}>
             <td>
-                <input
-                    type="checkbox"
-                    className="character-table__character__acted"
-                    name={'isActed'}
-                    value={'checked'}
-                    checked={props.isActed}
-                    onChange={props.onChangeElementCheckbox}
-                />
+                <CheckBox name="isActed" checked={props.isActed} onChange={props.onChangeElementCheckbox} />
             </td>
             <td>
                 <span className="character-table__character__name">{props.name}</span>
@@ -58,14 +52,7 @@ export function CharacterElement(props: CharacterElementProps) {
                 />
             </td>
             <td>
-                <input
-                    type="checkbox"
-                    className="character-table__character__knock-back"
-                    name={'isKnockBack'}
-                    value={'checked'}
-                    checked={props.isKnockBack}
-                    onChange={props.onChangeElementCheckbox}
-                />
+                <CheckBox name="isKnockBack" checked={props.isKnockBack} onChange={props.onChangeElementCheckbox} />
             </td>
             <td>
                 <Button name="delete" value="削除" mode="delete" onClick={props.onDeleteCharacter} />
