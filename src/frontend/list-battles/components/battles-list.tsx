@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Actions } from '../list-battles-container';
-import { InputFieldWithButton } from '../../components/input-field-with-button';
+import { InputFieldWithButton } from '../../components/molecules/input-field-with-button';
 
 type BattleSession = {
     id: number;

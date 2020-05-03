@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import { CharacterElement } from './character-element';
 import { Actions } from '../show-battle-container';
-import { Button } from '../../components/button';
-import { InputFieldWithButton } from '../../components/input-field-with-button';
+import { Button } from '../../components/atoms/button';
+import { InputFieldWithButton } from '../../components/molecules/input-field-with-button';
 
 export type CharacterTableState = {
     sessionName: string;

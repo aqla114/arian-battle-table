@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import { CharacterProps } from './characters-table';
-import { Button } from '../../components/button';
-import { InputField } from '../../components/input-field';
-import { CheckBox } from '../../components/checkbox';
+import { Button } from '../../components/atoms/button';
+import { InputField } from '../../components/atoms/input-field';
+import { CheckBox } from '../../components/atoms/checkbox';
 
 type CharacterElementProps = CharacterProps & {
     isNextPrior: boolean;

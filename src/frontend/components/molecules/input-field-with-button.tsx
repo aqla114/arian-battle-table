@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { InputField } from './input-field';
-import { Button } from './button';
+import { InputField } from '../atoms/input-field';
+import { Button } from '../atoms/button';
 
 type Props = {
     name: string;
