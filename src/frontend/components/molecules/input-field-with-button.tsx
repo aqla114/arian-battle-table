@@ -21,7 +21,9 @@ export const InputFieldWithButton: React.SFC<Props> = (props: Props) => {
                 value={props.value}
                 onChange={props.onChange}
             />
-            <Button name="submit-button" mode="primary" value={props.buttonLabel} onClick={props.onClick} />
+            <span className="input-field-with-button__button">
+                <Button name="submit-button" mode="primary" value={props.buttonLabel} onClick={props.onClick} />
+            </span>
         </div>
     );
 };

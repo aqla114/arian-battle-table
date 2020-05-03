@@ -94,18 +94,22 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                 onClick={() => props.addNewCharacter()}
             />
             <div className="save-container">
-                <Button
-                    name="save"
-                    value="保存"
-                    mode="primary"
-                    onClick={() => props.saveCharacters(props.characters)}
-                />
-                <Button
-                    name="save-newly"
-                    value="新規セッションとして保存"
-                    mode="primary"
-                    onClick={() => props.saveCharactersNewly('test_session', props.characters)}
-                />
+                <span className="save-container__save-button">
+                    <Button
+                        name="save"
+                        value="保存"
+                        mode="primary"
+                        onClick={() => props.saveCharacters(props.characters)}
+                    />
+                </span>
+                <span className="save-container__save-newly-button">
+                    <Button
+                        name="save-newly"
+                        value="新規セッションとして保存"
+                        mode="primary"
+                        onClick={() => props.saveCharactersNewly('test_session', props.characters)}
+                    />
+                </span>
             </div>
         </div>
     );
