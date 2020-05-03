@@ -11,7 +11,6 @@
 .button__primary {
   padding: 6px;
   color: #fff;
-  margin-left: 20px;
   width: 160px;
   background-color: #4c94ff;
 }
@@ -41,6 +40,41 @@
   height: 30px;
   border: 1px solid #bbb;
   font-size: 16px;
+}
+.modal-wrapper {
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 60px 10px;
+  text-align: center;
+  background-color: rgba(255,255,255,0.5);
+  visibility: visible;
+}
+.modal-wrapper .dialog-window {
+  box-sizing: border-box;
+  display: inline-block;
+  z-index: 20;
+  background-color: #fff;
+  padding: 30px 30px;
+  border-radius: 4px;
+  width: 360px;
+  height: 240px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.6);
+  vertical-align: middle;
+}
+.modal-wrapper .dialog-window__description {
+  margin-top: 20px;
+  margin-bottom: 80px;
+}
+.modal-wrapper .dialog-window__enter-button {
+  display: inline;
+}
+.modal-wrapper .dialog-window__cancel-button {
+  margin-left: 20px;
+  display: inline;
 }
 .character-table {
   font: 16px;

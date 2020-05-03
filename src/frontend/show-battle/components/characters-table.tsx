@@ -4,11 +4,14 @@ import { CharacterElement } from './character-element';
 import { Actions } from '../show-battle-container';
 import { Button } from '../../components/atoms/button';
 import { InputFieldWithButton } from '../../components/molecules/input-field-with-button';
+import { Dialog } from '../../components/molecules/dialog';
 
 export type CharacterTableState = {
     sessionName: string;
     characters: CharacterProps[];
     currentNewCharacter: CharacterProps;
+    deleteCharacterName: string;
+    isModalOpen: boolean;
 };
 
 export type CharacterProps = {
@@ -50,13 +53,22 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                 isNextPrior={character.actionPriority === nextActionPriority}
                 onChangeElementText={e => props.updateCharacterAttributeText({ e, name: character.name })}
                 onChangeElementCheckbox={e => props.updateCharacterCheckbox({ e, name: character.name })}
-                onDeleteCharacter={e => props.deleteCharacter({ e, name: character.name })}
+                onDeleteCharacter={e => props.openDeletionModal({ e, name: character.name })}
             />
         );
     });
 
     return (
         <div>
+            {props.isModalOpen ? (
+                <Dialog
+                    description={'本当に削除しますか？'}
+                    enterLabel={'削除する'}
+                    cancelLabel={'キャンセル'}
+                    onClickEnter={() => props.deleteCharacter()}
+                    onClickCancel={() => props.closeDeletionModal()}
+                />
+            ) : null}
             <table className="character-table">
                 <thead>
                     <tr>

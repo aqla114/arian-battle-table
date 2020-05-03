@@ -8,7 +8,9 @@ import * as Request from 'superagent';
 export interface Actions {
     updateCharacterAttributeText: (v: ChangeActionProps) => Action<string>;
     updateCharacterCheckbox: (v: ChangeActionProps) => Action<string>;
-    deleteCharacter: (v: MouseActionProps) => Action<string>;
+    openDeletionModal: (v: MouseActionProps) => Action<string>;
+    closeDeletionModal: () => Action<string>;
+    deleteCharacter: () => Action<string>;
     updateCurrentNewCharacter: (v: React.ChangeEvent<HTMLInputElement>) => Action<string>;
     addNewCharacter: () => Action<string>;
     loadCharacters: () => void;
@@ -24,7 +26,9 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
     return {
         updateCharacterAttributeText: (v: ChangeActionProps) => dispatch(actions.updateCharacterAttributeText(v)),
         updateCharacterCheckbox: (v: ChangeActionProps) => dispatch(actions.updateCharacterCheckbox(v)),
-        deleteCharacter: (v: MouseActionProps) => dispatch(actions.deleteCharacter(v)),
+        openDeletionModal: (v: MouseActionProps) => dispatch(actions.openDeletionModal(v)),
+        closeDeletionModal: () => dispatch(actions.closeDeletionModal()),
+        deleteCharacter: () => dispatch(actions.deleteCharacter()),
         updateCurrentNewCharacter: (v: React.ChangeEvent<HTMLInputElement>) =>
             dispatch(actions.updateCurrentNewCharacter(v)),
         addNewCharacter: () => dispatch(actions.addNewCharacter()),

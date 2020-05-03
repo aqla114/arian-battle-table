@@ -16,14 +16,18 @@ export type ActionTypes =
     | 'ADD_NEW_CHARACTER'
     | 'LOAD_CHARACTERS'
     | 'SAVE_CHARACTERS'
-    | 'SAVE_CHARACTERS_NEWLY';
+    | 'SAVE_CHARACTERS_NEWLY'
+    | 'OPEN_DELETION_MODAL'
+    | 'CLOSE_DELETION_MODAL';
 
 const actionCreator = actionCreatorFactory();
 
 export const actions = {
     updateCharacterAttributeText: actionCreator<ChangeActionProps>('UPDATE_CHARACTER_ATTRIBUTE_TEXT'),
     updateCharacterCheckbox: actionCreator<ChangeActionProps>('UPDATE_CHARACTER_IS_KNOCKBACK'),
-    deleteCharacter: actionCreator<MouseActionProps>('DELETE_CHARACTER'),
+    openDeletionModal: actionCreator<MouseActionProps>('OPEN_DELETION_MODAL'),
+    closeDeletionModal: actionCreator('CLOSE_DELETION_MODAL'),
+    deleteCharacter: actionCreator('DELETE_CHARACTER'),
     updateCurrentNewCharacter: actionCreator<React.ChangeEvent<HTMLInputElement>>('UPDATE_CURRENT_NEW_CHARACTER'),
     addNewCharacter: actionCreator('ADD_NEW_CHARACTER'),
     ...loadCharactersActions,

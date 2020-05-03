@@ -6,6 +6,8 @@ const initialState: CharacterTableState = {
     sessionName: '',
     characters: [],
     currentNewCharacter: Character(),
+    deleteCharacterName: '',
+    isModalOpen: false,
 };
 
 export const tableReducer = reducerWithInitialState(initialState)
@@ -48,14 +50,20 @@ export const tableReducer = reducerWithInitialState(initialState)
 
         return { ...state, characters };
     })
-    .case(actions.deleteCharacter, (state, props) => {
-        const { name } = props;
+    .case(actions.openDeletionModal, (state, props) => {
+        return { ...state, isModalOpen: true, deleteCharacterName: props.name };
+    })
+    .case(actions.closeDeletionModal, (state, _props) => {
+        return { ...state, isModalOpen: false };
+    })
+    .case(actions.deleteCharacter, (state, _) => {
+        const { deleteCharacterName: name } = state;
         const characters = state.characters
             .slice()
             .map(x => ({ ...x }))
             .filter(x => x.name !== name);
 
-        return { ...state, characters };
+        return { ...state, characters, isModalOpen: false, deleteCharacterName: '' };
     })
     .case(actions.updateCurrentNewCharacter, (state, props) => {
         const currentNewCharacter = Character(props.target.value, 0, 0, 0, 0);
