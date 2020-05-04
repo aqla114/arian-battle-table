@@ -4,6 +4,7 @@ import { CharacterProps } from './characters-table';
 import { Button } from '../../components/atoms/button';
 import { InputField } from '../../components/atoms/input-field';
 import { CheckBox } from '../../components/atoms/checkbox';
+import { TextCheckBox } from '../../components/atoms/text-checkbox';
 
 type CharacterElementProps = CharacterProps & {
     isNextPrior: boolean;
@@ -52,7 +53,12 @@ export function CharacterElement(props: CharacterElementProps) {
                 />
             </td>
             <td>
-                <CheckBox name="isKnockBack" checked={props.isKnockBack} onChange={props.onChangeElementCheckbox} />
+                <TextCheckBox
+                    label="ノックバック"
+                    name="isKnockBack"
+                    checked={props.isKnockBack}
+                    onChange={props.onChangeElementCheckbox}
+                />
             </td>
             <td>
                 <Button name="delete" value="削除" kind="delete" onClick={props.onDeleteCharacter} />

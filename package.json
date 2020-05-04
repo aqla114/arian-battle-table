@@ -17,6 +17,7 @@
     "@types/react-router": "^5.1.1",
     "@types/react-router-dom": "^5.1.0",
     "@types/superagent": "^4.1.1",
+    "@types/uuid": "^7.0.3",
     "prettier": "^1.16.4",
     "rollup": "^1.2.3",
     "rollup-plugin-babel": "^4.3.2",
@@ -49,7 +50,8 @@
     "superagent": "^5.0.3",
     "typeorm": "^0.2.16",
     "typescript-fsa": "^3.0.0-beta-2",
-    "typescript-fsa-reducers": "^1.2.1"
+    "typescript-fsa-reducers": "^1.2.1",
+    "uuid": "^8.0.0"
   },
   "scripts": {
     "watch": "npm-run-all --parallel watch:*",
