@@ -79,7 +79,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                         <td>/最大HP</td>
                         <td>物理防御力</td>
                         <td>魔法防御力</td>
-                        <td>ノックバック(6)</td>
+                        <td>バッドステータス</td>
                         <td>キャラクターの削除</td>
                     </tr>
                 </thead>

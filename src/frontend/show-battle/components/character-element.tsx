@@ -4,7 +4,7 @@ import { CharacterProps } from './characters-table';
 import { Button } from '../../components/atoms/button';
 import { InputField } from '../../components/atoms/input-field';
 import { CheckBox } from '../../components/atoms/checkbox';
-import { TextCheckBox } from '../../components/atoms/text-checkbox';
+import { BadStatusCheckboxes } from './bad-status-checkboxes';
 
 type CharacterElementProps = CharacterProps & {
     isNextPrior: boolean;
@@ -14,15 +14,53 @@ type CharacterElementProps = CharacterProps & {
 };
 
 export function CharacterElement(props: CharacterElementProps) {
+    const badStatusList = [
+        {
+            label: '威圧',
+            name: 'overwhelmed',
+            checked: props.isKnockBack,
+            onChange: props.onChangeElementCheckbox,
+        },
+        {
+            label: 'スリップ',
+            name: 'slipped',
+            checked: props.isKnockBack,
+            onChange: props.onChangeElementCheckbox,
+        },
+        {
+            label: '放心',
+            name: 'abstracted',
+            checked: props.isKnockBack,
+            onChange: props.onChangeElementCheckbox,
+        },
+        {
+            label: '逆上',
+            name: 'frenzied',
+            checked: props.isKnockBack,
+            onChange: props.onChangeElementCheckbox,
+        },
+        {
+            label: 'スタン',
+            name: 'stunned',
+            checked: props.isKnockBack,
+            onChange: props.onChangeElementCheckbox,
+        },
+        {
+            label: 'ノックバック(6)',
+            name: 'isKnockBack',
+            checked: props.isKnockBack,
+            onChange: props.onChangeElementCheckbox,
+        },
+    ];
     return (
         <tr className={`character-table__character ${props.isNextPrior ? '--next' : ''}`}>
-            <td>
+            <td className="character-table__character__is-acted">
                 <CheckBox name="isActed" checked={props.isActed} onChange={props.onChangeElementCheckbox} />
             </td>
-            <td>
+            <td className="character-table__character__name">
                 <span className="character-table__character__name">{props.name}</span>
             </td>
-            <td>
+            <td className="character-table__character__action-priority">
                 <InputField
                     kind="number"
                     name="actionPriority"
@@ -30,13 +68,13 @@ export function CharacterElement(props: CharacterElementProps) {
                     onChange={props.onChangeElementText}
                 />
             </td>
-            <td>
+            <td className="character-table__character__hp">
                 <InputField kind="number" name="hp" value={props.hp} onChange={props.onChangeElementText} />
             </td>
-            <td>
+            <td className="character-table__character__max-hp">
                 <InputField kind="number" name="maxHp" value={props.maxHp} onChange={props.onChangeElementText} />
             </td>
-            <td>
+            <td className="character-table__character__physical-defence">
                 <InputField
                     kind="number"
                     name="physicalDefence"
@@ -44,7 +82,7 @@ export function CharacterElement(props: CharacterElementProps) {
                     onChange={props.onChangeElementText}
                 />
             </td>
-            <td>
+            <td className="character-table__character__magical-defence">
                 <InputField
                     kind="number"
                     name="magicalDefence"
@@ -52,15 +90,10 @@ export function CharacterElement(props: CharacterElementProps) {
                     onChange={props.onChangeElementText}
                 />
             </td>
-            <td>
-                <TextCheckBox
-                    label="ノックバック"
-                    name="isKnockBack"
-                    checked={props.isKnockBack}
-                    onChange={props.onChangeElementCheckbox}
-                />
+            <td className="character-table__character__badstatus">
+                <BadStatusCheckboxes badStatusList={badStatusList} />
             </td>
-            <td>
+            <td className="character-table__character__delete-button">
                 <Button name="delete" value="削除" kind="delete" onClick={props.onDeleteCharacter} />
             </td>
         </tr>
