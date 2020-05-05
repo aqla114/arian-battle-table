@@ -142,6 +142,8 @@ input[class=text-checkbox] {
   margin: 4px;
 }
 .character-table__character.--next {
+  -webkit-transition: background-color 0.2s linear;
+  transition: background-color 0.2s linear;
   background-color: #ffa500;
 }
 .dice-roller {
