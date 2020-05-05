@@ -18,37 +18,37 @@ export function CharacterElement(props: CharacterElementProps) {
         {
             label: '威圧',
             name: 'overwhelmed',
-            checked: props.isKnockBack,
+            checked: props.badStatus.overwhelmed,
             onChange: props.onChangeElementCheckbox,
         },
         {
             label: 'スリップ',
             name: 'slipped',
-            checked: props.isKnockBack,
+            checked: props.badStatus.slipped,
             onChange: props.onChangeElementCheckbox,
         },
         {
             label: '放心',
             name: 'abstracted',
-            checked: props.isKnockBack,
+            checked: props.badStatus.abstracted,
             onChange: props.onChangeElementCheckbox,
         },
         {
             label: '逆上',
             name: 'frenzied',
-            checked: props.isKnockBack,
+            checked: props.badStatus.frenzied,
             onChange: props.onChangeElementCheckbox,
         },
         {
             label: 'スタン',
             name: 'stunned',
-            checked: props.isKnockBack,
+            checked: props.badStatus.stunned,
             onChange: props.onChangeElementCheckbox,
         },
         {
             label: 'ノックバック(6)',
             name: 'isKnockBack',
-            checked: props.isKnockBack,
+            checked: props.badStatus.knockback,
             onChange: props.onChangeElementCheckbox,
         },
     ];

@@ -1,6 +1,7 @@
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { CharacterTableState, Character, CharacterProps } from '../components/characters-table';
 import { actions } from '../actions/actions';
+import { BadStatus } from '../actions/bad-status';
 
 const initialState: CharacterTableState = {
     sessionName: '',
@@ -36,9 +37,9 @@ export const tableReducer = reducerWithInitialState(initialState)
         const action = e.target.name;
 
         if (action === 'isKnockBack') {
-            characters[idx].isKnockBack = !characters[idx].isKnockBack;
+            characters[idx].badStatus.knockback = !characters[idx].badStatus.knockback;
 
-            if (characters[idx].isKnockBack) {
+            if (characters[idx].badStatus.knockback) {
                 characters[idx].actionPriority -= 30;
             } else {
                 characters[idx].actionPriority += 30;
@@ -46,6 +47,11 @@ export const tableReducer = reducerWithInitialState(initialState)
             characters.sort((a, b) => b.actionPriority - a.actionPriority);
         } else if (action === 'isActed') {
             characters[idx].isActed = !characters[idx].isActed;
+        } else {
+            characters[idx].badStatus = {
+                ...characters[idx].badStatus,
+                [e.target.name]: !characters[idx].badStatus[e.target.name as keyof BadStatus],
+            };
         }
 
         return { ...state, characters };

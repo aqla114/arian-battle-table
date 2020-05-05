@@ -5,6 +5,7 @@ import { Actions } from '../show-battle-container';
 import { Button } from '../../components/atoms/button';
 import { InputFieldWithButton } from '../../components/molecules/input-field-with-button';
 import { Dialog } from '../../components/molecules/dialog';
+import { BadStatus, defaultBadStatus } from '../actions/bad-status';
 
 export type CharacterTableState = {
     sessionName: string;
@@ -21,7 +22,7 @@ export type CharacterProps = {
     maxHp: number;
     physicalDefence: number;
     magicalDefence: number;
-    isKnockBack: boolean;
+    badStatus: BadStatus;
     isActed: boolean;
 };
 
@@ -33,7 +34,8 @@ export function Character(
     physicalDefence: number = 0,
     magicalDefence: number = 0,
 ): CharacterProps {
-    return { name, actionPriority, hp, maxHp, physicalDefence, magicalDefence, isKnockBack: false, isActed: false };
+    const badStatus = defaultBadStatus;
+    return { name, actionPriority, hp, maxHp, physicalDefence, magicalDefence, badStatus, isActed: false };
 }
 
 type CharacterTableProps = CharacterTableState & Actions;
