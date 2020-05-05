@@ -3,7 +3,19 @@ import { BattleSession } from './battle-session';
 
 export type CharacterWithoutId = Pick<
     Character,
-    'name' | 'actionPriority' | 'hp' | 'maxHp' | 'physicalDefence' | 'magicalDefence' | 'isKnockBack' | 'isActed'
+    | 'name'
+    | 'actionPriority'
+    | 'hp'
+    | 'maxHp'
+    | 'physicalDefence'
+    | 'magicalDefence'
+    | 'overwhelmed'
+    | 'slipped'
+    | 'abstracted'
+    | 'frenzied'
+    | 'stunned'
+    | 'knockback'
+    | 'isActed'
 >;
 
 @Entity('character')
@@ -25,7 +37,12 @@ export class Character {
             physicalDefence,
             magicalDefence,
             isActed: false,
-            isKnockBack: false,
+            overwhelmed: false,
+            slipped: false,
+            abstracted: false,
+            frenzied: false,
+            stunned: false,
+            knockback: false,
         });
     }
 
@@ -65,8 +82,23 @@ export class Character {
     @Column({ default: 0, name: 'magical_defence' })
     magicalDefence!: number;
 
-    @Column({ default: 0, name: 'is_knock_back' })
-    isKnockBack!: boolean;
+    @Column({ default: 0, name: 'overwhelmed' })
+    overwhelmed!: boolean;
+
+    @Column({ default: 0, name: 'slipped' })
+    slipped!: boolean;
+
+    @Column({ default: 0, name: 'abstracted' })
+    abstracted!: boolean;
+
+    @Column({ default: 0, name: 'frenzied' })
+    frenzied!: boolean;
+
+    @Column({ default: 0, name: 'stunned' })
+    stunned!: boolean;
+
+    @Column({ default: 0, name: 'knockback' })
+    knockback!: boolean;
 
     @Column({ default: 0, name: 'is_acted' })
     isActed!: boolean;

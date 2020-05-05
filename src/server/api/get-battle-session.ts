@@ -10,5 +10,26 @@ export async function getBattleSession(ctx: Context, id: number) {
         relations: ['characters'],
     });
 
-    return battleSession;
+    let response = null;
+
+    if (battleSession !== undefined) {
+        const characters = battleSession.characters.map(character => ({
+            ...character,
+            badStatus: {
+                overwhelmed: character.overwhelmed,
+                slipped: character.slipped,
+                abstracted: character.abstracted,
+                frenzied: character.frenzied,
+                stunned: character.stunned,
+                knockback: character.knockback,
+            },
+        }));
+
+        response = {
+            ...battleSession,
+            characters: characters,
+        };
+    }
+
+    return response;
 }
