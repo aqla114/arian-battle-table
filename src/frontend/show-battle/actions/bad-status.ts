@@ -15,3 +15,12 @@ export const defaultBadStatus: BadStatus = {
     stunned: false,
     knockback: false,
 };
+
+export const badStatusLabels: { [key in keyof BadStatus]: string } = {
+    overwhelmed: '威圧',
+    slipped: 'スリップ',
+    abstracted: '放心',
+    frenzied: '逆上',
+    stunned: 'スタン',
+    knockback: 'ノックバック(6)',
+};

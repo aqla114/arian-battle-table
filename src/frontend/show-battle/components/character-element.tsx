@@ -5,6 +5,7 @@ import { Button } from '../../components/atoms/button';
 import { InputField } from '../../components/atoms/input-field';
 import { CheckBox } from '../../components/atoms/checkbox';
 import { BadStatusCheckboxes } from './bad-status-checkboxes';
+import { badStatusLabels, BadStatus } from '../actions/bad-status';
 
 type CharacterElementProps = CharacterProps & {
     isNextPrior: boolean;
@@ -14,44 +15,13 @@ type CharacterElementProps = CharacterProps & {
 };
 
 export function CharacterElement(props: CharacterElementProps) {
-    const badStatusList = [
-        {
-            label: '威圧',
-            name: 'overwhelmed',
-            checked: props.badStatus.overwhelmed,
-            onChange: props.onChangeElementCheckbox,
-        },
-        {
-            label: 'スリップ',
-            name: 'slipped',
-            checked: props.badStatus.slipped,
-            onChange: props.onChangeElementCheckbox,
-        },
-        {
-            label: '放心',
-            name: 'abstracted',
-            checked: props.badStatus.abstracted,
-            onChange: props.onChangeElementCheckbox,
-        },
-        {
-            label: '逆上',
-            name: 'frenzied',
-            checked: props.badStatus.frenzied,
-            onChange: props.onChangeElementCheckbox,
-        },
-        {
-            label: 'スタン',
-            name: 'stunned',
-            checked: props.badStatus.stunned,
-            onChange: props.onChangeElementCheckbox,
-        },
-        {
-            label: 'ノックバック(6)',
-            name: 'isKnockBack',
-            checked: props.badStatus.knockback,
-            onChange: props.onChangeElementCheckbox,
-        },
-    ];
+    const badStatusList = Object.entries(props.badStatus).map(([key, value]) => ({
+        label: badStatusLabels[key as keyof BadStatus],
+        name: key,
+        checked: value,
+        onChange: props.onChangeElementCheckbox,
+    }));
+
     return (
         <tr className={`character-table__character ${props.isNextPrior ? '--next' : ''}`}>
             <td className="character-table__character__is-acted">

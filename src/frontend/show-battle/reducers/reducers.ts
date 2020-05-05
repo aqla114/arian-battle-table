@@ -36,7 +36,7 @@ export const tableReducer = reducerWithInitialState(initialState)
 
         const action = e.target.name;
 
-        if (action === 'isKnockBack') {
+        if (action === 'knockback') {
             characters[idx].badStatus.knockback = !characters[idx].badStatus.knockback;
 
             if (characters[idx].badStatus.knockback) {
