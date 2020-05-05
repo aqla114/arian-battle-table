@@ -32,6 +32,7 @@ export async function updateBattleSession(ctx: Context) {
         frenzied: character.badStatus.frenzied,
         stunned: character.badStatus.stunned,
         knockback: character.badStatus.knockback,
+        poisoned: character.badStatus.poisoned,
     }));
 
     await characterRepo.save(characters);

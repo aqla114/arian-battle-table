@@ -15,6 +15,7 @@ export type CharacterWithoutId = Pick<
     | 'frenzied'
     | 'stunned'
     | 'knockback'
+    | 'poisoned'
     | 'isActed'
 >;
 
@@ -43,6 +44,7 @@ export class Character {
             frenzied: false,
             stunned: false,
             knockback: false,
+            poisoned: false,
         });
     }
 
@@ -99,6 +101,9 @@ export class Character {
 
     @Column({ default: 0, name: 'knockback' })
     knockback!: boolean;
+
+    @Column({ default: 0, name: 'poisoned' })
+    poisoned!: boolean;
 
     @Column({ default: 0, name: 'is_acted' })
     isActed!: boolean;

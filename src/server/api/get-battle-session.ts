@@ -22,6 +22,7 @@ export async function getBattleSession(ctx: Context, id: number) {
                 frenzied: character.frenzied,
                 stunned: character.stunned,
                 knockback: character.knockback,
+                poisoned: character.poisoned,
             },
         }));
 
