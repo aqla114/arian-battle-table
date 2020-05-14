@@ -1,11 +1,24 @@
 .input-field
+    background-color: transparent;
     &__number
         font-size: 16px;
         height: 20px;
         width: 50px;
         border-radius: 3px;
+        border: none;
+        background-color: transparent;
+        &.--right
+            text-align: right;
+        &:focus
+            border: inset;
     &__text
         font-size: 16px;
         height: 24px;
         width: 160px;
         border-radius: 3px;
+        border: none;
+        background-color: transparent;
+        &.--right
+            text-align: right;
+        &:focus
+            border: inset;

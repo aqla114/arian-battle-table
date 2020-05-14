@@ -18,7 +18,13 @@ type Props = {
 export const ComibnedInputField: React.SFC<Props> = (props: Props) => {
     return (
         <div className="combined-input-field">
-            <InputField kind="number" name={props.props1.name} value={props.props1.value} onChange={props.onChange} />
+            <InputField
+                kind="number"
+                name={props.props1.name}
+                value={props.props1.value}
+                onChange={props.onChange}
+                textAlign={'right'}
+            />
             <span> / </span>
             <InputField kind="number" name={props.props2.name} value={props.props2.value} onChange={props.onChange} />
         </div>
