@@ -6,6 +6,7 @@ import { InputField } from '../../components/atoms/input-field';
 import { CheckBox } from '../../components/atoms/checkbox';
 import { BadStatusCheckboxes } from './bad-status-checkboxes';
 import { badStatusLabels, BadStatus } from '../actions/bad-status';
+import { ComibnedInputField } from '../../components/molecules/combined-input-field';
 
 type CharacterElementProps = CharacterProps & {
     isNextPrior: boolean;
@@ -31,26 +32,30 @@ export function CharacterElement(props: CharacterElementProps) {
                 <span className="character-table__character__name">{props.name}</span>
             </td>
             <td className="character-table__character__action-priority">
-                <InputField
-                    kind="number"
-                    name="actionPriority"
-                    value={props.actionPriority}
-                    onChange={props.onChangeElementText}
-                />
-            </td>
-            <td className="character-table__character__default-action-priority">
-                <InputField
-                    kind="number"
-                    name="defaultActionPriority"
-                    value={props.defaultActionPriority}
+                <ComibnedInputField
+                    props1={{
+                        name: 'actionPriority',
+                        value: props.actionPriority,
+                    }}
+                    props2={{
+                        name: 'defaultActionPriority',
+                        value: props.defaultActionPriority,
+                    }}
                     onChange={props.onChangeElementText}
                 />
             </td>
             <td className="character-table__character__hp">
-                <InputField kind="number" name="hp" value={props.hp} onChange={props.onChangeElementText} />
-            </td>
-            <td className="character-table__character__max-hp">
-                <InputField kind="number" name="maxHp" value={props.maxHp} onChange={props.onChangeElementText} />
+                <ComibnedInputField
+                    props1={{
+                        name: 'hp',
+                        value: props.hp,
+                    }}
+                    props2={{
+                        name: 'maxHp',
+                        value: props.maxHp,
+                    }}
+                    onChange={props.onChangeElementText}
+                />
             </td>
             <td className="character-table__character__physical-defence">
                 <InputField

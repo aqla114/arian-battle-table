@@ -128,21 +128,23 @@ input[class=text-checkbox] {
 }
 .character-table__character__is-acted,
 .character-table__character__name,
-.character-table__character__action-priority,
 .character-table__character__physical-defence,
 .character-table__character__magical-defence,
 .character-table__character__delete-button {
   width: 100px;
   height: 80px;
 }
-.character-table__character__hp,
-.character-table__character__max-hp {
-  width: 60px;
+.character-table__character__hp {
+  width: 140px;
   height: 80px;
 }
 .character-table__character__badstatus {
   width: 220px;
   margin: 4px;
+}
+.character-table__character__action-priority {
+  width: 140px;
+  height: 80px;
 }
 .character-table__character.--next {
   -webkit-transition: background-color 0.2s linear;

@@ -88,10 +88,8 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                     <tr>
                         <td>行動済</td>
                         <td>名前</td>
-                        <td>行動値</td>
-                        <td>元の行動値</td>
-                        <td>HP</td>
-                        <td>/最大HP</td>
+                        <td>行動値 / 元</td>
+                        <td>HP / 最大HP</td>
                         <td>物理防御力</td>
                         <td>魔法防御力</td>
                         <td>バッドステータス</td>
