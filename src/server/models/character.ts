@@ -28,7 +28,9 @@ export class Character {
         hp: number,
         maxHp: number,
         physicalDefence: number,
+        defaultPhysicalDefence: number,
         magicalDefence: number,
+        defaultMagicalDefence: number,
     ): Character {
         const c = new Character();
         return Object.assign(c, {
@@ -38,7 +40,9 @@ export class Character {
             hp,
             maxHp,
             physicalDefence,
+            defaultPhysicalDefence,
             magicalDefence,
+            defaultMagicalDefence,
             isActed: false,
             overwhelmed: false,
             slipped: false,
@@ -86,8 +90,14 @@ export class Character {
     @Column({ default: 0, name: 'physical_defence' })
     physicalDefence!: number;
 
+    @Column({ default: 0, name: 'default_physical_defence' })
+    defaultPhysicalDefence!: number;
+
     @Column({ default: 0, name: 'magical_defence' })
     magicalDefence!: number;
+
+    @Column({ default: 0, name: 'default_magical_defence' })
+    defaultMagicalDefence!: number;
 
     @Column({ default: 0, name: 'overwhelmed' })
     overwhelmed!: boolean;

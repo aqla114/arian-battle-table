@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import { CharacterProps } from './characters-table';
 import { Button } from '../../components/atoms/button';
-import { InputField } from '../../components/atoms/input-field';
 import { CheckBox } from '../../components/atoms/checkbox';
 import { BadStatusCheckboxes } from './bad-status-checkboxes';
 import { badStatusLabels, BadStatus } from '../actions/bad-status';
@@ -58,18 +57,28 @@ export function CharacterElement(props: CharacterElementProps) {
                 />
             </td>
             <td className="character-table__table__character__physical-defence">
-                <InputField
-                    kind="number"
-                    name="physicalDefence"
-                    value={props.physicalDefence}
+                <ComibnedInputField
+                    props1={{
+                        name: 'physicalDefence',
+                        value: props.physicalDefence,
+                    }}
+                    props2={{
+                        name: 'defaultPhysicalDefence',
+                        value: props.defaultPhysicalDefence,
+                    }}
                     onChange={props.onChangeElementText}
                 />
             </td>
             <td className="character-table__table__character__magical-defence">
-                <InputField
-                    kind="number"
-                    name="magicalDefence"
-                    value={props.magicalDefence}
+                <ComibnedInputField
+                    props1={{
+                        name: 'magicalDefence',
+                        value: props.magicalDefence,
+                    }}
+                    props2={{
+                        name: 'defaultMagicalDefence',
+                        value: props.defaultMagicalDefence,
+                    }}
                     onChange={props.onChangeElementText}
                 />
             </td>

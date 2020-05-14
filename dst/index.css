@@ -136,23 +136,20 @@ body {
 }
 .character-table__table__character__is-acted,
 .character-table__table__character__name,
-.character-table__table__character__physical-defence,
-.character-table__table__character__magical-defence,
 .character-table__table__character__delete-button {
   width: 100px;
   height: 80px;
 }
-.character-table__table__character__hp {
+.character-table__table__character__hp,
+.character-table__table__character__physical-defence,
+.character-table__table__character__magical-defence,
+.character-table__table__character__action-priority {
   width: 140px;
   height: 80px;
 }
 .character-table__table__character__badstatus {
   width: 220px;
   margin: 4px;
-}
-.character-table__table__character__action-priority {
-  width: 140px;
-  height: 80px;
 }
 .character-table__table__character.--next {
   -webkit-transition: background-color 0.2s linear;

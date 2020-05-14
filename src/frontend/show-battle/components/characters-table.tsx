@@ -23,7 +23,9 @@ export type CharacterProps = {
     hp: number;
     maxHp: number;
     physicalDefence: number;
+    defaultPhysicalDefence: number;
     magicalDefence: number;
+    defaultMagicalDefence: number;
     badStatus: BadStatus;
     isActed: boolean;
 };
@@ -35,7 +37,9 @@ export function Character(
     hp: number = 0,
     maxHp: number = 0,
     physicalDefence: number = 0,
+    defaultPhysicalDefence: number = 0,
     magicalDefence: number = 0,
+    defaultMagicalDefence: number = 0,
 ): CharacterProps {
     const badStatus = defaultBadStatus;
     return {
@@ -45,7 +49,9 @@ export function Character(
         hp,
         maxHp,
         physicalDefence,
+        defaultPhysicalDefence,
         magicalDefence,
+        defaultMagicalDefence,
         badStatus,
         isActed: false,
     };
@@ -110,8 +116,8 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                             <td>名前</td>
                             <td>行動値 / 元</td>
                             <td>HP / 最大HP</td>
-                            <td>物理防御力</td>
-                            <td>魔法防御力</td>
+                            <td>物理防御力 / 元</td>
+                            <td>魔法防御力 / 元</td>
                             <td>バッドステータス</td>
                             <td>キャラクターの削除</td>
                         </tr>
