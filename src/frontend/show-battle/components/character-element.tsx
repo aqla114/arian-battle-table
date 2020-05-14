@@ -38,6 +38,14 @@ export function CharacterElement(props: CharacterElementProps) {
                     onChange={props.onChangeElementText}
                 />
             </td>
+            <td className="character-table__character__default-action-priority">
+                <InputField
+                    kind="number"
+                    name="defaultActionPriority"
+                    value={props.defaultActionPriority}
+                    onChange={props.onChangeElementText}
+                />
+            </td>
             <td className="character-table__character__hp">
                 <InputField kind="number" name="hp" value={props.hp} onChange={props.onChangeElementText} />
             </td>

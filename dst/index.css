@@ -129,12 +129,15 @@ input[class=text-checkbox] {
 .character-table__character__is-acted,
 .character-table__character__name,
 .character-table__character__action-priority,
-.character-table__character__hp,
-.character-table__character__max-hp,
 .character-table__character__physical-defence,
 .character-table__character__magical-defence,
 .character-table__character__delete-button {
   width: 100px;
+  height: 80px;
+}
+.character-table__character__hp,
+.character-table__character__max-hp {
+  width: 60px;
   height: 80px;
 }
 .character-table__character__badstatus {
