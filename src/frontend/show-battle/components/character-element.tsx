@@ -24,14 +24,14 @@ export function CharacterElement(props: CharacterElementProps) {
     }));
 
     return (
-        <tr className={`character-table__character ${props.isNextPrior ? '--next' : ''}`}>
-            <td className="character-table__character__is-acted">
+        <tr className={`character-table__table__character ${props.isNextPrior ? '--next' : ''}`}>
+            <td className="character-table__table__character__is-acted">
                 <CheckBox name="isActed" checked={props.isActed} onChange={props.onChangeElementCheckbox} />
             </td>
-            <td className="character-table__character__name">
-                <span className="character-table__character__name">{props.name}</span>
+            <td className="character-table__table__character__name">
+                <span className="character-table__table__character__name">{props.name}</span>
             </td>
-            <td className="character-table__character__action-priority">
+            <td className="character-table__table__character__action-priority">
                 <ComibnedInputField
                     props1={{
                         name: 'actionPriority',
@@ -44,7 +44,7 @@ export function CharacterElement(props: CharacterElementProps) {
                     onChange={props.onChangeElementText}
                 />
             </td>
-            <td className="character-table__character__hp">
+            <td className="character-table__table__character__hp">
                 <ComibnedInputField
                     props1={{
                         name: 'hp',
@@ -57,7 +57,7 @@ export function CharacterElement(props: CharacterElementProps) {
                     onChange={props.onChangeElementText}
                 />
             </td>
-            <td className="character-table__character__physical-defence">
+            <td className="character-table__table__character__physical-defence">
                 <InputField
                     kind="number"
                     name="physicalDefence"
@@ -65,7 +65,7 @@ export function CharacterElement(props: CharacterElementProps) {
                     onChange={props.onChangeElementText}
                 />
             </td>
-            <td className="character-table__character__magical-defence">
+            <td className="character-table__table__character__magical-defence">
                 <InputField
                     kind="number"
                     name="magicalDefence"
@@ -73,10 +73,10 @@ export function CharacterElement(props: CharacterElementProps) {
                     onChange={props.onChangeElementText}
                 />
             </td>
-            <td className="character-table__character__badstatus">
+            <td className="character-table__table__character__badstatus">
                 <BadStatusCheckboxes badStatusList={badStatusList} />
             </td>
-            <td className="character-table__character__delete-button">
+            <td className="character-table__table__character__delete-button">
                 <Button name="delete" value="削除" kind="delete" onClick={props.onDeleteCharacter} />
             </td>
         </tr>

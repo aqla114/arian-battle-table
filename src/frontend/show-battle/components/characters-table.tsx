@@ -6,6 +6,7 @@ import { Button } from '../../components/atoms/button';
 import { InputFieldWithButton } from '../../components/molecules/input-field-with-button';
 import { Dialog } from '../../components/molecules/dialog';
 import { BadStatus, defaultBadStatus } from '../actions/bad-status';
+import { CardContainer } from '../../components/card-container';
 
 export type CharacterTableState = {
     sessionName: string;
@@ -83,29 +84,6 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                     onClickCancel={() => props.closeDeletionModal()}
                 />
             ) : null}
-            <table className="character-table">
-                <thead>
-                    <tr>
-                        <td>行動済</td>
-                        <td>名前</td>
-                        <td>行動値 / 元</td>
-                        <td>HP / 最大HP</td>
-                        <td>物理防御力</td>
-                        <td>魔法防御力</td>
-                        <td>バッドステータス</td>
-                        <td>キャラクターの削除</td>
-                    </tr>
-                </thead>
-                <tbody>{characterElement}</tbody>
-            </table>
-            <InputFieldWithButton
-                name={'character-name'}
-                value={props.currentNewCharacter.name}
-                buttonLabel={'新しくキャラクターを追加'}
-                placeholder={'キャラクター名'}
-                onChange={e => props.updateCurrentNewCharacter(e)}
-                onClick={() => props.addNewCharacter()}
-            />
             <div className="save-container">
                 <span className="save-container__save-button">
                     <Button
@@ -124,6 +102,31 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                     />
                 </span>
             </div>
+            <CardContainer>
+                <table className="character-table__table">
+                    <thead>
+                        <tr>
+                            <td>行動済</td>
+                            <td>名前</td>
+                            <td>行動値 / 元</td>
+                            <td>HP / 最大HP</td>
+                            <td>物理防御力</td>
+                            <td>魔法防御力</td>
+                            <td>バッドステータス</td>
+                            <td>キャラクターの削除</td>
+                        </tr>
+                    </thead>
+                    <tbody>{characterElement}</tbody>
+                </table>
+                <InputFieldWithButton
+                    name={'character-name'}
+                    value={props.currentNewCharacter.name}
+                    buttonLabel={'新しくキャラクターを追加'}
+                    placeholder={'キャラクター名'}
+                    onChange={e => props.updateCurrentNewCharacter(e)}
+                    onClick={() => props.addNewCharacter()}
+                />
+            </CardContainer>
         </div>
     );
 };
