@@ -24,6 +24,7 @@ export class Character {
     public static mk(
         name: string,
         actionPriority: number,
+        defaultActionPriority: number,
         hp: number,
         maxHp: number,
         physicalDefence: number,
@@ -33,6 +34,7 @@ export class Character {
         return Object.assign(c, {
             name,
             actionPriority,
+            defaultActionPriority,
             hp,
             maxHp,
             physicalDefence,
@@ -71,6 +73,9 @@ export class Character {
 
     @Column({ default: 0, name: 'action_priority' })
     actionPriority!: number;
+
+    @Column({ default: 0, name: 'default_action_priority' })
+    defaultActionPriority!: number;
 
     @Column({ default: 0, name: 'hp' })
     hp!: number;
