@@ -44,6 +44,9 @@
 .input-field__number.--right {
   text-align: right;
 }
+.input-field__number.--show-border {
+  border: inset;
+}
 .input-field__number:focus {
   border: inset;
 }
@@ -52,11 +55,9 @@
   height: 24px;
   width: 160px;
   border-radius: 3px;
-  border: none;
-  background-color: transparent;
 }
-.input-field__text.--right {
-  text-align: right;
+.input-field__text.--show-border {
+  border: inset;
 }
 .input-field__text:focus {
   border: inset;
