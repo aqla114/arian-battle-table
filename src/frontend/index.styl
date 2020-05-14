@@ -4,34 +4,42 @@
 @import 'style/dropdown.styl'
 @import 'style/dialog.styl'
 @import 'style/text-checkbox.styl'
+@import 'style/card-container.styl'
+
+body
+    background-color: #ecebea;
 
 .character-table
-    font: 16px;
-    margin: 20px;
-    border-spacing: 12px;
-    text-align: center;
-    border-spacing: 0px;
-    &__character
-        &__is-acted, &__name, &__physical-defence, &__magical-defence, &__delete-button
-            width: 100px;
-            height: 80px;
-        &__hp
-            width: 140px;
-            height: 80px;
-        &__badstatus
-            width: 220px;
-            margin: 4px;
-        &__action-priority
-            width: 140px;
-            height: 80px;
-        &.--next
-            -webkit-transition: background-color 0.2s linear;
-            transition: background-color 0.2s linear;
-            background-color: orange;
+    &__container
+        box-shadow: 0 2px 4px rgba(0,0,0,0.12), 0 2px 3px rgba(0,0,0,0.24);
+        padding: 20px 40px 20px 20px;
+        margin: 20px
+        width: fit-content;
+        background-color: #fff
+    &__table
+        font: 16px;
+        text-align: center;
+        border-spacing: 0px;
+        &__character
+            &__is-acted, &__name, &__physical-defence, &__magical-defence, &__delete-button
+                width: 100px;
+                height: 80px;
+            &__hp
+                width: 140px;
+                height: 80px;
+            &__badstatus
+                width: 220px;
+                margin: 4px;
+            &__action-priority
+                width: 140px;
+                height: 80px;
+            &.--next
+                -webkit-transition: background-color 0.2s linear;
+                transition: background-color 0.2s linear;
+                background-color: orange;
 
 .dice-roller
     font: 16px;
-    margin: 20px;
     &__roll-button
         margin-left: 10px;
         width: 80px;
@@ -56,6 +64,6 @@
     text-align: center
 
 .save-container
-    margin-left: 20px;
+    margin: 20px 0px 0px 20px;;
     &__save-newly-button
         margin-left: 20px;

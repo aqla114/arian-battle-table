@@ -119,41 +119,55 @@ input[type=checkbox]:checked + .text-checkbox {
 input[class=text-checkbox] {
   display: none;
 }
-.character-table {
-  font: 16px;
+.card-container {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.12), 0 2px 3px rgba(0,0,0,0.24);
+  padding: 20px 40px 20px 20px;
   margin: 20px;
-  border-spacing: 12px;
+  width: fit-content;
+  background-color: #fff;
+}
+body {
+  background-color: #ecebea;
+}
+.character-table__container {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.12), 0 2px 3px rgba(0,0,0,0.24);
+  padding: 20px 40px 20px 20px;
+  margin: 20px;
+  width: fit-content;
+  background-color: #fff;
+}
+.character-table__table {
+  font: 16px;
   text-align: center;
   border-spacing: 0px;
 }
-.character-table__character__is-acted,
-.character-table__character__name,
-.character-table__character__physical-defence,
-.character-table__character__magical-defence,
-.character-table__character__delete-button {
+.character-table__table__character__is-acted,
+.character-table__table__character__name,
+.character-table__table__character__physical-defence,
+.character-table__table__character__magical-defence,
+.character-table__table__character__delete-button {
   width: 100px;
   height: 80px;
 }
-.character-table__character__hp {
+.character-table__table__character__hp {
   width: 140px;
   height: 80px;
 }
-.character-table__character__badstatus {
+.character-table__table__character__badstatus {
   width: 220px;
   margin: 4px;
 }
-.character-table__character__action-priority {
+.character-table__table__character__action-priority {
   width: 140px;
   height: 80px;
 }
-.character-table__character.--next {
+.character-table__table__character.--next {
   -webkit-transition: background-color 0.2s linear;
   transition: background-color 0.2s linear;
   background-color: #ffa500;
 }
 .dice-roller {
   font: 16px;
-  margin: 20px;
 }
 .dice-roller__roll-button {
   margin-left: 10px;
@@ -182,7 +196,7 @@ input[class=text-checkbox] {
   text-align: center;
 }
 .save-container {
-  margin-left: 20px;
+  margin: 20px 0px 0px 20px;
 }
 .save-container__save-newly-button {
   margin-left: 20px;
