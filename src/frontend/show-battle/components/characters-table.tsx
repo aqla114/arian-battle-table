@@ -7,6 +7,7 @@ import { InputFieldWithButton } from '../../components/molecules/input-field-wit
 import { Dialog } from '../../components/molecules/dialog';
 import { BadStatus, defaultBadStatus } from '../actions/bad-status';
 import { CardContainer } from '../../components/card-container';
+import * as uuid from 'uuid';
 
 export type CharacterTableState = {
     sessionName: string;
@@ -69,7 +70,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
     const characterElement = props.characters.map(character => {
         return (
             <CharacterElement
-                key={character.name}
+                key={uuid.v4()}
                 {...character}
                 isNextPrior={character.actionPriority === nextActionPriority}
                 onChangeElementText={e => props.updateCharacterAttributeText({ e, name: character.name })}
