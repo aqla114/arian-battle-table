@@ -23,6 +23,7 @@ export type CharacterWithoutId = Pick<
 export class Character {
     public static mk(
         name: string,
+        attribute: string,
         actionPriority: number,
         defaultActionPriority: number,
         hp: number,
@@ -35,6 +36,7 @@ export class Character {
         const c = new Character();
         return Object.assign(c, {
             name,
+            attribute,
             actionPriority,
             defaultActionPriority,
             hp,
@@ -74,6 +76,9 @@ export class Character {
 
     @Column({ default: '' })
     name!: string;
+
+    @Column({ default: 'None' })
+    attribute!: string;
 
     @Column({ default: 0, name: 'action_priority' })
     actionPriority!: number;
