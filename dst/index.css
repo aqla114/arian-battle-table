@@ -156,7 +156,8 @@ body {
 }
 .character-table__table__character__is-acted,
 .character-table__table__character__name,
-.character-table__table__character__delete-button {
+.character-table__table__character__delete-button,
+.character-table__table__character__attribute {
   width: 100px;
   height: 80px;
 }

@@ -11,6 +11,7 @@ export type MouseActionProps = { e: React.MouseEvent<HTMLInputElement, MouseEven
 export type ActionTypes =
     | 'UPDATE_CHARACTER_ATTRIBUTE_TEXT'
     | 'UPDATE_CHARACTER_IS_KNOCKBACK'
+    | 'UPDATE_CHARACTER_DROPDOWN'
     | 'DELETE_CHARACTER'
     | 'UPDATE_CURRENT_NEW_CHARACTER'
     | 'ADD_NEW_CHARACTER'
@@ -25,6 +26,7 @@ const actionCreator = actionCreatorFactory();
 export const actions = {
     updateCharacterAttributeText: actionCreator<ChangeActionProps>('UPDATE_CHARACTER_ATTRIBUTE_TEXT'),
     updateCharacterCheckbox: actionCreator<ChangeActionProps>('UPDATE_CHARACTER_IS_KNOCKBACK'),
+    updateCharacterDropdown: actionCreator<ChangeActionProps>('UPDATE_CHARACTER_DROPDOWN'),
     openDeletionModal: actionCreator<MouseActionProps>('OPEN_DELETION_MODAL'),
     closeDeletionModal: actionCreator('CLOSE_DELETION_MODAL'),
     deleteCharacter: actionCreator('DELETE_CHARACTER'),

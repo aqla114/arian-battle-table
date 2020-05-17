@@ -8,6 +8,7 @@ import { Dialog } from '../../components/molecules/dialog';
 import { BadStatus, defaultBadStatus } from '../actions/bad-status';
 import { CardContainer } from '../../components/card-container';
 import * as uuid from 'uuid';
+import { Attribute } from '../actions/attribute';
 
 export type CharacterTableState = {
     sessionName: string;
@@ -19,6 +20,7 @@ export type CharacterTableState = {
 
 export type CharacterProps = {
     name: string;
+    attribute: Attribute;
     defaultActionPriority: number;
     actionPriority: number;
     hp: number;
@@ -33,6 +35,7 @@ export type CharacterProps = {
 
 export function Character(
     name: string = '',
+    attribute: Attribute = 'None',
     actionPriority: number = 0,
     defaultActionPriority: number = 0,
     hp: number = 0,
@@ -45,6 +48,7 @@ export function Character(
     const badStatus = defaultBadStatus;
     return {
         name,
+        attribute,
         defaultActionPriority,
         actionPriority,
         hp,
@@ -75,6 +79,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                 isNextPrior={character.actionPriority === nextActionPriority}
                 onChangeElementText={e => props.updateCharacterAttributeText({ e, name: character.name })}
                 onChangeElementCheckbox={e => props.updateCharacterCheckbox({ e, name: character.name })}
+                onChangeElementDropdown={e => props.updateCharacterDropdown({ e, name: character.name })}
                 onDeleteCharacter={e => props.openDeletionModal({ e, name: character.name })}
             />
         );
@@ -119,6 +124,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                             <td>HP / 最大HP</td>
                             <td>物理防御力 / 元</td>
                             <td>魔法防御力 / 元</td>
+                            <td>属性</td>
                             <td>バッドステータス</td>
                             <td>キャラクターの削除</td>
                         </tr>

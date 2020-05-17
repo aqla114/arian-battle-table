@@ -2,6 +2,7 @@ import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { CharacterTableState, Character, CharacterProps } from '../components/characters-table';
 import { actions } from '../actions/actions';
 import { BadStatus } from '../actions/bad-status';
+import { Attribute } from '../actions/attribute';
 
 const initialState: CharacterTableState = {
     sessionName: '',
@@ -56,6 +57,18 @@ export const tableReducer = reducerWithInitialState(initialState)
 
         return { ...state, characters };
     })
+    .case(actions.updateCharacterDropdown, (state, props) => {
+        const { e, name } = props;
+        const characters = state.characters.slice().map(x => ({ ...x }));
+        const idx = characters.map(x => x.name).indexOf(name);
+
+        console.log(e.target.value, idx);
+
+        characters[idx] = { ...characters[idx], attribute: e.target.value as Attribute };
+
+        console.log(characters);
+        return { ...state, characters };
+    })
     .case(actions.openDeletionModal, (state, props) => {
         return { ...state, isModalOpen: true, deleteCharacterName: props.name };
     })
@@ -72,7 +85,7 @@ export const tableReducer = reducerWithInitialState(initialState)
         return { ...state, characters, isModalOpen: false, deleteCharacterName: '' };
     })
     .case(actions.updateCurrentNewCharacter, (state, props) => {
-        const currentNewCharacter = Character(props.target.value, 0, 0, 0, 0);
+        const currentNewCharacter = Character(props.target.value);
 
         return Object.assign({}, state, { currentNewCharacter });
     })
@@ -92,7 +105,7 @@ export const tableReducer = reducerWithInitialState(initialState)
         characters.push(state.currentNewCharacter);
         characters.sort((a, b) => b.actionPriority - a.actionPriority);
 
-        return { ...state, characters, currentNewCharacter: Character('', 0, 0, 0, 0) };
+        return { ...state, characters, currentNewCharacter: Character() };
     })
     .case(actions.doneLoadingCharacters, (state, props) => {
         return { ...state, characters: props.result.characters };

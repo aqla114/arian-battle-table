@@ -6,11 +6,14 @@ import { CheckBox } from '../../components/atoms/checkbox';
 import { BadStatusCheckboxes } from './bad-status-checkboxes';
 import { badStatusLabels, BadStatus } from '../actions/bad-status';
 import { ComibnedInputField } from '../../components/molecules/combined-input-field';
+import { Dropdown } from '../../components/atoms/dropdown';
+import { attributeLabels } from '../actions/attribute';
 
 type CharacterElementProps = CharacterProps & {
     isNextPrior: boolean;
     onChangeElementText: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onChangeElementCheckbox: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChangeElementDropdown: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onDeleteCharacter: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
 };
 
@@ -21,6 +24,12 @@ export function CharacterElement(props: CharacterElementProps) {
         checked: value,
         onChange: props.onChangeElementCheckbox,
     }));
+
+    const attributeOptions = Object.entries(attributeLabels).map(([key, label]) => (
+        <option value={key} key={key}>
+            {label}
+        </option>
+    ));
 
     return (
         <tr className={`character-table__table__character ${props.isNextPrior ? '--next' : ''}`}>
@@ -81,6 +90,9 @@ export function CharacterElement(props: CharacterElementProps) {
                     }}
                     onChange={props.onChangeElementText}
                 />
+            </td>
+            <td className="character-table__table__character__attribute">
+                <Dropdown value={props.attribute} options={attributeOptions} onChange={props.onChangeElementDropdown} />
             </td>
             <td className="character-table__table__character__badstatus">
                 <BadStatusCheckboxes badStatusList={badStatusList} />

@@ -8,6 +8,7 @@ import * as Request from 'superagent';
 export interface Actions {
     updateCharacterAttributeText: (v: ChangeActionProps) => Action<string>;
     updateCharacterCheckbox: (v: ChangeActionProps) => Action<string>;
+    updateCharacterDropdown: (v: ChangeActionProps) => Action<string>;
     openDeletionModal: (v: MouseActionProps) => Action<string>;
     closeDeletionModal: () => Action<string>;
     deleteCharacter: () => Action<string>;
@@ -26,6 +27,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
     return {
         updateCharacterAttributeText: (v: ChangeActionProps) => dispatch(actions.updateCharacterAttributeText(v)),
         updateCharacterCheckbox: (v: ChangeActionProps) => dispatch(actions.updateCharacterCheckbox(v)),
+        updateCharacterDropdown: (v: ChangeActionProps) => dispatch(actions.updateCharacterDropdown(v)),
         openDeletionModal: (v: MouseActionProps) => dispatch(actions.openDeletionModal(v)),
         closeDeletionModal: () => dispatch(actions.closeDeletionModal()),
         deleteCharacter: () => dispatch(actions.deleteCharacter()),
