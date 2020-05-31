@@ -11,7 +11,6 @@
 .button__primary {
   padding: 6px;
   color: #fff;
-  width: 160px;
   background-color: #4c94ff;
 }
 .button__primary:hover {
