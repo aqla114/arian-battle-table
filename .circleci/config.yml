@@ -3,20 +3,24 @@ executors:
   node:
     docker:
       - image: circleci/node:10.14.0
+commands:
+  preprocess:
+    description: 'パッケージのインストールやビルドを行う'
+    steps:
+      - run: yarn install
+      - run: yarn build
 jobs:
   build:
     executor: node
     steps:
       - checkout
-      - run: yarn install
-      - run: yarn build
-      - run: echo "hello world"
+      - preprocess
+      - run: echo "Build done!"
   test:
     executor: node
     steps:
       - checkout
-      - run: yarn install
-      - run: yarn build
+      - preprocess
       - run: yarn test
 
 workflows:
