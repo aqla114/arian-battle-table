@@ -1,13 +1,33 @@
 version: 2.1
-orbs:
-  node: circleci/node@1.1
-jobs:
-  build:
+executors:
+  node:
     docker:
       - image: circleci/node:10.14.0
+commands:
+  preprocess:
+    description: 'パッケージのインストールやビルドを行う'
     steps:
-      - checkout
       - run: yarn install
       - run: yarn build
-      - run: echo "hello world"
+jobs:
+  build:
+    executor: node
+    steps:
+      - checkout
+      - preprocess
+      - run: echo "Build done!"
+  test:
+    executor: node
+    steps:
+      - checkout
+      - preprocess
       - run: yarn test
+
+workflows:
+  version: 2
+  built-and-test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
