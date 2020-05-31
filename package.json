@@ -58,6 +58,7 @@
     "watch": "npm-run-all --parallel watch:*",
     "watch:frontend": "webpack --watch",
     "watch:stylus": "yarn stylus -w src/frontend/index.styl -o dst/index.css",
-    "watch:server": "yarn tsc -p . -w"
+    "watch:server": "yarn tsc -p . -w",
+    "test": "echo 'this is test'"
   }
 }
