@@ -1,0 +1,13 @@
+version: 2.1
+orbs:
+  node: circleci/node@1.1
+jobs:
+  build:
+    executor: node/default
+    tag: '10.4'
+    steps:
+      - checkout
+      - run: yarn install
+      - run: yarn build
+      - run: echo "hello world"
+      - run: yarn test
