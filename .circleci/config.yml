@@ -11,4 +11,7 @@ jobs:
       - run: yarn install
       - run: yarn build
       - run: echo "hello world"
+  test:
+    executor: node
+    steps:
       - run: yarn test
