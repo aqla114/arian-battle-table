@@ -15,3 +15,12 @@ jobs:
     executor: node
     steps:
       - run: yarn test
+
+workflows:
+  version: 2
+  built-and-test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
