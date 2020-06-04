@@ -27,16 +27,16 @@ export const BattlesList: React.SFC<BattlesListProps> = (props: BattlesListProps
     }, []);
 
     const sessions = props.battlesList.map(session => (
-        <li key={session.id} className='battles-list__session'>
-            <CardContainer className='battles-list__session'>
-                <div className="battles-list__session__id">
-                    <a href={`/battle/${session.id}`}>{session.id}</a>
-                </div>
-                <div className="battles-list__session__session-name">{session.sessionName}</div>
-                <div className="battles-list__session__created-at">{formatDate(new Date(session.createdAt))}</div>
-                <div className="battles-list__session__updated-at">{formatDate(new Date(session.updatedAt))}</div>
-            </CardContainer>
-        </li>
+        <a href={`/battle/${session.id}`}>
+            <li key={session.id} className="battles-list__session">
+                <CardContainer className='battles-list__session' isClickable={true}>
+                    <div className="battles-list__session__id">{session.id}</div>
+                    <div className="battles-list__session__session-name">{session.sessionName}</div>
+                    <div className="battles-list__session__created-at">{formatDate(new Date(session.createdAt))}</div>
+                    <div className="battles-list__session__updated-at">{formatDate(new Date(session.updatedAt))}</div>
+                </CardContainer>
+            </li>
+        </a>
     ));
 
     return (

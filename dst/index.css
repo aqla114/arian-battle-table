@@ -145,6 +145,9 @@ input[class=text-checkbox] {
   width: fit-content;
   background-color: #fff;
 }
+.card-container.--clickable:hover {
+  background-color: #efefef;
+}
 body {
   background-color: #ecebea;
 }
@@ -233,6 +236,7 @@ body {
   list-style: none;
   width: 800px;
   margin: 4px;
+  color: #000;
 }
 .battles-list__session div {
   display: inline-block;
