@@ -145,6 +145,9 @@ input[class=text-checkbox] {
   width: fit-content;
   background-color: #fff;
 }
+.card-container.--clickable:hover {
+  background-color: #efefef;
+}
 body {
   background-color: #ecebea;
 }
@@ -203,7 +206,55 @@ body {
 .battles-list {
   font: 16px;
   margin: 20px;
-  border-spacing: 12px;
+  text-align: center;
+}
+.battles-list__header {
+  list-style: none;
+  height: 40px;
+  width: 800px;
+  margin: 8px;
+  padding: 0 20px;
+}
+.battles-list__header div {
+  text-align: center;
+  vertical-align: middle;
+  display: inline-block;
+}
+.battles-list__header__id {
+  width: 50px;
+}
+.battles-list__header__session-name {
+  width: 200px;
+}
+.battles-list__header__created-at {
+  width: 160px;
+}
+.battles-list__header__updated-at {
+  width: 160px;
+}
+.battles-list__session {
+  list-style: none;
+  width: 800px;
+  margin: 4px;
+  color: #000;
+}
+.battles-list__session div {
+  display: inline-block;
+}
+.battles-list__session__id {
+  width: 50px;
+  text-align: center;
+}
+.battles-list__session__session-name {
+  width: 200px;
+  text-align: center;
+}
+.battles-list__session__created-at {
+  width: 160px;
+  text-align: center;
+}
+.battles-list__session__updated-at {
+  width: 160px;
   text-align: center;
 }
 .save-container {

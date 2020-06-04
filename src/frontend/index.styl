@@ -52,8 +52,45 @@ body
 .battles-list
     font: 16px;
     margin: 20px;
-    border-spacing: 12px;
     text-align: center
+    &__header
+        list-style: none;
+        height: 40px;
+        width: 800px;
+        margin: 8px;
+        padding: 0 20px;
+        div
+            text-align: center;
+            vertical-align: middle;
+            display: inline-block;
+        &__id
+            width: 50px;
+        &__session-name
+            width: 200px;
+        &__created-at
+            width: 160px;
+        &__updated-at
+            width: 160px;
+    &__session
+        list-style: none;
+        width: 800px;
+        margin: 4px;
+        color: black;
+        div
+            display: inline-block;
+        &__id
+            width: 50px;
+            text-align: center;
+        &__session-name
+            width: 200px;
+            text-align: center;
+        &__created-at
+            width: 160px;
+            text-align: center;
+        &__updated-at
+            width: 160px;
+            text-align: center;
+
 
 .save-container
     margin: 20px 0px 0px 20px;;
