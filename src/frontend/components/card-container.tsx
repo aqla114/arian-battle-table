@@ -2,8 +2,10 @@ import * as React from 'react';
 
 type Props = React.PropsWithChildren<{
     className?: string;
+    isClickable?: boolean;
 }>;
 
 export const CardContainer: React.SFC<Props> = props => {
-    return <div className={`card-container ${props.className || ''}`}>{props.children}</div>;
+    const { className, isClickable, children } = props;
+    return <div className={`card-container ${className || ''} ${isClickable ? '--clickable' : ''}`}>{children}</div>;
 };
