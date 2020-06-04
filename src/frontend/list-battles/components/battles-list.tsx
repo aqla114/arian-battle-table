@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Actions } from '../list-battles-container';
 import { InputFieldWithButton } from '../../components/molecules/input-field-with-button';
-// import { CardContainer } from '../../components/card-container';
+import { CardContainer } from '../../components/card-container';
 
 type BattleSession = {
     id: number;
@@ -28,12 +28,14 @@ export const BattlesList: React.SFC<BattlesListProps> = (props: BattlesListProps
 
     const sessions = props.battlesList.map(session => (
         <li key={session.id} className='battles-list__session'>
-            <div className="battles-list__session__id">
-                <a href={`/battle/${session.id}`}>{session.id}</a>
-            </div>
-            <div className="battles-list__session__session-name">{session.sessionName}</div>
-            <div className="battles-list__session__created-at">{formatDate(new Date(session.createdAt))}</div>
-            <div className="battles-list__session__updated-at">{formatDate(new Date(session.updatedAt))}</div>
+            <CardContainer className='battles-list__session'>
+                <div className="battles-list__session__id">
+                    <a href={`/battle/${session.id}`}>{session.id}</a>
+                </div>
+                <div className="battles-list__session__session-name">{session.sessionName}</div>
+                <div className="battles-list__session__created-at">{formatDate(new Date(session.createdAt))}</div>
+                <div className="battles-list__session__updated-at">{formatDate(new Date(session.updatedAt))}</div>
+            </CardContainer>
         </li>
     ));
 
