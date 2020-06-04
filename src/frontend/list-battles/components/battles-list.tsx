@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Actions } from '../list-battles-container';
 import { InputFieldWithButton } from '../../components/molecules/input-field-with-button';
+// import { CardContainer } from '../../components/card-container';
 
 type BattleSession = {
     id: number;
@@ -26,14 +27,14 @@ export const BattlesList: React.SFC<BattlesListProps> = (props: BattlesListProps
     }, []);
 
     const sessions = props.battlesList.map(session => (
-        <tr key={session.id}>
-            <td>
+        <li key={session.id} className='battles-list__session'>
+            <div className="battles-list__session__id">
                 <a href={`/battle/${session.id}`}>{session.id}</a>
-            </td>
-            <td>{session.sessionName}</td>
-            <td>{formatDate(new Date(session.createdAt))}</td>
-            <td>{formatDate(new Date(session.updatedAt))}</td>
-        </tr>
+            </div>
+            <div className="battles-list__session__session-name">{session.sessionName}</div>
+            <div className="battles-list__session__created-at">{formatDate(new Date(session.createdAt))}</div>
+            <div className="battles-list__session__updated-at">{formatDate(new Date(session.updatedAt))}</div>
+        </li>
     ));
 
     return (
@@ -46,17 +47,13 @@ export const BattlesList: React.SFC<BattlesListProps> = (props: BattlesListProps
                 onChange={e => props.updateCurrentSessionName(e)}
                 onClick={() => props.createBattleSession(props.sessionName)}
             />
-            <table className="battles-list">
-                <thead>
-                    <tr>
-                        <td>id</td>
-                        <td>セッション名</td>
-                        <td>作成日時</td>
-                        <td>更新日時</td>
-                    </tr>
-                </thead>
-                <tbody>{sessions}</tbody>
-            </table>
+            <li className="battles-list__header">
+                <div className="battles-list__header__id">id</div>
+                <div className="battles-list__header__session-name">セッション名</div>
+                <div className="battles-list__header__created-at">作成日時</div>
+                <div className="battles-list__header__updated-at">更新日時</div>
+            </li>
+            {sessions}
         </div>
     );
 };

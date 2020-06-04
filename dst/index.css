@@ -203,8 +203,55 @@ body {
 .battles-list {
   font: 16px;
   margin: 20px;
-  border-spacing: 12px;
   text-align: center;
+}
+.battles-list__header {
+  list-style: none;
+  height: 40px;
+  margin: 8px;
+}
+.battles-list__header div {
+  text-align: center;
+  display: inline-block;
+  margin: 8px;
+}
+.battles-list__header__id {
+  width: 50px;
+}
+.battles-list__header__session-name {
+  width: 200px;
+}
+.battles-list__header__created-at {
+  width: 160px;
+}
+.battles-list__header__updated-at {
+  width: 160px;
+}
+.battles-list__session {
+  list-style: none;
+  height: 40px;
+  width: 800px;
+  margin: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.12), 0 2px 3px rgba(0,0,0,0.24);
+}
+.battles-list__session div {
+  text-align: center;
+  vertical-align: center;
+  display: inline-block;
+  margin: 8px;
+}
+.battles-list__session__id {
+  width: 50px;
+}
+.battles-list__session__session-name {
+  width: 200px;
+}
+.battles-list__session__created-at {
+  width: 160px;
+}
+.battles-list__session__updated-at {
+  width: 160px;
 }
 .save-container {
   margin: 20px 0px 0px 20px;
