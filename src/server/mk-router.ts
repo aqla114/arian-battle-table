@@ -1,10 +1,10 @@
-import * as Router from 'koa-router';
 import { listBattleSession } from './api/list-battle-session';
 import { getBattleSession } from './api/get-battle-session';
 import { updateBattleSession } from './api/update-battle-session';
 import { createBattleSession } from './api/creare-battle-session';
+import { MiddleWare } from '../types';
 
-export function mkRouter(router: Router): Router {
+export function mkRouter(router: MiddleWare): MiddleWare {
     router.get('/', (ctx, next) => {
         ctx.status = 303;
         ctx.redirect('/list-battles');
@@ -13,7 +13,6 @@ export function mkRouter(router: Router): Router {
     });
 
     router.get('/list-battles', (ctx, next) => {
-        console.log(ctx.url);
         ctx.status = 200;
         ctx.render('index');
 
@@ -21,7 +20,6 @@ export function mkRouter(router: Router): Router {
     });
 
     router.get('/battle/:id', (ctx, next) => {
-        ctx.id = ctx.params['id'];
         ctx.status = 200;
         ctx.render('index', {
             header: {

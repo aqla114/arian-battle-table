@@ -14,8 +14,10 @@ export async function updateBattleSession(ctx: Context) {
         return;
     }
 
+    const sessionId: string = (ctx as any).params['id'];
+
     const battleSession = await battleSessionRepo.findOne({
-        where: { id: ctx.params['id'] },
+        where: { id: sessionId },
         relations: ['characters'],
     });
 
