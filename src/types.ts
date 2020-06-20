@@ -1,4 +1,4 @@
 import { ParameterizedContext } from 'koa';
-import * as Router from 'koa-router';
+import { StateT, CustomT } from './server/mk-router';
 
-export type Context = ParameterizedContext<any, Router.IRouterParamContext<any, {}>>;
+export type Context = ParameterizedContext<StateT, CustomT>;

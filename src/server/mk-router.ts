@@ -1,10 +1,27 @@
 import * as Router from 'koa-router';
+import * as Koa from 'koa';
 import { listBattleSession } from './api/list-battle-session';
 import { getBattleSession } from './api/get-battle-session';
 import { updateBattleSession } from './api/update-battle-session';
 import { createBattleSession } from './api/creare-battle-session';
+import { BattleSession } from './models/battle-session';
+import { Character } from './models/character';
+import { Repository } from 'typeorm';
 
-export function mkRouter(router: Router): Router {
+export type StateT = {};
+
+export type CustomT = {
+    ports: {
+        battleSession: Repository<BattleSession>;
+        character: Repository<Character>;
+    };
+};
+
+export type MiddleWare = Router<StateT, CustomT>;
+
+export type Context = Koa.ParameterizedContext<StateT, CustomT>;
+
+export function mkRouter(router: MiddleWare): MiddleWare {
     router.get('/', (ctx, next) => {
         ctx.status = 303;
         ctx.redirect('/list-battles');
@@ -13,7 +30,6 @@ export function mkRouter(router: Router): Router {
     });
 
     router.get('/list-battles', (ctx, next) => {
-        console.log(ctx.url);
         ctx.status = 200;
         ctx.render('index');
 
@@ -21,7 +37,6 @@ export function mkRouter(router: Router): Router {
     });
 
     router.get('/battle/:id', (ctx, next) => {
-        ctx.id = ctx.params['id'];
         ctx.status = 200;
         ctx.render('index', {
             header: {

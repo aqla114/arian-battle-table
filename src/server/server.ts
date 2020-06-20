@@ -1,14 +1,14 @@
 import * as path from 'path';
 import * as Koa from 'koa';
 import * as Router from 'koa-router';
-import * as Pug from 'koa-pug';
 import * as serve from 'koa-static';
+import * as bodyParser from 'koa-bodyparser';
+import Pug from 'koa-pug';
 import { createConnection } from 'typeorm';
 import { Character } from './models/character';
 import { BattleSession } from './models/battle-session';
-import { mkRouter } from './mk-router';
+import { mkRouter, CustomT, StateT } from './mk-router';
 import { pathCanonicalizer } from 'koa-path-canonicalizer';
-import * as bodyParser from 'koa-bodyparser';
 
 async function mkApp(): Promise<void> {
     const connection = await createConnection({
@@ -25,8 +25,8 @@ async function mkApp(): Promise<void> {
 
     const WORKDIR: string = '/workdir';
 
-    const app = new Koa();
-    const router = new Router();
+    const app = new Koa<StateT, CustomT>();
+    const router = new Router<StateT, CustomT>();
 
     app.use((ctx, next) => {
         ctx.ports = {
@@ -48,14 +48,13 @@ async function mkApp(): Promise<void> {
     app.use(serve(path.join(WORKDIR, 'dst')));
 
     const pug = new Pug({
-        app: app,
         viewPath: path.join(WORKDIR, 'template'),
         locals: {
             mountedPath: '/',
         },
     });
 
-    pug.use(app);
+    pug.use(app as any);
 
     app.use(mkRouter(router).routes());
 
