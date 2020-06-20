@@ -24,6 +24,8 @@
     "rollup-plugin-babel-minify": "^7.0.0",
     "rollup-plugin-commonjs": "^9.2.1",
     "ts-loader": "^5.4.4",
+    "ts-node": "^8.10.2",
+    "ts-node-dev": "^1.0.0-pre.49",
     "tslint": "^5.13.1",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.3.3333",
