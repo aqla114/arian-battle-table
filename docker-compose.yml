@@ -3,7 +3,7 @@ services:
   main:
     build: .
     container_name: arian-table
-    command: node /workdir/src/server/server.js
+    command: npx ts-node-dev --poll --prefer-ts true --interval 500 -- ./src/server/server.ts
     depends_on:
       - mysql
     volumes:
@@ -22,8 +22,8 @@ services:
       TZ: 'Asia/Tokyo'
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes:
-    - arian-mysql-store:/var/lib/mysql
+      - arian-mysql-store:/var/lib/mysql
     ports:
-    - 3306:3306
+      - 3306:3306
 volumes:
   arian-mysql-store:
