@@ -7,8 +7,9 @@ import Pug from 'koa-pug';
 import { createConnection } from 'typeorm';
 import { Character } from './models/character';
 import { BattleSession } from './models/battle-session';
-import { mkRouter, CustomT, StateT } from './mk-router';
+import { mkRouter } from './mk-router';
 import { pathCanonicalizer } from 'koa-path-canonicalizer';
+import { StateT, CustomT } from '../types';
 
 async function mkApp(): Promise<void> {
     const connection = await createConnection({

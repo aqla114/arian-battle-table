@@ -1,25 +1,8 @@
-import * as Router from 'koa-router';
-import * as Koa from 'koa';
 import { listBattleSession } from './api/list-battle-session';
 import { getBattleSession } from './api/get-battle-session';
 import { updateBattleSession } from './api/update-battle-session';
 import { createBattleSession } from './api/creare-battle-session';
-import { BattleSession } from './models/battle-session';
-import { Character } from './models/character';
-import { Repository } from 'typeorm';
-
-export type StateT = {};
-
-export type CustomT = {
-    ports: {
-        battleSession: Repository<BattleSession>;
-        character: Repository<Character>;
-    };
-};
-
-export type MiddleWare = Router<StateT, CustomT>;
-
-export type Context = Koa.ParameterizedContext<StateT, CustomT>;
+import { MiddleWare } from '../types';
 
 export function mkRouter(router: MiddleWare): MiddleWare {
     router.get('/', (ctx, next) => {
