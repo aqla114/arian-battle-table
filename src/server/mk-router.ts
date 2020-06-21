@@ -12,16 +12,16 @@ export function mkRouter(router: MiddleWare): MiddleWare {
         return next();
     });
 
-    router.get('/list-battles', (ctx, next) => {
+    router.get('/list-battles', async (ctx, next) => {
         ctx.status = 200;
-        ctx.render('index');
+        await ctx.render('index');
 
         return next();
     });
 
-    router.get('/battle/:id', (ctx, next) => {
+    router.get('/battle/:id', async (ctx, next) => {
         ctx.status = 200;
-        ctx.render('index', {
+        await ctx.render('index', {
             header: {
                 mountedPath: '/',
             },
