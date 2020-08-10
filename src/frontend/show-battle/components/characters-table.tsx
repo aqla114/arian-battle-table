@@ -77,10 +77,11 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
             <CharacterElement
                 key={uuid.v4()}
                 {...character}
-                isNextPrior={character.actionPriority === nextActionPriority}
+                isNextPrior={!character.isActed && character.actionPriority === nextActionPriority}
                 onChangeElementText={e => props.updateCharacterAttributeText({ e, name: character.name })}
                 onChangeElementCheckbox={e => props.updateCharacterCheckbox({ e, name: character.name })}
                 onChangeElementDropdown={e => props.updateCharacterDropdown({ e, name: character.name })}
+                onCopyCharacter={_ => props.copyCharacter(character)}
                 onDeleteCharacter={e => props.openDeletionModal({ e, name: character.name })}
             />
         );
@@ -135,7 +136,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                             <td>魔法防御力 / 元</td>
                             <td>属性</td>
                             <td>バッドステータス</td>
-                            <td>キャラクターの削除</td>
+                            <td>各種操作</td>
                         </tr>
                     </thead>
                     <tbody>{characterElement}</tbody>

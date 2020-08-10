@@ -29,6 +29,20 @@
   border-color: #adadad;
   cursor: pointer;
 }
+.icon-button {
+  color: #292b2c;
+  width: 48px;
+  height: 48px;
+  font-size: 32px;
+  background-color: transparent;
+  border: none;
+}
+.icon-button:hover {
+  cursor: pointer;
+}
+.icon-button:focus {
+  border: none;
+}
 .input-field {
   background-color: transparent;
 }
@@ -154,6 +168,9 @@ input[class=text-checkbox] {
 body {
   background-color: #ecebea;
 }
+.character-table {
+  width: 1200px;
+}
 .character-table__session-name {
   font-size: 24px;
   width: 100%;
@@ -170,6 +187,13 @@ body {
 .character-table__table__character__attribute {
   width: 100px;
   height: 80px;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.character-table__table__character__name {
+  width: 120px;
 }
 .character-table__table__character__hp,
 .character-table__table__character__physical-defence,

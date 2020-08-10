@@ -12,6 +12,7 @@ export interface Actions {
     updateCharacterDropdown: (v: ChangeActionProps) => Action<string>;
     openDeletionModal: (v: MouseActionProps) => Action<string>;
     closeDeletionModal: () => Action<string>;
+    copyCharacter: (v: CharacterProps) => Action<string>;
     deleteCharacter: () => Action<string>;
     updateCurrentNewCharacter: (v: React.ChangeEvent<HTMLInputElement>) => Action<string>;
     addNewCharacter: () => Action<string>;
@@ -33,6 +34,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
         openDeletionModal: (v: MouseActionProps) => dispatch(actions.openDeletionModal(v)),
         closeDeletionModal: () => dispatch(actions.closeDeletionModal()),
         deleteCharacter: () => dispatch(actions.deleteCharacter()),
+        copyCharacter: (v: CharacterProps) => dispatch(actions.copyCharacter({ character: v })),
         updateCurrentNewCharacter: (v: React.ChangeEvent<HTMLInputElement>) =>
             dispatch(actions.updateCurrentNewCharacter(v)),
         addNewCharacter: () => dispatch(actions.addNewCharacter()),
