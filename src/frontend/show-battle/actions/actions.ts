@@ -2,6 +2,7 @@ import actionCreatorFactory from 'typescript-fsa';
 import { loadCharactersActions } from './load-characters';
 import { saveCharactersActions } from './save-characters';
 import { saveCharactersNewlyActions } from './save-characters-newly';
+import { CharacterProps } from '../components/characters-table';
 
 type CharacterName = string;
 
@@ -15,6 +16,7 @@ export type ActionTypes =
     | 'UPDATE_CHARACTER_IS_KNOCKBACK'
     | 'UPDATE_CHARACTER_DROPDOWN'
     | 'DELETE_CHARACTER'
+    | 'COPY_CHARACTER'
     | 'UPDATE_CURRENT_NEW_CHARACTER'
     | 'ADD_NEW_CHARACTER'
     | 'LOAD_CHARACTERS'
@@ -33,6 +35,7 @@ export const actions = {
     openDeletionModal: actionCreator<MouseActionProps>('OPEN_DELETION_MODAL'),
     closeDeletionModal: actionCreator('CLOSE_DELETION_MODAL'),
     deleteCharacter: actionCreator('DELETE_CHARACTER'),
+    copyCharacter: actionCreator<{ character: CharacterProps }>('COPY_CHARACTER'),
     updateCurrentNewCharacter: actionCreator<React.ChangeEvent<HTMLInputElement>>('UPDATE_CURRENT_NEW_CHARACTER'),
     addNewCharacter: actionCreator('ADD_NEW_CHARACTER'),
     ...loadCharactersActions,

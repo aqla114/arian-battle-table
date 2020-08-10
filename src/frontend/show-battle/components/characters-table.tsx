@@ -81,6 +81,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                 onChangeElementText={e => props.updateCharacterAttributeText({ e, name: character.name })}
                 onChangeElementCheckbox={e => props.updateCharacterCheckbox({ e, name: character.name })}
                 onChangeElementDropdown={e => props.updateCharacterDropdown({ e, name: character.name })}
+                onCopyCharacter={e => props.copyCharacter(character)}
                 onDeleteCharacter={e => props.openDeletionModal({ e, name: character.name })}
             />
         );

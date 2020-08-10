@@ -15,6 +15,7 @@ type CharacterElementProps = CharacterProps & {
     onChangeElementText: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onChangeElementCheckbox: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onChangeElementDropdown: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onCopyCharacter: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
     onDeleteCharacter: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
 };
 
@@ -99,7 +100,7 @@ export function CharacterElement(props: CharacterElementProps) {
                 <BadStatusCheckboxes badStatusList={badStatusList} />
             </td>
             <td className="character-table__table__character__delete-button">
-                <IconButton name="copy" icon={faCopy} onClick={() => {}} />
+                <IconButton name="copy" icon={faCopy} onClick={props.onCopyCharacter} />
                 <IconButton name="delete" icon={faTrashAlt} onClick={props.onDeleteCharacter} />
             </td>
         </tr>

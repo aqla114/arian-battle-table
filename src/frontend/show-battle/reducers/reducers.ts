@@ -79,6 +79,13 @@ export const tableReducer = reducerWithInitialState(initialState)
     .case(actions.closeDeletionModal, (state, _props) => {
         return { ...state, isModalOpen: false };
     })
+    .case(actions.copyCharacter, (state, props) => {
+        const { character } = props;
+
+        const characters: CharacterProps[] = [...state.characters, character].slice().map(x => ({ ...x }));
+
+        return { ...state, characters };
+    })
     .case(actions.deleteCharacter, (state, _) => {
         const { deleteCharacterName: name } = state;
         const characters = state.characters
