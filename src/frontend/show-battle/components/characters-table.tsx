@@ -77,7 +77,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
             <CharacterElement
                 key={uuid.v4()}
                 {...character}
-                isNextPrior={character.actionPriority === nextActionPriority}
+                isNextPrior={!character.isActed && character.actionPriority === nextActionPriority}
                 onChangeElementText={e => props.updateCharacterAttributeText({ e, name: character.name })}
                 onChangeElementCheckbox={e => props.updateCharacterCheckbox({ e, name: character.name })}
                 onChangeElementDropdown={e => props.updateCharacterDropdown({ e, name: character.name })}
