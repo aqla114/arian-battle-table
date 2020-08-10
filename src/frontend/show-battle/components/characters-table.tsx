@@ -103,7 +103,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                         name="save"
                         value="保存"
                         kind="primary"
-                        onClick={() => props.saveCharacters(props.characters)}
+                        onClick={() => props.saveCharacters(props.sessionName, props.characters)}
                     />
                 </span>
                 <span className="save-container__save-newly-button">
@@ -111,7 +111,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                         name="save-newly"
                         value="新規セッションとして保存"
                         kind="primary"
-                        onClick={() => props.saveCharactersNewly('test_session', props.characters)}
+                        onClick={() => props.saveCharactersNewly(props.sessionName, props.characters)}
                     />
                 </span>
             </div>

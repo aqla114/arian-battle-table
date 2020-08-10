@@ -26,7 +26,9 @@ export async function updateBattleSession(ctx: Context) {
         return;
     }
 
-    const characters: Character[] = req.map((character: any) => ({
+    const { sessionName, characters: reqCharacter }: { sessionName: string; characters: Character[] } = req;
+
+    const characters: Character[] = reqCharacter.map((character: any) => ({
         ...character,
         overwhelmed: character.badStatus.overwhelmed,
         slipped: character.badStatus.slipped,
@@ -39,6 +41,7 @@ export async function updateBattleSession(ctx: Context) {
 
     await characterRepo.save(characters);
 
+    battleSession.sessionName = sessionName;
     battleSession.characters = characters;
 
     const res = await battleSessionRepo.save(battleSession);

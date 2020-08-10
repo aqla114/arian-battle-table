@@ -16,7 +16,7 @@ export interface Actions {
     updateCurrentNewCharacter: (v: React.ChangeEvent<HTMLInputElement>) => Action<string>;
     addNewCharacter: () => Action<string>;
     loadCharacters: () => void;
-    saveCharacters: (v: CharacterProps[]) => void;
+    saveCharacters: (sessionName: string, v: CharacterProps[]) => void;
     saveCharactersNewly: (sessionName: string, characters: CharacterProps[]) => void;
 }
 
@@ -77,13 +77,13 @@ function loadCharactersMapper(dispatch: Dispatch<Action<string>>) {
 }
 
 function saveCharactersMapper(dispatch: Dispatch<Action<string>>) {
-    return (characters: CharacterProps[]) => {
+    return (sessionName: string, characters: CharacterProps[]) => {
         dispatch(actions.startedSaving({}));
 
         const id = location.pathname.split('/').slice(-1)[0];
 
         Request.post(`/api/${id}/update`)
-            .send(characters)
+            .send({ sessionName, characters })
             .end((err, res) => {
                 if (err) {
                     console.error(err);
