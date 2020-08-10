@@ -66,11 +66,8 @@ export const tableReducer = reducerWithInitialState(initialState)
         const characters = state.characters.slice().map(x => ({ ...x }));
         const idx = characters.map(x => x.name).indexOf(name);
 
-        console.log(e.target.value, idx);
-
         characters[idx] = { ...characters[idx], attribute: e.target.value as Attribute };
 
-        console.log(characters);
         return { ...state, characters };
     })
     .case(actions.openDeletionModal, (state, props) => {
@@ -80,7 +77,11 @@ export const tableReducer = reducerWithInitialState(initialState)
         return { ...state, isModalOpen: false };
     })
     .case(actions.copyCharacter, (state, props) => {
-        const { character } = props;
+        let { character } = props;
+
+        if (state.characters.map(x => x.name).includes(character.name)) {
+            character = { ...character, name: `${character.name}__copy` };
+        }
 
         const characters: CharacterProps[] = [...state.characters, character].slice().map(x => ({ ...x }));
 
