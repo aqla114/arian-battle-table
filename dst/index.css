@@ -184,6 +184,13 @@ body {
 .character-table__table__character__attribute {
   width: 100px;
   height: 80px;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.character-table__table__character__name {
+  width: 120px;
 }
 .character-table__table__character__hp,
 .character-table__table__character__physical-defence,
