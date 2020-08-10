@@ -114,7 +114,8 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                     />
                 </span>
             </div>
-            <CardContainer>
+            <CardContainer className="character-table">
+                <div className="character-table__session-name">{props.sessionName}</div>
                 <table className="character-table__table">
                     <thead>
                         <tr>

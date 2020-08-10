@@ -51,16 +51,22 @@ function loadCharactersMapper(dispatch: Dispatch<Action<string>>) {
                 console.error(err);
                 dispatch(actions.failedLoadingCharacters({ params: {}, error: {} }));
             } else {
-                console.log(res.body);
+                const {
+                    characters: resCharacters,
+                    sessionName,
+                }: { characters: CharacterProps[]; sessionName: string } = res.body;
 
-                const characters: CharacterProps[] = res.body.map((character: CharacterProps) => ({
+                const characters: CharacterProps[] = resCharacters.map((character: CharacterProps) => ({
                     ...character,
                 }));
 
                 dispatch(
                     actions.doneLoadingCharacters({
                         params: {},
-                        result: { characters: characters.sort((a, b) => b.actionPriority - a.actionPriority) },
+                        result: {
+                            sessionName,
+                            characters: characters.sort((a, b) => b.actionPriority - a.actionPriority),
+                        },
                     }),
                 );
             }
@@ -120,7 +126,4 @@ function saveCharactersNewlyMapper(dispatch: Dispatch<Action<string>>) {
     };
 }
 
-export const ShowBattleContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(CharactersTable);
+export const ShowBattleContainer = connect(mapStateToProps, mapDispatchToProps)(CharactersTable);

@@ -108,7 +108,7 @@ export const tableReducer = reducerWithInitialState(initialState)
         return { ...state, characters, currentNewCharacter: Character() };
     })
     .case(actions.doneLoadingCharacters, (state, props) => {
-        return { ...state, characters: props.result.characters };
+        return { ...state, sessionName: props.result.sessionName, characters: props.result.characters };
     })
     .default(state => {
         console.log('The default reducer is used.');

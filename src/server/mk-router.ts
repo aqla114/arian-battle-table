@@ -47,7 +47,7 @@ export function mkRouter(router: MiddleWare): MiddleWare {
         const battleSession = await getBattleSession(ctx, ctx.params['id']);
 
         if (battleSession) {
-            ctx.body = battleSession.characters;
+            ctx.body = battleSession;
             ctx.status = 200;
         } else {
             ctx.status = 404;
