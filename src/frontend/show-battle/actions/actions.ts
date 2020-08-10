@@ -5,10 +5,12 @@ import { saveCharactersNewlyActions } from './save-characters-newly';
 
 type CharacterName = string;
 
+export type ChangeSessionNameProps = { e: React.ChangeEvent<HTMLInputElement> };
 export type ChangeActionProps = { e: React.ChangeEvent<HTMLInputElement>; name: CharacterName };
 export type MouseActionProps = { e: React.MouseEvent<HTMLInputElement, MouseEvent>; name: CharacterName };
 
 export type ActionTypes =
+    | 'UPDATE_SESSION_NAME_TEXT'
     | 'UPDATE_CHARACTER_ATTRIBUTE_TEXT'
     | 'UPDATE_CHARACTER_IS_KNOCKBACK'
     | 'UPDATE_CHARACTER_DROPDOWN'
@@ -24,6 +26,7 @@ export type ActionTypes =
 const actionCreator = actionCreatorFactory();
 
 export const actions = {
+    updateSessionNameText: actionCreator<ChangeSessionNameProps>('UPDATE_SESSION_NAME_TEXT'),
     updateCharacterAttributeText: actionCreator<ChangeActionProps>('UPDATE_CHARACTER_ATTRIBUTE_TEXT'),
     updateCharacterCheckbox: actionCreator<ChangeActionProps>('UPDATE_CHARACTER_IS_KNOCKBACK'),
     updateCharacterDropdown: actionCreator<ChangeActionProps>('UPDATE_CHARACTER_DROPDOWN'),

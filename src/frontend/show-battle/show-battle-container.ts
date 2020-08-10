@@ -1,11 +1,12 @@
 import { connect } from 'react-redux';
 import { CharactersTable, CharacterTableState, CharacterProps } from './components/characters-table';
 import { Dispatch, Action } from 'redux';
-import { actions, ChangeActionProps, MouseActionProps } from './actions/actions';
+import { actions, ChangeActionProps, MouseActionProps, ChangeSessionNameProps } from './actions/actions';
 import { State } from './store';
 import * as Request from 'superagent';
 
 export interface Actions {
+    updateSessionNameText: (v: ChangeSessionNameProps) => Action<string>;
     updateCharacterAttributeText: (v: ChangeActionProps) => Action<string>;
     updateCharacterCheckbox: (v: ChangeActionProps) => Action<string>;
     updateCharacterDropdown: (v: ChangeActionProps) => Action<string>;
@@ -25,6 +26,7 @@ function mapStateToProps(state: State): CharacterTableState {
 
 function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
     return {
+        updateSessionNameText: (v: ChangeSessionNameProps) => dispatch(actions.updateSessionNameText(v)),
         updateCharacterAttributeText: (v: ChangeActionProps) => dispatch(actions.updateCharacterAttributeText(v)),
         updateCharacterCheckbox: (v: ChangeActionProps) => dispatch(actions.updateCharacterCheckbox(v)),
         updateCharacterDropdown: (v: ChangeActionProps) => dispatch(actions.updateCharacterDropdown(v)),

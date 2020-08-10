@@ -54,6 +54,9 @@
   height: 24px;
   width: 160px;
   border-radius: 3px;
+  border: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .input-field__text.--show-border {
   border: inset;
@@ -153,6 +156,7 @@ body {
 }
 .character-table__session-name {
   font-size: 24px;
+  width: 100%;
 }
 .character-table__table {
   margin-top: 12px;

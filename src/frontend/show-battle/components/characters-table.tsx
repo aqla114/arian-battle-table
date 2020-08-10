@@ -9,6 +9,7 @@ import { BadStatus, defaultBadStatus } from '../actions/bad-status';
 import { CardContainer } from '../../components/card-container';
 import * as uuid from 'uuid';
 import { Attribute } from '../actions/attribute';
+import { InputField } from '../../components/atoms/input-field';
 
 export type CharacterTableState = {
     sessionName: string;
@@ -115,7 +116,14 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                 </span>
             </div>
             <CardContainer className="character-table">
-                <div className="character-table__session-name">{props.sessionName}</div>
+                <InputField
+                    name="session-name"
+                    className="character-table__session-name"
+                    kind="text"
+                    showBorder={false}
+                    value={props.sessionName}
+                    onChange={e => props.updateSessionNameText({ e })}
+                />
                 <table className="character-table__table">
                     <thead>
                         <tr>

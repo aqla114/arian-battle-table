@@ -13,6 +13,10 @@ const initialState: CharacterTableState = {
 };
 
 export const tableReducer = reducerWithInitialState(initialState)
+    .case(actions.updateSessionNameText, (state, props) => {
+        const { e } = props;
+        return { ...state, sessionName: e.target.value };
+    })
     .case(actions.updateCharacterAttributeText, (state, props) => {
         const { e, name } = props;
         const characters = state.characters.slice().map(x => ({ ...x }));
