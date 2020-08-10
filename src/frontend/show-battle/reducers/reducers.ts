@@ -79,9 +79,18 @@ export const tableReducer = reducerWithInitialState(initialState)
     .case(actions.copyCharacter, (state, props) => {
         let { character } = props;
 
-        if (state.characters.map(x => x.name).includes(character.name)) {
-            character = { ...character, name: `${character.name}__copy` };
+        const names = state.characters.map(x => x.name);
+        let characterName = character.name;
+
+        while (true) {
+            if (names.includes(characterName)) {
+                characterName = `${characterName}__copy`;
+            } else {
+                break;
+            }
         }
+
+        character = { ...character, name: characterName };
 
         const characters: CharacterProps[] = [...state.characters, character].slice().map(x => ({ ...x }));
 
