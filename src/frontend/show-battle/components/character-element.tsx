@@ -1,13 +1,14 @@
 import * as React from 'react';
 
 import { CharacterProps } from './characters-table';
-import { Button } from '../../components/atoms/button';
 import { CheckBox } from '../../components/atoms/checkbox';
 import { BadStatusCheckboxes } from './bad-status-checkboxes';
 import { badStatusLabels, BadStatus } from '../actions/bad-status';
 import { ComibnedInputField } from '../../components/molecules/combined-input-field';
 import { Dropdown } from '../../components/atoms/dropdown';
 import { attributeLabels } from '../actions/attribute';
+import { IconButton } from '../../components/atoms/icon-button';
+import { faCopy, faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 
 type CharacterElementProps = CharacterProps & {
     isNextPrior: boolean;
@@ -98,7 +99,8 @@ export function CharacterElement(props: CharacterElementProps) {
                 <BadStatusCheckboxes badStatusList={badStatusList} />
             </td>
             <td className="character-table__table__character__delete-button">
-                <Button name="delete" value="削除" kind="delete" onClick={props.onDeleteCharacter} />
+                <IconButton name="copy" icon={faCopy} onClick={() => {}} />
+                <IconButton name="delete" icon={faTrashAlt} onClick={props.onDeleteCharacter} />
             </td>
         </tr>
     );

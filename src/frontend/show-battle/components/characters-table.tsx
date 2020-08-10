@@ -135,7 +135,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                             <td>魔法防御力 / 元</td>
                             <td>属性</td>
                             <td>バッドステータス</td>
-                            <td>キャラクターの削除</td>
+                            <td>各種操作</td>
                         </tr>
                     </thead>
                     <tbody>{characterElement}</tbody>
