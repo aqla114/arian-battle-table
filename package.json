@@ -34,6 +34,11 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.14.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.30",
+    "@fortawesome/free-regular-svg-icons": "^5.14.0",
+    "@fortawesome/free-solid-svg-icons": "^5.14.0",
+    "@fortawesome/react-fontawesome": "^0.1.11",
     "koa": "2",
     "koa-bodyparser": "^4.2.1",
     "koa-path-canonicalizer": "^0.1.0",
