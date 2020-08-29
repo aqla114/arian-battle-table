@@ -20,6 +20,7 @@ export type CharacterTableState = {
 };
 
 export type CharacterProps = {
+    id?: string;
     name: string;
     attribute: Attribute;
     defaultActionPriority: number;

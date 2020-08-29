@@ -1,4 +1,5 @@
 export type BadStatus = {
+    id?: string;
     overwhelmed: boolean;
     slipped: boolean;
     abstracted: boolean;
@@ -18,7 +19,7 @@ export const defaultBadStatus: BadStatus = {
     poisoned: false,
 };
 
-export const badStatusLabels: { [key in keyof BadStatus]: string } = {
+export const badStatusLabels: { [key in keyof Omit<BadStatus, 'id'>]: string } = {
     overwhelmed: '威圧',
     slipped: 'スリップ',
     abstracted: '放心',

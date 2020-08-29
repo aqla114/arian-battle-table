@@ -20,8 +20,10 @@ type CharacterElementProps = CharacterProps & {
 };
 
 export function CharacterElement(props: CharacterElementProps) {
-    const badStatusList = Object.entries(props.badStatus).map(([key, value]) => ({
-        label: badStatusLabels[key as keyof BadStatus],
+    const { id, ...badStatusWithoutId } = props.badStatus;
+
+    const badStatusList = Object.entries(badStatusWithoutId).map(([key, value]) => ({
+        label: badStatusLabels[key as keyof Omit<BadStatus, 'id'>],
         name: key,
         checked: value,
         onChange: props.onChangeElementCheckbox,
