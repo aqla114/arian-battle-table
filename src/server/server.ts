@@ -4,24 +4,20 @@ import * as Router from 'koa-router';
 import * as serve from 'koa-static';
 import * as bodyParser from 'koa-bodyparser';
 import Pug from 'koa-pug';
-import { createConnection } from 'typeorm';
+import { createConnection, getConnectionOptions } from 'typeorm';
 import { Character } from './models/character';
 import { BattleSession } from './models/battle-session';
 import { mkRouter } from './mk-router';
 import { pathCanonicalizer } from 'koa-path-canonicalizer';
 import { StateT, CustomT } from '../types';
+import { BadStatus } from './models/bad-status';
 
 async function mkApp(): Promise<void> {
+    const connectionOptions = await getConnectionOptions();
+
     const connection = await createConnection({
-        type: 'mysql',
-        charset: 'utf8mb4',
-        host: 'mysql',
-        username: 'arian',
-        password: 'arian',
-        database: 'arian_db',
-        port: 3306,
-        synchronize: true,
-        entities: [Character, BattleSession],
+        ...connectionOptions,
+        entities: [Character, BattleSession, BadStatus],
     });
 
     const WORKDIR: string = '/workdir';
