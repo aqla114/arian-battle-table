@@ -3,7 +3,7 @@ import * as React from 'react';
 import { CharacterProps } from './characters-table';
 import { CheckBox } from '../../components/atoms/checkbox';
 import { BadStatusList, BadStatusProps } from './bad-status-checkboxes';
-import { BadStatus, getBadStatusLabels } from '../actions/bad-status';
+import { getBadStatusLabels } from '../actions/bad-status';
 import { ComibnedInputField } from '../../components/molecules/combined-input-field';
 import { Dropdown } from '../../components/atoms/dropdown';
 import { attributeLabels } from '../actions/attribute';
@@ -24,12 +24,12 @@ type CharacterElementProps = CharacterProps & {
 export function CharacterElement(props: CharacterElementProps) {
     const { id, ...badStatusWithoutId } = props.badStatus;
 
-    const badStatusLabels = getBadStatusLabels(props.badStatus.poisoned);
+    const badStatusLabels = getBadStatusLabels({ ...props.badStatus });
 
     const badStatusList: BadStatusProps[] = Object.entries(badStatusWithoutId).map(([key, value]) => {
-        if (key === 'poisoned') {
+        if (key === 'poisoned' || key === 'knockback') {
             return {
-                label: badStatusLabels[key as keyof Omit<BadStatus, 'id'>],
+                label: badStatusLabels[key as keyof typeof badStatusWithoutId],
                 name: key,
                 value,
                 statusType: 'number' as const,
@@ -37,7 +37,7 @@ export function CharacterElement(props: CharacterElementProps) {
             };
         } else {
             return {
-                label: badStatusLabels[key as keyof Omit<BadStatus, 'id'>],
+                label: badStatusLabels[key as keyof typeof badStatusWithoutId],
                 name: key,
                 value,
                 statusType: 'boolean' as const,

@@ -12,7 +12,7 @@ export class BadStatus {
             abstracted: false,
             frenzied: false,
             stunned: false,
-            knockback: false,
+            knockback: 0,
             poisoned: 0,
         });
     }
@@ -36,7 +36,7 @@ export class BadStatus {
     stunned!: boolean;
 
     @Column({ default: 0, name: 'knockback' })
-    knockback!: boolean;
+    knockback!: number;
 
     @Column({ default: 0, name: 'poisoned' })
     poisoned!: number;

@@ -27,6 +27,8 @@ type NumberBadStatus = {
     onClick: OnClickDropdownListItem;
 };
 
+const BADSTATUS_STRENGTH_OPTIONS = [...Array(40).keys()];
+
 export const BadStatusList: React.SFC<BadStatusListProps> = (props: BadStatusListProps) => {
     return (
         <React.Fragment>
@@ -37,7 +39,7 @@ export const BadStatusList: React.SFC<BadStatusListProps> = (props: BadStatusLis
                             key={uuid.v4()}
                             name={prop.name}
                             label={prop.label}
-                            options={[...Array(40).keys()]}
+                            options={BADSTATUS_STRENGTH_OPTIONS}
                             value={prop.value}
                             onClick={prop.onClick}
                         />

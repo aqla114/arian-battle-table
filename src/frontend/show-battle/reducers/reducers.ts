@@ -42,16 +42,7 @@ export const tableReducer = reducerWithInitialState(initialState)
 
         const action = e.target.name;
 
-        if (action === 'knockback') {
-            characters[idx].badStatus.knockback = !characters[idx].badStatus.knockback;
-
-            if (characters[idx].badStatus.knockback) {
-                characters[idx].actionPriority -= 30;
-            } else {
-                characters[idx].actionPriority += 30;
-            }
-            characters.sort((a, b) => b.actionPriority - a.actionPriority);
-        } else if (action === 'isActed') {
+        if (action === 'isActed') {
             characters[idx].isActed = !characters[idx].isActed;
         } else {
             characters[idx].badStatus = {
@@ -69,7 +60,16 @@ export const tableReducer = reducerWithInitialState(initialState)
         const idx = characters.map(x => x.name).indexOf(characterName);
 
         const character = characters[idx];
-        characters[idx] = { ...character, badStatus: { ...character.badStatus, [key]: value } };
+        const badStatus = { ...character.badStatus, [key]: value };
+
+        // ノックバックによる行動値修正
+        const actionPriority = character.actionPriority - (badStatus.knockback - character.badStatus.knockback) * 5;
+
+        characters[idx] = { ...character, actionPriority, badStatus };
+
+        if (key === 'knockback') {
+            characters.sort((a, b) => b.actionPriority - a.actionPriority);
+        }
 
         return { ...state, characters };
     })

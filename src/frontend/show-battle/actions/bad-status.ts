@@ -5,7 +5,7 @@ export type BadStatus = {
     abstracted: boolean;
     frenzied: boolean;
     stunned: boolean;
-    knockback: boolean;
+    knockback: number;
     poisoned: number;
 };
 
@@ -15,18 +15,21 @@ export const defaultBadStatus: BadStatus = {
     abstracted: false,
     frenzied: false,
     stunned: false,
-    knockback: false,
+    knockback: 0,
     poisoned: 0,
 };
 
-export const getBadStatusLabels: (poisened: number) => { [key in keyof Omit<BadStatus, 'id'>]: string } = poisoned => {
+export const getBadStatusLabels: ({
+    poisoned,
+    knockback,
+}: Pick<BadStatus, 'poisoned' | 'knockback'>) => { [key in keyof Omit<BadStatus, 'id'>]: string } = props => {
     return {
         overwhelmed: '威圧',
         slipped: 'スリップ',
         abstracted: '放心',
         frenzied: '逆上',
         stunned: 'スタン',
-        knockback: 'ノックバック(6)',
-        poisoned: `毒(${poisoned})`,
+        knockback: `ノックバック(${props.knockback})`,
+        poisoned: `毒(${props.poisoned})`,
     };
 };
