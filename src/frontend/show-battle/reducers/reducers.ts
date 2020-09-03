@@ -12,6 +12,7 @@ const initialState: CharacterTableState = {
     isModalOpen: false,
 };
 
+// TODO: キャラクター名で filter するの結構微妙みあるからできれば id とかをちゃんと扱うようにしたいかも。
 export const tableReducer = reducerWithInitialState(initialState)
     .case(actions.updateSessionNameText, (state, props) => {
         const { e } = props;
@@ -58,6 +59,17 @@ export const tableReducer = reducerWithInitialState(initialState)
                 [e.target.name]: !characters[idx].badStatus[e.target.name as keyof BadStatus],
             };
         }
+
+        return { ...state, characters };
+    })
+    .case(actions.updateButtonDropdownBadStatus, (state, props) => {
+        const { key, value, name: characterName } = props;
+
+        const characters = state.characters.slice().map(x => ({ ...x }));
+        const idx = characters.map(x => x.name).indexOf(characterName);
+
+        const character = characters[idx];
+        characters[idx] = { ...character, badStatus: { ...character.badStatus, [key]: value } };
 
         return { ...state, characters };
     })
