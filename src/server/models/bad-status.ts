@@ -3,9 +3,9 @@ import { Character } from './character';
 
 @Entity('bad_status')
 export class BadStatus {
-    public static mk() {
+    public static mk(): BadStatus {
         const b = new BadStatus();
-        Object.assign(b, {
+        return Object.assign(b, {
             isActed: false,
             overwhelmed: false,
             slipped: false,
@@ -13,7 +13,7 @@ export class BadStatus {
             frenzied: false,
             stunned: false,
             knockback: false,
-            poisoned: false,
+            poisoned: 0,
         });
     }
 
@@ -39,7 +39,7 @@ export class BadStatus {
     knockback!: boolean;
 
     @Column({ default: 0, name: 'poisoned' })
-    poisoned!: boolean;
+    poisoned!: number;
 
     @OneToOne(
         type => Character,
