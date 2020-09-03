@@ -1,22 +1,19 @@
-import { CreateDateColumn, Index, PrimaryGeneratedColumn, UpdateDateColumn, ManyToOne, Column, Entity } from 'typeorm';
+import {
+    CreateDateColumn,
+    Index,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn,
+    ManyToOne,
+    Column,
+    Entity,
+    OneToOne,
+} from 'typeorm';
 import { BattleSession } from './battle-session';
+import { BadStatus } from './bad-status';
 
 export type CharacterWithoutId = Pick<
     Character,
-    | 'name'
-    | 'actionPriority'
-    | 'hp'
-    | 'maxHp'
-    | 'physicalDefence'
-    | 'magicalDefence'
-    | 'overwhelmed'
-    | 'slipped'
-    | 'abstracted'
-    | 'frenzied'
-    | 'stunned'
-    | 'knockback'
-    | 'poisoned'
-    | 'isActed'
+    'name' | 'actionPriority' | 'hp' | 'maxHp' | 'physicalDefence' | 'magicalDefence' | 'badStatus' | 'isActed'
 >;
 
 @Entity('character')
@@ -45,14 +42,8 @@ export class Character {
             defaultPhysicalDefence,
             magicalDefence,
             defaultMagicalDefence,
+            badStatus: BadStatus.mk(),
             isActed: false,
-            overwhelmed: false,
-            slipped: false,
-            abstracted: false,
-            frenzied: false,
-            stunned: false,
-            knockback: false,
-            poisoned: false,
         });
     }
 
@@ -71,7 +62,10 @@ export class Character {
     @Index()
     updatedAt!: Date;
 
-    @ManyToOne(type => BattleSession, battleSession => battleSession.characters)
+    @ManyToOne(
+        type => BattleSession,
+        battleSession => battleSession.characters,
+    )
     battleSession!: BattleSession;
 
     @Column({ default: '' })
@@ -104,27 +98,13 @@ export class Character {
     @Column({ default: 0, name: 'default_magical_defence' })
     defaultMagicalDefence!: number;
 
-    @Column({ default: 0, name: 'overwhelmed' })
-    overwhelmed!: boolean;
-
-    @Column({ default: 0, name: 'slipped' })
-    slipped!: boolean;
-
-    @Column({ default: 0, name: 'abstracted' })
-    abstracted!: boolean;
-
-    @Column({ default: 0, name: 'frenzied' })
-    frenzied!: boolean;
-
-    @Column({ default: 0, name: 'stunned' })
-    stunned!: boolean;
-
-    @Column({ default: 0, name: 'knockback' })
-    knockback!: boolean;
-
-    @Column({ default: 0, name: 'poisoned' })
-    poisoned!: boolean;
-
     @Column({ default: 0, name: 'is_acted' })
     isActed!: boolean;
+
+    @OneToOne(
+        type => BadStatus,
+        badStatus => badStatus.character,
+        { cascade: true },
+    )
+    badStatus!: BadStatus;
 }

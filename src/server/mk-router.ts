@@ -57,7 +57,7 @@ export function mkRouter(router: MiddleWare): MiddleWare {
     });
 
     router.post('/api/:id/update', async (ctx, next) => {
-        console.log('update');
+        console.log('/update');
         console.log(ctx.request.body);
 
         const battleSession = await updateBattleSession(ctx);

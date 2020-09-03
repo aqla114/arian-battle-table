@@ -12,6 +12,7 @@ const initialState: CharacterTableState = {
     isModalOpen: false,
 };
 
+// TODO: キャラクター名で filter するの結構微妙みあるからできれば id とかをちゃんと扱うようにしたいかも。
 export const tableReducer = reducerWithInitialState(initialState)
     .case(actions.updateSessionNameText, (state, props) => {
         const { e } = props;
@@ -41,22 +42,33 @@ export const tableReducer = reducerWithInitialState(initialState)
 
         const action = e.target.name;
 
-        if (action === 'knockback') {
-            characters[idx].badStatus.knockback = !characters[idx].badStatus.knockback;
-
-            if (characters[idx].badStatus.knockback) {
-                characters[idx].actionPriority -= 30;
-            } else {
-                characters[idx].actionPriority += 30;
-            }
-            characters.sort((a, b) => b.actionPriority - a.actionPriority);
-        } else if (action === 'isActed') {
+        if (action === 'isActed') {
             characters[idx].isActed = !characters[idx].isActed;
         } else {
             characters[idx].badStatus = {
                 ...characters[idx].badStatus,
                 [e.target.name]: !characters[idx].badStatus[e.target.name as keyof BadStatus],
             };
+        }
+
+        return { ...state, characters };
+    })
+    .case(actions.updateButtonDropdownBadStatus, (state, props) => {
+        const { key, value, name: characterName } = props;
+
+        const characters = state.characters.slice().map(x => ({ ...x }));
+        const idx = characters.map(x => x.name).indexOf(characterName);
+
+        const character = characters[idx];
+        const badStatus = { ...character.badStatus, [key]: value };
+
+        // ノックバックによる行動値修正
+        const actionPriority = character.actionPriority - (badStatus.knockback - character.badStatus.knockback) * 5;
+
+        characters[idx] = { ...character, actionPriority, badStatus };
+
+        if (key === 'knockback') {
+            characters.sort((a, b) => b.actionPriority - a.actionPriority);
         }
 
         return { ...state, characters };

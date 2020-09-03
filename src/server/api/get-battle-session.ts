@@ -7,29 +7,13 @@ export async function getBattleSession(ctx: Context, id: number) {
 
     const battleSession = await battleSessionRepo.findOne({
         where: { id: id },
-        relations: ['characters'],
+        relations: ['characters', 'characters.badStatus'],
     });
 
     let response = null;
 
     if (battleSession !== undefined) {
-        const characters = battleSession.characters.map(character => ({
-            ...character,
-            badStatus: {
-                overwhelmed: character.overwhelmed,
-                slipped: character.slipped,
-                abstracted: character.abstracted,
-                frenzied: character.frenzied,
-                stunned: character.stunned,
-                knockback: character.knockback,
-                poisoned: character.poisoned,
-            },
-        }));
-
-        response = {
-            ...battleSession,
-            characters: characters,
-        };
+        response = battleSession;
     }
 
     return response;

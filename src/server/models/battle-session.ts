@@ -23,6 +23,10 @@ export class BattleSession {
     })
     sessionName!: string;
 
-    @OneToMany(type => Character, character => character.battleSession)
+    @OneToMany(
+        type => Character,
+        character => character.battleSession,
+        { cascade: true },
+    )
     characters!: Character[];
 }

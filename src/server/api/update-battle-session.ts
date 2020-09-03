@@ -5,7 +5,6 @@ import { Context } from '../../types';
 
 export async function updateBattleSession(ctx: Context) {
     const battleSessionRepo: Repository<BattleSession> = ctx.ports.battleSession;
-    const characterRepo: Repository<Character> = ctx.ports.character;
 
     const req = ctx.request.body;
 
@@ -18,7 +17,7 @@ export async function updateBattleSession(ctx: Context) {
 
     const battleSession = await battleSessionRepo.findOne({
         where: { id: sessionId },
-        relations: ['characters'],
+        relations: ['characters', 'characters.badStatus'],
     });
 
     if (!battleSession) {
@@ -26,20 +25,7 @@ export async function updateBattleSession(ctx: Context) {
         return;
     }
 
-    const { sessionName, characters: reqCharacter }: { sessionName: string; characters: Character[] } = req;
-
-    const characters: Character[] = reqCharacter.map((character: any) => ({
-        ...character,
-        overwhelmed: character.badStatus.overwhelmed,
-        slipped: character.badStatus.slipped,
-        abstracted: character.badStatus.abstracted,
-        frenzied: character.badStatus.frenzied,
-        stunned: character.badStatus.stunned,
-        knockback: character.badStatus.knockback,
-        poisoned: character.badStatus.poisoned,
-    }));
-
-    await characterRepo.save(characters);
+    const { sessionName, characters }: { sessionName: string; characters: Character[] } = req;
 
     battleSession.sessionName = sessionName;
     battleSession.characters = characters;

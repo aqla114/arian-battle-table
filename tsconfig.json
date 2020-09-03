@@ -18,6 +18,7 @@
       "noUnusedLocals": true,
       "allowSyntheticDefaultImports": true,
       "target": "es2017",
+      "strictPropertyInitialization": false,
       "typeRoots": [
         "./node_modules/@types"
       ]
