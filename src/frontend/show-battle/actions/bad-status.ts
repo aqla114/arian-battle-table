@@ -6,7 +6,7 @@ export type BadStatus = {
     frenzied: boolean;
     stunned: boolean;
     knockback: boolean;
-    poisoned: boolean;
+    poisoned: number;
 };
 
 export const defaultBadStatus: BadStatus = {
@@ -16,15 +16,17 @@ export const defaultBadStatus: BadStatus = {
     frenzied: false,
     stunned: false,
     knockback: false,
-    poisoned: false,
+    poisoned: 0,
 };
 
-export const badStatusLabels: { [key in keyof Omit<BadStatus, 'id'>]: string } = {
-    overwhelmed: '威圧',
-    slipped: 'スリップ',
-    abstracted: '放心',
-    frenzied: '逆上',
-    stunned: 'スタン',
-    knockback: 'ノックバック(6)',
-    poisoned: '毒(5)',
+export const getBadStatusLabels: (poisened: number) => { [key in keyof Omit<BadStatus, 'id'>]: string } = poisoned => {
+    return {
+        overwhelmed: '威圧',
+        slipped: 'スリップ',
+        abstracted: '放心',
+        frenzied: '逆上',
+        stunned: 'スタン',
+        knockback: 'ノックバック(6)',
+        poisoned: `毒(${poisoned})`,
+    };
 };

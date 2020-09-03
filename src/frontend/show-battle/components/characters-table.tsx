@@ -81,6 +81,9 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                 isNextPrior={!character.isActed && character.actionPriority === nextActionPriority}
                 onChangeElementText={e => props.updateCharacterAttributeText({ e, name: character.name })}
                 onChangeElementCheckbox={e => props.updateCharacterCheckbox({ e, name: character.name })}
+                onClickDropdownItem={(key, value) =>
+                    props.updateButtonDropdownBadStatus({ key, value, name: character.name })
+                }
                 onChangeElementDropdown={e => props.updateCharacterDropdown({ e, name: character.name })}
                 onCopyCharacter={_ => props.copyCharacter(character)}
                 onDeleteCharacter={e => props.openDeletionModal({ e, name: character.name })}

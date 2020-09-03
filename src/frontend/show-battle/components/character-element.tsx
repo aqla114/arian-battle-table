@@ -2,17 +2,19 @@ import * as React from 'react';
 
 import { CharacterProps } from './characters-table';
 import { CheckBox } from '../../components/atoms/checkbox';
-import { BadStatusCheckboxes } from './bad-status-checkboxes';
-import { badStatusLabels, BadStatus } from '../actions/bad-status';
+import { BadStatusList, BadStatusProps } from './bad-status-checkboxes';
+import { BadStatus, getBadStatusLabels } from '../actions/bad-status';
 import { ComibnedInputField } from '../../components/molecules/combined-input-field';
 import { Dropdown } from '../../components/atoms/dropdown';
 import { attributeLabels } from '../actions/attribute';
 import { IconButton } from '../../components/atoms/icon-button';
 import { faCopy, faTrashAlt } from '@fortawesome/free-regular-svg-icons';
+import { OnClickDropdownListItem } from '../../components/atoms/button-dropdown';
 
 type CharacterElementProps = CharacterProps & {
     isNextPrior: boolean;
     onChangeElementText: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onClickDropdownItem: OnClickDropdownListItem;
     onChangeElementCheckbox: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onChangeElementDropdown: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onCopyCharacter: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
@@ -22,12 +24,29 @@ type CharacterElementProps = CharacterProps & {
 export function CharacterElement(props: CharacterElementProps) {
     const { id, ...badStatusWithoutId } = props.badStatus;
 
-    const badStatusList = Object.entries(badStatusWithoutId).map(([key, value]) => ({
-        label: badStatusLabels[key as keyof Omit<BadStatus, 'id'>],
-        name: key,
-        checked: value,
-        onChange: props.onChangeElementCheckbox,
-    }));
+    const badStatusLabels = getBadStatusLabels(props.badStatus.poisoned);
+
+    const badStatusList: BadStatusProps[] = Object.entries(badStatusWithoutId).map(([key, value]) => {
+        if (key === 'poisoned') {
+            return {
+                label: badStatusLabels[key as keyof Omit<BadStatus, 'id'>],
+                name: key,
+                value,
+                statusType: 'number' as const,
+                onClick: props.onClickDropdownItem,
+            };
+        } else {
+            return {
+                label: badStatusLabels[key as keyof Omit<BadStatus, 'id'>],
+                name: key,
+                value,
+                statusType: 'boolean' as const,
+                onChange: props.onChangeElementCheckbox,
+            };
+        }
+    });
+
+    console.log(badStatusList);
 
     const attributeOptions = Object.entries(attributeLabels).map(([key, label]) => (
         <option value={key} key={key}>
@@ -99,7 +118,7 @@ export function CharacterElement(props: CharacterElementProps) {
                 <Dropdown value={props.attribute} options={attributeOptions} onChange={props.onChangeElementDropdown} />
             </td>
             <td className="character-table__table__character__badstatus">
-                <BadStatusCheckboxes badStatusList={badStatusList} />
+                <BadStatusList badStatusList={badStatusList} />
             </td>
             <td className="character-table__table__character__delete-button">
                 <IconButton name="copy" icon={faCopy} onClick={props.onCopyCharacter} />
