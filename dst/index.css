@@ -43,6 +43,9 @@
   border-radius: 8px;
   background-color: #f6f7f8;
 }
+.button-dropdown__button:focus {
+  outline: none;
+}
 .button-dropdown__button:hover {
   background-color: #e2edd7;
 }
@@ -244,7 +247,7 @@ body {
   height: 80px;
 }
 .character-table__table__character__badstatus {
-  width: 220px;
+  width: 260px;
   margin: 4px;
 }
 .character-table__table__character.--next {
