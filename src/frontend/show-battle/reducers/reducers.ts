@@ -63,18 +63,20 @@ export const tableReducer = reducerWithInitialState(initialState)
         return { ...state, characters };
     })
     .case(actions.updateButtonDropdownBadStatus, (state, props) => {
-        const { key, value, name: characterName } = props;
+        const { key, value, name } = props;
 
-        const characters = state.characters.slice().map(x => ({ ...x }));
-        const idx = characters.map(x => x.name).indexOf(characterName);
+        const characters = updateItemInArray(state.characters, characterSelector(name), item => {
+            // knockback の更新 -> 行動値の更新 という2ステップを同時に行えないので updateObject を2回呼んでいる。
+            const tmp = updateObject(item, {
+                badStatus: updateObject(item.badStatus, {
+                    [key]: value,
+                }),
+            });
 
-        const character = characters[idx];
-        const badStatus = { ...character.badStatus, [key]: value };
-
-        // ノックバックによる行動値修正
-        const actionPriority = character.actionPriority - (badStatus.knockback - character.badStatus.knockback) * 5;
-
-        characters[idx] = { ...character, actionPriority, badStatus };
+            return updateObject(tmp, {
+                actionPriority: tmp.actionPriority - (tmp.badStatus.knockback - item.badStatus.knockback) * 5,
+            });
+        });
 
         if (key === 'knockback') {
             characters.sort((a, b) => b.actionPriority - a.actionPriority);
