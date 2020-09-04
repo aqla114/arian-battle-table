@@ -3,6 +3,7 @@ import { CharacterTableState, Character, CharacterProps } from '../components/ch
 import { actions } from '../actions/actions';
 import { BadStatus } from '../actions/bad-status';
 import { Attribute } from '../actions/attribute';
+import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
 
 const initialState: CharacterTableState = {
     sessionName: '',
@@ -11,6 +12,10 @@ const initialState: CharacterTableState = {
     deleteCharacterName: '',
     isModalOpen: false,
 };
+
+function characterSelector(characterName: string) {
+    return (character: CharacterProps) => character.name === characterName;
+}
 
 // TODO: キャラクター名で filter するの結構微妙みあるからできれば id とかをちゃんと扱うようにしたいかも。
 export const tableReducer = reducerWithInitialState(initialState)
@@ -37,18 +42,22 @@ export const tableReducer = reducerWithInitialState(initialState)
     })
     .case(actions.updateCharacterCheckbox, (state, props) => {
         const { e, name } = props;
-        const characters = state.characters.slice().map(x => ({ ...x }));
-        const idx = characters.map(x => x.name).indexOf(name);
-
         const action = e.target.name;
 
+        let characters;
+
         if (action === 'isActed') {
-            characters[idx].isActed = !characters[idx].isActed;
+            characters = updateItemInArray(state.characters, characterSelector(name), item =>
+                updateObject(item, { isActed: !item.isActed }),
+            );
         } else {
-            characters[idx].badStatus = {
-                ...characters[idx].badStatus,
-                [e.target.name]: !characters[idx].badStatus[e.target.name as keyof BadStatus],
-            };
+            characters = updateItemInArray(state.characters, characterSelector(name), item =>
+                updateObject(item, {
+                    badStatus: updateObject(item.badStatus, {
+                        [action]: !item.badStatus[action as keyof BadStatus],
+                    }),
+                }),
+            );
         }
 
         return { ...state, characters };
