@@ -86,10 +86,10 @@ export const tableReducer = reducerWithInitialState(initialState)
     })
     .case(actions.updateCharacterDropdown, (state, props) => {
         const { e, name } = props;
-        const characters = state.characters.slice().map(x => ({ ...x }));
-        const idx = characters.map(x => x.name).indexOf(name);
 
-        characters[idx] = { ...characters[idx], attribute: e.target.value as Attribute };
+        const characters = updateItemInArray(state.characters, characterSelector(name), item =>
+            updateObject(item, { attribute: e.target.value as Attribute }),
+        );
 
         return { ...state, characters };
     })
