@@ -131,7 +131,7 @@ export const tableReducer = reducerWithInitialState(initialState)
     .case(actions.updateCurrentNewCharacter, (state, props) => {
         const currentNewCharacter = Character(props.target.value);
 
-        return Object.assign({}, state, { currentNewCharacter });
+        return { ...state, currentNewCharacter };
     })
     .case(actions.addNewCharacter, state => {
         const characters = state.characters.slice().map(x => ({ ...x }));
