@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { Dispatch, Action } from 'redux';
 import { actions } from './actions/actions';
 import * as Request from 'superagent';
-import { BattlesList, BattlesListState } from '../list-battles/components/battles-list';
+import { BattleSessionsList, BattlesListState } from './components/battle-sessions-list';
 import { State } from './store';
 
 export interface Actions {
@@ -78,4 +78,4 @@ function loadBattleSessionsMapper(dispatch: Dispatch<Action<string>>) {
     };
 }
 
-export const BattlesListContainer = connect(mapStateToProps, mapDispatchToProps)(BattlesList);
+export const BattlesListContainer = connect(mapStateToProps, mapDispatchToProps)(BattleSessionsList);
