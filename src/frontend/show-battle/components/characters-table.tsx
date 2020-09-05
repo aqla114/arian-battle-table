@@ -12,11 +12,17 @@ import { Attribute } from '../actions/attribute';
 import { InputField } from '../../components/atoms/input-field';
 
 export type CharacterTableState = {
-    sessionName: string;
-    characters: CharacterProps[];
-    currentNewCharacter: CharacterProps;
-    deleteCharacterName: string;
-    isModalOpen: boolean;
+    state: {
+        sessionName: string;
+        characters: CharacterProps[];
+    };
+    current: {
+        currentNewCharacter: CharacterProps;
+        deleteCharacterName: string;
+    };
+    dom: {
+        isModalOpen: boolean;
+    };
 };
 
 export type CharacterProps = {
@@ -71,9 +77,15 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
         props.loadCharacters();
     }, []);
 
-    const nextActionPriority = Math.max(...props.characters.filter(x => !x.isActed).map(x => x.actionPriority));
+    const {
+        state: { sessionName, characters },
+        current: { currentNewCharacter },
+        dom: { isModalOpen },
+    } = props;
 
-    const characterElement = props.characters.map(character => {
+    const nextActionPriority = Math.max(...characters.filter(x => !x.isActed).map(x => x.actionPriority));
+
+    const characterElement = characters.map(character => {
         return (
             <CharacterElement
                 key={uuid.v4()}
@@ -93,7 +105,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
 
     return (
         <div>
-            {props.isModalOpen ? (
+            {isModalOpen ? (
                 <Dialog
                     description={'本当に削除しますか？'}
                     enterLabel={'削除する'}
@@ -108,7 +120,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                         name="save"
                         value="保存"
                         kind="primary"
-                        onClick={() => props.saveCharacters(props.sessionName, props.characters)}
+                        onClick={() => props.saveCharacters(sessionName, characters)}
                     />
                 </span>
                 <span className="save-container__save-newly-button">
@@ -116,7 +128,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                         name="save-newly"
                         value="新規セッションとして保存"
                         kind="primary"
-                        onClick={() => props.saveCharactersNewly(props.sessionName, props.characters)}
+                        onClick={() => props.saveCharactersNewly(sessionName, characters)}
                     />
                 </span>
             </div>
@@ -126,7 +138,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                     className="character-table__session-name"
                     kind="text"
                     showBorder={false}
-                    value={props.sessionName}
+                    value={sessionName}
                     onChange={e => props.updateSessionNameText({ e })}
                 />
                 <table className="character-table__table">
@@ -147,7 +159,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                 </table>
                 <InputFieldWithButton
                     name={'character-name'}
-                    value={props.currentNewCharacter.name}
+                    value={currentNewCharacter.name}
                     buttonLabel={'新しくキャラクターを追加'}
                     placeholder={'キャラクター名'}
                     onChange={e => props.updateCurrentNewCharacter(e)}

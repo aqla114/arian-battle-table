@@ -77,8 +77,10 @@ function loadCharactersMapper(dispatch: Dispatch<Action<string>>) {
                     actions.doneLoadingCharacters({
                         params: {},
                         result: {
-                            sessionName,
-                            characters: characters.sort((a, b) => b.actionPriority - a.actionPriority),
+                            state: {
+                                sessionName,
+                                characters: characters.sort((a, b) => b.actionPriority - a.actionPriority),
+                            },
                         },
                     }),
                 );

@@ -6,11 +6,17 @@ import { Attribute } from '../actions/attribute';
 import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
 
 const initialState: CharacterTableState = {
-    sessionName: '',
-    characters: [],
-    currentNewCharacter: Character(),
-    deleteCharacterName: '',
-    isModalOpen: false,
+    state: {
+        sessionName: '',
+        characters: [],
+    },
+    current: {
+        currentNewCharacter: Character(),
+        deleteCharacterName: '',
+    },
+    dom: {
+        isModalOpen: false,
+    },
 };
 
 function characterSelector(characterName: string) {
@@ -21,12 +27,12 @@ function characterSelector(characterName: string) {
 export const tableReducer = reducerWithInitialState(initialState)
     .case(actions.updateSessionNameText, (state, props) => {
         const { e } = props;
-        return { ...state, sessionName: e.target.value };
+        return { ...state, state: { ...state.state, sessionName: e.target.value } };
     })
     .case(actions.updateCharacterAttributeText, (state, props) => {
         const { e, name } = props;
 
-        const characters = updateItemInArray(state.characters, characterSelector(name), item => {
+        const characters = updateItemInArray(state.state.characters, characterSelector(name), item => {
             if (e.target.value === '' || e.target.value === '-') {
                 return updateObject(item, { [e.target.name as keyof CharacterProps]: e.target.value });
             }
@@ -41,7 +47,7 @@ export const tableReducer = reducerWithInitialState(initialState)
 
         characters.sort((a, b) => b.actionPriority - a.actionPriority);
 
-        return { ...state, characters };
+        return { ...state, state: { ...state.state, characters } };
     })
     .case(actions.updateCharacterCheckbox, (state, props) => {
         const { e, name } = props;
@@ -50,11 +56,11 @@ export const tableReducer = reducerWithInitialState(initialState)
         let characters;
 
         if (action === 'isActed') {
-            characters = updateItemInArray(state.characters, characterSelector(name), item =>
+            characters = updateItemInArray(state.state.characters, characterSelector(name), item =>
                 updateObject(item, { isActed: !item.isActed }),
             );
         } else {
-            characters = updateItemInArray(state.characters, characterSelector(name), item =>
+            characters = updateItemInArray(state.state.characters, characterSelector(name), item =>
                 updateObject(item, {
                     badStatus: updateObject(item.badStatus, {
                         [action]: !item.badStatus[action as keyof BadStatus],
@@ -63,12 +69,12 @@ export const tableReducer = reducerWithInitialState(initialState)
             );
         }
 
-        return { ...state, characters };
+        return { ...state, state: { ...state.state, characters } };
     })
     .case(actions.updateButtonDropdownBadStatus, (state, props) => {
         const { key, value, name } = props;
 
-        const characters = updateItemInArray(state.characters, characterSelector(name), item => {
+        const characters = updateItemInArray(state.state.characters, characterSelector(name), item => {
             // knockback の更新 -> 行動値の更新 という2ステップを同時に行えないので updateObject を2回呼んでいる。
             const tmp = updateObject(item, {
                 badStatus: updateObject(item.badStatus, {
@@ -85,27 +91,31 @@ export const tableReducer = reducerWithInitialState(initialState)
             characters.sort((a, b) => b.actionPriority - a.actionPriority);
         }
 
-        return { ...state, characters };
+        return { ...state, state: { ...state.state, characters } };
     })
     .case(actions.updateCharacterDropdown, (state, props) => {
         const { e, name } = props;
 
-        const characters = updateItemInArray(state.characters, characterSelector(name), item =>
+        const characters = updateItemInArray(state.state.characters, characterSelector(name), item =>
             updateObject(item, { attribute: e.target.value as Attribute }),
         );
 
-        return { ...state, characters };
+        return { ...state, state: { ...state.state, characters } };
     })
     .case(actions.openDeletionModal, (state, props) => {
-        return { ...state, isModalOpen: true, deleteCharacterName: props.name };
+        return {
+            ...state,
+            current: { ...state.current, deleteCharacterName: props.name },
+            dom: { ...state.dom, isModalOpen: true },
+        };
     })
     .case(actions.closeDeletionModal, (state, _props) => {
-        return { ...state, isModalOpen: false };
+        return { ...state, dom: { ...state.dom, isModalOpen: false } };
     })
     .case(actions.copyCharacter, (state, props) => {
         let { character } = props;
 
-        const names = state.characters.map(x => x.name);
+        const names = state.state.characters.map(x => x.name);
         let characterName = character.name;
 
         while (true) {
@@ -118,44 +128,56 @@ export const tableReducer = reducerWithInitialState(initialState)
 
         character = { ...character, name: characterName };
 
-        const characters: CharacterProps[] = [...state.characters, character].slice().map(x => ({ ...x }));
+        const characters: CharacterProps[] = [...state.state.characters, character].slice().map(x => ({ ...x }));
 
-        return { ...state, characters };
+        return { ...state, state: { ...state.state, characters } };
     })
     .case(actions.deleteCharacter, (state, _) => {
-        const { deleteCharacterName: name } = state;
-        const characters = state.characters
+        const {
+            current: { deleteCharacterName: name },
+        } = state;
+        const characters = state.state.characters
             .slice()
             .map(x => ({ ...x }))
             .filter(x => x.name !== name);
 
-        return { ...state, characters, isModalOpen: false, deleteCharacterName: '' };
+        return {
+            ...state,
+            state: { ...state.state, characters },
+            current: { ...state.current, deleteCharacterName: '' },
+            dom: { ...state.dom, isModalOpen: false },
+        };
     })
     .case(actions.updateCurrentNewCharacter, (state, props) => {
         const currentNewCharacter = Character(props.target.value);
 
-        return { ...state, currentNewCharacter };
+        return { ...state, current: { ...state.current, currentNewCharacter } };
     })
     .case(actions.addNewCharacter, state => {
-        const characters = state.characters.slice().map(x => ({ ...x }));
+        const characters = state.state.characters.slice().map(x => ({ ...x }));
 
-        if (characters.some(x => x.name === state.currentNewCharacter.name)) {
+        if (characters.some(x => x.name === state.current.currentNewCharacter.name)) {
             window.alert('すでに存在しているキャラクター名です。キャラクター名は別のものを入力してください。');
             return state;
         }
 
-        if (state.currentNewCharacter.name === '') {
+        if (state.current.currentNewCharacter.name === '') {
             window.alert('キャラクターネームが空白です。');
             return state;
         }
 
-        characters.push(state.currentNewCharacter);
+        characters.push(state.current.currentNewCharacter);
         characters.sort((a, b) => b.actionPriority - a.actionPriority);
 
-        return { ...state, characters, currentNewCharacter: Character() };
+        return {
+            ...state,
+            state: { ...state.state, characters },
+            current: { ...state.current, currentNewCharacter: Character() },
+        };
     })
     .case(actions.doneLoadingCharacters, (state, props) => {
-        return { ...state, sessionName: props.result.sessionName, characters: props.result.characters };
+        console.log(props.result);
+        return { ...state, state: props.result.state };
     })
     .default(state => {
         console.log('The default reducer is used.');
