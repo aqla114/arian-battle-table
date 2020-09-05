@@ -15,9 +15,17 @@ type Props = {
 };
 
 export const InputField: React.SFC<Props> = ({ textAlign = 'left', showBorder = true, ...props }: Props) => {
+    const [curretntValue, setValue] = React.useState(props.value);
+    React.useEffect(() => {
+        setValue(props.value);
+    }, [props.value]);
+
     return (
         <input
             {...props}
+            value={curretntValue}
+            onChange={e => setValue(e.target.value)}
+            onBlur={e => props.onChange(e)}
             type="text"
             className={`input-field__${props.kind} ${`--${textAlign}`} ${showBorder ? '--show-border' : ''} ${
                 props.className
