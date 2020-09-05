@@ -25,16 +25,19 @@ export const tableReducer = reducerWithInitialState(initialState)
     })
     .case(actions.updateCharacterAttributeText, (state, props) => {
         const { e, name } = props;
-        const characters = state.characters.slice().map(x => ({ ...x }));
-        const idx = characters.map(x => x.name).indexOf(name);
 
-        if (e.target.value === '' || e.target.value === '-') {
-            characters[idx] = { ...characters[idx], [e.target.name as keyof CharacterProps]: e.target.value };
-        }
-        const targetValue: number = parseInt(e.target.value);
-        if (!isNaN(targetValue)) {
-            characters[idx] = { ...characters[idx], [e.target.name as keyof CharacterProps]: targetValue };
-        }
+        const characters = updateItemInArray(state.characters, characterSelector(name), item => {
+            if (e.target.value === '' || e.target.value === '-') {
+                return updateObject(item, { [e.target.name as keyof CharacterProps]: e.target.value });
+            }
+
+            const targetValue: number = parseInt(e.target.value);
+            if (!isNaN(targetValue)) {
+                return updateObject(item, { [e.target.name as keyof CharacterProps]: targetValue });
+            } else {
+                return item;
+            }
+        });
 
         characters.sort((a, b) => b.actionPriority - a.actionPriority);
 
