@@ -46,8 +46,6 @@ export function CharacterElement(props: CharacterElementProps) {
         }
     });
 
-    console.log(badStatusList);
-
     const attributeOptions = Object.entries(attributeLabels).map(([key, label]) => (
         <option value={key} key={key}>
             {label}
