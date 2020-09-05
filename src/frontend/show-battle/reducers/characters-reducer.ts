@@ -29,6 +29,21 @@ export const updateCharacterAttributeNumberText: (
     return { ...state, state: { ...state.state, characters } };
 };
 
+export const updateCharacterAttributeText: (
+    state: CharacterTableState,
+    props: ChangeActionProps,
+) => CharacterTableState = (state, props) => {
+    const { e, name } = props;
+
+    console.log(e);
+
+    const characters = updateItemInArray(state.state.characters, characterSelector(name), item => {
+        return updateObject(item, { [e.target.name]: e.target.value });
+    });
+
+    return { ...state, state: { ...state.state, characters } };
+};
+
 export const updateCharacterCheckbox: (state: CharacterTableState, props: ChangeActionProps) => CharacterTableState = (
     state,
     props,

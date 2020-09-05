@@ -8,7 +8,7 @@ import { ButtonDropdownValue } from '../../components/atoms/button-dropdown';
 type CharacterName = string;
 
 export type ChangeSessionNameProps = { e: React.ChangeEvent<HTMLInputElement> };
-export type ChangeActionProps = { e: React.ChangeEvent<HTMLInputElement>; name: CharacterName };
+export type ChangeActionProps = { e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>; name: CharacterName };
 export type MouseActionProps = {
     e: React.MouseEvent<HTMLInputElement | HTMLLIElement, MouseEvent>;
     name: CharacterName;
@@ -22,6 +22,7 @@ export type ClickDropDownListItemProps = {
 export type ActionTypes =
     | 'UPDATE_SESSION_NAME_TEXT'
     | 'UPDATE_CHARACTER_ATTRIBUTE_NUMBER_TEXT'
+    | 'UPDATE_CHARACTER_ATTRIBUTE_TEXT'
     | 'UPDATE_CHARACTER_IS_KNOCKBACK'
     | 'UPDATE_BUTTON_DROPDOWN_BAD_STATUS'
     | 'UPDATE_CHARACTER_DROPDOWN'
@@ -40,6 +41,7 @@ const actionCreator = actionCreatorFactory();
 export const actions = {
     updateSessionName: actionCreator<ChangeSessionNameProps>('UPDATE_SESSION_NAME_TEXT'),
     updateCharacterAttributeNumberText: actionCreator<ChangeActionProps>('UPDATE_CHARACTER_ATTRIBUTE_NUMBER_TEXT'),
+    updateCharacterAttributeText: actionCreator<ChangeActionProps>('UPDATE_CHARACTER_ATTRIBUTE_TEXT'),
     updateCharacterCheckbox: actionCreator<ChangeActionProps>('UPDATE_CHARACTER_IS_KNOCKBACK'),
     updateButtonDropdownBadStatus: actionCreator<ClickDropDownListItemProps>('UPDATE_BUTTON_DROPDOWN_BAD_STATUS'),
     updateCharacterAttributeDropdown: actionCreator<ChangeActionProps>('UPDATE_CHARACTER_DROPDOWN'),

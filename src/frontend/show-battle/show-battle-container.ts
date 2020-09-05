@@ -14,6 +14,7 @@ import * as Request from 'superagent';
 export interface Actions {
     updateSessionName: (v: ChangeSessionNameProps) => Action<string>;
     updateCharacterAttributeNumberText: (v: ChangeActionProps) => Action<string>;
+    updateCharacterAttributeText: (v: ChangeActionProps) => Action<string>;
     updateCharacterCheckbox: (v: ChangeActionProps) => Action<string>;
     updateButtonDropdownBadStatus: (v: ClickDropDownListItemProps) => Action<string>;
     updateCharacterAttributeDropdown: (v: ChangeActionProps) => Action<string>;
@@ -37,6 +38,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
         updateSessionName: (v: ChangeSessionNameProps) => dispatch(actions.updateSessionName(v)),
         updateCharacterAttributeNumberText: (v: ChangeActionProps) =>
             dispatch(actions.updateCharacterAttributeNumberText(v)),
+        updateCharacterAttributeText: (v: ChangeActionProps) => dispatch(actions.updateCharacterAttributeText(v)),
         updateCharacterCheckbox: (v: ChangeActionProps) => dispatch(actions.updateCharacterCheckbox(v)),
         updateButtonDropdownBadStatus: (v: ClickDropDownListItemProps) =>
             dispatch(actions.updateButtonDropdownBadStatus(v)),

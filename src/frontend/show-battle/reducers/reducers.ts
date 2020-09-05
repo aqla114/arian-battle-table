@@ -10,6 +10,7 @@ import {
     copyCharacter,
     deleteCharacter,
     addNewCharacter,
+    updateCharacterAttributeText,
 } from './characters-reducer';
 
 const initialState: CharacterTableState = {
@@ -33,6 +34,7 @@ export function characterSelector(characterName: string) {
 // TODO: キャラクター名で filter するの結構微妙みあるからできれば id とかをちゃんと扱うようにしたいかも。
 export const tableReducer = reducerWithInitialState(initialState)
     .case(actions.updateSessionName, updateSessionName)
+    .case(actions.updateCharacterAttributeText, updateCharacterAttributeText)
     .case(actions.updateCharacterAttributeNumberText, updateCharacterAttributeNumberText)
     .case(actions.updateCharacterCheckbox, updateCharacterCheckbox)
     .case(actions.updateButtonDropdownBadStatus, updateButtonDropdownBadStatus)
