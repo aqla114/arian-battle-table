@@ -12,11 +12,11 @@ import { State } from './store';
 import * as Request from 'superagent';
 
 export interface Actions {
-    updateSessionNameText: (v: ChangeSessionNameProps) => Action<string>;
+    updateSessionName: (v: ChangeSessionNameProps) => Action<string>;
     updateCharacterAttributeText: (v: ChangeActionProps) => Action<string>;
     updateCharacterCheckbox: (v: ChangeActionProps) => Action<string>;
     updateButtonDropdownBadStatus: (v: ClickDropDownListItemProps) => Action<string>;
-    updateCharacterDropdown: (v: ChangeActionProps) => Action<string>;
+    updateCharacterAttributeDropdown: (v: ChangeActionProps) => Action<string>;
     openDeletionModal: (v: MouseActionProps) => Action<string>;
     closeDeletionModal: () => Action<string>;
     copyCharacter: (v: CharacterProps) => Action<string>;
@@ -34,12 +34,13 @@ function mapStateToProps(state: State): CharacterTableState {
 
 function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
     return {
-        updateSessionNameText: (v: ChangeSessionNameProps) => dispatch(actions.updateSessionNameText(v)),
+        updateSessionName: (v: ChangeSessionNameProps) => dispatch(actions.updateSessionName(v)),
         updateCharacterAttributeText: (v: ChangeActionProps) => dispatch(actions.updateCharacterAttributeText(v)),
         updateCharacterCheckbox: (v: ChangeActionProps) => dispatch(actions.updateCharacterCheckbox(v)),
         updateButtonDropdownBadStatus: (v: ClickDropDownListItemProps) =>
             dispatch(actions.updateButtonDropdownBadStatus(v)),
-        updateCharacterDropdown: (v: ChangeActionProps) => dispatch(actions.updateCharacterDropdown(v)),
+        updateCharacterAttributeDropdown: (v: ChangeActionProps) =>
+            dispatch(actions.updateCharacterAttributeDropdown(v)),
         openDeletionModal: (v: MouseActionProps) => dispatch(actions.openDeletionModal(v)),
         closeDeletionModal: () => dispatch(actions.closeDeletionModal()),
         deleteCharacter: () => dispatch(actions.deleteCharacter()),
@@ -77,8 +78,10 @@ function loadCharactersMapper(dispatch: Dispatch<Action<string>>) {
                     actions.doneLoadingCharacters({
                         params: {},
                         result: {
-                            sessionName,
-                            characters: characters.sort((a, b) => b.actionPriority - a.actionPriority),
+                            state: {
+                                sessionName,
+                                characters: characters.sort((a, b) => b.actionPriority - a.actionPriority),
+                            },
                         },
                     }),
                 );

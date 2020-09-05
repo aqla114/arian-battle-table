@@ -1,10 +1,7 @@
 import actionCreatorFactory, { ActionCreator, Failure, Success } from 'typescript-fsa';
-import { CharacterProps } from '../components/characters-table';
+import { CharacterTableState } from '../components/characters-table';
 
-type Session = {
-    sessionName: string;
-    characters: CharacterProps[];
-};
+type Session = Pick<CharacterTableState, 'state'>;
 
 const actionCreator = actionCreatorFactory();
 
