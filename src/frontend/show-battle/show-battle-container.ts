@@ -12,7 +12,7 @@ import { State } from './store';
 import * as Request from 'superagent';
 
 export interface Actions {
-    updateSessionNameText: (v: ChangeSessionNameProps) => Action<string>;
+    updateSessionName: (v: ChangeSessionNameProps) => Action<string>;
     updateCharacterAttributeText: (v: ChangeActionProps) => Action<string>;
     updateCharacterCheckbox: (v: ChangeActionProps) => Action<string>;
     updateButtonDropdownBadStatus: (v: ClickDropDownListItemProps) => Action<string>;
@@ -34,7 +34,7 @@ function mapStateToProps(state: State): CharacterTableState {
 
 function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
     return {
-        updateSessionNameText: (v: ChangeSessionNameProps) => dispatch(actions.updateSessionNameText(v)),
+        updateSessionName: (v: ChangeSessionNameProps) => dispatch(actions.updateSessionName(v)),
         updateCharacterAttributeText: (v: ChangeActionProps) => dispatch(actions.updateCharacterAttributeText(v)),
         updateCharacterCheckbox: (v: ChangeActionProps) => dispatch(actions.updateCharacterCheckbox(v)),
         updateButtonDropdownBadStatus: (v: ClickDropDownListItemProps) =>

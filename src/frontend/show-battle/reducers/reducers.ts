@@ -32,7 +32,7 @@ export function characterSelector(characterName: string) {
 
 // TODO: キャラクター名で filter するの結構微妙みあるからできれば id とかをちゃんと扱うようにしたいかも。
 export const tableReducer = reducerWithInitialState(initialState)
-    .case(actions.updateSessionNameText, updateSessionName)
+    .case(actions.updateSessionName, updateSessionName)
     .case(actions.updateCharacterAttributeText, updateCharacterAttributeText)
     .case(actions.updateCharacterCheckbox, updateCharacterCheckbox)
     .case(actions.updateButtonDropdownBadStatus, updateButtonDropdownBadStatus)
@@ -56,7 +56,6 @@ export const tableReducer = reducerWithInitialState(initialState)
         return { ...state, current: { ...state.current, currentNewCharacter } };
     })
     .case(actions.doneLoadingCharacters, (state, props) => {
-        console.log(props.result);
         return { ...state, state: props.result.state };
     })
     .default(state => {

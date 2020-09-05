@@ -38,7 +38,7 @@ export type ActionTypes =
 const actionCreator = actionCreatorFactory();
 
 export const actions = {
-    updateSessionNameText: actionCreator<ChangeSessionNameProps>('UPDATE_SESSION_NAME_TEXT'),
+    updateSessionName: actionCreator<ChangeSessionNameProps>('UPDATE_SESSION_NAME_TEXT'),
     updateCharacterAttributeText: actionCreator<ChangeActionProps>('UPDATE_CHARACTER_ATTRIBUTE_TEXT'),
     updateCharacterCheckbox: actionCreator<ChangeActionProps>('UPDATE_CHARACTER_IS_KNOCKBACK'),
     updateButtonDropdownBadStatus: actionCreator<ClickDropDownListItemProps>('UPDATE_BUTTON_DROPDOWN_BAD_STATUS'),

@@ -139,7 +139,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                     kind="text"
                     showBorder={false}
                     value={sessionName}
-                    onChange={e => props.updateSessionNameText({ e })}
+                    onChange={e => props.updateSessionName({ e })}
                 />
                 <table className="character-table__table">
                     <thead>
