@@ -1,13 +1,14 @@
 import actionCreatorFactory, { ActionCreator, Failure, Success } from 'typescript-fsa';
+import { BattleSession } from '../components/battles-list';
 
 const actionCreator = actionCreatorFactory();
 
-const createBattleSession = actionCreator.async<{}, {}, {}>('CREATE_BATTLE_SESSION');
+const createBattleSession = actionCreator.async<{}, { session: BattleSession }, {}>('CREATE_BATTLE_SESSION');
 
 interface CreateBattleSessionActions {
     startedCreateBattleSession: ActionCreator<{}>;
     failedCreateBattleSession: ActionCreator<Failure<{}, {}>>;
-    doneCreateBattleSession: ActionCreator<Success<{}, {}>>;
+    doneCreateBattleSession: ActionCreator<Success<{}, { session: BattleSession }>>;
 }
 
 export const createBattleSessionsActions: CreateBattleSessionActions = {
