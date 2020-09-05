@@ -5,7 +5,7 @@ import { characterSelector } from './reducers';
 import { BadStatus } from '../actions/bad-status';
 import { Attribute } from '../actions/attribute';
 
-export const updateCharacterAttributeText: (
+export const updateCharacterAttributeNumberText: (
     state: CharacterTableState,
     props: ChangeActionProps,
 ) => CharacterTableState = (state, props) => {
@@ -25,6 +25,21 @@ export const updateCharacterAttributeText: (
     });
 
     characters.sort((a, b) => b.actionPriority - a.actionPriority);
+
+    return { ...state, state: { ...state.state, characters } };
+};
+
+export const updateCharacterAttributeText: (
+    state: CharacterTableState,
+    props: ChangeActionProps,
+) => CharacterTableState = (state, props) => {
+    const { e, name } = props;
+
+    console.log(e);
+
+    const characters = updateItemInArray(state.state.characters, characterSelector(name), item => {
+        return updateObject(item, { [e.target.name]: e.target.value });
+    });
 
     return { ...state, state: { ...state.state, characters } };
 };

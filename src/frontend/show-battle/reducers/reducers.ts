@@ -3,13 +3,14 @@ import { CharacterTableState, Character, CharacterProps } from '../components/ch
 import { actions } from '../actions/actions';
 import { updateSessionName } from './session-name-reducer';
 import {
-    updateCharacterAttributeText,
+    updateCharacterAttributeNumberText,
     updateCharacterCheckbox,
     updateButtonDropdownBadStatus,
     updateCharacterAttributeDropdown,
     copyCharacter,
     deleteCharacter,
     addNewCharacter,
+    updateCharacterAttributeText,
 } from './characters-reducer';
 
 const initialState: CharacterTableState = {
@@ -34,6 +35,7 @@ export function characterSelector(characterName: string) {
 export const tableReducer = reducerWithInitialState(initialState)
     .case(actions.updateSessionName, updateSessionName)
     .case(actions.updateCharacterAttributeText, updateCharacterAttributeText)
+    .case(actions.updateCharacterAttributeNumberText, updateCharacterAttributeNumberText)
     .case(actions.updateCharacterCheckbox, updateCharacterCheckbox)
     .case(actions.updateButtonDropdownBadStatus, updateButtonDropdownBadStatus)
     .case(actions.updateCharacterAttributeDropdown, updateCharacterAttributeDropdown)

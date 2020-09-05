@@ -209,17 +209,26 @@ input[class=text-checkbox] {
 .card-container.--clickable:hover {
   background-color: #efefef;
 }
+.textarea {
+  width: 100%;
+  height: 70px;
+  max-height: 70px;
+  padding: 4px;
+  border-radius: 4px;
+  border: 1px solid #e5e5e5;
+}
 body {
   background-color: #ecebea;
 }
 .character-table {
-  width: 1200px;
+  width: 1600px;
 }
 .character-table__session-name {
   font-size: 24px;
   width: 100%;
 }
 .character-table__table {
+  width: 100%;
   margin-top: 12px;
   font-size: 16px;
   text-align: center;
@@ -249,6 +258,9 @@ body {
 .character-table__table__character__badstatus {
   width: 260px;
   margin: 4px;
+}
+.character-table__table__character__memo {
+  width: 400px;
 }
 .character-table__table__character.--next {
   -webkit-transition: background-color 0.2s linear;

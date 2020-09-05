@@ -7,7 +7,6 @@ import { InputFieldWithButton } from '../../components/molecules/input-field-wit
 import { Dialog } from '../../components/molecules/dialog';
 import { BadStatus, defaultBadStatus } from '../actions/bad-status';
 import { CardContainer } from '../../components/card-container';
-import * as uuid from 'uuid';
 import { Attribute } from '../actions/attribute';
 import { InputField } from '../../components/atoms/input-field';
 
@@ -39,6 +38,7 @@ export type CharacterProps = {
     defaultMagicalDefence: number;
     badStatus: BadStatus;
     isActed: boolean;
+    memo: string;
 };
 
 export function Character(
@@ -52,6 +52,8 @@ export function Character(
     defaultPhysicalDefence: number = 0,
     magicalDefence: number = 0,
     defaultMagicalDefence: number = 0,
+    isActed: boolean = false,
+    memo: string = '',
 ): CharacterProps {
     const badStatus = defaultBadStatus;
     return {
@@ -66,7 +68,8 @@ export function Character(
         magicalDefence,
         defaultMagicalDefence,
         badStatus,
-        isActed: false,
+        isActed,
+        memo,
     };
 }
 
@@ -88,9 +91,10 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
     const characterElement = characters.map(character => {
         return (
             <CharacterElement
-                key={uuid.v4()}
+                key={character.name}
                 {...character}
                 isNextPrior={!character.isActed && character.actionPriority === nextActionPriority}
+                onChangeElementNumberText={e => props.updateCharacterAttributeNumberText({ e, name: character.name })}
                 onChangeElementText={e => props.updateCharacterAttributeText({ e, name: character.name })}
                 onChangeElementCheckbox={e => props.updateCharacterCheckbox({ e, name: character.name })}
                 onClickDropdownItem={(key, value) =>
@@ -152,6 +156,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                             <td>魔法防御力 / 元</td>
                             <td>属性</td>
                             <td>バッドステータス</td>
+                            <td>メモ</td>
                             <td>各種操作</td>
                         </tr>
                     </thead>

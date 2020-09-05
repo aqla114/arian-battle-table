@@ -29,6 +29,7 @@ export class Character {
         defaultPhysicalDefence: number,
         magicalDefence: number,
         defaultMagicalDefence: number,
+        memo: string,
     ): Character {
         const c = new Character();
         return Object.assign(c, {
@@ -44,67 +45,71 @@ export class Character {
             defaultMagicalDefence,
             badStatus: BadStatus.mk(),
             isActed: false,
+            memo,
         });
     }
 
     @PrimaryGeneratedColumn()
-    id!: number;
+    id: number;
 
     @CreateDateColumn({
         name: 'created_at',
     })
     @Index()
-    createdAt!: Date;
+    createdAt: Date;
 
     @UpdateDateColumn({
         name: 'updated_at',
     })
     @Index()
-    updatedAt!: Date;
+    updatedAt: Date;
 
     @ManyToOne(
         type => BattleSession,
         battleSession => battleSession.characters,
     )
-    battleSession!: BattleSession;
+    battleSession: BattleSession;
 
     @Column({ default: '' })
-    name!: string;
+    name: string;
 
     @Column({ default: 'None' })
-    attribute!: string;
+    attribute: string;
 
     @Column({ default: 0, name: 'action_priority' })
-    actionPriority!: number;
+    actionPriority: number;
 
     @Column({ default: 0, name: 'default_action_priority' })
-    defaultActionPriority!: number;
+    defaultActionPriority: number;
 
     @Column({ default: 0, name: 'hp' })
-    hp!: number;
+    hp: number;
 
     @Column({ default: 0, name: 'max_hp' })
-    maxHp!: number;
+    maxHp: number;
 
     @Column({ default: 0, name: 'physical_defence' })
-    physicalDefence!: number;
+    physicalDefence: number;
 
     @Column({ default: 0, name: 'default_physical_defence' })
-    defaultPhysicalDefence!: number;
+    defaultPhysicalDefence: number;
 
     @Column({ default: 0, name: 'magical_defence' })
-    magicalDefence!: number;
+    magicalDefence: number;
 
     @Column({ default: 0, name: 'default_magical_defence' })
-    defaultMagicalDefence!: number;
+    defaultMagicalDefence: number;
 
     @Column({ default: 0, name: 'is_acted' })
-    isActed!: boolean;
+    isActed: boolean;
+
+    @Column({ default: '', name: 'memo' })
+    memo: string;
 
     @OneToOne(
         type => BadStatus,
         badStatus => badStatus.character,
         { cascade: true },
     )
-    badStatus!: BadStatus;
+    badStatus: BadStatus;
 }
