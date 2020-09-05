@@ -6,7 +6,7 @@ import {
     updateCharacterAttributeText,
     updateCharacterCheckbox,
     updateButtonDropdownBadStatus,
-    updateCharacterDropdown,
+    updateCharacterAttributeDropdown,
     copyCharacter,
     deleteCharacter,
     addNewCharacter,
@@ -36,7 +36,7 @@ export const tableReducer = reducerWithInitialState(initialState)
     .case(actions.updateCharacterAttributeText, updateCharacterAttributeText)
     .case(actions.updateCharacterCheckbox, updateCharacterCheckbox)
     .case(actions.updateButtonDropdownBadStatus, updateButtonDropdownBadStatus)
-    .case(actions.updateCharacterDropdown, updateCharacterDropdown)
+    .case(actions.updateCharacterAttributeDropdown, updateCharacterAttributeDropdown)
     .case(actions.addNewCharacter, addNewCharacter)
     .case(actions.copyCharacter, copyCharacter)
     .case(actions.deleteCharacter, deleteCharacter)

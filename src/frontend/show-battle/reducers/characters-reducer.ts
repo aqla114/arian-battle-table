@@ -81,10 +81,10 @@ export const updateButtonDropdownBadStatus: (
     return { ...state, state: { ...state.state, characters } };
 };
 
-export const updateCharacterDropdown: (state: CharacterTableState, props: ChangeActionProps) => CharacterTableState = (
-    state,
-    props,
-) => {
+export const updateCharacterAttributeDropdown: (
+    state: CharacterTableState,
+    props: ChangeActionProps,
+) => CharacterTableState = (state, props) => {
     const { e, name } = props;
 
     const characters = updateItemInArray(state.state.characters, characterSelector(name), item =>
