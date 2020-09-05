@@ -46,7 +46,7 @@ function createBattleSessionMapper(dispatch: Dispatch<Action<string>>) {
                     dispatch(
                         actions.doneCreateBattleSession({
                             params: {},
-                            result: {},
+                            result: { session: res.body },
                         }),
                     );
                 }
@@ -78,7 +78,4 @@ function loadBattleSessionsMapper(dispatch: Dispatch<Action<string>>) {
     };
 }
 
-export const BattlesListContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(BattlesList);
+export const BattlesListContainer = connect(mapStateToProps, mapDispatchToProps)(BattlesList);

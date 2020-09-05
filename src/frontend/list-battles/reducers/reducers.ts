@@ -11,8 +11,10 @@ export const tableReducer = reducerWithInitialState(initialState)
     .case(actions.doneLoadingBattleSessions, (state, props) => {
         return { ...state, battlesList: props.result.battleSessions };
     })
-    .case(actions.doneCreateBattleSession, (state, _) => {
-        return { ...state, sessionName: '' };
+    .case(actions.doneCreateBattleSession, (state, props) => {
+        const battlesList = [...state.battlesList, props.result.session];
+
+        return { ...state, battlesList, sessionName: '' };
     })
     .case(actions.updateCurrentSessionName, (state, props) => {
         return { ...state, sessionName: props.target.value };

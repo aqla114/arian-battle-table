@@ -3,7 +3,7 @@ import { Actions } from '../list-battles-container';
 import { InputFieldWithButton } from '../../components/molecules/input-field-with-button';
 import { CardContainer } from '../../components/card-container';
 
-type BattleSession = {
+export type BattleSession = {
     id: number;
     sessionName: string;
     createdAt: string;
