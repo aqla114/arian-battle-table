@@ -27,9 +27,9 @@ export const BattlesList: React.SFC<BattlesListProps> = (props: BattlesListProps
     }, []);
 
     const sessions = props.battlesList.map(session => (
-        <a href={`/battle/${session.id}`}>
-            <li key={session.id} className="battles-list__session">
-                <CardContainer className='battles-list__session' isClickable={true}>
+        <a key={session.id} href={`/battle/${session.id}`}>
+            <li className="battles-list__session">
+                <CardContainer className="battles-list__session" isClickable={true}>
                     <div className="battles-list__session__id">{session.id}</div>
                     <div className="battles-list__session__session-name">{session.sessionName}</div>
                     <div className="battles-list__session__created-at">{formatDate(new Date(session.createdAt))}</div>
