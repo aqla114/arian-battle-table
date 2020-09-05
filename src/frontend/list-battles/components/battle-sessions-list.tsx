@@ -21,7 +21,7 @@ function formatDate(date: Date): string {
     return `${date.getFullYear()}/${date.getMonth()}/${date.getDate()}`;
 }
 
-export const BattlesList: React.SFC<BattlesListProps> = (props: BattlesListProps) => {
+export const BattleSessionsList: React.SFC<BattlesListProps> = (props: BattlesListProps) => {
     React.useEffect(() => {
         props.loadBattleSessions();
     }, []);

@@ -3,7 +3,7 @@ import { TextCheckBox } from '../../components/atoms/text-checkbox';
 import * as uuid from 'uuid';
 import { ButtonDropdown, OnClickDropdownListItem } from '../../components/atoms/button-dropdown';
 
-export type BadStatusListProps = {
+export type BadStatusButtonsProps = {
     badStatusList: BadStatusProps[];
 };
 
@@ -29,7 +29,7 @@ type NumberBadStatus = {
 
 const BADSTATUS_STRENGTH_OPTIONS = [...Array(40).keys()];
 
-export const BadStatusList: React.SFC<BadStatusListProps> = (props: BadStatusListProps) => {
+export const BadStatusButtons: React.SFC<BadStatusButtonsProps> = (props: BadStatusButtonsProps) => {
     return (
         <React.Fragment>
             {props.badStatusList.map(prop => {

@@ -1,6 +1,6 @@
 import { createStore, combineReducers } from 'redux';
 import { tableReducer } from './reducers/reducers';
-import { BattlesListState } from './components/battles-list';
+import { BattlesListState } from './components/battle-sessions-list';
 
 export type State = {
     battlesList: BattlesListState;

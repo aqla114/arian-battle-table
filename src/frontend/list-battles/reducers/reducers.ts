@@ -1,6 +1,6 @@
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { actions } from '../actions/actions';
-import { BattlesListState } from '../components/battles-list';
+import { BattlesListState } from '../components/battle-sessions-list';
 
 const initialState: BattlesListState = {
     sessionName: '',

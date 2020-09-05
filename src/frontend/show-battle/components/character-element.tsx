@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { CharacterProps } from './characters-table';
 import { CheckBox } from '../../components/atoms/checkbox';
-import { BadStatusList, BadStatusProps } from './bad-status-checkboxes';
+import { BadStatusButtons, BadStatusProps } from './bad-status-buttons';
 import { getBadStatusLabels } from '../actions/bad-status';
 import { ComibnedInputField } from '../../components/molecules/combined-input-field';
 import { Dropdown } from '../../components/atoms/dropdown';
@@ -116,7 +116,7 @@ export function CharacterElement(props: CharacterElementProps) {
                 <Dropdown value={props.attribute} options={attributeOptions} onChange={props.onChangeElementDropdown} />
             </td>
             <td className="character-table__table__character__badstatus">
-                <BadStatusList badStatusList={badStatusList} />
+                <BadStatusButtons badStatusList={badStatusList} />
             </td>
             <td className="character-table__table__character__delete-button">
                 <IconButton name="copy" icon={faCopy} onClick={props.onCopyCharacter} />
