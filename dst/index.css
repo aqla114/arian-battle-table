@@ -280,14 +280,12 @@ body {
   color: #f00;
 }
 .battles-list {
-  font: 16px;
-  margin: 20px;
-  text-align: center;
+  width: 800px;
+  padding: 0px;
 }
 .battles-list__header {
   list-style: none;
   height: 40px;
-  width: 800px;
   margin: 8px;
   padding: 0 20px;
 }
