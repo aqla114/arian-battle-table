@@ -21,7 +21,7 @@ export type ClickDropDownListItemProps = {
 
 export type ActionTypes =
     | 'UPDATE_SESSION_NAME_TEXT'
-    | 'UPDATE_CHARACTER_ATTRIBUTE_TEXT'
+    | 'UPDATE_CHARACTER_ATTRIBUTE_NUMBER_TEXT'
     | 'UPDATE_CHARACTER_IS_KNOCKBACK'
     | 'UPDATE_BUTTON_DROPDOWN_BAD_STATUS'
     | 'UPDATE_CHARACTER_DROPDOWN'
@@ -39,7 +39,7 @@ const actionCreator = actionCreatorFactory();
 
 export const actions = {
     updateSessionName: actionCreator<ChangeSessionNameProps>('UPDATE_SESSION_NAME_TEXT'),
-    updateCharacterAttributeText: actionCreator<ChangeActionProps>('UPDATE_CHARACTER_ATTRIBUTE_TEXT'),
+    updateCharacterAttributeNumberText: actionCreator<ChangeActionProps>('UPDATE_CHARACTER_ATTRIBUTE_NUMBER_TEXT'),
     updateCharacterCheckbox: actionCreator<ChangeActionProps>('UPDATE_CHARACTER_IS_KNOCKBACK'),
     updateButtonDropdownBadStatus: actionCreator<ClickDropDownListItemProps>('UPDATE_BUTTON_DROPDOWN_BAD_STATUS'),
     updateCharacterAttributeDropdown: actionCreator<ChangeActionProps>('UPDATE_CHARACTER_DROPDOWN'),

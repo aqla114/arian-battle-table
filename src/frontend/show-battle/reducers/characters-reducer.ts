@@ -5,7 +5,7 @@ import { characterSelector } from './reducers';
 import { BadStatus } from '../actions/bad-status';
 import { Attribute } from '../actions/attribute';
 
-export const updateCharacterAttributeText: (
+export const updateCharacterAttributeNumberText: (
     state: CharacterTableState,
     props: ChangeActionProps,
 ) => CharacterTableState = (state, props) => {
