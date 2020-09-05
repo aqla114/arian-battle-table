@@ -134,9 +134,10 @@ export const copyCharacter: (
         }
     }
 
-    character = { ...character, name: characterName };
+    const { id: _, ...badStatusWithoutId } = character.badStatus;
+    const { id: _id, ...characterWithoudId } = { ...character, name: characterName, badStatus: badStatusWithoutId };
 
-    const characters: CharacterProps[] = [...state.state.characters, character].slice().map(x => ({ ...x }));
+    const characters: CharacterProps[] = [...state.state.characters, characterWithoudId].slice().map(x => ({ ...x }));
 
     return { ...state, state: { ...state.state, characters } };
 };

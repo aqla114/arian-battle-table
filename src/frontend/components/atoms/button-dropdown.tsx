@@ -24,8 +24,6 @@ export const ButtonDropdown: React.SFC<Props> = (props: Props) => {
         return () => document.removeEventListener('click', handler);
     });
 
-    console.log(props.value);
-
     return (
         <div className="button-dropdown">
             <button

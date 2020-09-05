@@ -74,6 +74,8 @@ function loadCharactersMapper(dispatch: Dispatch<Action<string>>) {
                     ...character,
                 }));
 
+                console.log(characters);
+
                 dispatch(
                     actions.doneLoadingCharacters({
                         params: {},
