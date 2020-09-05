@@ -12,7 +12,7 @@ export const tableReducer = reducerWithInitialState(initialState)
         return { ...state, battlesList: props.result.battleSessions };
     })
     .case(actions.doneCreateBattleSession, (state, _) => {
-        return { ...state };
+        return { ...state, sessionName: '' };
     })
     .case(actions.updateCurrentSessionName, (state, props) => {
         return { ...state, sessionName: props.target.value };
