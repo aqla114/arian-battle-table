@@ -7,16 +7,18 @@ import {
     Column,
     Entity,
     OneToOne,
+    OneToMany,
 } from 'typeorm';
 import { BattleSession } from './battle-session';
 import { BadStatus } from './bad-status';
+import { Skill } from './skill';
 
 export type CharacterWithoutId = Pick<
     Character,
     'name' | 'actionPriority' | 'hp' | 'maxHp' | 'physicalDefence' | 'magicalDefence' | 'badStatus' | 'isActed'
 >;
 
-@Entity('character')
+@Entity('characters')
 export class Character {
     public static mk(
         name: string,
@@ -112,4 +114,11 @@ export class Character {
         { cascade: true },
     )
     badStatus: BadStatus;
+
+    @OneToMany(
+        type => Skill,
+        skill => skill.character,
+        { cascade: true },
+    )
+    skills: Skill[];
 }
