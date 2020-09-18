@@ -32,6 +32,7 @@ export class Character {
         magicalDefence: number,
         defaultMagicalDefence: number,
         memo: string,
+        skills: Skill[],
     ): Character {
         const c = new Character();
         return Object.assign(c, {
@@ -48,6 +49,7 @@ export class Character {
             badStatus: BadStatus.mk(),
             isActed: false,
             memo,
+            skills,
         });
     }
 
