@@ -17,7 +17,7 @@ export async function updateBattleSession(ctx: Context) {
 
     const battleSession = await battleSessionRepo.findOne({
         where: { id: sessionId },
-        relations: ['characters', 'characters.badStatus'],
+        relations: ['characters', 'characters.badStatus', 'characters.skills'],
     });
 
     if (!battleSession) {

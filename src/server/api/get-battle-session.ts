@@ -7,7 +7,7 @@ export async function getBattleSession(ctx: Context, id: number) {
 
     const battleSession = await battleSessionRepo.findOne({
         where: { id: id },
-        relations: ['characters', 'characters.badStatus'],
+        relations: ['characters', 'characters.badStatus', 'characters.skills'],
     });
 
     let response = null;
