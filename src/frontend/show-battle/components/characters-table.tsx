@@ -165,7 +165,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                     enterLabel={'削除する'}
                     cancelLabel={'キャンセル'}
                     onClickEnter={() => props.deleteCharacter()}
-                    onClickCancel={() => props.closeDeletionModal()}
+                    onClickCancel={() => props.closeModal()}
                 />
             ) : null}
             {modal?.type === 'CharacterDetailsModal' ? (
@@ -174,7 +174,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                     onChangeNumberInputField={e =>
                         props.updateCharacterAttributeNumberText({ e, name: characters[0].name })
                     }
-                    onCloseModal={props.closeDeletionModal}
+                    onCloseModal={props.closeModal}
                 />
             ) : null}
             <div className="save-container">

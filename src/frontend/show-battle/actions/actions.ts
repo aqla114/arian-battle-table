@@ -35,7 +35,7 @@ export type ActionTypes =
     | 'SAVE_CHARACTERS'
     | 'SAVE_CHARACTERS_NEWLY'
     | 'OPEN_DELETION_MODAL'
-    | 'CLOSE_DELETION_MODAL';
+    | 'CLOSE_MODAL';
 
 const actionCreator = actionCreatorFactory();
 
@@ -47,7 +47,7 @@ export const actions = {
     updateButtonDropdownBadStatus: actionCreator<ClickDropDownListItemProps>('UPDATE_BUTTON_DROPDOWN_BAD_STATUS'),
     updateCharacterAttributeDropdown: actionCreator<ChangeActionProps>('UPDATE_CHARACTER_DROPDOWN'),
     openDeletionModal: actionCreator<MouseActionProps>('OPEN_DELETION_MODAL'),
-    closeDeletionModal: actionCreator('CLOSE_DELETION_MODAL'),
+    closeModal: actionCreator('CLOSE_MODAL'),
     deleteCharacter: actionCreator('DELETE_CHARACTER'),
     copyCharacter: actionCreator<{ character: CharacterProps }>('COPY_CHARACTER'),
     openCharacterDetails: actionCreator<MouseActionProps>('OPEN_CHARACTER_DETAILS'),

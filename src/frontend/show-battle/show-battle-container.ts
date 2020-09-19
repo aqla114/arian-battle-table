@@ -19,7 +19,7 @@ export interface Actions {
     updateButtonDropdownBadStatus: (v: ClickDropDownListItemProps) => Action<string>;
     updateCharacterAttributeDropdown: (v: ChangeActionProps) => Action<string>;
     openDeletionModal: (v: MouseActionProps) => Action<string>;
-    closeDeletionModal: () => Action<string>;
+    closeModal: () => Action<string>;
     openCharacterDetails: (v: MouseActionProps) => Action<string>;
     copyCharacter: (v: CharacterProps) => Action<string>;
     deleteCharacter: () => Action<string>;
@@ -46,7 +46,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
         updateCharacterAttributeDropdown: (v: ChangeActionProps) =>
             dispatch(actions.updateCharacterAttributeDropdown(v)),
         openDeletionModal: (v: MouseActionProps) => dispatch(actions.openDeletionModal(v)),
-        closeDeletionModal: () => dispatch(actions.closeDeletionModal()),
+        closeModal: () => dispatch(actions.closeModal()),
         deleteCharacter: () => dispatch(actions.deleteCharacter()),
         openCharacterDetails: (v: MouseActionProps) => dispatch(actions.openCharacterDetails(v)),
         copyCharacter: (v: CharacterProps) => dispatch(actions.copyCharacter({ character: v })),

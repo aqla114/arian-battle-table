@@ -58,7 +58,7 @@ export const tableReducer = reducerWithInitialState(initialState)
             dom: { ...state.dom, modal: { type: 'CharacterDetailsModal', character } },
         };
     })
-    .case(actions.closeDeletionModal, (state, _props) => {
+    .case(actions.closeModal, (state, _props) => {
         return { ...state, dom: { ...state.dom, modal: null } };
     })
     .case(actions.updateCurrentNewCharacter, (state, props) => {
