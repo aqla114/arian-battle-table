@@ -11,7 +11,16 @@ export type CharacterDetailsProps = {
 
 export const CharacterDetails: React.SFC<CharacterDetailsProps> = (props: CharacterDetailsProps) => {
     return (
-        <div className="side-modal-wrapper" onClick={props.onCloseModal}>
+        <div
+            className="side-modal-wrapper"
+            onClick={e => {
+                // EventTarget、必ずしも Element じゃなくて window とかの場合もあるので、HTMLDivElement の instance であることを確認する。
+                // modal-window の外側をクリックしたときのみモーダルを閉じるようにしたい。
+                // TODO: ここもしかしたら処理を reducer に移した方がいいかもしれん。
+                if (e.target instanceof HTMLDivElement && e.target.className === 'side-modal-wrapper')
+                    props.onCloseModal();
+            }}
+        >
             <div className="side-window">
                 <CharacterDetailsContent {...props} />
             </div>
