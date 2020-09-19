@@ -9,6 +9,9 @@ import { BadStatus, defaultBadStatus } from '../actions/bad-status';
 import { CardContainer } from '../../components/card-container';
 import { Attribute } from '../actions/attribute';
 import { InputField } from '../../components/atoms/input-field';
+import { Skill } from '../../types/skill';
+import { CharacterDetails } from './character-details';
+import { Modal } from '../../types/modal';
 
 export type CharacterTableState = {
     state: {
@@ -20,7 +23,7 @@ export type CharacterTableState = {
         deleteCharacterName: string;
     };
     dom: {
-        isModalOpen: boolean;
+        modal: Modal | null;
     };
 };
 
@@ -36,9 +39,24 @@ export type CharacterProps = {
     defaultPhysicalDefence: number;
     magicalDefence: number;
     defaultMagicalDefence: number;
-    badStatus: BadStatus;
+    strength: number;
+    strength_base: number;
+    dexterity: number;
+    dexterity_base: number;
+    agility: number;
+    agility_base: number;
+    wisdom: number;
+    wisdom_base: number;
+    sensitivity: number;
+    sensitivity_base: number;
+    power: number;
+    power_base: number;
+    luck: number;
+    luck_base: number;
     isActed: boolean;
     memo: string;
+    badStatus: BadStatus;
+    skills: Skill[];
 };
 
 export function Character(
@@ -52,10 +70,26 @@ export function Character(
     defaultPhysicalDefence: number = 0,
     magicalDefence: number = 0,
     defaultMagicalDefence: number = 0,
+    strength: number = 0,
+    strength_base: number = 0,
+    dexterity: number = 0,
+    dexterity_base: number = 0,
+    agility: number = 0,
+    agility_base: number = 0,
+    wisdom: number = 0,
+    wisdom_base: number = 0,
+    sensitivity: number = 0,
+    sensitivity_base: number = 0,
+    power: number = 0,
+    power_base: number = 0,
+    luck: number = 0,
+    luck_base: number = 0,
+
     isActed: boolean = false,
     memo: string = '',
+    badStatus: BadStatus = defaultBadStatus,
+    skills: Skill[] = [],
 ): CharacterProps {
-    const badStatus = defaultBadStatus;
     return {
         name,
         attribute,
@@ -70,6 +104,21 @@ export function Character(
         badStatus,
         isActed,
         memo,
+        skills,
+        strength,
+        strength_base,
+        dexterity,
+        dexterity_base,
+        agility,
+        agility_base,
+        wisdom,
+        wisdom_base,
+        sensitivity,
+        sensitivity_base,
+        power,
+        power_base,
+        luck,
+        luck_base,
     };
 }
 
@@ -83,7 +132,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
     const {
         state: { sessionName, characters },
         current: { currentNewCharacter },
-        dom: { isModalOpen },
+        dom: { modal },
     } = props;
 
     const nextActionPriority = Math.max(...characters.filter(x => !x.isActed).map(x => x.actionPriority));
@@ -103,19 +152,29 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                 onChangeElementDropdown={e => props.updateCharacterAttributeDropdown({ e, name: character.name })}
                 onCopyCharacter={_ => props.copyCharacter(character)}
                 onDeleteCharacter={e => props.openDeletionModal({ e, name: character.name })}
+                onClickCharacterDetailsButton={e => props.openCharacterDetails({ e, name: character.name })}
             />
         );
     });
 
     return (
         <div>
-            {isModalOpen ? (
+            {modal?.type === 'DeletionModal' ? (
                 <Dialog
                     description={'本当に削除しますか？'}
                     enterLabel={'削除する'}
                     cancelLabel={'キャンセル'}
                     onClickEnter={() => props.deleteCharacter()}
                     onClickCancel={() => props.closeDeletionModal()}
+                />
+            ) : null}
+            {modal?.type === 'CharacterDetailsModal' ? (
+                <CharacterDetails
+                    character={modal.character}
+                    onChangeNumberInputField={e =>
+                        props.updateCharacterAttributeNumberText({ e, name: characters[0].name })
+                    }
+                    onCloseModal={props.closeDeletionModal}
                 />
             ) : null}
             <div className="save-container">

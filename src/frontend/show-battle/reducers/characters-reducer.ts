@@ -167,6 +167,6 @@ export const deleteCharacter: (state: CharacterTableState, props: void) => Chara
         ...state,
         state: { ...state.state, characters },
         current: { ...state.current, deleteCharacterName: '' },
-        dom: { ...state.dom, isModalOpen: false },
+        dom: { ...state.dom, modal: null },
     };
 };

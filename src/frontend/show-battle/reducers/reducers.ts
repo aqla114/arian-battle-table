@@ -23,7 +23,7 @@ const initialState: CharacterTableState = {
         deleteCharacterName: '',
     },
     dom: {
-        isModalOpen: false,
+        modal: null,
     },
 };
 
@@ -46,11 +46,20 @@ export const tableReducer = reducerWithInitialState(initialState)
         return {
             ...state,
             current: { ...state.current, deleteCharacterName: props.name },
-            dom: { ...state.dom, isModalOpen: true },
+            dom: { ...state.dom, modal: { type: 'DeletionModal' } },
+        };
+    })
+    .case(actions.openCharacterDetails, (state, props) => {
+        const { name } = props;
+        const character = state.state.characters.filter(x => x.name === name)[0];
+
+        return {
+            ...state,
+            dom: { ...state.dom, modal: { type: 'CharacterDetailsModal', character } },
         };
     })
     .case(actions.closeDeletionModal, (state, _props) => {
-        return { ...state, dom: { ...state.dom, isModalOpen: false } };
+        return { ...state, dom: { ...state.dom, modal: null } };
     })
     .case(actions.updateCurrentNewCharacter, (state, props) => {
         const currentNewCharacter = Character(props.target.value);
