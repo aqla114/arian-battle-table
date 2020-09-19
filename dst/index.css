@@ -171,6 +171,41 @@
   margin-left: 20px;
   display: inline;
 }
+.side-modal-wrapper {
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(255,255,255,0.5);
+  visibility: visible;
+}
+.side-modal-wrapper .side-window {
+  position: fixed;
+  box-sizing: border-box;
+  display: inline-block;
+  z-index: 1000;
+  background-color: #fff;
+  padding: 30px 30px;
+  border-radius: 4px;
+  width: 1000px;
+  height: 100%;
+  right: 0px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.6);
+  vertical-align: middle;
+}
+.side-modal-wrapper .side-window__description {
+  margin-top: 20px;
+  margin-bottom: 80px;
+}
+.side-modal-wrapper .side-window__enter-button {
+  display: inline;
+}
+.side-modal-wrapper .side-window__cancel-button {
+  margin-left: 20px;
+  display: inline;
+}
 .text-checkbox {
   display: none;
   box-sizing: border-box;
@@ -236,7 +271,6 @@ body {
 }
 .character-table__table__character__is-acted,
 .character-table__table__character__name,
-.character-table__table__character__delete-button,
 .character-table__table__character__attribute {
   width: 100px;
   height: 80px;
@@ -261,6 +295,9 @@ body {
 }
 .character-table__table__character__memo {
   width: 400px;
+}
+.character-table__table__character__delete-button {
+  width: 160px;
 }
 .character-table__table__character.--next {
   -webkit-transition: background-color 0.2s linear;

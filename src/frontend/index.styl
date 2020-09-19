@@ -5,6 +5,7 @@
 @import 'style/input-field-with-button.styl'
 @import 'style/dropdown.styl'
 @import 'style/dialog.styl'
+@import 'style/side-modal.styl'
 @import 'style/text-checkbox.styl'
 @import 'style/card-container.styl'
 @import 'style/textarea.styl'
@@ -24,7 +25,7 @@ body
         text-align: center;
         border-spacing: 0px;
         &__character
-            &__is-acted, &__name, &__delete-button, &__attribute
+            &__is-acted, &__name, &__attribute
                 width: 100px;
                 height: 80px;
                 max-width: 100px;
@@ -41,6 +42,8 @@ body
                 margin: 4px;
             &__memo
                 width: 400px;
+            &__delete-button
+                width: 160px;
             &.--next
                 -webkit-transition: background-color 0.2s linear;
                 box-shadow: 0 2px 4px rgba(0,0,0,0.12), 0 2px 3px rgba(0,0,0,0.24);
