@@ -31,26 +31,15 @@ export const CharacterDetails: React.SFC<CharacterDetailsProps> = (props: Charac
 const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: CharacterDetailsProps) => {
     const { character, onChangeNumberInputField } = props;
 
-    character.skills = [
-        {
-            name: 'バッシュ',
-            timing: 'メジャーアクション',
-            detemination_way: '命中',
-            target: '単体',
-            range: '武器',
-            restriction: '-',
-            detail: '武器攻撃を行う。その武器攻撃のダメージに+[SL]Dする。',
-        },
-        {
-            name: 'カバーリング',
-            timing: 'DR直前',
-            detemination_way: '自動成功',
-            target: '単体',
-            range: '至近',
-            restriction: '防御中1回',
-            detail: '対象にカバーを行う。',
-        },
-    ];
+    character.skills = [...Array(40).keys()].map(x => ({
+        name: `バッシュ${x}`,
+        timing: 'メジャーアクション',
+        detemination_way: '命中',
+        target: '単体',
+        range: '武器',
+        restriction: '-',
+        detail: '武器攻撃を行う。その武器攻撃のダメージに+[SL]Dする。',
+    }));
 
     return (
         <div className="character-details">
