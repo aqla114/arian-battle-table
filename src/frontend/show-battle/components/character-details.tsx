@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { CharacterProps } from './characters-table';
 import { InputField } from '../../components/atoms/input-field';
+import { attributeLabels } from '../actions/attribute';
 
 export type CharacterDetailsProps = {
     character: CharacterProps;
@@ -85,7 +86,7 @@ const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: Charac
                                     showBorder={false}
                                 />
                             </td>
-                            <td>{character.attribute}</td>
+                            <td>{attributeLabels[character.attribute]}</td>
                             <td>
                                 <InputField
                                     name={'actionPriority'}
