@@ -107,10 +107,18 @@
 .input-field__number:focus {
   border: inset;
 }
+.input-field__number.-small {
+  width: 24px;
+}
+.input-field__number.--middle {
+  width: 50px;
+}
+.input-field__number.--large {
+  width: 100px;
+}
 .input-field__text {
   font-size: 16px;
   height: 24px;
-  width: 160px;
   border-radius: 3px;
   border: none;
   text-overflow: ellipsis;
@@ -121,6 +129,15 @@
 }
 .input-field__text:focus {
   border: inset;
+}
+.input-field__text.--small {
+  width: 80px;
+}
+.input-field__text.--middle {
+  width: 160px;
+}
+.input-field__text.--large {
+  width: 320px;
 }
 .input-field-with-button {
   font: 16px;
@@ -190,7 +207,7 @@
   background-color: #fff;
   padding: 30px 30px;
   border-radius: 4px;
-  width: 1000px;
+  width: 1200px;
   height: 100%;
   right: 0px;
   box-shadow: 0 0 10px rgba(0,0,0,0.6);
@@ -305,6 +322,33 @@ body {
   box-shadow: 0 2px 4px rgba(0,0,0,0.12), 0 2px 3px rgba(0,0,0,0.24);
   transition: background-color 0.2s linear;
   background-color: #ffa500;
+}
+.character-details__name {
+  font-size: 24px;
+}
+.character-details__attribute-values {
+  margin-top: 16px;
+}
+.character-details__attribute-values__title {
+  font-size: 18px;
+}
+.character-details__attribute-values__table1 {
+  padding: 4px;
+}
+.character-details__attribute-values__table1__attribute {
+  text-align: center;
+}
+.character-details__attribute-values__table2 {
+  padding: 4px;
+}
+.character-details__skills {
+  margin-top: 16px;
+}
+.character-details__skills__title {
+  font-size: 18px;
+}
+.character-details__skills__table__skill {
+  height: 28px;
 }
 .dice-roller {
   font: 16px;

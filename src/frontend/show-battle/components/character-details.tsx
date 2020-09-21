@@ -6,6 +6,7 @@ import { attributeLabels } from '../actions/attribute';
 
 export type CharacterDetailsProps = {
     character: CharacterProps;
+    onChangeElementText: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onChangeNumberInputField: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onCloseModal: () => void;
 };
@@ -30,7 +31,7 @@ export const CharacterDetails: React.SFC<CharacterDetailsProps> = (props: Charac
 };
 
 const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: CharacterDetailsProps) => {
-    const { character, onChangeNumberInputField } = props;
+    const { character, onChangeNumberInputField, onChangeElementText } = props;
 
     character.skills = [...Array(40).keys()].map(x => ({
         name: `バッシュ${x}`,
@@ -51,49 +52,55 @@ const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: Charac
                     <thead>
                         <tr>
                             <td>最大HP</td>
-                            <td>物理防御力</td>
-                            <td>魔法防御力</td>
+                            <td>物防</td>
+                            <td>魔防</td>
                             <td>属性</td>
                             <td>行動値</td>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>
+                            <td className="character-details__attribute-values__table1__hp">
                                 <InputField
                                     name={'maxHp'}
                                     value={character.maxHp}
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
+                                    textAlign={'right'}
                                 />
                             </td>
-                            <td>
+                            <td className="character-details__attribute-values__table1__physical-defence">
                                 <InputField
                                     name={'physicalDefence'}
                                     value={character.physicalDefence}
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
+                                    textAlign={'right'}
                                 />
                             </td>
-                            <td>
+                            <td className="character-details__attribute-values__table1__magical-defence">
                                 <InputField
                                     name={'magicalDefence'}
                                     value={character.magicalDefence}
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
+                                    textAlign={'right'}
                                 />
                             </td>
-                            <td>{attributeLabels[character.attribute]}</td>
-                            <td>
+                            <td className="character-details__attribute-values__table1__attribute">
+                                {attributeLabels[character.attribute]}
+                            </td>
+                            <td className="character-details__attribute-values__table1__action-priority">
                                 <InputField
                                     name={'actionPriority'}
                                     value={character.actionPriority}
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
+                                    textAlign={'right'}
                                 />
                             </td>
                         </tr>
@@ -120,6 +127,7 @@ const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: Charac
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
+                                    textAlign={'right'}
                                 />
                             </td>
                             <td>
@@ -129,6 +137,7 @@ const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: Charac
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
+                                    textAlign={'right'}
                                 />
                             </td>
                             <td>
@@ -138,6 +147,7 @@ const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: Charac
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
+                                    textAlign={'right'}
                                 />
                             </td>
                             <td>
@@ -147,6 +157,7 @@ const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: Charac
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
+                                    textAlign={'right'}
                                 />
                             </td>
                             <td>
@@ -156,6 +167,7 @@ const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: Charac
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
+                                    textAlign={'right'}
                                 />
                             </td>
                             <td>
@@ -165,6 +177,7 @@ const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: Charac
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
+                                    textAlign={'right'}
                                 />
                             </td>
                             <td>
@@ -174,6 +187,7 @@ const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: Charac
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
+                                    textAlign={'right'}
                                 />
                             </td>
                         </tr>
@@ -196,14 +210,67 @@ const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: Charac
                     </thead>
                     <tbody>
                         {character.skills.map(skill => (
-                            <tr key={skill.name}>
-                                <td>{skill.name}</td>
-                                <td>{skill.timing}</td>
-                                <td>{skill.detemination_way}</td>
-                                <td>{skill.target}</td>
-                                <td>{skill.range}</td>
-                                <td>{skill.restriction}</td>
-                                <td>{skill.detail}</td>
+                            <tr key={skill.name} className="character-details__skills__table__skill">
+                                <td className="character-details__skills__table__skill__name">
+                                    <InputField
+                                        name={'name'}
+                                        value={skill.name}
+                                        kind={'text'}
+                                        onChange={onChangeElementText}
+                                    />
+                                </td>
+                                <td className="character-details__skills__table__skill__timing">
+                                    <InputField
+                                        name={'timing'}
+                                        value={skill.timing}
+                                        kind={'text'}
+                                        onChange={onChangeElementText}
+                                    />
+                                </td>
+                                <td className="character-details__skills__table__skill__detetmination-way">
+                                    <InputField
+                                        name={'determimnation-way'}
+                                        value={skill.detemination_way}
+                                        kind={'text'}
+                                        size={'small'}
+                                        onChange={onChangeElementText}
+                                    />
+                                </td>
+                                <td className="character-details__skills__table__skill__target">
+                                    <InputField
+                                        name={'target'}
+                                        value={skill.target}
+                                        kind={'text'}
+                                        size={'small'}
+                                        onChange={onChangeElementText}
+                                    />
+                                </td>
+                                <td className="character-details__skills__table__skill__range">
+                                    <InputField
+                                        name={'range'}
+                                        value={skill.range}
+                                        kind={'text'}
+                                        size={'small'}
+                                        onChange={onChangeElementText}
+                                    />
+                                </td>
+                                <td className="character-details__skills__table__skill__restriction">
+                                    <InputField
+                                        name={'restriction'}
+                                        value={skill.restriction}
+                                        kind={'text'}
+                                        onChange={onChangeElementText}
+                                    />
+                                </td>
+                                <td className="character-details__skills__table__skill__detail">
+                                    <InputField
+                                        name={'detail'}
+                                        value={skill.detail}
+                                        kind={'text'}
+                                        size={'large'}
+                                        onChange={onChangeElementText}
+                                    />
+                                </td>
                             </tr>
                         ))}
                     </tbody>

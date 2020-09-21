@@ -12,6 +12,7 @@ import {
     addNewCharacter,
     updateCharacterAttributeText,
 } from './characters-reducer';
+import { Skill } from '../../types/skill';
 
 const initialState: CharacterTableState = {
     state: {
@@ -29,6 +30,10 @@ const initialState: CharacterTableState = {
 
 export function characterSelector(characterName: string) {
     return (character: CharacterProps) => character.name === characterName;
+}
+
+export function skillSelector(skillName: string) {
+    return (skill: Skill) => skill.name === skillName;
 }
 
 // TODO: キャラクター名で filter するの結構微妙みあるからできれば id とかをちゃんと扱うようにしたいかも。

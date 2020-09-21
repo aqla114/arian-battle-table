@@ -174,6 +174,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                     onChangeNumberInputField={e =>
                         props.updateCharacterAttributeNumberText({ e, name: modal.character.name })
                     }
+                    onChangeElementText={e => props.updateCharacterAttributeText({ e, name: modal.character.name })}
                     onCloseModal={props.closeModal}
                 />
             ) : null}
