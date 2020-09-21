@@ -8,6 +8,7 @@ import {
     ChangeSessionNameProps,
     ClickDropDownListItemProps,
     CharacterName,
+    SkillName,
 } from './actions/actions';
 import { State } from './store';
 import * as Request from 'superagent';
@@ -17,7 +18,9 @@ export interface Actions {
     updateSessionName: (v: ChangeSessionNameProps) => Action<string>;
     updateCharacterAttributeNumberText: (v: ChangeActionProps<CharacterName>) => Action<string>;
     updateCharacterAttributeText: (v: ChangeActionProps<CharacterName>) => Action<string>;
-    updateSkillAttributeText: (v: ChangeActionProps<CharacterName>) => Action<string>;
+    updateSkillAttributeText: (
+        v: ChangeActionProps<{ characterName: CharacterName; skillName: SkillName }>,
+    ) => Action<string>;
     updateCharacterCheckbox: (v: ChangeActionProps<CharacterName>) => Action<string>;
     updateButtonDropdownBadStatus: (v: ClickDropDownListItemProps) => Action<string>;
     updateCharacterAttributeDropdown: (v: ChangeActionProps<CharacterName>) => Action<string>;
@@ -44,7 +47,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
             dispatch(actions.updateCharacterAttributeNumberText(v)),
         updateCharacterAttributeText: (v: ChangeActionProps<CharacterName>) =>
             dispatch(actions.updateCharacterAttributeText(v)),
-        updateSkillAttributeText: (v: ChangeActionProps<CharacterName>) =>
+        updateSkillAttributeText: (v: ChangeActionProps<{ characterName: CharacterName; skillName: SkillName }>) =>
             dispatch(actions.updateSkillAttributeText(v)),
         updateCharacterCheckbox: (v: ChangeActionProps<CharacterName>) => dispatch(actions.updateCharacterCheckbox(v)),
         updateButtonDropdownBadStatus: (v: ClickDropDownListItemProps) =>

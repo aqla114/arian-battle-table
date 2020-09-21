@@ -3,10 +3,11 @@ import * as React from 'react';
 import { InputField } from '../../components/atoms/input-field';
 import { attributeLabels } from '../actions/attribute';
 import { Character } from '../../types/character';
+import { SkillName } from '../actions/actions';
 
 export type CharacterDetailsProps = {
     character: Character;
-    onChangeElementText: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChangeElementSkillText: (e: React.ChangeEvent<HTMLInputElement>, skillName: SkillName) => void;
     onChangeNumberInputField: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onCloseModal: () => void;
 };
@@ -31,17 +32,7 @@ export const CharacterDetails: React.SFC<CharacterDetailsProps> = (props: Charac
 };
 
 const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: CharacterDetailsProps) => {
-    const { character, onChangeNumberInputField, onChangeElementText } = props;
-
-    character.skills = [...Array(40).keys()].map(x => ({
-        name: `バッシュ${x}`,
-        timing: 'メジャーアクション',
-        detemination_way: '命中',
-        target: '単体',
-        range: '武器',
-        restriction: '-',
-        detail: '武器攻撃を行う。その武器攻撃のダメージに+[SL]Dする。',
-    }));
+    const { character, onChangeNumberInputField, onChangeElementSkillText: onChangeElementText } = props;
 
     return (
         <div className="character-details">
@@ -216,7 +207,7 @@ const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: Charac
                                         name={'name'}
                                         value={skill.name}
                                         kind={'text'}
-                                        onChange={onChangeElementText}
+                                        onChange={e => onChangeElementText(e, skill.name)}
                                     />
                                 </td>
                                 <td className="character-details__skills__table__skill__timing">
@@ -224,7 +215,7 @@ const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: Charac
                                         name={'timing'}
                                         value={skill.timing}
                                         kind={'text'}
-                                        onChange={onChangeElementText}
+                                        onChange={e => onChangeElementText(e, skill.name)}
                                     />
                                 </td>
                                 <td className="character-details__skills__table__skill__detetmination-way">
@@ -233,7 +224,7 @@ const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: Charac
                                         value={skill.detemination_way}
                                         kind={'text'}
                                         size={'small'}
-                                        onChange={onChangeElementText}
+                                        onChange={e => onChangeElementText(e, skill.name)}
                                     />
                                 </td>
                                 <td className="character-details__skills__table__skill__target">
@@ -242,7 +233,7 @@ const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: Charac
                                         value={skill.target}
                                         kind={'text'}
                                         size={'small'}
-                                        onChange={onChangeElementText}
+                                        onChange={e => onChangeElementText(e, skill.name)}
                                     />
                                 </td>
                                 <td className="character-details__skills__table__skill__range">
@@ -251,7 +242,7 @@ const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: Charac
                                         value={skill.range}
                                         kind={'text'}
                                         size={'small'}
-                                        onChange={onChangeElementText}
+                                        onChange={e => onChangeElementText(e, skill.name)}
                                     />
                                 </td>
                                 <td className="character-details__skills__table__skill__restriction">
@@ -259,7 +250,7 @@ const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: Charac
                                         name={'restriction'}
                                         value={skill.restriction}
                                         kind={'text'}
-                                        onChange={onChangeElementText}
+                                        onChange={e => onChangeElementText(e, skill.name)}
                                     />
                                 </td>
                                 <td className="character-details__skills__table__skill__detail">
@@ -268,7 +259,7 @@ const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: Charac
                                         value={skill.detail}
                                         kind={'text'}
                                         size={'large'}
-                                        onChange={onChangeElementText}
+                                        onChange={e => onChangeElementText(e, skill.name)}
                                     />
                                 </td>
                             </tr>

@@ -1,7 +1,7 @@
 import { CharacterTableState } from '../components/characters-table';
-import { ChangeActionProps, ClickDropDownListItemProps, CharacterName } from '../actions/actions';
+import { ChangeActionProps, ClickDropDownListItemProps, CharacterName, SkillName } from '../actions/actions';
 import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
-import { characterSelector } from './reducers';
+import { characterSelector, skillSelector } from './reducers';
 import { BadStatus } from '../actions/bad-status';
 import { Attribute } from '../actions/attribute';
 import { Character } from '../../types/character';
@@ -45,14 +45,20 @@ export const updateCharacterAttributeText: (
 
 export const updateSkillAttributeText: (
     state: CharacterTableState,
-    props: ChangeActionProps<CharacterName>,
+    props: ChangeActionProps<{ characterName: CharacterName; skillName: SkillName }>,
 ) => CharacterTableState = (state, props) => {
-    // const {e, name} = props;
+    const e = props.e;
+    const { characterName, skillName } = props.payload;
 
-    // const characters = updateItemInArray(state.state.characters, characterSelector(name), item => {
-    //     return updateItemInArray(item.skills, skillSelector())
-    // })
-    return state;
+    const characters = updateItemInArray(state.state.characters, characterSelector(characterName), character => {
+        return updateObject(character, {
+            skills: updateItemInArray(character.skills, skillSelector(skillName), skill =>
+                updateObject(skill, { [e.target.name]: e.target.value }),
+            ),
+        });
+    });
+
+    return { ...state, state: { ...state.state, characters } };
 };
 
 export const updateCharacterCheckbox: (

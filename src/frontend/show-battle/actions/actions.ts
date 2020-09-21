@@ -6,6 +6,7 @@ import { ButtonDropdownValue } from '../../components/atoms/button-dropdown';
 import { Character } from '../../types/character';
 
 export type CharacterName = string;
+export type SkillName = string;
 
 export type ChangeSessionNameProps = { e: React.ChangeEvent<HTMLInputElement> };
 export type ChangeActionProps<T> = {
@@ -49,7 +50,9 @@ export const actions = {
         'UPDATE_CHARACTER_ATTRIBUTE_NUMBER_TEXT',
     ),
     updateCharacterAttributeText: actionCreator<ChangeActionProps<CharacterName>>('UPDATE_CHARACTER_ATTRIBUTE_TEXT'),
-    updateSkillAttributeText: actionCreator<ChangeActionProps<CharacterName>>('UPDATE_SKILL_ATTRIBUTE_TEXT'),
+    updateSkillAttributeText: actionCreator<ChangeActionProps<{ characterName: CharacterName; skillName: SkillName }>>(
+        'UPDATE_SKILL_ATTRIBUTE_TEXT',
+    ),
     updateCharacterCheckbox: actionCreator<ChangeActionProps<CharacterName>>('UPDATE_CHARACTER_IS_KNOCKBACK'),
     updateButtonDropdownBadStatus: actionCreator<ClickDropDownListItemProps>('UPDATE_BUTTON_DROPDOWN_BAD_STATUS'),
     updateCharacterAttributeDropdown: actionCreator<ChangeActionProps<CharacterName>>('UPDATE_CHARACTER_DROPDOWN'),

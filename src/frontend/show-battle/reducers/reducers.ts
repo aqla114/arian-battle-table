@@ -11,6 +11,7 @@ import {
     deleteCharacter,
     addNewCharacter,
     updateCharacterAttributeText,
+    updateSkillAttributeText,
 } from './characters-reducer';
 import { Skill } from '../../types/skill';
 import { Character } from '../../types/character';
@@ -42,6 +43,7 @@ export const tableReducer = reducerWithInitialState(initialState)
     .case(actions.updateSessionName, updateSessionName)
     .case(actions.updateCharacterAttributeText, updateCharacterAttributeText)
     .case(actions.updateCharacterAttributeNumberText, updateCharacterAttributeNumberText)
+    .case(actions.updateSkillAttributeText, updateSkillAttributeText)
     .case(actions.updateCharacterCheckbox, updateCharacterCheckbox)
     .case(actions.updateButtonDropdownBadStatus, updateButtonDropdownBadStatus)
     .case(actions.updateCharacterAttributeDropdown, updateCharacterAttributeDropdown)
