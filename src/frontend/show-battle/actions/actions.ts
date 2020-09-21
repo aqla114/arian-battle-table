@@ -5,13 +5,13 @@ import { saveCharactersNewlyActions } from './save-characters-newly';
 import { CharacterProps } from '../components/characters-table';
 import { ButtonDropdownValue } from '../../components/atoms/button-dropdown';
 
-type CharacterName = string;
+export type CharacterName = string;
 
 export type ChangeSessionNameProps = { e: React.ChangeEvent<HTMLInputElement> };
 export type ChangeActionProps = { e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>; name: CharacterName };
-export type MouseActionProps = {
+export type MouseActionProps<T> = {
     e: React.MouseEvent<HTMLInputElement | HTMLLIElement, MouseEvent>;
-    name: CharacterName;
+    payload: T;
 };
 export type ClickDropDownListItemProps = {
     key: string;
@@ -48,11 +48,11 @@ export const actions = {
     updateCharacterCheckbox: actionCreator<ChangeActionProps>('UPDATE_CHARACTER_IS_KNOCKBACK'),
     updateButtonDropdownBadStatus: actionCreator<ClickDropDownListItemProps>('UPDATE_BUTTON_DROPDOWN_BAD_STATUS'),
     updateCharacterAttributeDropdown: actionCreator<ChangeActionProps>('UPDATE_CHARACTER_DROPDOWN'),
-    openDeletionModal: actionCreator<MouseActionProps>('OPEN_DELETION_MODAL'),
+    openDeletionModal: actionCreator<MouseActionProps<CharacterName>>('OPEN_DELETION_MODAL'),
     closeModal: actionCreator('CLOSE_MODAL'),
     deleteCharacter: actionCreator('DELETE_CHARACTER'),
     copyCharacter: actionCreator<{ character: CharacterProps }>('COPY_CHARACTER'),
-    openCharacterDetails: actionCreator<MouseActionProps>('OPEN_CHARACTER_DETAILS'),
+    openCharacterDetails: actionCreator<MouseActionProps<CharacterName>>('OPEN_CHARACTER_DETAILS'),
     updateCurrentNewCharacter: actionCreator<React.ChangeEvent<HTMLInputElement>>('UPDATE_CURRENT_NEW_CHARACTER'),
     addNewCharacter: actionCreator('ADD_NEW_CHARACTER'),
     ...loadCharactersActions,

@@ -50,12 +50,12 @@ export const tableReducer = reducerWithInitialState(initialState)
     .case(actions.openDeletionModal, (state, props) => {
         return {
             ...state,
-            current: { ...state.current, deleteCharacterName: props.name },
+            current: { ...state.current, deleteCharacterName: props.payload },
             dom: { ...state.dom, modal: { type: 'DeletionModal' } },
         };
     })
     .case(actions.openCharacterDetails, (state, props) => {
-        const { name } = props;
+        const { payload: name } = props;
         const character = state.state.characters.filter(x => x.name === name)[0];
 
         return {

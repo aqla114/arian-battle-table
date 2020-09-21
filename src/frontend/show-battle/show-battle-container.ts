@@ -7,6 +7,7 @@ import {
     MouseActionProps,
     ChangeSessionNameProps,
     ClickDropDownListItemProps,
+    CharacterName,
 } from './actions/actions';
 import { State } from './store';
 import * as Request from 'superagent';
@@ -19,9 +20,9 @@ export interface Actions {
     updateCharacterCheckbox: (v: ChangeActionProps) => Action<string>;
     updateButtonDropdownBadStatus: (v: ClickDropDownListItemProps) => Action<string>;
     updateCharacterAttributeDropdown: (v: ChangeActionProps) => Action<string>;
-    openDeletionModal: (v: MouseActionProps) => Action<string>;
+    openDeletionModal: (v: MouseActionProps<CharacterName>) => Action<string>;
     closeModal: () => Action<string>;
-    openCharacterDetails: (v: MouseActionProps) => Action<string>;
+    openCharacterDetails: (v: MouseActionProps<CharacterName>) => Action<string>;
     copyCharacter: (v: CharacterProps) => Action<string>;
     deleteCharacter: () => Action<string>;
     updateCurrentNewCharacter: (v: React.ChangeEvent<HTMLInputElement>) => Action<string>;
@@ -47,10 +48,10 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
             dispatch(actions.updateButtonDropdownBadStatus(v)),
         updateCharacterAttributeDropdown: (v: ChangeActionProps) =>
             dispatch(actions.updateCharacterAttributeDropdown(v)),
-        openDeletionModal: (v: MouseActionProps) => dispatch(actions.openDeletionModal(v)),
+        openDeletionModal: (v: MouseActionProps<CharacterName>) => dispatch(actions.openDeletionModal(v)),
         closeModal: () => dispatch(actions.closeModal()),
         deleteCharacter: () => dispatch(actions.deleteCharacter()),
-        openCharacterDetails: (v: MouseActionProps) => dispatch(actions.openCharacterDetails(v)),
+        openCharacterDetails: (v: MouseActionProps<CharacterName>) => dispatch(actions.openCharacterDetails(v)),
         copyCharacter: (v: CharacterProps) => dispatch(actions.copyCharacter({ character: v })),
         updateCurrentNewCharacter: (v: React.ChangeEvent<HTMLInputElement>) =>
             dispatch(actions.updateCurrentNewCharacter(v)),
