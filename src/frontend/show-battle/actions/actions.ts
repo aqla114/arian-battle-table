@@ -8,7 +8,10 @@ import { ButtonDropdownValue } from '../../components/atoms/button-dropdown';
 export type CharacterName = string;
 
 export type ChangeSessionNameProps = { e: React.ChangeEvent<HTMLInputElement> };
-export type ChangeActionProps = { e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>; name: CharacterName };
+export type ChangeActionProps<T> = {
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
+    payload: T;
+};
 export type MouseActionProps<T> = {
     e: React.MouseEvent<HTMLInputElement | HTMLLIElement, MouseEvent>;
     payload: T;
@@ -42,12 +45,14 @@ const actionCreator = actionCreatorFactory();
 
 export const actions = {
     updateSessionName: actionCreator<ChangeSessionNameProps>('UPDATE_SESSION_NAME_TEXT'),
-    updateCharacterAttributeNumberText: actionCreator<ChangeActionProps>('UPDATE_CHARACTER_ATTRIBUTE_NUMBER_TEXT'),
-    updateCharacterAttributeText: actionCreator<ChangeActionProps>('UPDATE_CHARACTER_ATTRIBUTE_TEXT'),
-    updateSkillAttributeText: actionCreator<ChangeActionProps>('UPDATE_SKILL_ATTRIBUTE_TEXT'),
-    updateCharacterCheckbox: actionCreator<ChangeActionProps>('UPDATE_CHARACTER_IS_KNOCKBACK'),
+    updateCharacterAttributeNumberText: actionCreator<ChangeActionProps<CharacterName>>(
+        'UPDATE_CHARACTER_ATTRIBUTE_NUMBER_TEXT',
+    ),
+    updateCharacterAttributeText: actionCreator<ChangeActionProps<CharacterName>>('UPDATE_CHARACTER_ATTRIBUTE_TEXT'),
+    updateSkillAttributeText: actionCreator<ChangeActionProps<CharacterName>>('UPDATE_SKILL_ATTRIBUTE_TEXT'),
+    updateCharacterCheckbox: actionCreator<ChangeActionProps<CharacterName>>('UPDATE_CHARACTER_IS_KNOCKBACK'),
     updateButtonDropdownBadStatus: actionCreator<ClickDropDownListItemProps>('UPDATE_BUTTON_DROPDOWN_BAD_STATUS'),
-    updateCharacterAttributeDropdown: actionCreator<ChangeActionProps>('UPDATE_CHARACTER_DROPDOWN'),
+    updateCharacterAttributeDropdown: actionCreator<ChangeActionProps<CharacterName>>('UPDATE_CHARACTER_DROPDOWN'),
     openDeletionModal: actionCreator<MouseActionProps<CharacterName>>('OPEN_DELETION_MODAL'),
     closeModal: actionCreator('CLOSE_MODAL'),
     deleteCharacter: actionCreator('DELETE_CHARACTER'),

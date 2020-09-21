@@ -14,12 +14,12 @@ import * as Request from 'superagent';
 
 export interface Actions {
     updateSessionName: (v: ChangeSessionNameProps) => Action<string>;
-    updateCharacterAttributeNumberText: (v: ChangeActionProps) => Action<string>;
-    updateCharacterAttributeText: (v: ChangeActionProps) => Action<string>;
-    updateSkillAttributeText: (v: ChangeActionProps) => Action<string>;
-    updateCharacterCheckbox: (v: ChangeActionProps) => Action<string>;
+    updateCharacterAttributeNumberText: (v: ChangeActionProps<CharacterName>) => Action<string>;
+    updateCharacterAttributeText: (v: ChangeActionProps<CharacterName>) => Action<string>;
+    updateSkillAttributeText: (v: ChangeActionProps<CharacterName>) => Action<string>;
+    updateCharacterCheckbox: (v: ChangeActionProps<CharacterName>) => Action<string>;
     updateButtonDropdownBadStatus: (v: ClickDropDownListItemProps) => Action<string>;
-    updateCharacterAttributeDropdown: (v: ChangeActionProps) => Action<string>;
+    updateCharacterAttributeDropdown: (v: ChangeActionProps<CharacterName>) => Action<string>;
     openDeletionModal: (v: MouseActionProps<CharacterName>) => Action<string>;
     closeModal: () => Action<string>;
     openCharacterDetails: (v: MouseActionProps<CharacterName>) => Action<string>;
@@ -39,14 +39,16 @@ function mapStateToProps(state: State): CharacterTableState {
 function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
     return {
         updateSessionName: (v: ChangeSessionNameProps) => dispatch(actions.updateSessionName(v)),
-        updateCharacterAttributeNumberText: (v: ChangeActionProps) =>
+        updateCharacterAttributeNumberText: (v: ChangeActionProps<CharacterName>) =>
             dispatch(actions.updateCharacterAttributeNumberText(v)),
-        updateCharacterAttributeText: (v: ChangeActionProps) => dispatch(actions.updateCharacterAttributeText(v)),
-        updateSkillAttributeText: (v: ChangeActionProps) => dispatch(actions.updateSkillAttributeText(v)),
-        updateCharacterCheckbox: (v: ChangeActionProps) => dispatch(actions.updateCharacterCheckbox(v)),
+        updateCharacterAttributeText: (v: ChangeActionProps<CharacterName>) =>
+            dispatch(actions.updateCharacterAttributeText(v)),
+        updateSkillAttributeText: (v: ChangeActionProps<CharacterName>) =>
+            dispatch(actions.updateSkillAttributeText(v)),
+        updateCharacterCheckbox: (v: ChangeActionProps<CharacterName>) => dispatch(actions.updateCharacterCheckbox(v)),
         updateButtonDropdownBadStatus: (v: ClickDropDownListItemProps) =>
             dispatch(actions.updateButtonDropdownBadStatus(v)),
-        updateCharacterAttributeDropdown: (v: ChangeActionProps) =>
+        updateCharacterAttributeDropdown: (v: ChangeActionProps<CharacterName>) =>
             dispatch(actions.updateCharacterAttributeDropdown(v)),
         openDeletionModal: (v: MouseActionProps<CharacterName>) => dispatch(actions.openDeletionModal(v)),
         closeModal: () => dispatch(actions.closeModal()),

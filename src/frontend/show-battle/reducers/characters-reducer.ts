@@ -1,5 +1,5 @@
 import { CharacterTableState, CharacterProps, Character } from '../components/characters-table';
-import { ChangeActionProps, ClickDropDownListItemProps } from '../actions/actions';
+import { ChangeActionProps, ClickDropDownListItemProps, CharacterName } from '../actions/actions';
 import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
 import { characterSelector } from './reducers';
 import { BadStatus } from '../actions/bad-status';
@@ -7,9 +7,9 @@ import { Attribute } from '../actions/attribute';
 
 export const updateCharacterAttributeNumberText: (
     state: CharacterTableState,
-    props: ChangeActionProps,
+    props: ChangeActionProps<CharacterName>,
 ) => CharacterTableState = (state, props) => {
-    const { e, name } = props;
+    const { e, payload: name } = props;
 
     const characters = updateItemInArray(state.state.characters, characterSelector(name), item => {
         if (e.target.value === '' || e.target.value === '-') {
@@ -31,9 +31,9 @@ export const updateCharacterAttributeNumberText: (
 
 export const updateCharacterAttributeText: (
     state: CharacterTableState,
-    props: ChangeActionProps,
+    props: ChangeActionProps<CharacterName>,
 ) => CharacterTableState = (state, props) => {
-    const { e, name } = props;
+    const { e, payload: name } = props;
 
     const characters = updateItemInArray(state.state.characters, characterSelector(name), item => {
         return updateObject(item, { [e.target.name]: e.target.value });
@@ -42,10 +42,10 @@ export const updateCharacterAttributeText: (
     return { ...state, state: { ...state.state, characters } };
 };
 
-export const updateSkillAttributeText: (state: CharacterTableState, props: ChangeActionProps) => CharacterTableState = (
-    state,
-    props,
-) => {
+export const updateSkillAttributeText: (
+    state: CharacterTableState,
+    props: ChangeActionProps<CharacterName>,
+) => CharacterTableState = (state, props) => {
     // const {e, name} = props;
 
     // const characters = updateItemInArray(state.state.characters, characterSelector(name), item => {
@@ -54,11 +54,11 @@ export const updateSkillAttributeText: (state: CharacterTableState, props: Chang
     return state;
 };
 
-export const updateCharacterCheckbox: (state: CharacterTableState, props: ChangeActionProps) => CharacterTableState = (
-    state,
-    props,
-) => {
-    const { e, name } = props;
+export const updateCharacterCheckbox: (
+    state: CharacterTableState,
+    props: ChangeActionProps<CharacterName>,
+) => CharacterTableState = (state, props) => {
+    const { e, payload: name } = props;
     const action = e.target.name;
 
     let characters;
@@ -108,9 +108,9 @@ export const updateButtonDropdownBadStatus: (
 
 export const updateCharacterAttributeDropdown: (
     state: CharacterTableState,
-    props: ChangeActionProps,
+    props: ChangeActionProps<CharacterName>,
 ) => CharacterTableState = (state, props) => {
-    const { e, name } = props;
+    const { e, payload: name } = props;
 
     const characters = updateItemInArray(state.state.characters, characterSelector(name), item =>
         updateObject(item, { attribute: e.target.value as Attribute }),

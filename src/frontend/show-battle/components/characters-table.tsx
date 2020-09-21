@@ -143,13 +143,15 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                 key={character.name}
                 {...character}
                 isNextPrior={!character.isActed && character.actionPriority === nextActionPriority}
-                onChangeElementNumberText={e => props.updateCharacterAttributeNumberText({ e, name: character.name })}
-                onChangeElementText={e => props.updateCharacterAttributeText({ e, name: character.name })}
-                onChangeElementCheckbox={e => props.updateCharacterCheckbox({ e, name: character.name })}
+                onChangeElementNumberText={e =>
+                    props.updateCharacterAttributeNumberText({ e, payload: character.name })
+                }
+                onChangeElementText={e => props.updateCharacterAttributeText({ e, payload: character.name })}
+                onChangeElementCheckbox={e => props.updateCharacterCheckbox({ e, payload: character.name })}
                 onClickDropdownItem={(key, value) =>
                     props.updateButtonDropdownBadStatus({ key, value, name: character.name })
                 }
-                onChangeElementDropdown={e => props.updateCharacterAttributeDropdown({ e, name: character.name })}
+                onChangeElementDropdown={e => props.updateCharacterAttributeDropdown({ e, payload: character.name })}
                 onCopyCharacter={_ => props.copyCharacter(character)}
                 onDeleteCharacter={e => props.openDeletionModal({ e, payload: character.name })}
                 onClickCharacterDetailsButton={e => props.openCharacterDetails({ e, payload: character.name })}
@@ -172,9 +174,9 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                 <CharacterDetails
                     character={modal.character}
                     onChangeNumberInputField={e =>
-                        props.updateCharacterAttributeNumberText({ e, name: modal.character.name })
+                        props.updateCharacterAttributeNumberText({ e, payload: modal.character.name })
                     }
-                    onChangeElementText={e => props.updateCharacterAttributeText({ e, name: modal.character.name })}
+                    onChangeElementText={e => props.updateCharacterAttributeText({ e, payload: modal.character.name })}
                     onCloseModal={props.closeModal}
                 />
             ) : null}
