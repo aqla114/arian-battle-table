@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import { CharacterProps } from './characters-table';
 import { CheckBox } from '../../components/atoms/checkbox';
 import { BadStatusButtons, BadStatusProps } from './bad-status-buttons';
 import { getBadStatusLabels } from '../actions/bad-status';
@@ -12,8 +11,9 @@ import { faCopy, faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import { OnClickDropdownListItem } from '../../components/atoms/button-dropdown';
 import { Textarea } from '../../components/atoms/textarea';
+import { Character } from '../../types/character';
 
-type CharacterElementProps = CharacterProps & {
+type CharacterElementProps = Character & {
     isNextPrior: boolean;
     onChangeElementText: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     onChangeElementNumberText: (e: React.ChangeEvent<HTMLInputElement>) => void;

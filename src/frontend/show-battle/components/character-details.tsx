@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-import { CharacterProps } from './characters-table';
 import { InputField } from '../../components/atoms/input-field';
 import { attributeLabels } from '../actions/attribute';
+import { Character } from '../../types/character';
 
 export type CharacterDetailsProps = {
-    character: CharacterProps;
+    character: Character;
     onChangeElementText: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onChangeNumberInputField: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onCloseModal: () => void;

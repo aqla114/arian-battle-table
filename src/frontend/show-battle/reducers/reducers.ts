@@ -1,5 +1,5 @@
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
-import { CharacterTableState, Character, CharacterProps } from '../components/characters-table';
+import { CharacterTableState } from '../components/characters-table';
 import { actions } from '../actions/actions';
 import { updateSessionName } from './session-name-reducer';
 import {
@@ -13,6 +13,7 @@ import {
     updateCharacterAttributeText,
 } from './characters-reducer';
 import { Skill } from '../../types/skill';
+import { Character } from '../../types/character';
 
 const initialState: CharacterTableState = {
     state: {
@@ -29,7 +30,7 @@ const initialState: CharacterTableState = {
 };
 
 export function characterSelector(characterName: string) {
-    return (character: CharacterProps) => character.name === characterName;
+    return (character: Character) => character.name === characterName;
 }
 
 export function skillSelector(skillName: string) {

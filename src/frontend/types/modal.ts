@@ -1,4 +1,4 @@
-import { CharacterProps } from '../show-battle/components/characters-table';
+import { Character } from './character';
 
 export type Modal =
     | {
@@ -6,5 +6,5 @@ export type Modal =
       }
     | {
           type: 'CharacterDetailsModal';
-          character: CharacterProps;
+          character: Character;
       };

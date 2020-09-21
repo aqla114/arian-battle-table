@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { CharactersTable, CharacterTableState, CharacterProps } from './components/characters-table';
+import { CharactersTable, CharacterTableState } from './components/characters-table';
 import { Dispatch, Action } from 'redux';
 import {
     actions,
@@ -11,6 +11,7 @@ import {
 } from './actions/actions';
 import { State } from './store';
 import * as Request from 'superagent';
+import { Character } from '../types/character';
 
 export interface Actions {
     updateSessionName: (v: ChangeSessionNameProps) => Action<string>;
@@ -23,13 +24,13 @@ export interface Actions {
     openDeletionModal: (v: MouseActionProps<CharacterName>) => Action<string>;
     closeModal: () => Action<string>;
     openCharacterDetails: (v: MouseActionProps<CharacterName>) => Action<string>;
-    copyCharacter: (v: CharacterProps) => Action<string>;
+    copyCharacter: (v: Character) => Action<string>;
     deleteCharacter: () => Action<string>;
     updateCurrentNewCharacter: (v: React.ChangeEvent<HTMLInputElement>) => Action<string>;
     addNewCharacter: () => Action<string>;
     loadCharacters: () => void;
-    saveCharacters: (sessionName: string, v: CharacterProps[]) => void;
-    saveCharactersNewly: (sessionName: string, characters: CharacterProps[]) => void;
+    saveCharacters: (sessionName: string, v: Character[]) => void;
+    saveCharactersNewly: (sessionName: string, characters: Character[]) => void;
 }
 
 function mapStateToProps(state: State): CharacterTableState {
@@ -54,7 +55,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
         closeModal: () => dispatch(actions.closeModal()),
         deleteCharacter: () => dispatch(actions.deleteCharacter()),
         openCharacterDetails: (v: MouseActionProps<CharacterName>) => dispatch(actions.openCharacterDetails(v)),
-        copyCharacter: (v: CharacterProps) => dispatch(actions.copyCharacter({ character: v })),
+        copyCharacter: (v: Character) => dispatch(actions.copyCharacter({ character: v })),
         updateCurrentNewCharacter: (v: React.ChangeEvent<HTMLInputElement>) =>
             dispatch(actions.updateCurrentNewCharacter(v)),
         addNewCharacter: () => dispatch(actions.addNewCharacter()),
@@ -78,9 +79,9 @@ function loadCharactersMapper(dispatch: Dispatch<Action<string>>) {
                 const {
                     characters: resCharacters,
                     sessionName,
-                }: { characters: CharacterProps[]; sessionName: string } = res.body;
+                }: { characters: Character[]; sessionName: string } = res.body;
 
-                const characters: CharacterProps[] = resCharacters.map((character: CharacterProps) => ({
+                const characters: Character[] = resCharacters.map((character: Character) => ({
                     ...character,
                 }));
 
@@ -103,7 +104,7 @@ function loadCharactersMapper(dispatch: Dispatch<Action<string>>) {
 }
 
 function saveCharactersMapper(dispatch: Dispatch<Action<string>>) {
-    return (sessionName: string, characters: CharacterProps[]) => {
+    return (sessionName: string, characters: Character[]) => {
         dispatch(actions.startedSaving({}));
 
         const id = location.pathname.split('/').slice(-1)[0];
@@ -129,7 +130,7 @@ function saveCharactersMapper(dispatch: Dispatch<Action<string>>) {
 }
 
 function saveCharactersNewlyMapper(dispatch: Dispatch<Action<string>>) {
-    return (sessionName: string, characters: CharacterProps[]) => {
+    return (sessionName: string, characters: Character[]) => {
         dispatch(actions.startedSavingNewly({}));
 
         Request.post(`/api/create`)

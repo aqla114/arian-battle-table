@@ -1,9 +1,10 @@
-import { CharacterTableState, CharacterProps, Character } from '../components/characters-table';
+import { CharacterTableState } from '../components/characters-table';
 import { ChangeActionProps, ClickDropDownListItemProps, CharacterName } from '../actions/actions';
 import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
 import { characterSelector } from './reducers';
 import { BadStatus } from '../actions/bad-status';
 import { Attribute } from '../actions/attribute';
+import { Character } from '../../types/character';
 
 export const updateCharacterAttributeNumberText: (
     state: CharacterTableState,
@@ -13,12 +14,12 @@ export const updateCharacterAttributeNumberText: (
 
     const characters = updateItemInArray(state.state.characters, characterSelector(name), item => {
         if (e.target.value === '' || e.target.value === '-') {
-            return updateObject(item, { [e.target.name as keyof CharacterProps]: e.target.value });
+            return updateObject(item, { [e.target.name as keyof Character]: e.target.value });
         }
 
         const targetValue: number = parseInt(e.target.value);
         if (!isNaN(targetValue)) {
-            return updateObject(item, { [e.target.name as keyof CharacterProps]: targetValue });
+            return updateObject(item, { [e.target.name as keyof Character]: targetValue });
         } else {
             return item;
         }
@@ -142,10 +143,10 @@ export const addNewCharacter: (state: CharacterTableState) => CharacterTableStat
     };
 };
 
-export const copyCharacter: (
-    state: CharacterTableState,
-    props: { character: CharacterProps },
-) => CharacterTableState = (state, props) => {
+export const copyCharacter: (state: CharacterTableState, props: { character: Character }) => CharacterTableState = (
+    state,
+    props,
+) => {
     let { character } = props;
 
     const names = state.state.characters.map(x => x.name);
@@ -162,7 +163,7 @@ export const copyCharacter: (
     const { id: _, ...badStatusWithoutId } = character.badStatus;
     const { id: _id, ...characterWithoudId } = { ...character, name: characterName, badStatus: badStatusWithoutId };
 
-    const characters: CharacterProps[] = [...state.state.characters, characterWithoudId].slice().map(x => ({ ...x }));
+    const characters: Character[] = [...state.state.characters, characterWithoudId].slice().map(x => ({ ...x }));
 
     return { ...state, state: { ...state.state, characters } };
 };

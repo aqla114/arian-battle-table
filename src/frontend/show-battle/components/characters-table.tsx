@@ -5,122 +5,25 @@ import { Actions } from '../show-battle-container';
 import { Button } from '../../components/atoms/button';
 import { InputFieldWithButton } from '../../components/molecules/input-field-with-button';
 import { Dialog } from '../../components/molecules/dialog';
-import { BadStatus, defaultBadStatus } from '../actions/bad-status';
 import { CardContainer } from '../../components/card-container';
-import { Attribute } from '../actions/attribute';
 import { InputField } from '../../components/atoms/input-field';
-import { Skill } from '../../types/skill';
 import { CharacterDetails } from './character-details';
 import { Modal } from '../../types/modal';
+import { Character } from '../../types/character';
 
 export type CharacterTableState = {
     state: {
         sessionName: string;
-        characters: CharacterProps[];
+        characters: Character[];
     };
     current: {
-        currentNewCharacter: CharacterProps;
+        currentNewCharacter: Character;
         deleteCharacterName: string;
     };
     dom: {
         modal: Modal | null;
     };
 };
-
-export type CharacterProps = {
-    id?: string;
-    name: string;
-    attribute: Attribute;
-    defaultActionPriority: number;
-    actionPriority: number;
-    hp: number;
-    maxHp: number;
-    physicalDefence: number;
-    defaultPhysicalDefence: number;
-    magicalDefence: number;
-    defaultMagicalDefence: number;
-    strength: number;
-    strength_base: number;
-    dexterity: number;
-    dexterity_base: number;
-    agility: number;
-    agility_base: number;
-    wisdom: number;
-    wisdom_base: number;
-    sensitivity: number;
-    sensitivity_base: number;
-    power: number;
-    power_base: number;
-    luck: number;
-    luck_base: number;
-    isActed: boolean;
-    memo: string;
-    badStatus: BadStatus;
-    skills: Skill[];
-};
-
-export function Character(
-    name: string = '',
-    attribute: Attribute = 'None',
-    actionPriority: number = 0,
-    defaultActionPriority: number = 0,
-    hp: number = 0,
-    maxHp: number = 0,
-    physicalDefence: number = 0,
-    defaultPhysicalDefence: number = 0,
-    magicalDefence: number = 0,
-    defaultMagicalDefence: number = 0,
-    strength: number = 0,
-    strength_base: number = 0,
-    dexterity: number = 0,
-    dexterity_base: number = 0,
-    agility: number = 0,
-    agility_base: number = 0,
-    wisdom: number = 0,
-    wisdom_base: number = 0,
-    sensitivity: number = 0,
-    sensitivity_base: number = 0,
-    power: number = 0,
-    power_base: number = 0,
-    luck: number = 0,
-    luck_base: number = 0,
-
-    isActed: boolean = false,
-    memo: string = '',
-    badStatus: BadStatus = defaultBadStatus,
-    skills: Skill[] = [],
-): CharacterProps {
-    return {
-        name,
-        attribute,
-        defaultActionPriority,
-        actionPriority,
-        hp,
-        maxHp,
-        physicalDefence,
-        defaultPhysicalDefence,
-        magicalDefence,
-        defaultMagicalDefence,
-        badStatus,
-        isActed,
-        memo,
-        skills,
-        strength,
-        strength_base,
-        dexterity,
-        dexterity_base,
-        agility,
-        agility_base,
-        wisdom,
-        wisdom_base,
-        sensitivity,
-        sensitivity_base,
-        power,
-        power_base,
-        luck,
-        luck_base,
-    };
-}
 
 type CharacterTableProps = CharacterTableState & Actions;
 
