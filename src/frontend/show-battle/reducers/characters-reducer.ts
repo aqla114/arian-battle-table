@@ -1,5 +1,11 @@
 import { CharacterTableState } from '../components/characters-table';
-import { ChangeActionProps, ClickDropDownListItemProps, CharacterName, SkillName } from '../actions/actions';
+import {
+    ChangeActionProps,
+    ClickDropDownListItemProps,
+    CharacterName,
+    SkillName,
+    MouseActionProps,
+} from '../actions/actions';
 import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
 import { characterSelector, skillSelector } from './reducers';
 import { BadStatus } from '../actions/bad-status';
@@ -186,4 +192,20 @@ export const deleteCharacter: (state: CharacterTableState, props: void) => Chara
         current: { ...state.current, deleteCharacterName: '' },
         dom: { ...state.dom, modal: null },
     };
+};
+
+export const deleteSkill: (
+    state: CharacterTableState,
+    props: MouseActionProps<{ characterName: CharacterName; skillName: SkillName }>,
+) => CharacterTableState = (state, props) => {
+    const {
+        payload: { characterName, skillName },
+    } = props;
+
+    const characters = updateItemInArray(state.state.characters, characterSelector(characterName), character => {
+        const skills = character.skills.filter(s => s.name !== skillName);
+        return updateObject(character, { skills });
+    });
+
+    return { ...state, state: { ...state.state, characters } };
 };

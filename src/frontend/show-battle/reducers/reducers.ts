@@ -12,6 +12,7 @@ import {
     addNewCharacter,
     updateCharacterAttributeText,
     updateSkillAttributeText,
+    deleteSkill,
 } from './characters-reducer';
 import { Skill } from '../../types/skill';
 import { Character } from '../../types/character';
@@ -50,6 +51,7 @@ export const tableReducer = reducerWithInitialState(initialState)
     .case(actions.addNewCharacter, addNewCharacter)
     .case(actions.copyCharacter, copyCharacter)
     .case(actions.deleteCharacter, deleteCharacter)
+    .case(actions.deleteSkill, deleteSkill)
     .case(actions.openDeletionModal, (state, props) => {
         return {
             ...state,

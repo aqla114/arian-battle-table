@@ -29,6 +29,7 @@ export interface Actions {
     openCharacterDetails: (v: MouseActionProps<CharacterName>) => Action<string>;
     copyCharacter: (v: Character) => Action<string>;
     deleteCharacter: () => Action<string>;
+    deleteSkill: (v: MouseActionProps<{ characterName: CharacterName; skillName: SkillName }>) => Action<string>;
     updateCurrentNewCharacter: (v: React.ChangeEvent<HTMLInputElement>) => Action<string>;
     addNewCharacter: () => Action<string>;
     loadCharacters: () => void;
@@ -57,6 +58,8 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
         openDeletionModal: (v: MouseActionProps<CharacterName>) => dispatch(actions.openDeletionModal(v)),
         closeModal: () => dispatch(actions.closeModal()),
         deleteCharacter: () => dispatch(actions.deleteCharacter()),
+        deleteSkill: (v: MouseActionProps<{ characterName: CharacterName; skillName: SkillName }>) =>
+            dispatch(actions.deleteSkill(v)),
         openCharacterDetails: (v: MouseActionProps<CharacterName>) => dispatch(actions.openCharacterDetails(v)),
         copyCharacter: (v: Character) => dispatch(actions.copyCharacter({ character: v })),
         updateCurrentNewCharacter: (v: React.ChangeEvent<HTMLInputElement>) =>

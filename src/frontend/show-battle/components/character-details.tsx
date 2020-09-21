@@ -1,14 +1,17 @@
 import * as React from 'react';
+import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 
 import { InputField } from '../../components/atoms/input-field';
 import { attributeLabels } from '../actions/attribute';
 import { Character } from '../../types/character';
 import { SkillName } from '../actions/actions';
+import { IconButton } from '../../components/atoms/icon-button';
 
 export type CharacterDetailsProps = {
     character: Character;
     onChangeElementSkillText: (e: React.ChangeEvent<HTMLInputElement>, skillName: SkillName) => void;
     onChangeNumberInputField: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onClickDeleteSkillButton: (e: React.MouseEvent<HTMLInputElement, MouseEvent>, skillName: SkillName) => void;
     onCloseModal: () => void;
 };
 
@@ -32,7 +35,12 @@ export const CharacterDetails: React.SFC<CharacterDetailsProps> = (props: Charac
 };
 
 const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: CharacterDetailsProps) => {
-    const { character, onChangeNumberInputField, onChangeElementSkillText: onChangeElementText } = props;
+    const {
+        character,
+        onChangeNumberInputField,
+        onChangeElementSkillText: onChangeElementText,
+        onClickDeleteSkillButton,
+    } = props;
 
     return (
         <div className="character-details">
@@ -197,6 +205,7 @@ const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: Charac
                             <td>射程</td>
                             <td>使用条件</td>
                             <td>効果</td>
+                            <td>削除</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -260,6 +269,14 @@ const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: Charac
                                         kind={'text'}
                                         size={'large'}
                                         onChange={e => onChangeElementText(e, skill.name)}
+                                    />
+                                </td>
+                                <td className="character-details__skills__table__skill__detail">
+                                    <IconButton
+                                        name={'delete'}
+                                        icon={faTrashAlt}
+                                        size={'small'}
+                                        onClick={e => onClickDeleteSkillButton(e, skill.name)}
                                     />
                                 </td>
                             </tr>

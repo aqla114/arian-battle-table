@@ -32,6 +32,7 @@ export type ActionTypes =
     | 'UPDATE_BUTTON_DROPDOWN_BAD_STATUS'
     | 'UPDATE_CHARACTER_DROPDOWN'
     | 'DELETE_CHARACTER'
+    | 'DELETE_SKILL'
     | 'COPY_CHARACTER'
     | 'OPEN_CHARACTER_DETAILS'
     | 'UPDATE_CURRENT_NEW_CHARACTER'
@@ -59,6 +60,9 @@ export const actions = {
     openDeletionModal: actionCreator<MouseActionProps<CharacterName>>('OPEN_DELETION_MODAL'),
     closeModal: actionCreator('CLOSE_MODAL'),
     deleteCharacter: actionCreator('DELETE_CHARACTER'),
+    deleteSkill: actionCreator<MouseActionProps<{ characterName: CharacterName; skillName: SkillName }>>(
+        'DELETE_SKILL',
+    ),
     copyCharacter: actionCreator<{ character: Character }>('COPY_CHARACTER'),
     openCharacterDetails: actionCreator<MouseActionProps<CharacterName>>('OPEN_CHARACTER_DETAILS'),
     updateCurrentNewCharacter: actionCreator<React.ChangeEvent<HTMLInputElement>>('UPDATE_CURRENT_NEW_CHARACTER'),

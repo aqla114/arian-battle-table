@@ -85,6 +85,9 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                             payload: { characterName: modal.character.name, skillName },
                         })
                     }
+                    onClickDeleteSkillButton={(e, skillName) =>
+                        props.deleteSkill({ e, payload: { characterName: modal.character.name, skillName } })
+                    }
                     onCloseModal={props.closeModal}
                 />
             ) : null}
