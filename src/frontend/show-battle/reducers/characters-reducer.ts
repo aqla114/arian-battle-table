@@ -64,7 +64,18 @@ export const updateSkillAttributeText: (
         });
     });
 
-    return { ...state, state: { ...state.state, characters } };
+    const character = characters.find(characterSelector(characterName));
+
+    if (character === undefined) {
+        console.log('Failed actions.updateSkillAttributeText');
+        return state;
+    }
+
+    return {
+        ...state,
+        state: { ...state.state, characters },
+        dom: { ...state.dom, modal: { type: 'CharacterDetailsModal', character } },
+    };
 };
 
 export const updateCharacterCheckbox: (
@@ -207,5 +218,18 @@ export const deleteSkill: (
         return updateObject(character, { skills });
     });
 
-    return { ...state, state: { ...state.state, characters } };
+    const character = characters.find(characterSelector(characterName));
+
+    if (character === undefined) {
+        console.log('Failed actions.deleteSkill');
+        return state;
+    }
+
+    console.log(characters, skillName);
+
+    return {
+        ...state,
+        state: { ...state.state, characters },
+        dom: { ...state.dom, modal: { type: 'CharacterDetailsModal', character } },
+    };
 };

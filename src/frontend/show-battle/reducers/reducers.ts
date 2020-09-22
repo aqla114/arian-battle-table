@@ -61,7 +61,12 @@ export const tableReducer = reducerWithInitialState(initialState)
     })
     .case(actions.openCharacterDetails, (state, props) => {
         const { payload: name } = props;
-        const character = state.state.characters.filter(x => x.name === name)[0];
+        const character = state.state.characters.find(x => x.name === name);
+
+        if (character === undefined) {
+            console.log('Failed actions.openCharacterDetails');
+            return state;
+        }
 
         return {
             ...state,
