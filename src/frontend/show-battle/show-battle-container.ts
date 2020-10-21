@@ -19,7 +19,7 @@ export interface Actions {
     updateCharacterAttributeNumberText: (v: ChangeActionProps<CharacterName>) => Action<string>;
     updateCharacterAttributeText: (v: ChangeActionProps<CharacterName>) => Action<string>;
     updateSkillAttributeText: (
-        v: ChangeActionProps<{ characterName: CharacterName; skillName: SkillName }>,
+        v: ChangeActionProps<{ characterName: CharacterName; skillIndex: number }>,
     ) => Action<string>;
     updateCharacterCheckbox: (v: ChangeActionProps<CharacterName>) => Action<string>;
     updateButtonDropdownBadStatus: (v: ClickDropDownListItemProps) => Action<string>;
@@ -49,7 +49,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
             dispatch(actions.updateCharacterAttributeNumberText(v)),
         updateCharacterAttributeText: (v: ChangeActionProps<CharacterName>) =>
             dispatch(actions.updateCharacterAttributeText(v)),
-        updateSkillAttributeText: (v: ChangeActionProps<{ characterName: CharacterName; skillName: SkillName }>) =>
+        updateSkillAttributeText: (v: ChangeActionProps<{ characterName: CharacterName; skillIndex: number }>) =>
             dispatch(actions.updateSkillAttributeText(v)),
         updateCharacterCheckbox: (v: ChangeActionProps<CharacterName>) => dispatch(actions.updateCharacterCheckbox(v)),
         updateButtonDropdownBadStatus: (v: ClickDropDownListItemProps) =>

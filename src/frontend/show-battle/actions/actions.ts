@@ -52,7 +52,7 @@ export const actions = {
         'UPDATE_CHARACTER_ATTRIBUTE_NUMBER_TEXT',
     ),
     updateCharacterAttributeText: actionCreator<ChangeActionProps<CharacterName>>('UPDATE_CHARACTER_ATTRIBUTE_TEXT'),
-    updateSkillAttributeText: actionCreator<ChangeActionProps<{ characterName: CharacterName; skillName: SkillName }>>(
+    updateSkillAttributeText: actionCreator<ChangeActionProps<{ characterName: CharacterName; skillIndex: number }>>(
         'UPDATE_SKILL_ATTRIBUTE_TEXT',
     ),
     updateCharacterCheckbox: actionCreator<ChangeActionProps<CharacterName>>('UPDATE_CHARACTER_IS_KNOCKBACK'),

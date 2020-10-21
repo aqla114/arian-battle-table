@@ -7,7 +7,7 @@ import {
     MouseActionProps,
 } from '../actions/actions';
 import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
-import { characterSelector, skillSelector } from './reducers';
+import { characterSelector, indexSelector } from './reducers';
 import { BadStatus } from '../actions/bad-status';
 import { Attribute } from '../actions/attribute';
 import { Character } from '../../types/character';
@@ -52,14 +52,14 @@ export const updateCharacterAttributeText: (
 
 export const updateSkillAttributeText: (
     state: CharacterTableState,
-    props: ChangeActionProps<{ characterName: CharacterName; skillName: SkillName }>,
+    props: ChangeActionProps<{ characterName: CharacterName; skillIndex: number }>,
 ) => CharacterTableState = (state, props) => {
     const e = props.e;
-    const { characterName, skillName } = props.payload;
+    const { characterName, skillIndex } = props.payload;
 
     const characters = updateItemInArray(state.state.characters, characterSelector(characterName), character => {
         return updateObject(character, {
-            skills: updateItemInArray(character.skills, skillSelector(skillName), skill =>
+            skills: updateItemInArray(character.skills, indexSelector(skillIndex), skill =>
                 updateObject(skill, { [e.target.name]: e.target.value }),
             ),
         });
