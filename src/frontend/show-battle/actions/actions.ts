@@ -37,6 +37,7 @@ export type ActionTypes =
     | 'OPEN_CHARACTER_DETAILS'
     | 'UPDATE_CURRENT_NEW_CHARACTER'
     | 'ADD_NEW_CHARACTER'
+    | 'ADD_NEW_SKILL'
     | 'LOAD_CHARACTERS'
     | 'SAVE_CHARACTERS'
     | 'SAVE_CHARACTERS_NEWLY'
@@ -67,6 +68,7 @@ export const actions = {
     openCharacterDetails: actionCreator<MouseActionProps<CharacterName>>('OPEN_CHARACTER_DETAILS'),
     updateCurrentNewCharacter: actionCreator<React.ChangeEvent<HTMLInputElement>>('UPDATE_CURRENT_NEW_CHARACTER'),
     addNewCharacter: actionCreator('ADD_NEW_CHARACTER'),
+    addNewSkill: actionCreator('ADD_NEW_SKILL'),
     ...loadCharactersActions,
     ...saveCharactersActions,
     ...saveCharactersNewlyActions,

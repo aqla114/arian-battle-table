@@ -32,6 +32,7 @@ export interface Actions {
     deleteSkill: (v: MouseActionProps<{ characterName: CharacterName; skillName: SkillName }>) => Action<string>;
     updateCurrentNewCharacter: (v: React.ChangeEvent<HTMLInputElement>) => Action<string>;
     addNewCharacter: () => Action<string>;
+    addNewSkill: () => Action<string>;
     loadCharacters: () => void;
     saveCharacters: (sessionName: string, v: Character[]) => void;
     saveCharactersNewly: (sessionName: string, characters: Character[]) => void;
@@ -65,6 +66,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
         updateCurrentNewCharacter: (v: React.ChangeEvent<HTMLInputElement>) =>
             dispatch(actions.updateCurrentNewCharacter(v)),
         addNewCharacter: () => dispatch(actions.addNewCharacter()),
+        addNewSkill: () => dispatch(actions.addNewSkill()),
         loadCharacters: loadCharactersMapper(dispatch),
         saveCharacters: saveCharactersMapper(dispatch),
         saveCharactersNewly: saveCharactersNewlyMapper(dispatch),

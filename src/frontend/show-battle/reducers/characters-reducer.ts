@@ -11,6 +11,7 @@ import { characterSelector, skillSelector } from './reducers';
 import { BadStatus } from '../actions/bad-status';
 import { Attribute } from '../actions/attribute';
 import { Character } from '../../types/character';
+import { Skill } from '../../types/skill';
 
 export const updateCharacterAttributeNumberText: (
     state: CharacterTableState,
@@ -166,6 +167,32 @@ export const addNewCharacter: (state: CharacterTableState) => CharacterTableStat
     };
 };
 
+export const addNewSkill: (state: CharacterTableState) => CharacterTableState = state => {
+    if (state.dom.modal?.type !== 'CharacterDetailsModal') {
+        console.log('Failed addNewSkill');
+        return state;
+    }
+
+    const characterName = state.dom.modal.character.name;
+
+    const characters = updateItemInArray(state.state.characters, characterSelector(characterName), character =>
+        updateObject(character, updateObject(character, { skills: [...character.skills, Skill()] })),
+    );
+
+    const character = characters.find(characterSelector(characterName));
+
+    if (character === undefined) {
+        console.log('Failed actions.deleteSkill');
+        return state;
+    }
+
+    return {
+        ...state,
+        state: { ...state.state, characters },
+        dom: { ...state.dom, modal: { type: 'CharacterDetailsModal', character } },
+    };
+};
+
 export const copyCharacter: (state: CharacterTableState, props: { character: Character }) => CharacterTableState = (
     state,
     props,
@@ -224,8 +251,6 @@ export const deleteSkill: (
         console.log('Failed actions.deleteSkill');
         return state;
     }
-
-    console.log(characters, skillName);
 
     return {
         ...state,

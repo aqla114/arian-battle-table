@@ -1,16 +1,18 @@
 import * as React from 'react';
-import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
+import { faTrashAlt, faPlusSquare } from '@fortawesome/free-regular-svg-icons';
 
 import { InputField } from '../../components/atoms/input-field';
 import { attributeLabels } from '../actions/attribute';
 import { Character } from '../../types/character';
 import { SkillName } from '../actions/actions';
 import { IconButton } from '../../components/atoms/icon-button';
+import * as uuid from 'uuid';
 
 export type CharacterDetailsProps = {
     character: Character;
     onChangeElementSkillText: (e: React.ChangeEvent<HTMLInputElement>, skillName: SkillName) => void;
     onChangeNumberInputField: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onClickAddSkillButton: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
     onClickDeleteSkillButton: (e: React.MouseEvent<HTMLInputElement, MouseEvent>, skillName: SkillName) => void;
     onCloseModal: () => void;
 };
@@ -38,7 +40,8 @@ const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: Charac
     const {
         character,
         onChangeNumberInputField,
-        onChangeElementSkillText: onChangeElementText,
+        onChangeElementSkillText,
+        onClickAddSkillButton,
         onClickDeleteSkillButton,
     } = props;
 
@@ -210,13 +213,13 @@ const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: Charac
                     </thead>
                     <tbody>
                         {character.skills.map(skill => (
-                            <tr key={skill.name} className="character-details__skills__table__skill">
+                            <tr key={skill.id || uuid.v4()} className="character-details__skills__table__skill">
                                 <td className="character-details__skills__table__skill__name">
                                     <InputField
                                         name={'name'}
                                         value={skill.name}
                                         kind={'text'}
-                                        onChange={e => onChangeElementText(e, skill.name)}
+                                        onChange={e => onChangeElementSkillText(e, skill.name)}
                                     />
                                 </td>
                                 <td className="character-details__skills__table__skill__timing">
@@ -224,7 +227,7 @@ const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: Charac
                                         name={'timing'}
                                         value={skill.timing}
                                         kind={'text'}
-                                        onChange={e => onChangeElementText(e, skill.name)}
+                                        onChange={e => onChangeElementSkillText(e, skill.name)}
                                     />
                                 </td>
                                 <td className="character-details__skills__table__skill__detetmination-way">
@@ -233,7 +236,7 @@ const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: Charac
                                         value={skill.detemination_way}
                                         kind={'text'}
                                         size={'small'}
-                                        onChange={e => onChangeElementText(e, skill.name)}
+                                        onChange={e => onChangeElementSkillText(e, skill.name)}
                                     />
                                 </td>
                                 <td className="character-details__skills__table__skill__target">
@@ -242,7 +245,7 @@ const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: Charac
                                         value={skill.target}
                                         kind={'text'}
                                         size={'small'}
-                                        onChange={e => onChangeElementText(e, skill.name)}
+                                        onChange={e => onChangeElementSkillText(e, skill.name)}
                                     />
                                 </td>
                                 <td className="character-details__skills__table__skill__range">
@@ -251,7 +254,7 @@ const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: Charac
                                         value={skill.range}
                                         kind={'text'}
                                         size={'small'}
-                                        onChange={e => onChangeElementText(e, skill.name)}
+                                        onChange={e => onChangeElementSkillText(e, skill.name)}
                                     />
                                 </td>
                                 <td className="character-details__skills__table__skill__restriction">
@@ -259,7 +262,7 @@ const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: Charac
                                         name={'restriction'}
                                         value={skill.restriction}
                                         kind={'text'}
-                                        onChange={e => onChangeElementText(e, skill.name)}
+                                        onChange={e => onChangeElementSkillText(e, skill.name)}
                                     />
                                 </td>
                                 <td className="character-details__skills__table__skill__detail">
@@ -268,7 +271,7 @@ const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: Charac
                                         value={skill.detail}
                                         kind={'text'}
                                         size={'large'}
-                                        onChange={e => onChangeElementText(e, skill.name)}
+                                        onChange={e => onChangeElementSkillText(e, skill.name)}
                                     />
                                 </td>
                                 <td className="character-details__skills__table__skill__detail">
@@ -283,6 +286,7 @@ const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: Charac
                         ))}
                     </tbody>
                 </table>
+                <IconButton name={'add'} icon={faPlusSquare} size={'small'} onClick={onClickAddSkillButton} />
             </div>
         </div>
     );
