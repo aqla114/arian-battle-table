@@ -1,0 +1,32 @@
+.side-modal-wrapper
+    z-index: 999;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.5);
+    visibility: visible;
+
+    .side-window
+        overflow: scroll;
+        position: fixed;
+        box-sizing: border-box;
+        display: inline-block
+        z-index: 1000;
+        background-color: white;
+        padding: 30px 30px;
+        border-radius: 4px;
+        width: 1200px
+        height: 100%;
+        right: 0px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .6);
+        vertical-align: middle
+        &__description
+            margin-top: 20px;
+            margin-bottom: 80px;
+        &__enter-button
+            display: inline;
+        &__cancel-button
+            margin-left: 20px;
+            display: inline;

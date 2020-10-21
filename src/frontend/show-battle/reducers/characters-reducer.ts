@@ -1,24 +1,32 @@
-import { CharacterTableState, CharacterProps, Character } from '../components/characters-table';
-import { ChangeActionProps, ClickDropDownListItemProps } from '../actions/actions';
+import { CharacterTableState } from '../components/characters-table';
+import {
+    ChangeActionProps,
+    ClickDropDownListItemProps,
+    CharacterName,
+    SkillName,
+    MouseActionProps,
+} from '../actions/actions';
 import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
-import { characterSelector } from './reducers';
+import { characterSelector, indexSelector } from './reducers';
 import { BadStatus } from '../actions/bad-status';
 import { Attribute } from '../actions/attribute';
+import { Character } from '../../types/character';
+import { Skill } from '../../types/skill';
 
 export const updateCharacterAttributeNumberText: (
     state: CharacterTableState,
-    props: ChangeActionProps,
+    props: ChangeActionProps<CharacterName>,
 ) => CharacterTableState = (state, props) => {
-    const { e, name } = props;
+    const { e, payload: name } = props;
 
     const characters = updateItemInArray(state.state.characters, characterSelector(name), item => {
         if (e.target.value === '' || e.target.value === '-') {
-            return updateObject(item, { [e.target.name as keyof CharacterProps]: e.target.value });
+            return updateObject(item, { [e.target.name as keyof Character]: e.target.value });
         }
 
         const targetValue: number = parseInt(e.target.value);
         if (!isNaN(targetValue)) {
-            return updateObject(item, { [e.target.name as keyof CharacterProps]: targetValue });
+            return updateObject(item, { [e.target.name as keyof Character]: targetValue });
         } else {
             return item;
         }
@@ -31,11 +39,9 @@ export const updateCharacterAttributeNumberText: (
 
 export const updateCharacterAttributeText: (
     state: CharacterTableState,
-    props: ChangeActionProps,
+    props: ChangeActionProps<CharacterName>,
 ) => CharacterTableState = (state, props) => {
-    const { e, name } = props;
-
-    console.log(e);
+    const { e, payload: name } = props;
 
     const characters = updateItemInArray(state.state.characters, characterSelector(name), item => {
         return updateObject(item, { [e.target.name]: e.target.value });
@@ -44,11 +50,40 @@ export const updateCharacterAttributeText: (
     return { ...state, state: { ...state.state, characters } };
 };
 
-export const updateCharacterCheckbox: (state: CharacterTableState, props: ChangeActionProps) => CharacterTableState = (
-    state,
-    props,
-) => {
-    const { e, name } = props;
+export const updateSkillAttributeText: (
+    state: CharacterTableState,
+    props: ChangeActionProps<{ characterName: CharacterName; skillIndex: number }>,
+) => CharacterTableState = (state, props) => {
+    const e = props.e;
+    const { characterName, skillIndex } = props.payload;
+
+    const characters = updateItemInArray(state.state.characters, characterSelector(characterName), character => {
+        return updateObject(character, {
+            skills: updateItemInArray(character.skills, indexSelector(skillIndex), skill =>
+                updateObject(skill, { [e.target.name]: e.target.value }),
+            ),
+        });
+    });
+
+    const character = characters.find(characterSelector(characterName));
+
+    if (character === undefined) {
+        console.log('Failed actions.updateSkillAttributeText');
+        return state;
+    }
+
+    return {
+        ...state,
+        state: { ...state.state, characters },
+        dom: { ...state.dom, modal: { type: 'CharacterDetailsModal', character } },
+    };
+};
+
+export const updateCharacterCheckbox: (
+    state: CharacterTableState,
+    props: ChangeActionProps<CharacterName>,
+) => CharacterTableState = (state, props) => {
+    const { e, payload: name } = props;
     const action = e.target.name;
 
     let characters;
@@ -98,9 +133,9 @@ export const updateButtonDropdownBadStatus: (
 
 export const updateCharacterAttributeDropdown: (
     state: CharacterTableState,
-    props: ChangeActionProps,
+    props: ChangeActionProps<CharacterName>,
 ) => CharacterTableState = (state, props) => {
-    const { e, name } = props;
+    const { e, payload: name } = props;
 
     const characters = updateItemInArray(state.state.characters, characterSelector(name), item =>
         updateObject(item, { attribute: e.target.value as Attribute }),
@@ -132,10 +167,36 @@ export const addNewCharacter: (state: CharacterTableState) => CharacterTableStat
     };
 };
 
-export const copyCharacter: (
-    state: CharacterTableState,
-    props: { character: CharacterProps },
-) => CharacterTableState = (state, props) => {
+export const addNewSkill: (state: CharacterTableState) => CharacterTableState = state => {
+    if (state.dom.modal?.type !== 'CharacterDetailsModal') {
+        console.log('Failed addNewSkill');
+        return state;
+    }
+
+    const characterName = state.dom.modal.character.name;
+
+    const characters = updateItemInArray(state.state.characters, characterSelector(characterName), character =>
+        updateObject(character, updateObject(character, { skills: [...character.skills, Skill()] })),
+    );
+
+    const character = characters.find(characterSelector(characterName));
+
+    if (character === undefined) {
+        console.log('Failed actions.deleteSkill');
+        return state;
+    }
+
+    return {
+        ...state,
+        state: { ...state.state, characters },
+        dom: { ...state.dom, modal: { type: 'CharacterDetailsModal', character } },
+    };
+};
+
+export const copyCharacter: (state: CharacterTableState, props: { character: Character }) => CharacterTableState = (
+    state,
+    props,
+) => {
     let { character } = props;
 
     const names = state.state.characters.map(x => x.name);
@@ -152,7 +213,7 @@ export const copyCharacter: (
     const { id: _, ...badStatusWithoutId } = character.badStatus;
     const { id: _id, ...characterWithoudId } = { ...character, name: characterName, badStatus: badStatusWithoutId };
 
-    const characters: CharacterProps[] = [...state.state.characters, characterWithoudId].slice().map(x => ({ ...x }));
+    const characters: Character[] = [...state.state.characters, characterWithoudId].slice().map(x => ({ ...x }));
 
     return { ...state, state: { ...state.state, characters } };
 };
@@ -167,6 +228,33 @@ export const deleteCharacter: (state: CharacterTableState, props: void) => Chara
         ...state,
         state: { ...state.state, characters },
         current: { ...state.current, deleteCharacterName: '' },
-        dom: { ...state.dom, isModalOpen: false },
+        dom: { ...state.dom, modal: null },
+    };
+};
+
+export const deleteSkill: (
+    state: CharacterTableState,
+    props: MouseActionProps<{ characterName: CharacterName; skillName: SkillName }>,
+) => CharacterTableState = (state, props) => {
+    const {
+        payload: { characterName, skillName },
+    } = props;
+
+    const characters = updateItemInArray(state.state.characters, characterSelector(characterName), character => {
+        const skills = character.skills.filter(s => s.name !== skillName);
+        return updateObject(character, { skills });
+    });
+
+    const character = characters.find(characterSelector(characterName));
+
+    if (character === undefined) {
+        console.log('Failed actions.deleteSkill');
+        return state;
+    }
+
+    return {
+        ...state,
+        state: { ...state.state, characters },
+        dom: { ...state.dom, modal: { type: 'CharacterDetailsModal', character } },
     };
 };

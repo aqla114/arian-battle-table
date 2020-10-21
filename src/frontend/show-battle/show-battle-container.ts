@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { CharactersTable, CharacterTableState, CharacterProps } from './components/characters-table';
+import { CharactersTable, CharacterTableState } from './components/characters-table';
 import { Dispatch, Action } from 'redux';
 import {
     actions,
@@ -7,26 +7,35 @@ import {
     MouseActionProps,
     ChangeSessionNameProps,
     ClickDropDownListItemProps,
+    CharacterName,
+    SkillName,
 } from './actions/actions';
 import { State } from './store';
 import * as Request from 'superagent';
+import { Character } from '../types/character';
 
 export interface Actions {
     updateSessionName: (v: ChangeSessionNameProps) => Action<string>;
-    updateCharacterAttributeNumberText: (v: ChangeActionProps) => Action<string>;
-    updateCharacterAttributeText: (v: ChangeActionProps) => Action<string>;
-    updateCharacterCheckbox: (v: ChangeActionProps) => Action<string>;
+    updateCharacterAttributeNumberText: (v: ChangeActionProps<CharacterName>) => Action<string>;
+    updateCharacterAttributeText: (v: ChangeActionProps<CharacterName>) => Action<string>;
+    updateSkillAttributeText: (
+        v: ChangeActionProps<{ characterName: CharacterName; skillIndex: number }>,
+    ) => Action<string>;
+    updateCharacterCheckbox: (v: ChangeActionProps<CharacterName>) => Action<string>;
     updateButtonDropdownBadStatus: (v: ClickDropDownListItemProps) => Action<string>;
-    updateCharacterAttributeDropdown: (v: ChangeActionProps) => Action<string>;
-    openDeletionModal: (v: MouseActionProps) => Action<string>;
-    closeDeletionModal: () => Action<string>;
-    copyCharacter: (v: CharacterProps) => Action<string>;
+    updateCharacterAttributeDropdown: (v: ChangeActionProps<CharacterName>) => Action<string>;
+    openDeletionModal: (v: MouseActionProps<CharacterName>) => Action<string>;
+    closeModal: () => Action<string>;
+    openCharacterDetails: (v: MouseActionProps<CharacterName>) => Action<string>;
+    copyCharacter: (v: Character) => Action<string>;
     deleteCharacter: () => Action<string>;
+    deleteSkill: (v: MouseActionProps<{ characterName: CharacterName; skillName: SkillName }>) => Action<string>;
     updateCurrentNewCharacter: (v: React.ChangeEvent<HTMLInputElement>) => Action<string>;
     addNewCharacter: () => Action<string>;
+    addNewSkill: () => Action<string>;
     loadCharacters: () => void;
-    saveCharacters: (sessionName: string, v: CharacterProps[]) => void;
-    saveCharactersNewly: (sessionName: string, characters: CharacterProps[]) => void;
+    saveCharacters: (sessionName: string, v: Character[]) => void;
+    saveCharactersNewly: (sessionName: string, characters: Character[]) => void;
 }
 
 function mapStateToProps(state: State): CharacterTableState {
@@ -36,21 +45,28 @@ function mapStateToProps(state: State): CharacterTableState {
 function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
     return {
         updateSessionName: (v: ChangeSessionNameProps) => dispatch(actions.updateSessionName(v)),
-        updateCharacterAttributeNumberText: (v: ChangeActionProps) =>
+        updateCharacterAttributeNumberText: (v: ChangeActionProps<CharacterName>) =>
             dispatch(actions.updateCharacterAttributeNumberText(v)),
-        updateCharacterAttributeText: (v: ChangeActionProps) => dispatch(actions.updateCharacterAttributeText(v)),
-        updateCharacterCheckbox: (v: ChangeActionProps) => dispatch(actions.updateCharacterCheckbox(v)),
+        updateCharacterAttributeText: (v: ChangeActionProps<CharacterName>) =>
+            dispatch(actions.updateCharacterAttributeText(v)),
+        updateSkillAttributeText: (v: ChangeActionProps<{ characterName: CharacterName; skillIndex: number }>) =>
+            dispatch(actions.updateSkillAttributeText(v)),
+        updateCharacterCheckbox: (v: ChangeActionProps<CharacterName>) => dispatch(actions.updateCharacterCheckbox(v)),
         updateButtonDropdownBadStatus: (v: ClickDropDownListItemProps) =>
             dispatch(actions.updateButtonDropdownBadStatus(v)),
-        updateCharacterAttributeDropdown: (v: ChangeActionProps) =>
+        updateCharacterAttributeDropdown: (v: ChangeActionProps<CharacterName>) =>
             dispatch(actions.updateCharacterAttributeDropdown(v)),
-        openDeletionModal: (v: MouseActionProps) => dispatch(actions.openDeletionModal(v)),
-        closeDeletionModal: () => dispatch(actions.closeDeletionModal()),
+        openDeletionModal: (v: MouseActionProps<CharacterName>) => dispatch(actions.openDeletionModal(v)),
+        closeModal: () => dispatch(actions.closeModal()),
         deleteCharacter: () => dispatch(actions.deleteCharacter()),
-        copyCharacter: (v: CharacterProps) => dispatch(actions.copyCharacter({ character: v })),
+        deleteSkill: (v: MouseActionProps<{ characterName: CharacterName; skillName: SkillName }>) =>
+            dispatch(actions.deleteSkill(v)),
+        openCharacterDetails: (v: MouseActionProps<CharacterName>) => dispatch(actions.openCharacterDetails(v)),
+        copyCharacter: (v: Character) => dispatch(actions.copyCharacter({ character: v })),
         updateCurrentNewCharacter: (v: React.ChangeEvent<HTMLInputElement>) =>
             dispatch(actions.updateCurrentNewCharacter(v)),
         addNewCharacter: () => dispatch(actions.addNewCharacter()),
+        addNewSkill: () => dispatch(actions.addNewSkill()),
         loadCharacters: loadCharactersMapper(dispatch),
         saveCharacters: saveCharactersMapper(dispatch),
         saveCharactersNewly: saveCharactersNewlyMapper(dispatch),
@@ -71,9 +87,9 @@ function loadCharactersMapper(dispatch: Dispatch<Action<string>>) {
                 const {
                     characters: resCharacters,
                     sessionName,
-                }: { characters: CharacterProps[]; sessionName: string } = res.body;
+                }: { characters: Character[]; sessionName: string } = res.body;
 
-                const characters: CharacterProps[] = resCharacters.map((character: CharacterProps) => ({
+                const characters: Character[] = resCharacters.map((character: Character) => ({
                     ...character,
                 }));
 
@@ -96,7 +112,7 @@ function loadCharactersMapper(dispatch: Dispatch<Action<string>>) {
 }
 
 function saveCharactersMapper(dispatch: Dispatch<Action<string>>) {
-    return (sessionName: string, characters: CharacterProps[]) => {
+    return (sessionName: string, characters: Character[]) => {
         dispatch(actions.startedSaving({}));
 
         const id = location.pathname.split('/').slice(-1)[0];
@@ -122,7 +138,7 @@ function saveCharactersMapper(dispatch: Dispatch<Action<string>>) {
 }
 
 function saveCharactersNewlyMapper(dispatch: Dispatch<Action<string>>) {
-    return (sessionName: string, characters: CharacterProps[]) => {
+    return (sessionName: string, characters: Character[]) => {
         dispatch(actions.startedSavingNewly({}));
 
         Request.post(`/api/create`)

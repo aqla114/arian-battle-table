@@ -7,16 +7,15 @@ import {
     Column,
     Entity,
     OneToOne,
+    OneToMany,
 } from 'typeorm';
 import { BattleSession } from './battle-session';
 import { BadStatus } from './bad-status';
+import { Skill } from './skill';
 
-export type CharacterWithoutId = Pick<
-    Character,
-    'name' | 'actionPriority' | 'hp' | 'maxHp' | 'physicalDefence' | 'magicalDefence' | 'badStatus' | 'isActed'
->;
+export type CharacterWithoutId = Omit<Character, 'id'>;
 
-@Entity('character')
+@Entity('characters')
 export class Character {
     public static mk(
         name: string,
@@ -30,6 +29,7 @@ export class Character {
         magicalDefence: number,
         defaultMagicalDefence: number,
         memo: string,
+        skills: Skill[],
     ): Character {
         const c = new Character();
         return Object.assign(c, {
@@ -46,6 +46,7 @@ export class Character {
             badStatus: BadStatus.mk(),
             isActed: false,
             memo,
+            skills,
         });
     }
 
@@ -106,10 +107,60 @@ export class Character {
     @Column({ default: '', name: 'memo' })
     memo: string;
 
+    // 能力値と能力基本値
+    @Column({ default: 0, name: 'strength' })
+    strength: number;
+
+    @Column({ default: 0, name: 'strength_base' })
+    strength_base: number;
+
+    @Column({ default: 0, name: 'dexterity' })
+    dexterity: number;
+
+    @Column({ default: 0, name: 'dexterity_base' })
+    dexterity_base: number;
+
+    @Column({ default: 0, name: 'agility' })
+    agility: number;
+
+    @Column({ default: 0, name: 'agility_base' })
+    agility_base: number;
+
+    @Column({ default: 0, name: 'wisdom' })
+    wisdom: number;
+
+    @Column({ default: 0, name: 'wisdom_base' })
+    wisdom_base: number;
+
+    @Column({ default: 0, name: 'sensitivity' })
+    sensitivity: number;
+
+    @Column({ default: 0, name: 'sensitivity_base' })
+    sensitivity_base: number;
+
+    @Column({ default: 0, name: 'power' })
+    power: number;
+
+    @Column({ default: 0, name: 'power_base' })
+    power_base: number;
+
+    @Column({ default: 0, name: 'luck' })
+    luck: number;
+
+    @Column({ default: 0, name: 'luck_base' })
+    luck_base: number;
+
     @OneToOne(
         type => BadStatus,
         badStatus => badStatus.character,
         { cascade: true },
     )
     badStatus: BadStatus;
+
+    @OneToMany(
+        type => Skill,
+        skill => skill.character,
+        { cascade: true },
+    )
+    skills: Skill[];
 }

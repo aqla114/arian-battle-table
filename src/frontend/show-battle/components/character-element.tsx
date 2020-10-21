@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import { CharacterProps } from './characters-table';
 import { CheckBox } from '../../components/atoms/checkbox';
 import { BadStatusButtons, BadStatusProps } from './bad-status-buttons';
 import { getBadStatusLabels } from '../actions/bad-status';
@@ -9,10 +8,12 @@ import { Dropdown } from '../../components/atoms/dropdown';
 import { attributeLabels } from '../actions/attribute';
 import { IconButton } from '../../components/atoms/icon-button';
 import { faCopy, faTrashAlt } from '@fortawesome/free-regular-svg-icons';
+import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import { OnClickDropdownListItem } from '../../components/atoms/button-dropdown';
 import { Textarea } from '../../components/atoms/textarea';
+import { Character } from '../../types/character';
 
-type CharacterElementProps = CharacterProps & {
+type CharacterElementProps = Character & {
     isNextPrior: boolean;
     onChangeElementText: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     onChangeElementNumberText: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -21,6 +22,7 @@ type CharacterElementProps = CharacterProps & {
     onChangeElementDropdown: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onCopyCharacter: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
     onDeleteCharacter: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
+    onClickCharacterDetailsButton: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
 };
 
 export function CharacterElement(props: CharacterElementProps) {
@@ -126,6 +128,7 @@ export function CharacterElement(props: CharacterElementProps) {
             <td className="character-table__table__character__delete-button">
                 <IconButton name="copy" icon={faCopy} onClick={props.onCopyCharacter} />
                 <IconButton name="delete" icon={faTrashAlt} onClick={props.onDeleteCharacter} />
+                <IconButton name="detail" icon={faEllipsisV} onClick={props.onClickCharacterDetailsButton} />
             </td>
         </tr>
     );

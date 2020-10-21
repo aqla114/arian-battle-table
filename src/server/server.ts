@@ -11,13 +11,14 @@ import { mkRouter } from './mk-router';
 import { pathCanonicalizer } from 'koa-path-canonicalizer';
 import { StateT, CustomT } from '../types';
 import { BadStatus } from './models/bad-status';
+import { Skill } from './models/skill';
 
 async function mkApp(): Promise<void> {
     const connectionOptions = await getConnectionOptions();
 
     const connection = await createConnection({
         ...connectionOptions,
-        entities: [Character, BattleSession, BadStatus],
+        entities: [Character, BattleSession, BadStatus, Skill],
     });
 
     const WORKDIR: string = '/workdir';

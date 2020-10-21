@@ -87,6 +87,11 @@
 .icon-button:focus {
   border: none;
 }
+.icon-button.--small {
+  width: 36px;
+  height: 36px;
+  font-size: 24px;
+}
 .input-field {
   background-color: transparent;
 }
@@ -107,10 +112,18 @@
 .input-field__number:focus {
   border: inset;
 }
+.input-field__number.-small {
+  width: 24px;
+}
+.input-field__number.--middle {
+  width: 50px;
+}
+.input-field__number.--large {
+  width: 100px;
+}
 .input-field__text {
   font-size: 16px;
   height: 24px;
-  width: 160px;
   border-radius: 3px;
   border: none;
   text-overflow: ellipsis;
@@ -121,6 +134,15 @@
 }
 .input-field__text:focus {
   border: inset;
+}
+.input-field__text.--small {
+  width: 80px;
+}
+.input-field__text.--middle {
+  width: 160px;
+}
+.input-field__text.--large {
+  width: 320px;
 }
 .input-field-with-button {
   font: 16px;
@@ -168,6 +190,42 @@
   display: inline;
 }
 .modal-wrapper .dialog-window__cancel-button {
+  margin-left: 20px;
+  display: inline;
+}
+.side-modal-wrapper {
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(255,255,255,0.5);
+  visibility: visible;
+}
+.side-modal-wrapper .side-window {
+  overflow: scroll;
+  position: fixed;
+  box-sizing: border-box;
+  display: inline-block;
+  z-index: 1000;
+  background-color: #fff;
+  padding: 30px 30px;
+  border-radius: 4px;
+  width: 1200px;
+  height: 100%;
+  right: 0px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.6);
+  vertical-align: middle;
+}
+.side-modal-wrapper .side-window__description {
+  margin-top: 20px;
+  margin-bottom: 80px;
+}
+.side-modal-wrapper .side-window__enter-button {
+  display: inline;
+}
+.side-modal-wrapper .side-window__cancel-button {
   margin-left: 20px;
   display: inline;
 }
@@ -236,7 +294,6 @@ body {
 }
 .character-table__table__character__is-acted,
 .character-table__table__character__name,
-.character-table__table__character__delete-button,
 .character-table__table__character__attribute {
   width: 100px;
   height: 80px;
@@ -262,11 +319,41 @@ body {
 .character-table__table__character__memo {
   width: 400px;
 }
+.character-table__table__character__delete-button {
+  width: 160px;
+}
 .character-table__table__character.--next {
   -webkit-transition: background-color 0.2s linear;
   box-shadow: 0 2px 4px rgba(0,0,0,0.12), 0 2px 3px rgba(0,0,0,0.24);
   transition: background-color 0.2s linear;
   background-color: #ffa500;
+}
+.character-details__name {
+  font-size: 24px;
+}
+.character-details__attribute-values {
+  margin-top: 16px;
+}
+.character-details__attribute-values__title {
+  font-size: 18px;
+}
+.character-details__attribute-values__table1 {
+  padding: 4px;
+}
+.character-details__attribute-values__table1__attribute {
+  text-align: center;
+}
+.character-details__attribute-values__table2 {
+  padding: 4px;
+}
+.character-details__skills {
+  margin-top: 16px;
+}
+.character-details__skills__title {
+  font-size: 18px;
+}
+.character-details__skills__table__skill {
+  height: 28px;
 }
 .dice-roller {
   font: 16px;

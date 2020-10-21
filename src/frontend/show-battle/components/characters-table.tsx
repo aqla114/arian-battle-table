@@ -5,73 +5,25 @@ import { Actions } from '../show-battle-container';
 import { Button } from '../../components/atoms/button';
 import { InputFieldWithButton } from '../../components/molecules/input-field-with-button';
 import { Dialog } from '../../components/molecules/dialog';
-import { BadStatus, defaultBadStatus } from '../actions/bad-status';
 import { CardContainer } from '../../components/card-container';
-import { Attribute } from '../actions/attribute';
 import { InputField } from '../../components/atoms/input-field';
+import { CharacterDetails } from './character-details';
+import { Modal } from '../../types/modal';
+import { Character } from '../../types/character';
 
 export type CharacterTableState = {
     state: {
         sessionName: string;
-        characters: CharacterProps[];
+        characters: Character[];
     };
     current: {
-        currentNewCharacter: CharacterProps;
+        currentNewCharacter: Character;
         deleteCharacterName: string;
     };
     dom: {
-        isModalOpen: boolean;
+        modal: Modal | null;
     };
 };
-
-export type CharacterProps = {
-    id?: string;
-    name: string;
-    attribute: Attribute;
-    defaultActionPriority: number;
-    actionPriority: number;
-    hp: number;
-    maxHp: number;
-    physicalDefence: number;
-    defaultPhysicalDefence: number;
-    magicalDefence: number;
-    defaultMagicalDefence: number;
-    badStatus: BadStatus;
-    isActed: boolean;
-    memo: string;
-};
-
-export function Character(
-    name: string = '',
-    attribute: Attribute = 'None',
-    actionPriority: number = 0,
-    defaultActionPriority: number = 0,
-    hp: number = 0,
-    maxHp: number = 0,
-    physicalDefence: number = 0,
-    defaultPhysicalDefence: number = 0,
-    magicalDefence: number = 0,
-    defaultMagicalDefence: number = 0,
-    isActed: boolean = false,
-    memo: string = '',
-): CharacterProps {
-    const badStatus = defaultBadStatus;
-    return {
-        name,
-        attribute,
-        defaultActionPriority,
-        actionPriority,
-        hp,
-        maxHp,
-        physicalDefence,
-        defaultPhysicalDefence,
-        magicalDefence,
-        defaultMagicalDefence,
-        badStatus,
-        isActed,
-        memo,
-    };
-}
 
 type CharacterTableProps = CharacterTableState & Actions;
 
@@ -83,7 +35,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
     const {
         state: { sessionName, characters },
         current: { currentNewCharacter },
-        dom: { isModalOpen },
+        dom: { modal },
     } = props;
 
     const nextActionPriority = Math.max(...characters.filter(x => !x.isActed).map(x => x.actionPriority));
@@ -94,28 +46,50 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                 key={character.name}
                 {...character}
                 isNextPrior={!character.isActed && character.actionPriority === nextActionPriority}
-                onChangeElementNumberText={e => props.updateCharacterAttributeNumberText({ e, name: character.name })}
-                onChangeElementText={e => props.updateCharacterAttributeText({ e, name: character.name })}
-                onChangeElementCheckbox={e => props.updateCharacterCheckbox({ e, name: character.name })}
+                onChangeElementNumberText={e =>
+                    props.updateCharacterAttributeNumberText({ e, payload: character.name })
+                }
+                onChangeElementText={e => props.updateCharacterAttributeText({ e, payload: character.name })}
+                onChangeElementCheckbox={e => props.updateCharacterCheckbox({ e, payload: character.name })}
                 onClickDropdownItem={(key, value) =>
                     props.updateButtonDropdownBadStatus({ key, value, name: character.name })
                 }
-                onChangeElementDropdown={e => props.updateCharacterAttributeDropdown({ e, name: character.name })}
+                onChangeElementDropdown={e => props.updateCharacterAttributeDropdown({ e, payload: character.name })}
                 onCopyCharacter={_ => props.copyCharacter(character)}
-                onDeleteCharacter={e => props.openDeletionModal({ e, name: character.name })}
+                onDeleteCharacter={e => props.openDeletionModal({ e, payload: character.name })}
+                onClickCharacterDetailsButton={e => props.openCharacterDetails({ e, payload: character.name })}
             />
         );
     });
 
     return (
         <div>
-            {isModalOpen ? (
+            {modal?.type === 'DeletionModal' ? (
                 <Dialog
                     description={'本当に削除しますか？'}
                     enterLabel={'削除する'}
                     cancelLabel={'キャンセル'}
                     onClickEnter={() => props.deleteCharacter()}
-                    onClickCancel={() => props.closeDeletionModal()}
+                    onClickCancel={() => props.closeModal()}
+                />
+            ) : null}
+            {modal?.type === 'CharacterDetailsModal' ? (
+                <CharacterDetails
+                    character={modal.character}
+                    onChangeNumberInputField={e =>
+                        props.updateCharacterAttributeNumberText({ e, payload: modal.character.name })
+                    }
+                    onChangeElementSkillText={(e, idx) =>
+                        props.updateSkillAttributeText({
+                            e,
+                            payload: { characterName: modal.character.name, skillIndex: idx },
+                        })
+                    }
+                    onClickAddSkillButton={props.addNewSkill}
+                    onClickDeleteSkillButton={(e, skillName) =>
+                        props.deleteSkill({ e, payload: { characterName: modal.character.name, skillName } })
+                    }
+                    onCloseModal={props.closeModal}
                 />
             ) : null}
             <div className="save-container">
