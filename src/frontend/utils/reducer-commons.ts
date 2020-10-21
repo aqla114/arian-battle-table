@@ -9,11 +9,11 @@ export function updateObject<T>(item: T, updateValues: Partial<T>): T {
  */
 export function updateItemInArray<T>(
     array: Array<T>,
-    selector: (item: T) => boolean,
+    selector: (item: T, idx: number) => boolean,
     updateItemCallback: (item: T) => T,
 ) {
-    const updatedItems = array.map(item => {
-        if (!selector(item)) {
+    const updatedItems = array.map((item, idx) => {
+        if (!selector(item, idx)) {
             return item;
         }
         return updateItemCallback(item);
