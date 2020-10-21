@@ -33,11 +33,15 @@ const initialState: CharacterTableState = {
 };
 
 export function characterSelector(characterName: string) {
-    return (character: Character) => character.name === characterName;
+    return (character: Character, _: number) => character.name === characterName;
 }
 
 export function skillSelector(skillName: string) {
-    return (skill: Skill) => skill.name === skillName;
+    return (skill: Skill, _: number) => skill.name === skillName;
+}
+
+export function indexSelector<T>(targetIdx: number) {
+    return (_: T, idx: number) => idx === targetIdx;
 }
 
 // TODO: キャラクター名で filter するの結構微妙みあるからできれば id とかをちゃんと扱うようにしたいかも。
