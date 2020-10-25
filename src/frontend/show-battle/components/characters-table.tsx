@@ -90,6 +90,9 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                         props.deleteSkill({ e, payload: { characterName: modal.character.name, skillName } })
                     }
                     onCloseModal={props.closeModal}
+                    onMoveSkill={(dragIdx, dropIdx) =>
+                        props.moveSkill({ characterName: modal.character.name, dragIdx, dropIdx })
+                    }
                 />
             ) : null}
             <div className="save-container">

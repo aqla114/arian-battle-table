@@ -258,3 +258,34 @@ export const deleteSkill: (
         dom: { ...state.dom, modal: { type: 'CharacterDetailsModal', character } },
     };
 };
+
+export const moveSkill: (
+    state: CharacterTableState,
+    props: { characterName: CharacterName; dragIdx: number; dropIdx: number },
+) => CharacterTableState = (state, props) => {
+    const { characterName, dragIdx, dropIdx } = props;
+
+    console.log(props);
+
+    const characters = updateItemInArray(state.state.characters, characterSelector(characterName), character => {
+        const smallIdx = Math.min(dragIdx, dropIdx);
+        const largeIdx = Math.max(dragIdx, dropIdx);
+
+        const skills1 = character.skills.slice(0, smallIdx);
+        const skill1 = character.skills[smallIdx];
+        const skills2 = character.skills.slice(smallIdx + 1, largeIdx);
+        const skill2 = character.skills[largeIdx];
+        const skills3 = character.skills.slice(largeIdx + 1);
+
+        const skills = skills1.concat(skill2, skills2, skill1, skills3);
+
+        console.log(character.skills, skills);
+
+        return updateObject(character, { skills });
+    });
+
+    return {
+        ...state,
+        state: { ...state.state, characters },
+    };
+};
