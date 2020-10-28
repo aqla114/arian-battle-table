@@ -265,8 +265,6 @@ export const moveSkill: (
 ) => CharacterTableState = (state, props) => {
     const { characterName, dragIdx, dropIdx } = props;
 
-    console.log(props);
-
     const characters = updateItemInArray(state.state.characters, characterSelector(characterName), character => {
         const smallIdx = Math.min(dragIdx, dropIdx);
         const largeIdx = Math.max(dragIdx, dropIdx);
@@ -279,13 +277,19 @@ export const moveSkill: (
 
         const skills = skills1.concat(skill2, skills2, skill1, skills3);
 
-        console.log(character.skills, skills);
-
         return updateObject(character, { skills });
     });
 
+    const character = characters.find(characterSelector(characterName));
+
+    if (character === undefined) {
+        console.log('Failed actions.moveSkill');
+        return state;
+    }
+
     return {
         ...state,
-        state: { ...state.state, characters },
+        state: updateObject(state.state, { characters }),
+        dom: updateObject(state.dom, { modal: { type: 'CharacterDetailsModal', character } }),
     };
 };

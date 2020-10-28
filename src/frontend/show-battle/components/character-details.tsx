@@ -264,6 +264,7 @@ const DraggableSkillTableRow = (props: {
                     value={skill.name}
                     kind={'text'}
                     onChange={e => onChangeElementSkillText(e, idx)}
+                    changeOnBlur={false}
                 />
             </td>
             <td className="character-details__skills__table__skill__timing">
