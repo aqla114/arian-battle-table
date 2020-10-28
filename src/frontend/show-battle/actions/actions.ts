@@ -22,6 +22,7 @@ export type ClickDropDownListItemProps = {
     value: ButtonDropdownValue;
     name: CharacterName;
 };
+export type MoveSkillProps = { characterName: string; dragIdx: number; dropIdx: number };
 
 export type ActionTypes =
     | 'UPDATE_SESSION_NAME_TEXT'
@@ -33,6 +34,7 @@ export type ActionTypes =
     | 'UPDATE_CHARACTER_DROPDOWN'
     | 'DELETE_CHARACTER'
     | 'DELETE_SKILL'
+    | 'MOVE_SKILL'
     | 'COPY_CHARACTER'
     | 'OPEN_CHARACTER_DETAILS'
     | 'UPDATE_CURRENT_NEW_CHARACTER'
@@ -64,6 +66,7 @@ export const actions = {
     deleteSkill: actionCreator<MouseActionProps<{ characterName: CharacterName; skillName: SkillName }>>(
         'DELETE_SKILL',
     ),
+    moveSkill: actionCreator<MoveSkillProps>('MOVE_SKILL'),
     copyCharacter: actionCreator<{ character: Character }>('COPY_CHARACTER'),
     openCharacterDetails: actionCreator<MouseActionProps<CharacterName>>('OPEN_CHARACTER_DETAILS'),
     updateCurrentNewCharacter: actionCreator<React.ChangeEvent<HTMLInputElement>>('UPDATE_CURRENT_NEW_CHARACTER'),

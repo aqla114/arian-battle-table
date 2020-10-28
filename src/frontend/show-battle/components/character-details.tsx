@@ -1,5 +1,8 @@
 import * as React from 'react';
 import { faTrashAlt, faPlusSquare } from '@fortawesome/free-regular-svg-icons';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { useDrag, useDrop } from 'react-dnd';
 
 import { InputField } from '../../components/atoms/input-field';
 import { attributeLabels } from '../actions/attribute';
@@ -7,6 +10,7 @@ import { Character } from '../../types/character';
 import { SkillName } from '../actions/actions';
 import { IconButton } from '../../components/atoms/icon-button';
 import * as uuid from 'uuid';
+import { Skill } from '../../types/skill';
 
 export type CharacterDetailsProps = {
     character: Character;
@@ -14,6 +18,7 @@ export type CharacterDetailsProps = {
     onChangeNumberInputField: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onClickAddSkillButton: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
     onClickDeleteSkillButton: (e: React.MouseEvent<HTMLInputElement, MouseEvent>, skillName: SkillName) => void;
+    onMoveSkill: (dragIdx: number, dropIdx: number) => void;
     onCloseModal: () => void;
 };
 
@@ -30,19 +35,22 @@ export const CharacterDetails: React.SFC<CharacterDetailsProps> = (props: Charac
             }}
         >
             <div className="side-window">
-                <CharacterDetailsContent {...props} />
+                <DndProvider backend={HTML5Backend}>
+                    <CharacterDetailsContent {...props} />
+                </DndProvider>
             </div>
         </div>
     );
 };
 
-const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: CharacterDetailsProps) => {
+const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = (props: CharacterDetailsProps) => {
     const {
         character,
         onChangeNumberInputField,
         onChangeElementSkillText,
         onClickAddSkillButton,
         onClickDeleteSkillButton,
+        onMoveSkill,
     } = props;
 
     return (
@@ -213,81 +221,112 @@ const CharacterDetailsContent: React.SFC<CharacterDetailsProps> = (props: Charac
                     </thead>
                     <tbody>
                         {character.skills.map((skill, idx) => (
-                            <tr key={skill.id || uuid.v4()} className="character-details__skills__table__skill">
-                                <td className="character-details__skills__table__skill__name">
-                                    <InputField
-                                        name={'name'}
-                                        value={skill.name}
-                                        kind={'text'}
-                                        onChange={e => onChangeElementSkillText(e, idx)}
-                                    />
-                                </td>
-                                <td className="character-details__skills__table__skill__timing">
-                                    <InputField
-                                        name={'timing'}
-                                        value={skill.timing}
-                                        kind={'text'}
-                                        onChange={e => onChangeElementSkillText(e, idx)}
-                                    />
-                                </td>
-                                <td className="character-details__skills__table__skill__detetmination-way">
-                                    <InputField
-                                        name={'determimnation-way'}
-                                        value={skill.detemination_way}
-                                        kind={'text'}
-                                        size={'small'}
-                                        onChange={e => onChangeElementSkillText(e, idx)}
-                                    />
-                                </td>
-                                <td className="character-details__skills__table__skill__target">
-                                    <InputField
-                                        name={'target'}
-                                        value={skill.target}
-                                        kind={'text'}
-                                        size={'small'}
-                                        onChange={e => onChangeElementSkillText(e, idx)}
-                                    />
-                                </td>
-                                <td className="character-details__skills__table__skill__range">
-                                    <InputField
-                                        name={'range'}
-                                        value={skill.range}
-                                        kind={'text'}
-                                        size={'small'}
-                                        onChange={e => onChangeElementSkillText(e, idx)}
-                                    />
-                                </td>
-                                <td className="character-details__skills__table__skill__restriction">
-                                    <InputField
-                                        name={'restriction'}
-                                        value={skill.restriction}
-                                        kind={'text'}
-                                        onChange={e => onChangeElementSkillText(e, idx)}
-                                    />
-                                </td>
-                                <td className="character-details__skills__table__skill__detail">
-                                    <InputField
-                                        name={'detail'}
-                                        value={skill.detail}
-                                        kind={'text'}
-                                        size={'large'}
-                                        onChange={e => onChangeElementSkillText(e, idx)}
-                                    />
-                                </td>
-                                <td className="character-details__skills__table__skill__detail">
-                                    <IconButton
-                                        name={'delete'}
-                                        icon={faTrashAlt}
-                                        size={'small'}
-                                        onClick={e => onClickDeleteSkillButton(e, skill.name)}
-                                    />
-                                </td>
-                            </tr>
+                            <DraggableSkillTableRow
+                                key={skill.id || uuid.v4()}
+                                skill={skill}
+                                idx={idx}
+                                onChangeElementSkillText={onChangeElementSkillText}
+                                onClickDeleteSkillButton={onClickDeleteSkillButton}
+                                onMoveSkill={onMoveSkill}
+                            />
                         ))}
                     </tbody>
                 </table>
                 <IconButton name={'add'} icon={faPlusSquare} size={'small'} onClick={onClickAddSkillButton} />
             </div>
         </div>
+    );
+};
+
+const DraggableSkillTableRow = (props: {
+    skill: Skill;
+    idx: number;
+    onChangeElementSkillText: (e: React.ChangeEvent<HTMLInputElement>, idx: number) => void;
+    onClickDeleteSkillButton: (e: React.MouseEvent<HTMLInputElement, MouseEvent>, skillName: SkillName) => void;
+    onMoveSkill: (dragIdx: number, dropIdx: number) => void;
+}) => {
+    const { skill, idx, onChangeElementSkillText, onClickDeleteSkillButton, onMoveSkill } = props;
+
+    const [, drag] = useDrag({
+        item: { type: 'Skill', idx: idx },
+    });
+
+    const [, drop] = useDrop({
+        accept: 'Skill',
+        drop: (_, dragTargetMonitor) => onMoveSkill(dragTargetMonitor.getItem().idx, idx),
+    });
+
+    return (
+        <tr ref={drag} className="character-details__skills__table__skill">
+            <td ref={drop} className="character-details__skills__table__skill__name">
+                <InputField
+                    name={'name'}
+                    value={skill.name}
+                    kind={'text'}
+                    onChange={e => onChangeElementSkillText(e, idx)}
+                    changeOnBlur={false}
+                />
+            </td>
+            <td className="character-details__skills__table__skill__timing">
+                <InputField
+                    name={'timing'}
+                    value={skill.timing}
+                    kind={'text'}
+                    onChange={e => onChangeElementSkillText(e, idx)}
+                />
+            </td>
+            <td className="character-details__skills__table__skill__detetmination-way">
+                <InputField
+                    name={'determimnation-way'}
+                    value={skill.detemination_way}
+                    kind={'text'}
+                    size={'small'}
+                    onChange={e => onChangeElementSkillText(e, idx)}
+                />
+            </td>
+            <td className="character-details__skills__table__skill__target">
+                <InputField
+                    name={'target'}
+                    value={skill.target}
+                    kind={'text'}
+                    size={'small'}
+                    onChange={e => onChangeElementSkillText(e, idx)}
+                />
+            </td>
+            <td className="character-details__skills__table__skill__range">
+                <InputField
+                    name={'range'}
+                    value={skill.range}
+                    kind={'text'}
+                    size={'small'}
+                    onChange={e => onChangeElementSkillText(e, idx)}
+                />
+            </td>
+            <td className="character-details__skills__table__skill__restriction">
+                <InputField
+                    name={'restriction'}
+                    value={skill.restriction}
+                    kind={'text'}
+                    onChange={e => onChangeElementSkillText(e, idx)}
+                />
+            </td>
+            <td className="character-details__skills__table__skill__detail">
+                <InputField
+                    name={'detail'}
+                    value={skill.detail}
+                    kind={'text'}
+                    size={'large'}
+                    onChange={e => onChangeElementSkillText(e, idx)}
+                />
+            </td>
+            <td className="character-details__skills__table__skill__detail">
+                <IconButton
+                    name={'delete'}
+                    icon={faTrashAlt}
+                    size={'small'}
+                    onClick={e => onClickDeleteSkillButton(e, skill.name)}
+                />
+            </td>
+        </tr>
     );
 };

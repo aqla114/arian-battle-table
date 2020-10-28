@@ -9,6 +9,7 @@ import {
     ClickDropDownListItemProps,
     CharacterName,
     SkillName,
+    MoveSkillProps,
 } from './actions/actions';
 import { State } from './store';
 import * as Request from 'superagent';
@@ -30,6 +31,7 @@ export interface Actions {
     copyCharacter: (v: Character) => Action<string>;
     deleteCharacter: () => Action<string>;
     deleteSkill: (v: MouseActionProps<{ characterName: CharacterName; skillName: SkillName }>) => Action<string>;
+    moveSkill: (v: MoveSkillProps) => Action<string>;
     updateCurrentNewCharacter: (v: React.ChangeEvent<HTMLInputElement>) => Action<string>;
     addNewCharacter: () => Action<string>;
     addNewSkill: () => Action<string>;
@@ -61,6 +63,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
         deleteCharacter: () => dispatch(actions.deleteCharacter()),
         deleteSkill: (v: MouseActionProps<{ characterName: CharacterName; skillName: SkillName }>) =>
             dispatch(actions.deleteSkill(v)),
+        moveSkill: (v: MoveSkillProps) => dispatch(actions.moveSkill(v)),
         openCharacterDetails: (v: MouseActionProps<CharacterName>) => dispatch(actions.openCharacterDetails(v)),
         copyCharacter: (v: Character) => dispatch(actions.copyCharacter({ character: v })),
         updateCurrentNewCharacter: (v: React.ChangeEvent<HTMLInputElement>) =>

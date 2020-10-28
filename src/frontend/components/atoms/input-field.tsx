@@ -13,6 +13,7 @@ type Props = {
     textAlign?: TextAlign;
     placeholder?: string;
     size?: Size;
+    changeOnBlur?: boolean; // onBlur のタイミングで `onChange` のコールバックが呼ばれるかどうか。
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
@@ -20,6 +21,7 @@ export const InputField: React.SFC<Props> = ({
     textAlign = 'left',
     showBorder = true,
     size = 'midddle',
+    changeOnBlur = true,
     ...props
 }: Props) => {
     const [curretntValue, setValue] = React.useState(props.value);
@@ -27,12 +29,18 @@ export const InputField: React.SFC<Props> = ({
         setValue(props.value);
     }, [props.value]);
 
+    const onChangeCallback = changeOnBlur
+        ? (e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value)
+        : props.onChange;
+
+    const onBlurCallback = changeOnBlur ? (e: React.FocusEvent<HTMLInputElement>) => props.onChange(e) : () => {};
+
     return (
         <input
             {...props}
             value={curretntValue}
-            onChange={e => setValue(e.target.value)}
-            onBlur={e => props.onChange(e)}
+            onChange={onChangeCallback}
+            onBlur={onBlurCallback}
             type="text"
             className={`input-field__${props.kind} ${`--${textAlign}`} ${`--${size}`} ${
                 showBorder ? '--show-border' : ''
