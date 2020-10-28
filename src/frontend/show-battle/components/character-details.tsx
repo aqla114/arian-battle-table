@@ -11,11 +11,13 @@ import { SkillName } from '../actions/actions';
 import { IconButton } from '../../components/atoms/icon-button';
 import * as uuid from 'uuid';
 import { Skill } from '../../types/skill';
+import { Textarea } from '../../components/atoms/textarea';
 
 export type CharacterDetailsProps = {
     character: Character;
     onChangeElementSkillText: (e: React.ChangeEvent<HTMLInputElement>, idx: number) => void;
     onChangeNumberInputField: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChangeTextInputField: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
     onClickAddSkillButton: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
     onClickDeleteSkillButton: (e: React.MouseEvent<HTMLInputElement, MouseEvent>, skillName: SkillName) => void;
     onMoveSkill: (dragIdx: number, dropIdx: number) => void;
@@ -47,6 +49,7 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
     const {
         character,
         onChangeNumberInputField,
+        onChangeTextInputField,
         onChangeElementSkillText,
         onClickAddSkillButton,
         onClickDeleteSkillButton,
@@ -203,6 +206,17 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                         </tr>
                     </tbody>
                 </table>
+            </div>
+            <div className="character-details__memo">
+                <div className="character-details__memo__label">メモ</div>
+                <div className="character-details__memo__memo">
+                    <Textarea
+                        name="memo"
+                        value={character.memo}
+                        onChange={onChangeTextInputField}
+                        style={{ width: '100%', height: '160px' }}
+                    />
+                </div>
             </div>
             <div className="character-details__skills">
                 <div className="character-details__skills__title">スキル</div>

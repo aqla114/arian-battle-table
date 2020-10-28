@@ -123,7 +123,12 @@ export function CharacterElement(props: CharacterElementProps) {
                 <BadStatusButtons badStatusList={badStatusList} />
             </td>
             <td className="character-table__character__memo">
-                <Textarea name="memo" value={props.memo} onChange={props.onChangeElementText} />
+                <Textarea
+                    name="memo"
+                    value={props.memo}
+                    onChange={props.onChangeElementText}
+                    style={{ width: '100%', height: '70px' }}
+                />
             </td>
             <td className="character-table__table__character__delete-button">
                 <IconButton name="copy" icon={faCopy} onClick={props.onCopyCharacter} />

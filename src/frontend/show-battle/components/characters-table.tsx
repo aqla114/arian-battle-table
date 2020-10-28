@@ -79,6 +79,9 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                     onChangeNumberInputField={e =>
                         props.updateCharacterAttributeNumberText({ e, payload: modal.character.name })
                     }
+                    onChangeTextInputField={e =>
+                        props.updateCharacterAttributeText({ e, payload: modal.character.name })
+                    }
                     onChangeElementSkillText={(e, idx) =>
                         props.updateSkillAttributeText({
                             e,
