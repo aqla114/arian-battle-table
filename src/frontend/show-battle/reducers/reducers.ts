@@ -11,13 +11,10 @@ import {
     deleteCharacter,
     addNewCharacter,
     updateCharacterAttributeText,
-    updateSkillAttributeText,
-    deleteSkill,
-    addNewSkill,
-    moveSkill,
 } from './characters-reducer';
 import { Skill } from '../../types/skill';
 import { Character } from '../../types/character';
+import { addNewSkill, deleteSkill, moveSkill, updateSkillAttributeText } from './skill-reducer';
 
 const initialState: CharacterTableState = {
     state: {
