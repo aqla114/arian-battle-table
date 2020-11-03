@@ -24,6 +24,7 @@ const initialState: CharacterTableState = {
     current: {
         currentNewCharacter: Character(),
         deleteCharacterName: '',
+        modalCharacterName: '',
     },
     dom: {
         modal: null,
@@ -75,7 +76,7 @@ export const tableReducer = reducerWithInitialState(initialState)
 
         return {
             ...state,
-            dom: { ...state.dom, modal: { type: 'CharacterDetailsModal', character } },
+            dom: { ...state.dom, modal: { type: 'CharacterDetailsModal', characterName: name } },
         };
     })
     .case(actions.closeModal, (state, _props) => {

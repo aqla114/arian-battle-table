@@ -29,7 +29,6 @@ export const updateSkillAttributeText: (
     return {
         ...state,
         state: { ...state.state, characters },
-        dom: { ...state.dom, modal: { type: 'CharacterDetailsModal', character } },
     };
 };
 
@@ -39,7 +38,7 @@ export const addNewSkill: (state: CharacterTableState) => CharacterTableState = 
         return state;
     }
 
-    const characterName = state.dom.modal.character.name;
+    const characterName = state.dom.modal.characterName;
 
     const characters = updateItemInArray(state.state.characters, characterSelector(characterName), character =>
         updateObject(character, updateObject(character, { skills: [...character.skills, Skill()] })),
@@ -55,7 +54,6 @@ export const addNewSkill: (state: CharacterTableState) => CharacterTableState = 
     return {
         ...state,
         state: { ...state.state, characters },
-        dom: { ...state.dom, modal: { type: 'CharacterDetailsModal', character } },
     };
 };
 
@@ -82,7 +80,6 @@ export const deleteSkill: (
     return {
         ...state,
         state: { ...state.state, characters },
-        dom: { ...state.dom, modal: { type: 'CharacterDetailsModal', character } },
     };
 };
 
@@ -117,6 +114,5 @@ export const moveSkill: (
     return {
         ...state,
         state: updateObject(state.state, { characters }),
-        dom: updateObject(state.dom, { modal: { type: 'CharacterDetailsModal', character } }),
     };
 };
