@@ -1,11 +1,10 @@
-import { Character } from './character';
+import { CharacterName } from '../show-battle/actions/actions';
 
-// TODO: Modal に Character 渡すのやめたい！！
 export type Modal =
     | {
           type: 'DeletionModal';
       }
     | {
           type: 'CharacterDetailsModal';
-          character: Character;
+          characterName: CharacterName;
       };

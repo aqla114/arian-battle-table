@@ -10,6 +10,7 @@ import { InputField } from '../../components/atoms/input-field';
 import { CharacterDetails } from './character-details';
 import { Modal } from '../../types/modal';
 import { Character } from '../../types/character';
+import { CharacterName } from '../actions/actions';
 
 export type CharacterTableState = {
     state: {
@@ -18,7 +19,8 @@ export type CharacterTableState = {
     };
     current: {
         currentNewCharacter: Character;
-        deleteCharacterName: string;
+        deleteCharacterName: CharacterName;
+        modalCharacterName: CharacterName;
     };
     dom: {
         modal: Modal | null;
@@ -75,23 +77,26 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
             ) : null}
             {modal?.type === 'CharacterDetailsModal' ? (
                 <CharacterDetails
-                    character={modal.character}
+                    character={characters.filter(x => x.name === modal.characterName)[0]}
                     onChangeNumberInputField={e =>
-                        props.updateCharacterAttributeNumberText({ e, payload: modal.character.name })
+                        props.updateCharacterAttributeNumberText({ e, payload: modal.characterName })
+                    }
+                    onChangeTextInputField={e =>
+                        props.updateCharacterAttributeText({ e, payload: modal.characterName })
                     }
                     onChangeElementSkillText={(e, idx) =>
                         props.updateSkillAttributeText({
                             e,
-                            payload: { characterName: modal.character.name, skillIndex: idx },
+                            payload: { characterName: modal.characterName, skillIndex: idx },
                         })
                     }
                     onClickAddSkillButton={props.addNewSkill}
                     onClickDeleteSkillButton={(e, skillName) =>
-                        props.deleteSkill({ e, payload: { characterName: modal.character.name, skillName } })
+                        props.deleteSkill({ e, payload: { characterName: modal.characterName, skillName } })
                     }
                     onCloseModal={props.closeModal}
                     onMoveSkill={(dragIdx, dropIdx) =>
-                        props.moveSkill({ characterName: modal.character.name, dragIdx, dropIdx })
+                        props.moveSkill({ characterName: modal.characterName, dragIdx, dropIdx })
                     }
                 />
             ) : null}

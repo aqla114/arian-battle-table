@@ -7,7 +7,7 @@ type Props = {
     showBorder?: boolean;
     placeholder?: string;
     onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-};
+} & React.DetailedHTMLProps<React.TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>;
 
 export const Textarea: React.SFC<Props> = ({ showBorder = true, ...props }: Props) => {
     return <textarea {...props} className={`textarea ${showBorder ? '--show-border' : ''} ${props.className}`} />;
