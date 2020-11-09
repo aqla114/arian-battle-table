@@ -14,6 +14,7 @@ import {
 import { State } from './store';
 import * as Request from 'superagent';
 import { Character } from '../types/character';
+import { Skill } from '../types/skill';
 
 export interface Actions {
     updateSessionName: (v: ChangeSessionNameProps) => Action<string>;
@@ -143,11 +144,12 @@ function loadSkillsCsvMapper(dispatch: Dispatch<Action<string>>) {
                 dispatch(
                     actions.doneLoadingSkillsCsv({
                         params: {},
-                        result: [],
+                        result: { skills: [Skill(), Skill()] },
                     }),
                 );
             })
             .catch(err => {
+                console.log(err);
                 dispatch(actions.failedLoadingSkillsCsv({ params: {}, error: {} }));
             });
     };
