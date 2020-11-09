@@ -119,10 +119,10 @@ function loadCharactersMapper(dispatch: Dispatch<Action<string>>) {
 
 function loadSkillsCsvMapper(dispatch: Dispatch<Action<string>>) {
     return (characterName: CharacterName, files: FileList | null) => {
-        dispatch(actions.startedLoadingSkillsCsv({}));
+        dispatch(actions.startedLoadingSkillsCsv({ characterName }));
 
         if (files === null || files.length === 0) {
-            dispatch(actions.failedLoadingSkillsCsv({ params: {}, error: {} }));
+            dispatch(actions.failedLoadingSkillsCsv({ params: { characterName }, error: {} }));
             return;
         }
 
@@ -143,14 +143,14 @@ function loadSkillsCsvMapper(dispatch: Dispatch<Action<string>>) {
                 console.log(res);
                 dispatch(
                     actions.doneLoadingSkillsCsv({
-                        params: {},
-                        result: { skills: [Skill(), Skill()] },
+                        params: { characterName },
+                        result: { skills: [Skill('バッシュ'), Skill('カバーリング')] },
                     }),
                 );
             })
             .catch(err => {
                 console.log(err);
-                dispatch(actions.failedLoadingSkillsCsv({ params: {}, error: {} }));
+                dispatch(actions.failedLoadingSkillsCsv({ params: { characterName }, error: {} }));
             });
     };
 }
