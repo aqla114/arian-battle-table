@@ -38,6 +38,7 @@ export interface Actions {
     loadCharacters: () => void;
     saveCharacters: (sessionName: string, v: Character[]) => void;
     saveCharactersNewly: (sessionName: string, characters: Character[]) => void;
+    loadSkillsCsv: (characterName: CharacterName, files: FileList | null) => void;
 }
 
 function mapStateToProps(state: State): CharacterTableState {
@@ -73,6 +74,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
         loadCharacters: loadCharactersMapper(dispatch),
         saveCharacters: saveCharactersMapper(dispatch),
         saveCharactersNewly: saveCharactersNewlyMapper(dispatch),
+        loadSkillsCsv: loadSkillsCsvMapper(dispatch),
     };
 }
 
@@ -111,6 +113,43 @@ function loadCharactersMapper(dispatch: Dispatch<Action<string>>) {
                 );
             }
         });
+    };
+}
+
+function loadSkillsCsvMapper(dispatch: Dispatch<Action<string>>) {
+    return (characterName: CharacterName, files: FileList | null) => {
+        dispatch(actions.startedLoadingSkillsCsv({}));
+
+        if (files === null || files.length === 0) {
+            dispatch(actions.failedLoadingSkillsCsv({ params: {}, error: {} }));
+            return;
+        }
+
+        new Promise<string>((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => {
+                if (typeof reader.result === 'string') {
+                    resolve(reader.result);
+                }
+            };
+            reader.onerror = () => {
+                reject(reader.error);
+            };
+
+            reader.readAsText(files[0]);
+        })
+            .then(res => {
+                console.log(res);
+                dispatch(
+                    actions.doneLoadingSkillsCsv({
+                        params: {},
+                        result: [],
+                    }),
+                );
+            })
+            .catch(err => {
+                dispatch(actions.failedLoadingSkillsCsv({ params: {}, error: {} }));
+            });
     };
 }
 

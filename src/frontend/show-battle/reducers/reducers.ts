@@ -90,6 +90,9 @@ export const tableReducer = reducerWithInitialState(initialState)
     .case(actions.doneLoadingCharacters, (state, props) => {
         return { ...state, state: props.result.state };
     })
+    .case(actions.doneLoadingSkillsCsv, (state, props) => {
+        return { ...state };
+    })
     .default(state => {
         console.log('The default reducer is used.');
         return state;
