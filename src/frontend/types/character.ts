@@ -1,4 +1,4 @@
-import { Attribute } from '../show-battle/actions/attribute';
+import { Attribute } from './attribute';
 import { BadStatus, defaultBadStatus } from '../show-battle/actions/bad-status';
 import { Skill } from './skill';
 

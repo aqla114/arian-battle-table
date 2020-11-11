@@ -5,7 +5,7 @@ import { BadStatusButtons, BadStatusProps } from './bad-status-buttons';
 import { getBadStatusLabels } from '../actions/bad-status';
 import { ComibnedInputField } from '../../components/molecules/combined-input-field';
 import { Dropdown } from '../../components/atoms/dropdown';
-import { attributeLabels } from '../actions/attribute';
+import { attributeLabels } from '../../types/attribute';
 import { IconButton } from '../../components/atoms/icon-button';
 import { faCopy, faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';

@@ -5,7 +5,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useDrag, useDrop } from 'react-dnd';
 
 import { InputField } from '../../components/atoms/input-field';
-import { attributeLabels } from '../actions/attribute';
+import { attributeLabels } from '../../types/attribute';
 import { Character } from '../../types/character';
 import { CharacterName, SkillName } from '../actions/actions';
 import { IconButton } from '../../components/atoms/icon-button';
