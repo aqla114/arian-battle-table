@@ -75,6 +75,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                     onClickCancel={() => props.closeModal()}
                 />
             ) : null}
+            {/** TODO: characterName、別にモーダル内で与えればよくね？ */}
             {modal?.type === 'CharacterDetailsModal' ? (
                 <CharacterDetails
                     character={characters.filter(x => x.name === modal.characterName)[0]}
@@ -98,6 +99,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                     onMoveSkill={(dragIdx, dropIdx) =>
                         props.moveSkill({ characterName: modal.characterName, dragIdx, dropIdx })
                     }
+                    onLoadSkillsCsv={props.loadSkillsCsv}
                 />
             ) : null}
             <div className="save-container">

@@ -4,6 +4,7 @@ import { saveCharactersActions } from './save-characters';
 import { saveCharactersNewlyActions } from './save-characters-newly';
 import { ButtonDropdownValue } from '../../components/atoms/button-dropdown';
 import { Character } from '../../types/character';
+import { loadSkillsCsvActions } from './load-skills-csv';
 
 export type CharacterName = string;
 export type SkillName = string;
@@ -75,4 +76,5 @@ export const actions = {
     ...loadCharactersActions,
     ...saveCharactersActions,
     ...saveCharactersNewlyActions,
+    ...loadSkillsCsvActions,
 };

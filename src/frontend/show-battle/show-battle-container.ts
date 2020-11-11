@@ -14,6 +14,7 @@ import {
 import { State } from './store';
 import * as Request from 'superagent';
 import { Character } from '../types/character';
+import { parseCsv } from '../utils/skill-csv-parser';
 
 export interface Actions {
     updateSessionName: (v: ChangeSessionNameProps) => Action<string>;
@@ -38,6 +39,7 @@ export interface Actions {
     loadCharacters: () => void;
     saveCharacters: (sessionName: string, v: Character[]) => void;
     saveCharactersNewly: (sessionName: string, characters: Character[]) => void;
+    loadSkillsCsv: (characterName: CharacterName, files: FileList | null) => void;
 }
 
 function mapStateToProps(state: State): CharacterTableState {
@@ -73,6 +75,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
         loadCharacters: loadCharactersMapper(dispatch),
         saveCharacters: saveCharactersMapper(dispatch),
         saveCharactersNewly: saveCharactersNewlyMapper(dispatch),
+        loadSkillsCsv: loadSkillsCsvMapper(dispatch),
     };
 }
 
@@ -111,6 +114,45 @@ function loadCharactersMapper(dispatch: Dispatch<Action<string>>) {
                 );
             }
         });
+    };
+}
+
+function loadSkillsCsvMapper(dispatch: Dispatch<Action<string>>) {
+    return (characterName: CharacterName, files: FileList | null) => {
+        dispatch(actions.startedLoadingSkillsCsv({ characterName }));
+
+        if (files === null || files.length === 0) {
+            dispatch(actions.failedLoadingSkillsCsv({ params: { characterName }, error: {} }));
+            return;
+        }
+
+        new Promise<string>((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => {
+                if (typeof reader.result === 'string') {
+                    resolve(reader.result);
+                }
+            };
+            reader.onerror = () => {
+                reject(reader.error);
+            };
+
+            reader.readAsText(files[0]);
+        })
+            .then(res => {
+                const parsedSkills = parseCsv(res);
+
+                dispatch(
+                    actions.doneLoadingSkillsCsv({
+                        params: { characterName },
+                        result: { skills: parsedSkills },
+                    }),
+                );
+            })
+            .catch(err => {
+                console.log(err);
+                dispatch(actions.failedLoadingSkillsCsv({ params: { characterName }, error: {} }));
+            });
     };
 }
 

@@ -15,6 +15,7 @@ import {
 import { Skill } from '../../types/skill';
 import { Character } from '../../types/character';
 import { addNewSkill, deleteSkill, moveSkill, updateSkillAttributeText } from './skill-reducer';
+import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
 
 const initialState: CharacterTableState = {
     state: {
@@ -89,6 +90,16 @@ export const tableReducer = reducerWithInitialState(initialState)
     })
     .case(actions.doneLoadingCharacters, (state, props) => {
         return { ...state, state: props.result.state };
+    })
+    .case(actions.doneLoadingSkillsCsv, (state, props) => {
+        const skills = props.result.skills;
+        const characterName = props.params.characterName;
+
+        const characters = updateItemInArray(state.state.characters, characterSelector(characterName), character => {
+            return updateObject(character, { skills });
+        });
+
+        return { ...state, state: { ...state.state, characters } };
     })
     .default(state => {
         console.log('The default reducer is used.');
