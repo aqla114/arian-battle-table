@@ -233,8 +233,8 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                 <table className="character-details__skills__table">
                     <thead>
                         <tr>
-                            <td>スキル名</td>
                             <td>タイミング</td>
+                            <td>スキル名</td>
                             <td>判定</td>
                             <td>対象</td>
                             <td>射程</td>
@@ -282,6 +282,14 @@ const DraggableSkillTableRow = (props: {
 
     return (
         <tr ref={drag} className="character-details__skills__table__skill">
+            <td className="character-details__skills__table__skill__timing">
+                <InputField
+                    name={'timing'}
+                    value={skill.timing}
+                    kind={'text'}
+                    onChange={e => onChangeElementSkillText(e, idx)}
+                />
+            </td>
             <td ref={drop} className="character-details__skills__table__skill__name">
                 <InputField
                     name={'name'}
@@ -289,14 +297,6 @@ const DraggableSkillTableRow = (props: {
                     kind={'text'}
                     onChange={e => onChangeElementSkillText(e, idx)}
                     changeOnBlur={false}
-                />
-            </td>
-            <td className="character-details__skills__table__skill__timing">
-                <InputField
-                    name={'timing'}
-                    value={skill.timing}
-                    kind={'text'}
-                    onChange={e => onChangeElementSkillText(e, idx)}
                 />
             </td>
             <td className="character-details__skills__table__skill__detetmination-way">
