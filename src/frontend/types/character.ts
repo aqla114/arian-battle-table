@@ -1,5 +1,5 @@
 import { Attribute } from './attribute';
-import { BadStatus, defaultBadStatus } from '../show-battle/actions/bad-status';
+import { BadStatus, defaultBadStatus } from './bad-status';
 import { Skill } from './skill';
 
 export type Character = {

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { CheckBox } from '../../components/atoms/checkbox';
 import { BadStatusButtons, BadStatusProps } from './bad-status-buttons';
-import { getBadStatusLabels } from '../actions/bad-status';
+import { getBadStatusLabels } from '../../types/bad-status';
 import { ComibnedInputField } from '../../components/molecules/combined-input-field';
 import { Dropdown } from '../../components/atoms/dropdown';
 import { attributeLabels } from '../../types/attribute';

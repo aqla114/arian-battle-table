@@ -2,7 +2,7 @@ import { CharacterTableState } from '../components/characters-table';
 import { ChangeActionProps, ClickDropDownListItemProps, CharacterName } from '../actions/actions';
 import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
 import { characterSelector } from './reducers';
-import { BadStatus } from '../actions/bad-status';
+import { BadStatus } from '../../types/bad-status';
 import { Attribute } from '../../types/attribute';
 import { Character } from '../../types/character';
 
