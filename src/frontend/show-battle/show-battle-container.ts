@@ -14,7 +14,7 @@ import {
 import { State } from './store';
 import * as Request from 'superagent';
 import { Character } from '../types/character';
-import { Skill } from '../types/skill';
+import { parseCsv } from '../utils/skill-csv-parser';
 
 export interface Actions {
     updateSessionName: (v: ChangeSessionNameProps) => Action<string>;
@@ -140,11 +140,12 @@ function loadSkillsCsvMapper(dispatch: Dispatch<Action<string>>) {
             reader.readAsText(files[0]);
         })
             .then(res => {
-                console.log(res);
+                const parsedSkills = parseCsv(res);
+
                 dispatch(
                     actions.doneLoadingSkillsCsv({
                         params: { characterName },
-                        result: { skills: [Skill('バッシュ'), Skill('カバーリング')] },
+                        result: { skills: parsedSkills },
                     }),
                 );
             })
