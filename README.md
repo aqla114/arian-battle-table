@@ -1,6 +1,8 @@
 Arian-battle-table
 ===
 
+<img src="docs/img/screen_shot.png" width="480px">
+
 ## Requirements
 
 - yarn
