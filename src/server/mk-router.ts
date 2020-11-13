@@ -3,34 +3,33 @@ import { getBattleSession } from './api/get-battle-session';
 import { updateBattleSession } from './api/update-battle-session';
 import { createBattleSession } from './api/creare-battle-session';
 import { MiddleWare } from '../types';
+import { pageRenderer } from './page-renderer';
 
 export function mkRouter(router: MiddleWare): MiddleWare {
-    router.get('/', (ctx, next) => {
+    router.get('/', pageRenderer, (ctx, next) => {
         ctx.status = 303;
         ctx.redirect('/list-battles');
 
         return next();
     });
 
-    router.get('/list-battles', async (ctx, next) => {
+    router.get('/list-battles', pageRenderer, async (ctx, next) => {
         ctx.status = 200;
-        await ctx.render('index');
 
         return next();
     });
 
     // TODO : getBattleSession までは要らなくて存在するかどうかで場合分けしたい。
-    router.get('/battle/:id', async (ctx, next) => {
+    router.get('/battle/:id', pageRenderer, async (ctx, next) => {
         const battleSession = await getBattleSession(ctx, ctx.params['id']);
 
         if (battleSession) {
             ctx.status = 200;
-            await ctx.render('index');
         } else {
             ctx.status = 404;
-            await ctx.render('4xx');
         }
-        next();
+
+        return next();
     });
 
     router.get('/api/list', async (ctx, next) => {
