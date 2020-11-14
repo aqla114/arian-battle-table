@@ -67,7 +67,7 @@ export function CharacterElement(props: CharacterElementProps) {
                     <InputField
                         name={'name'}
                         value={props.name}
-                        kind="number"
+                        kind="text"
                         onChange={props.onChangeElementText}
                         showBorder={false}
                         textAlign={'right'}

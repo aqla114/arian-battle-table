@@ -15,6 +15,7 @@ import { Textarea } from '../../components/atoms/textarea';
 
 export type CharacterDetailsProps = {
     character: Character;
+    onChangeElementText: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     onChangeElementSkillText: (e: React.ChangeEvent<HTMLInputElement>, idx: number) => void;
     onChangeNumberInputField: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onChangeTextInputField: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
@@ -60,7 +61,16 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
 
     return (
         <div className="character-details">
-            <div className="character-details__name">{character.name}</div>
+            <div className="character-details__name">
+            <InputField
+                name={'name'}
+                value={character.name}
+                kind="text"
+                onChange={props.onChangeElementText}
+                showBorder={false}
+                textAlign={'right'}
+            />
+            </div>
             <div className="character-details__attribute-values">
                 <div className="character-details__attribute-values__title">能力値・HP・MP</div>
                 <table className="character-details__attribute-values__table1">
