@@ -162,8 +162,14 @@ function saveCharactersMapper(dispatch: Dispatch<Action<string>>) {
 
         const id = location.pathname.split('/').slice(-1)[0];
 
+        // characters から frontend id を取り除く
+        const charactersWithoutId = characters.map(character => {
+            const {id: _, ...characterWithoutId} = character;
+            characterWithoutId
+        });
+
         Request.post(`/api/${id}/update`)
-            .send({ sessionName, characters })
+            .send({ sessionName, charactersWithoutId })
             .end((err, res) => {
                 if (err) {
                     console.error(err);
