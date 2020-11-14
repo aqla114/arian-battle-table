@@ -6,7 +6,7 @@ import { ButtonDropdownValue } from '../../components/atoms/button-dropdown';
 import { Character } from '../../types/character';
 import { loadSkillsCsvActions } from './load-skills-csv';
 
-export type CharacterUUID = number;
+export type CharacterUUID = string;
 export type CharacterName = string;
 export type SkillName = string;
 

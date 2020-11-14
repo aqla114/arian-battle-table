@@ -1,4 +1,4 @@
-//import { Uuid } from 'node-ts-uuid';
+import { Uuid } from 'node-ts-uuid';
 import { CharacterTableState } from '../components/characters-table';
 import { ChangeActionProps, ClickDropDownListItemProps, CharacterUUID } from '../actions/actions';
 import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
@@ -112,7 +112,7 @@ export const updateCharacterAttributeDropdown: (
 export const addNewCharacter: (state: CharacterTableState) => CharacterTableState = state => {
     const characters = state.state.characters.slice().map(x => ({ ...x }));
 
-    state.current.currentNewCharacter.uuid = Date.now();  //Uuid.generate();
+    state.current.currentNewCharacter.uuid = Uuid.generate();
     if (characters.some(x => x.uuid === state.current.currentNewCharacter.uuid)) {
         window.alert('UUIDが重複しています。管理者にお知らせください。');
         return state;
@@ -133,7 +133,7 @@ export const copyCharacter: (state: CharacterTableState, props: { character: Cha
     props,
 ) => {
     let { character } = props;
-    const uuid: CharacterUUID = Date.now();  //Uuid.generate();
+    const uuid: CharacterUUID = Uuid.generate();
 
     const { id: _, ...badStatusWithoutId } = character.badStatus;
     const { ...characterWithoudId } = { ...character, uuid: uuid, badStatus: badStatusWithoutId };
@@ -152,7 +152,7 @@ export const deleteCharacter: (state: CharacterTableState, props: void) => Chara
     return {
         ...state,
         state: { ...state.state, characters },
-        current: { ...state.current, deleteCharacterUUID: 0 },
+        current: { ...state.current, deleteCharacterUUID: '' },
         dom: { ...state.dom, modal: null },
     };
 };

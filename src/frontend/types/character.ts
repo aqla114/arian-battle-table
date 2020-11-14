@@ -1,10 +1,11 @@
 import { Attribute } from './attribute';
 import { BadStatus, defaultBadStatus } from './bad-status';
 import { Skill } from './skill';
+import { CharacterName, CharacterUUID } from '../show-battle/actions/actions';
 
 export type Character = {
-    uuid: number,
-    name: string;
+    uuid: CharacterUUID,
+    name: CharacterName;
     attribute: Attribute;
     defaultActionPriority: number;
     actionPriority: number;
@@ -35,8 +36,8 @@ export type Character = {
 };
 
 export function Character(
-    uuid: number = 0,
-    name: string = '',
+    uuid: CharacterUUID = '',
+    name: CharacterName = '',
     attribute: Attribute = 'None',
     actionPriority: number = 0,
     defaultActionPriority: number = 0,

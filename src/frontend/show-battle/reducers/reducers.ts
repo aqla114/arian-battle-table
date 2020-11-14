@@ -24,8 +24,8 @@ const initialState: CharacterTableState = {
     },
     current: {
         currentNewCharacter: Character(),
-        deleteCharacterUUID: 0,
-        modalCharacterUUID: 0,
+        deleteCharacterUUID: '',
+        modalCharacterUUID: '',
     },
     dom: {
         modal: null,
