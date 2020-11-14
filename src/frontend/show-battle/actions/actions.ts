@@ -6,7 +6,7 @@ import { ButtonDropdownValue } from '../../components/atoms/button-dropdown';
 import { Character } from '../../types/character';
 import { loadSkillsCsvActions } from './load-skills-csv';
 
-export type CharacterID = string;
+export type CharacterFrontEndID = string;
 export type CharacterName = string;
 export type SkillName = string;
 
@@ -22,9 +22,9 @@ export type MouseActionProps<T> = {
 export type ClickDropDownListItemProps = {
     key: string;
     value: ButtonDropdownValue;
-    characterId: CharacterID;
+    characterId: CharacterFrontEndID;
 };
-export type MoveSkillProps = { characterID: CharacterID; dragIdx: number; dropIdx: number };
+export type MoveSkillProps = { characterID: CharacterFrontEndID; dragIdx: number; dropIdx: number };
 
 export type ActionTypes =
     | 'UPDATE_SESSION_NAME_TEXT'
@@ -52,25 +52,25 @@ const actionCreator = actionCreatorFactory();
 
 export const actions = {
     updateSessionName: actionCreator<ChangeSessionNameProps>('UPDATE_SESSION_NAME_TEXT'),
-    updateCharacterAttributeNumberText: actionCreator<ChangeActionProps<CharacterID>>(
+    updateCharacterAttributeNumberText: actionCreator<ChangeActionProps<CharacterFrontEndID>>(
         'UPDATE_CHARACTER_ATTRIBUTE_NUMBER_TEXT',
     ),
-    updateCharacterAttributeText: actionCreator<ChangeActionProps<CharacterID>>('UPDATE_CHARACTER_ATTRIBUTE_TEXT'),
-    updateSkillAttributeText: actionCreator<ChangeActionProps<{ characterID: CharacterID; skillIndex: number }>>(
+    updateCharacterAttributeText: actionCreator<ChangeActionProps<CharacterFrontEndID>>('UPDATE_CHARACTER_ATTRIBUTE_TEXT'),
+    updateSkillAttributeText: actionCreator<ChangeActionProps<{ characterID: CharacterFrontEndID; skillIndex: number }>>(
         'UPDATE_SKILL_ATTRIBUTE_TEXT',
     ),
-    updateCharacterCheckbox: actionCreator<ChangeActionProps<CharacterID>>('UPDATE_CHARACTER_IS_KNOCKBACK'),
+    updateCharacterCheckbox: actionCreator<ChangeActionProps<CharacterFrontEndID>>('UPDATE_CHARACTER_IS_KNOCKBACK'),
     updateButtonDropdownBadStatus: actionCreator<ClickDropDownListItemProps>('UPDATE_BUTTON_DROPDOWN_BAD_STATUS'),
-    updateCharacterAttributeDropdown: actionCreator<ChangeActionProps<CharacterID>>('UPDATE_CHARACTER_DROPDOWN'),
-    openDeletionModal: actionCreator<MouseActionProps<CharacterID>>('OPEN_DELETION_MODAL'),
+    updateCharacterAttributeDropdown: actionCreator<ChangeActionProps<CharacterFrontEndID>>('UPDATE_CHARACTER_DROPDOWN'),
+    openDeletionModal: actionCreator<MouseActionProps<CharacterFrontEndID>>('OPEN_DELETION_MODAL'),
     closeModal: actionCreator('CLOSE_MODAL'),
     deleteCharacter: actionCreator('DELETE_CHARACTER'),
-    deleteSkill: actionCreator<MouseActionProps<{ characterID: CharacterID; skillName: SkillName }>>(
+    deleteSkill: actionCreator<MouseActionProps<{ characterID: CharacterFrontEndID; skillName: SkillName }>>(
         'DELETE_SKILL',
     ),
     moveSkill: actionCreator<MoveSkillProps>('MOVE_SKILL'),
     copyCharacter: actionCreator<{ character: Character }>('COPY_CHARACTER'),
-    openCharacterDetails: actionCreator<MouseActionProps<CharacterID>>('OPEN_CHARACTER_DETAILS'),
+    openCharacterDetails: actionCreator<MouseActionProps<CharacterFrontEndID>>('OPEN_CHARACTER_DETAILS'),
     updateCurrentNewCharacter: actionCreator<React.ChangeEvent<HTMLInputElement>>('UPDATE_CURRENT_NEW_CHARACTER'),
     addNewCharacter: actionCreator('ADD_NEW_CHARACTER'),
     addNewSkill: actionCreator('ADD_NEW_SKILL'),

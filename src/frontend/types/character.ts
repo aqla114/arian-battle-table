@@ -1,10 +1,10 @@
 import { Attribute } from './attribute';
 import { BadStatus, defaultBadStatus } from './bad-status';
 import { Skill } from './skill';
-import { CharacterName, CharacterID } from '../show-battle/actions/actions';
+import { CharacterName, CharacterFrontEndID } from '../show-battle/actions/actions';
 
 export type Character = {
-    id: CharacterID,
+    frontEndId: CharacterFrontEndID,  // React で複数同じタグを子に持つ場合、それぞれの要素にユニークな key を与える必要があるため
     name: CharacterName;
     attribute: Attribute;
     defaultActionPriority: number;
@@ -36,7 +36,7 @@ export type Character = {
 };
 
 export function Character(
-    id: CharacterID = '',
+    frontEndId: CharacterFrontEndID = '',
     name: CharacterName = '',
     attribute: Attribute = 'None',
     actionPriority: number = 0,
@@ -68,7 +68,7 @@ export function Character(
     skills: Skill[] = [],
 ): Character {
     return {
-        id,
+        frontEndId,
         name,
         attribute,
         defaultActionPriority,

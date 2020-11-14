@@ -1,6 +1,6 @@
 import * as uuid from 'uuid';
 import { CharacterTableState } from '../components/characters-table';
-import { ChangeActionProps, ClickDropDownListItemProps, CharacterID } from '../actions/actions';
+import { ChangeActionProps, ClickDropDownListItemProps, CharacterFrontEndID } from '../actions/actions';
 import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
 import { characterSelector } from './reducers';
 import { BadStatus } from '../../types/bad-status';
@@ -9,7 +9,7 @@ import { Character } from '../../types/character';
 
 export const updateCharacterAttributeNumberText: (
     state: CharacterTableState,
-    props: ChangeActionProps<CharacterID>,
+    props: ChangeActionProps<CharacterFrontEndID>,
 ) => CharacterTableState = (state, props) => {
     const { e, payload: id } = props;
 
@@ -33,7 +33,7 @@ export const updateCharacterAttributeNumberText: (
 
 export const updateCharacterAttributeText: (
     state: CharacterTableState,
-    props: ChangeActionProps<CharacterID>,
+    props: ChangeActionProps<CharacterFrontEndID>,
 ) => CharacterTableState = (state, props) => {
     const { e, payload: id } = props;
 
@@ -46,7 +46,7 @@ export const updateCharacterAttributeText: (
 
 export const updateCharacterCheckbox: (
     state: CharacterTableState,
-    props: ChangeActionProps<CharacterID>,
+    props: ChangeActionProps<CharacterFrontEndID>,
 ) => CharacterTableState = (state, props) => {
     const { e, payload: id } = props;
     const action = e.target.name;
@@ -98,7 +98,7 @@ export const updateButtonDropdownBadStatus: (
 
 export const updateCharacterAttributeDropdown: (
     state: CharacterTableState,
-    props: ChangeActionProps<CharacterID>,
+    props: ChangeActionProps<CharacterFrontEndID>,
 ) => CharacterTableState = (state, props) => {
     const { e, payload: id } = props;
 
@@ -112,8 +112,8 @@ export const updateCharacterAttributeDropdown: (
 export const addNewCharacter: (state: CharacterTableState) => CharacterTableState = state => {
     const characters = state.state.characters.slice().map(x => ({ ...x }));
 
-    state.current.currentNewCharacter.id = uuid.v4();
-    if (characters.some(x => x.id === state.current.currentNewCharacter.id)) {
+    state.current.currentNewCharacter.frontEndId = uuid.v4();
+    if (characters.some(x => x.frontEndId === state.current.currentNewCharacter.frontEndId)) {
         window.alert('UUIDが重複しています。管理者にお知らせください。');
         return state;
     }
@@ -133,7 +133,7 @@ export const copyCharacter: (state: CharacterTableState, props: { character: Cha
     props,
 ) => {
     let { character } = props;
-    const id: CharacterID = uuid.v4();
+    const id: CharacterFrontEndID = uuid.v4();
 
     const { id: _, ...badStatusWithoutId } = character.badStatus;
     const { ...newCharacter } = { ...character, id: id, badStatus: badStatusWithoutId };
@@ -147,7 +147,7 @@ export const deleteCharacter: (state: CharacterTableState, props: void) => Chara
     const characters = state.state.characters
         .slice()
         .map(x => ({ ...x }))
-        .filter(x => x.id !== state.current.deleteCharacterID);
+        .filter(x => x.frontEndId !== state.current.deleteCharacterID);
 
     return {
         ...state,
