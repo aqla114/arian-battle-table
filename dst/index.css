@@ -406,14 +406,16 @@ body {
   width: 200px;
 }
 .battles-list__header__created-at {
-  width: 160px;
+  width: 120px;
 }
 .battles-list__header__updated-at {
-  width: 160px;
+  width: 120px;
+}
+.battles-list__header__delete {
+  width: 110px;
 }
 .battles-list__session {
   list-style: none;
-  width: 800px;
   margin: 4px;
   color: #000;
 }
@@ -429,12 +431,17 @@ body {
   text-align: center;
 }
 .battles-list__session__created-at {
-  width: 160px;
+  width: 120px;
   text-align: center;
 }
 .battles-list__session__updated-at {
-  width: 160px;
+  width: 120px;
   text-align: center;
+}
+.battles-list__session__delete {
+  width: 60px;
+  text-align: center;
+  vertical-align: middle;
 }
 .save-container {
   margin: 20px 0px 0px 20px;

@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Actions } from '../list-battles-container';
 import { InputFieldWithButton } from '../../components/molecules/input-field-with-button';
 import { CardContainer } from '../../components/card-container';
+import { IconButton } from '../../components/atoms/icon-button';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 export type BattleSession = {
     id: number;
@@ -36,6 +38,9 @@ export const BattleSessionsList: React.SFC<BattlesListProps> = (props: BattlesLi
                     <div className="battles-list__session__updated-at">{formatDate(new Date(session.updatedAt))}</div>
                 </CardContainer>
             </a>
+            <div className="battles-list__session__delete">
+                <IconButton name="delete" icon={faTrashAlt} onClick={() => props.deleteBattleSession(session.id)} />
+            </div>
         </li>
     ));
 
@@ -55,6 +60,7 @@ export const BattleSessionsList: React.SFC<BattlesListProps> = (props: BattlesLi
                     <div className="battles-list__header__session-name">セッション名</div>
                     <div className="battles-list__header__created-at">作成日時</div>
                     <div className="battles-list__header__updated-at">更新日時</div>
+                    <div className="battles-list__header__delete">削除</div>
                 </li>
                 {sessions}
             </ul>
