@@ -16,6 +16,11 @@ export const tableReducer = reducerWithInitialState(initialState)
 
         return { ...state, battlesList, sessionName: '' };
     })
+    .case(actions.doneDeleteBattleSession, (state, props) => {
+        const battlesList = state.battlesList.filter(b => b.id !== props.result.sessionId);
+
+        return { ...state, battlesList };
+    })
     .case(actions.updateCurrentSessionName, (state, props) => {
         return { ...state, sessionName: props.target.value };
     })

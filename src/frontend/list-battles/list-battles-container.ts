@@ -8,6 +8,7 @@ import { State } from './store';
 export interface Actions {
     loadBattleSessions: () => void;
     createBattleSession: (sessionName: string) => void;
+    deleteBattleSession: (sessionId: number) => void;
     updateCurrentSessionName: (v: React.ChangeEvent<HTMLInputElement>) => Action<string>;
 }
 
@@ -21,6 +22,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
         createBattleSession: createBattleSessionMapper(dispatch),
         updateCurrentSessionName: (e: React.ChangeEvent<HTMLInputElement>) =>
             dispatch(actions.updateCurrentSessionName(e)),
+        deleteBattleSession: deleteBattleSessionMapper(dispatch),
     };
 }
 
@@ -47,6 +49,29 @@ function createBattleSessionMapper(dispatch: Dispatch<Action<string>>) {
                         actions.doneCreateBattleSession({
                             params: {},
                             result: { session: res.body },
+                        }),
+                    );
+                }
+            });
+    };
+}
+
+function deleteBattleSessionMapper(dispatch: Dispatch<Action<string>>) {
+    return (sessionId: number) => {
+        dispatch(actions.startedDeleteBattleSession({}));
+
+        Request.post(`/api/${sessionId}/delete`)
+            .send()
+            .end((err, res) => {
+                if (err) {
+                    console.log(err);
+                    dispatch(actions.failedDeleteBattleSession({ params: {}, error: {} }));
+                } else {
+                    console.log(res);
+                    dispatch(
+                        actions.doneDeleteBattleSession({
+                            params: {},
+                            result: { sessionId },
                         }),
                     );
                 }
