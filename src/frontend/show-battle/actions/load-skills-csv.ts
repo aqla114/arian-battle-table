@@ -1,17 +1,17 @@
 import actionCreatorFactory, { ActionCreator, Failure, Success } from 'typescript-fsa';
 import { Skill } from '../../types/skill';
-import { CharacterName } from './actions';
+import { CharacterID } from './actions';
 
 const actionCreator = actionCreatorFactory();
 
-const loadCharacters = actionCreator.async<{ characterName: CharacterName }, { skills: Skill[] }, {}>(
+const loadCharacters = actionCreator.async<{ characterID: CharacterID }, { skills: Skill[] }, {}>(
     'LOAD_SKILLS_CSV',
 );
 
 interface LoadSkillsCsvActions {
-    startedLoadingSkillsCsv: ActionCreator<{ characterName: CharacterName }>;
-    failedLoadingSkillsCsv: ActionCreator<Failure<{ characterName: CharacterName }, {}>>;
-    doneLoadingSkillsCsv: ActionCreator<Success<{ characterName: CharacterName }, { skills: Skill[] }>>;
+    startedLoadingSkillsCsv: ActionCreator<{ characterID: CharacterID }>;
+    failedLoadingSkillsCsv: ActionCreator<Failure<{ characterID: CharacterID }, {}>>;
+    doneLoadingSkillsCsv: ActionCreator<Success<{ characterID: CharacterID }, { skills: Skill[] }>>;
 }
 
 export const loadSkillsCsvActions: LoadSkillsCsvActions = {

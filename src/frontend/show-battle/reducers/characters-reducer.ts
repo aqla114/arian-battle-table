@@ -1,5 +1,6 @@
+import * as uuid from 'uuid';
 import { CharacterTableState } from '../components/characters-table';
-import { ChangeActionProps, ClickDropDownListItemProps, CharacterName } from '../actions/actions';
+import { ChangeActionProps, ClickDropDownListItemProps, CharacterID } from '../actions/actions';
 import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
 import { characterSelector } from './reducers';
 import { BadStatus } from '../../types/bad-status';
@@ -8,11 +9,11 @@ import { Character } from '../../types/character';
 
 export const updateCharacterAttributeNumberText: (
     state: CharacterTableState,
-    props: ChangeActionProps<CharacterName>,
+    props: ChangeActionProps<CharacterID>,
 ) => CharacterTableState = (state, props) => {
-    const { e, payload: name } = props;
+    const { e, payload: id } = props;
 
-    const characters = updateItemInArray(state.state.characters, characterSelector(name), item => {
+    const characters = updateItemInArray(state.state.characters, characterSelector(id), item => {
         if (e.target.value === '' || e.target.value === '-') {
             return updateObject(item, { [e.target.name as keyof Character]: e.target.value });
         }
@@ -32,11 +33,11 @@ export const updateCharacterAttributeNumberText: (
 
 export const updateCharacterAttributeText: (
     state: CharacterTableState,
-    props: ChangeActionProps<CharacterName>,
+    props: ChangeActionProps<CharacterID>,
 ) => CharacterTableState = (state, props) => {
-    const { e, payload: name } = props;
+    const { e, payload: id } = props;
 
-    const characters = updateItemInArray(state.state.characters, characterSelector(name), item => {
+    const characters = updateItemInArray(state.state.characters, characterSelector(id), item => {
         return updateObject(item, { [e.target.name]: e.target.value });
     });
 
@@ -45,19 +46,19 @@ export const updateCharacterAttributeText: (
 
 export const updateCharacterCheckbox: (
     state: CharacterTableState,
-    props: ChangeActionProps<CharacterName>,
+    props: ChangeActionProps<CharacterID>,
 ) => CharacterTableState = (state, props) => {
-    const { e, payload: name } = props;
+    const { e, payload: id } = props;
     const action = e.target.name;
 
     let characters;
 
     if (action === 'isActed') {
-        characters = updateItemInArray(state.state.characters, characterSelector(name), item =>
+        characters = updateItemInArray(state.state.characters, characterSelector(id), item =>
             updateObject(item, { isActed: !item.isActed }),
         );
     } else {
-        characters = updateItemInArray(state.state.characters, characterSelector(name), item =>
+        characters = updateItemInArray(state.state.characters, characterSelector(id), item =>
             updateObject(item, {
                 badStatus: updateObject(item.badStatus, {
                     [action]: !item.badStatus[action as keyof BadStatus],
@@ -73,9 +74,9 @@ export const updateButtonDropdownBadStatus: (
     state: CharacterTableState,
     props: ClickDropDownListItemProps,
 ) => CharacterTableState = (state, props) => {
-    const { key, value, name } = props;
+    const { key, value, characterId } = props;
 
-    const characters = updateItemInArray(state.state.characters, characterSelector(name), item => {
+    const characters = updateItemInArray(state.state.characters, characterSelector(characterId), item => {
         // knockback の更新 -> 行動値の更新 という2ステップを同時に行えないので updateObject を2回呼んでいる。
         const tmp = updateObject(item, {
             badStatus: updateObject(item.badStatus, {
@@ -97,11 +98,11 @@ export const updateButtonDropdownBadStatus: (
 
 export const updateCharacterAttributeDropdown: (
     state: CharacterTableState,
-    props: ChangeActionProps<CharacterName>,
+    props: ChangeActionProps<CharacterID>,
 ) => CharacterTableState = (state, props) => {
-    const { e, payload: name } = props;
+    const { e, payload: id } = props;
 
-    const characters = updateItemInArray(state.state.characters, characterSelector(name), item =>
+    const characters = updateItemInArray(state.state.characters, characterSelector(id), item =>
         updateObject(item, { attribute: e.target.value as Attribute }),
     );
 
@@ -111,23 +112,15 @@ export const updateCharacterAttributeDropdown: (
 export const addNewCharacter: (state: CharacterTableState) => CharacterTableState = state => {
     const characters = state.state.characters.slice().map(x => ({ ...x }));
 
-    if (characters.some(x => x.name === state.current.currentNewCharacter.name)) {
-        window.alert('すでに存在しているキャラクター名です。キャラクター名は別のものを入力してください。');
-        return state;
-    }
+    const newCharacter = Character(uuid.v4(), state.current.currentNewCharacterName);
 
-    if (state.current.currentNewCharacter.name === '') {
-        window.alert('キャラクターネームが空白です。');
-        return state;
-    }
-
-    characters.push(state.current.currentNewCharacter);
+    characters.push(newCharacter);
     characters.sort((a, b) => b.actionPriority - a.actionPriority);
 
     return {
         ...state,
         state: { ...state.state, characters },
-        current: { ...state.current, currentNewCharacter: Character() },
+        current: { ...state.current, currentNewCharacterName: '' },
     };
 };
 
@@ -137,21 +130,10 @@ export const copyCharacter: (state: CharacterTableState, props: { character: Cha
 ) => {
     let { character } = props;
 
-    const names = state.state.characters.map(x => x.name);
-    let characterName = character.name;
-
-    while (true) {
-        if (names.includes(characterName)) {
-            characterName = `${characterName}__copy`;
-        } else {
-            break;
-        }
-    }
-
     const { id: _, ...badStatusWithoutId } = character.badStatus;
-    const { id: _id, ...characterWithoudId } = { ...character, name: characterName, badStatus: badStatusWithoutId };
+    const { ...newCharacter } = { ...character, id: uuid.v4(), badStatus: badStatusWithoutId };
 
-    const characters: Character[] = [...state.state.characters, characterWithoudId].slice().map(x => ({ ...x }));
+    const characters: Character[] = [...state.state.characters, newCharacter].slice().map(x => ({ ...x }));
 
     return { ...state, state: { ...state.state, characters } };
 };
@@ -160,12 +142,12 @@ export const deleteCharacter: (state: CharacterTableState, props: void) => Chara
     const characters = state.state.characters
         .slice()
         .map(x => ({ ...x }))
-        .filter(x => x.name !== state.current.deleteCharacterName);
+        .filter(x => x.id !== state.current.deleteCharacterID);
 
     return {
         ...state,
         state: { ...state.state, characters },
-        current: { ...state.current, deleteCharacterName: '' },
+        current: { ...state.current, deleteCharacterID: '' },
         dom: { ...state.dom, modal: null },
     };
 };

@@ -7,7 +7,7 @@ import { useDrag, useDrop } from 'react-dnd';
 import { InputField } from '../../components/atoms/input-field';
 import { attributeLabels } from '../../types/attribute';
 import { Character } from '../../types/character';
-import { CharacterName, SkillName } from '../actions/actions';
+import { CharacterID, SkillName } from '../actions/actions';
 import { IconButton } from '../../components/atoms/icon-button';
 import * as uuid from 'uuid';
 import { Skill } from '../../types/skill';
@@ -22,7 +22,7 @@ export type CharacterDetailsProps = {
     onClickDeleteSkillButton: (e: React.MouseEvent<HTMLInputElement, MouseEvent>, skillName: SkillName) => void;
     onMoveSkill: (dragIdx: number, dropIdx: number) => void;
     onCloseModal: () => void;
-    onLoadSkillsCsv: (characterName: CharacterName, files: FileList | null) => void;
+    onLoadSkillsCsv: (characterID: CharacterID, files: FileList | null) => void;
 };
 
 export const CharacterDetails: React.SFC<CharacterDetailsProps> = (props: CharacterDetailsProps) => {
@@ -227,7 +227,7 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                     name="upload"
                     onChange={e => {
                         console.log(e.target.files);
-                        onLoadSkillsCsv(character.name, e.target.files);
+                        onLoadSkillsCsv(character.id, e.target.files);
                     }}
                 />
                 <table className="character-details__skills__table">

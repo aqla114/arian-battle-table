@@ -10,7 +10,7 @@ import { InputField } from '../../components/atoms/input-field';
 import { CharacterDetails } from './character-details';
 import { Modal } from '../../types/modal';
 import { Character } from '../../types/character';
-import { CharacterName } from '../actions/actions';
+import { CharacterID, CharacterName } from '../actions/actions';
 
 export type CharacterTableState = {
     state: {
@@ -18,9 +18,9 @@ export type CharacterTableState = {
         characters: Character[];
     };
     current: {
-        currentNewCharacter: Character;
-        deleteCharacterName: CharacterName;
-        modalCharacterName: CharacterName;
+        currentNewCharacterName: CharacterName;
+        deleteCharacterID: CharacterID;
+        modalCharacterID: CharacterID;
     };
     dom: {
         modal: Modal | null;
@@ -36,7 +36,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
 
     const {
         state: { sessionName, characters },
-        current: { currentNewCharacter },
+        current: { currentNewCharacterName },
         dom: { modal },
     } = props;
 
@@ -45,21 +45,21 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
     const characterElement = characters.map(character => {
         return (
             <CharacterElement
-                key={character.name}
+                key={character.id}
                 {...character}
                 isNextPrior={!character.isActed && character.actionPriority === nextActionPriority}
                 onChangeElementNumberText={e =>
-                    props.updateCharacterAttributeNumberText({ e, payload: character.name })
+                    props.updateCharacterAttributeNumberText({ e, payload: character.id })
                 }
-                onChangeElementText={e => props.updateCharacterAttributeText({ e, payload: character.name })}
-                onChangeElementCheckbox={e => props.updateCharacterCheckbox({ e, payload: character.name })}
+                onChangeElementText={e => props.updateCharacterAttributeText({ e, payload: character.id })}
+                onChangeElementCheckbox={e => props.updateCharacterCheckbox({ e, payload: character.id })}
                 onClickDropdownItem={(key, value) =>
-                    props.updateButtonDropdownBadStatus({ key, value, name: character.name })
+                    props.updateButtonDropdownBadStatus({ key, value, characterId: character.id })
                 }
-                onChangeElementDropdown={e => props.updateCharacterAttributeDropdown({ e, payload: character.name })}
+                onChangeElementDropdown={e => props.updateCharacterAttributeDropdown({ e, payload: character.id })}
                 onCopyCharacter={_ => props.copyCharacter(character)}
-                onDeleteCharacter={e => props.openDeletionModal({ e, payload: character.name })}
-                onClickCharacterDetailsButton={e => props.openCharacterDetails({ e, payload: character.name })}
+                onDeleteCharacter={e => props.openDeletionModal({ e, payload: character.id })}
+                onClickCharacterDetailsButton={e => props.openCharacterDetails({ e, payload: character.id })}
             />
         );
     });
@@ -75,29 +75,28 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                     onClickCancel={() => props.closeModal()}
                 />
             ) : null}
-            {/** TODO: characterName、別にモーダル内で与えればよくね？ */}
             {modal?.type === 'CharacterDetailsModal' ? (
                 <CharacterDetails
-                    character={characters.filter(x => x.name === modal.characterName)[0]}
+                    character={characters.filter(x => x.id === modal.characterID)[0]}
                     onChangeNumberInputField={e =>
-                        props.updateCharacterAttributeNumberText({ e, payload: modal.characterName })
+                        props.updateCharacterAttributeNumberText({ e, payload: modal.characterID })
                     }
                     onChangeTextInputField={e =>
-                        props.updateCharacterAttributeText({ e, payload: modal.characterName })
+                        props.updateCharacterAttributeText({ e, payload: modal.characterID })
                     }
                     onChangeElementSkillText={(e, idx) =>
                         props.updateSkillAttributeText({
                             e,
-                            payload: { characterName: modal.characterName, skillIndex: idx },
+                            payload: { characterID: modal.characterID, skillIndex: idx },
                         })
                     }
                     onClickAddSkillButton={props.addNewSkill}
                     onClickDeleteSkillButton={(e, skillName) =>
-                        props.deleteSkill({ e, payload: { characterName: modal.characterName, skillName } })
+                        props.deleteSkill({ e, payload: { characterID: modal.characterID, skillName } })
                     }
                     onCloseModal={props.closeModal}
                     onMoveSkill={(dragIdx, dropIdx) =>
-                        props.moveSkill({ characterName: modal.characterName, dragIdx, dropIdx })
+                        props.moveSkill({ characterID: modal.characterID, dragIdx, dropIdx })
                     }
                     onLoadSkillsCsv={props.loadSkillsCsv}
                 />
@@ -148,10 +147,10 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                 </table>
                 <InputFieldWithButton
                     name={'character-name'}
-                    value={currentNewCharacter.name}
+                    value={currentNewCharacterName}
                     buttonLabel={'新しくキャラクターを追加'}
                     placeholder={'キャラクター名'}
-                    onChange={e => props.updateCurrentNewCharacter(e)}
+                    onChange={e => props.updateCurrentNewCharacterName(e)}
                     onClick={() => props.addNewCharacter()}
                 />
             </CardContainer>

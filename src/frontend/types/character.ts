@@ -1,10 +1,11 @@
 import { Attribute } from './attribute';
 import { BadStatus, defaultBadStatus } from './bad-status';
 import { Skill } from './skill';
+import { CharacterName, CharacterID } from '../show-battle/actions/actions';
 
 export type Character = {
-    id?: string;
-    name: string;
+    id: CharacterID,
+    name: CharacterName;
     attribute: Attribute;
     defaultActionPriority: number;
     actionPriority: number;
@@ -32,10 +33,12 @@ export type Character = {
     memo: string;
     badStatus: BadStatus;
     skills: Skill[];
+    serverId: number | null,
 };
 
 export function Character(
-    name: string = '',
+    id: CharacterID = '',
+    name: CharacterName = '',
     attribute: Attribute = 'None',
     actionPriority: number = 0,
     defaultActionPriority: number = 0,
@@ -59,13 +62,14 @@ export function Character(
     power_base: number = 0,
     luck: number = 0,
     luck_base: number = 0,
-
     isActed: boolean = false,
     memo: string = '',
     badStatus: BadStatus = defaultBadStatus,
     skills: Skill[] = [],
+    serverId: number | null = null,
 ): Character {
     return {
+        id,
         name,
         attribute,
         defaultActionPriority,
@@ -94,5 +98,6 @@ export function Character(
         power_base,
         luck,
         luck_base,
+        serverId,
     };
 }
