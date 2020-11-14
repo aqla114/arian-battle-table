@@ -112,7 +112,7 @@ export const updateCharacterAttributeDropdown: (
 export const addNewCharacter: (state: CharacterTableState) => CharacterTableState = state => {
     const characters = state.state.characters.slice().map(x => ({ ...x }));
 
-    state.current.currentNewCharacter.uuid = 1;  //Uuid.generate();
+    state.current.currentNewCharacter.uuid = Date.now();  //Uuid.generate();
     if (characters.some(x => x.uuid === state.current.currentNewCharacter.uuid)) {
         window.alert('UUIDが重複しています。管理者にお知らせください。');
         return state;
@@ -133,7 +133,7 @@ export const copyCharacter: (state: CharacterTableState, props: { character: Cha
     props,
 ) => {
     let { character } = props;
-    const uuid: CharacterUUID = 2;  //Uuid.generate();
+    const uuid: CharacterUUID = Date.now();  //Uuid.generate();
 
     const { id: _, ...badStatusWithoutId } = character.badStatus;
     const { ...characterWithoudId } = { ...character, uuid: uuid, badStatus: badStatusWithoutId };
