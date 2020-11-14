@@ -13,6 +13,7 @@ import {
 } from './actions/actions';
 import { State } from './store';
 import * as Request from 'superagent';
+import * as uuid from 'uuid';
 import { Character } from '../types/character';
 import { parseCsv } from '../utils/skill-csv-parser';
 
@@ -93,10 +94,9 @@ function loadCharactersMapper(dispatch: Dispatch<Action<string>>) {
                 const {
                     characters: resCharacters,
                     sessionName,
-                }: { characters: Character[]; sessionName: string } = res.body;
-
-                const characters: Character[] = resCharacters.map((character: Character) => ({
-                    ...character,
+                }: { characters: any[]; sessionName: string } = res.body;
+                const characters: Character[] = resCharacters.map((character: any) => ({
+                    ...character, serverId: character.id, id: uuid.v4(),
                 }));
 
                 console.log(characters);
@@ -162,14 +162,13 @@ function saveCharactersMapper(dispatch: Dispatch<Action<string>>) {
 
         const id = location.pathname.split('/').slice(-1)[0];
 
-        // characters から frontend id を取り除く
-        const charactersWithoutId = characters.map(character => {
-            const {id: _, ...characterWithoutId} = character;
-            return characterWithoutId;
+        const serverCharacters = characters.map(character => {
+            const {id: _, serverId, ...characterWithoutId} = character;
+            return {...characterWithoutId, id: serverId};
         });
 
         Request.post(`/api/${id}/update`)
-            .send({ sessionName, charactersWithoutId })
+            .send({ sessionName, serverCharacters })
             .end((err, res) => {
                 if (err) {
                     console.error(err);

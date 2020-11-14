@@ -45,7 +45,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
     const characterElement = characters.map(character => {
         return (
             <CharacterElement
-                key={character.id}
+                key={character.fro}
                 {...character}
                 isNextPrior={!character.isActed && character.actionPriority === nextActionPriority}
                 onChangeElementNumberText={e =>

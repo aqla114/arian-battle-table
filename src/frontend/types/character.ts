@@ -33,6 +33,7 @@ export type Character = {
     memo: string;
     badStatus: BadStatus;
     skills: Skill[];
+    serverId: number | null,
 };
 
 export function Character(
@@ -61,11 +62,11 @@ export function Character(
     power_base: number = 0,
     luck: number = 0,
     luck_base: number = 0,
-
     isActed: boolean = false,
     memo: string = '',
     badStatus: BadStatus = defaultBadStatus,
     skills: Skill[] = [],
+    serverId: number | null = null,
 ): Character {
     return {
         id,
@@ -97,5 +98,6 @@ export function Character(
         power_base,
         luck,
         luck_base,
+        serverId,
     };
 }

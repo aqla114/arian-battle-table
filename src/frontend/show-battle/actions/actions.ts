@@ -6,7 +6,7 @@ import { ButtonDropdownValue } from '../../components/atoms/button-dropdown';
 import { Character } from '../../types/character';
 import { loadSkillsCsvActions } from './load-skills-csv';
 
-export type CharacterID = string | number;  // server から送られてくるときは number, client で生成するときは string
+export type CharacterID = string;
 export type CharacterName = string;
 export type SkillName = string;
 
