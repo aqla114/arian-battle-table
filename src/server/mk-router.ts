@@ -4,6 +4,7 @@ import { updateBattleSession } from './api/update-battle-session';
 import { createBattleSession } from './api/creare-battle-session';
 import { MiddleWare } from '../types';
 import { pageRenderer } from './page-renderer';
+import { deleteBattleSession } from './api/delete-battle-session';
 
 export function mkRouter(router: MiddleWare): MiddleWare {
     router.get('/', pageRenderer, (ctx, next) => {
@@ -54,6 +55,16 @@ export function mkRouter(router: MiddleWare): MiddleWare {
         } else {
             ctx.status = 404;
         }
+
+        return next();
+    });
+
+    router.post('/api/:id/delete', async (ctx, next) => {
+        console.log('/delete');
+
+        await deleteBattleSession(ctx, ctx.params['id']);
+
+        ctx.status = 200;
 
         return next();
     });
