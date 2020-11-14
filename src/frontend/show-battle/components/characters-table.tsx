@@ -10,7 +10,7 @@ import { InputField } from '../../components/atoms/input-field';
 import { CharacterDetails } from './character-details';
 import { Modal } from '../../types/modal';
 import { Character } from '../../types/character';
-import { CharacterID } from '../actions/actions';
+import { CharacterID, CharacterName } from '../actions/actions';
 
 export type CharacterTableState = {
     state: {
@@ -18,7 +18,7 @@ export type CharacterTableState = {
         characters: Character[];
     };
     current: {
-        currentNewCharacter: Character;
+        currentNewCharacterName: CharacterName;
         deleteCharacterID: CharacterID;
         modalCharacterID: CharacterID;
     };
@@ -36,7 +36,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
 
     const {
         state: { sessionName, characters },
-        current: { currentNewCharacter },
+        current: { currentNewCharacterName },
         dom: { modal },
     } = props;
 
@@ -147,7 +147,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                 </table>
                 <InputFieldWithButton
                     name={'character-name'}
-                    value={currentNewCharacter.name}
+                    value={currentNewCharacterName}
                     buttonLabel={'新しくキャラクターを追加'}
                     placeholder={'キャラクター名'}
                     onChange={e => props.updateCurrentNewCharacter(e)}

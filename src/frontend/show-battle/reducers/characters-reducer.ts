@@ -112,9 +112,9 @@ export const updateCharacterAttributeDropdown: (
 export const addNewCharacter: (state: CharacterTableState) => CharacterTableState = state => {
     const characters = state.state.characters.slice().map(x => ({ ...x }));
 
-    state.current.currentNewCharacter.id = uuid.v4();
+    const newCharacter = Character(uuid.v4(), state.current.currentNewCharacterName);
 
-    characters.push(state.current.currentNewCharacter);
+    characters.push(newCharacter);
     characters.sort((a, b) => b.actionPriority - a.actionPriority);
 
     return {

@@ -23,7 +23,7 @@ const initialState: CharacterTableState = {
         characters: [],
     },
     current: {
-        currentNewCharacter: Character(),
+        currentNewCharacterName: '',
         deleteCharacterID: '',
         modalCharacterID: '',
     },
