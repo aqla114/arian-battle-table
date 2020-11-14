@@ -150,7 +150,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                     value={currentNewCharacterName}
                     buttonLabel={'新しくキャラクターを追加'}
                     placeholder={'キャラクター名'}
-                    onChange={e => props.updateCurrentNewCharacter(e)}
+                    onChange={e => props.updateCurrentNewCharacterName(e)}
                     onClick={() => props.addNewCharacter()}
                 />
             </CardContainer>

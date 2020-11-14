@@ -82,10 +82,8 @@ export const tableReducer = reducerWithInitialState(initialState)
     .case(actions.closeModal, (state, _props) => {
         return { ...state, dom: { ...state.dom, modal: null } };
     })
-    .case(actions.updateCurrentNewCharacter, (state, props) => {
-        const currentNewCharacter = Character(undefined, props.target.value);
-
-        return { ...state, current: { ...state.current, currentNewCharacter } };
+    .case(actions.updateCurrentNewCharacterName, (state, props) => {
+        return { ...state, current: { ...state.current, currentNewCharacterName: props.target.value } };
     })
     .case(actions.doneLoadingCharacters, (state, props) => {
         return { ...state, state: props.result.state };

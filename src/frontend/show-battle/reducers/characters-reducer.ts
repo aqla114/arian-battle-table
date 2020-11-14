@@ -120,7 +120,7 @@ export const addNewCharacter: (state: CharacterTableState) => CharacterTableStat
     return {
         ...state,
         state: { ...state.state, characters },
-        current: { ...state.current, currentNewCharacter: Character() },
+        current: { ...state.current, currentNewCharacterName: '' },
     };
 };
 

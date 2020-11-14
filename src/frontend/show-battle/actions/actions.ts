@@ -71,7 +71,7 @@ export const actions = {
     moveSkill: actionCreator<MoveSkillProps>('MOVE_SKILL'),
     copyCharacter: actionCreator<{ character: Character }>('COPY_CHARACTER'),
     openCharacterDetails: actionCreator<MouseActionProps<CharacterID>>('OPEN_CHARACTER_DETAILS'),
-    updateCurrentNewCharacter: actionCreator<React.ChangeEvent<HTMLInputElement>>('UPDATE_CURRENT_NEW_CHARACTER'),
+    updateCurrentNewCharacterName: actionCreator<React.ChangeEvent<HTMLInputElement>>('UPDATE_CURRENT_NEW_CHARACTER_NAME'),
     addNewCharacter: actionCreator('ADD_NEW_CHARACTER'),
     addNewSkill: actionCreator('ADD_NEW_SKILL'),
     ...loadCharactersActions,

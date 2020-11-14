@@ -34,7 +34,7 @@ export interface Actions {
     deleteCharacter: () => Action<string>;
     deleteSkill: (v: MouseActionProps<{ characterID: CharacterID; skillName: SkillName }>) => Action<string>;
     moveSkill: (v: MoveSkillProps) => Action<string>;
-    updateCurrentNewCharacter: (v: React.ChangeEvent<HTMLInputElement>) => Action<string>;
+    updateCurrentNewCharacterName: (v: React.ChangeEvent<HTMLInputElement>) => Action<string>;
     addNewCharacter: () => Action<string>;
     addNewSkill: () => Action<string>;
     loadCharacters: () => void;
@@ -69,8 +69,8 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
         moveSkill: (v: MoveSkillProps) => dispatch(actions.moveSkill(v)),
         openCharacterDetails: (v: MouseActionProps<CharacterID>) => dispatch(actions.openCharacterDetails(v)),
         copyCharacter: (v: Character) => dispatch(actions.copyCharacter({ character: v })),
-        updateCurrentNewCharacter: (v: React.ChangeEvent<HTMLInputElement>) =>
-            dispatch(actions.updateCurrentNewCharacter(v)),
+        updateCurrentNewCharacterName: (v: React.ChangeEvent<HTMLInputElement>) =>
+            dispatch(actions.updateCurrentNewCharacterName(v)),
         addNewCharacter: () => dispatch(actions.addNewCharacter()),
         addNewSkill: () => dispatch(actions.addNewSkill()),
         loadCharacters: loadCharactersMapper(dispatch),
@@ -164,11 +164,14 @@ function saveCharactersMapper(dispatch: Dispatch<Action<string>>) {
 
         const serverCharacters = characters.map(character => {
             const {id: _, serverId, ...characterWithoutId} = character;
+            if (serverId === null) {
+                return {...characterWithoutId};
+            }
             return {...characterWithoutId, id: serverId};
         });
 
         Request.post(`/api/${id}/update`)
-            .send({ sessionName, serverCharacters })
+            .send({ sessionName, characters: serverCharacters })
             .end((err, res) => {
                 if (err) {
                     console.error(err);
