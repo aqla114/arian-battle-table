@@ -3,6 +3,7 @@ import * as React from 'react';
 import { CheckBox } from '../../components/atoms/checkbox';
 import { BadStatusButtons, BadStatusProps } from './bad-status-buttons';
 import { getBadStatusLabels } from '../../types/bad-status';
+import { InputField } from '../../components/atoms/input-field';
 import { ComibnedInputField } from '../../components/molecules/combined-input-field';
 import { Dropdown } from '../../components/atoms/dropdown';
 import { attributeLabels } from '../../types/attribute';
@@ -62,7 +63,16 @@ export function CharacterElement(props: CharacterElementProps) {
                 <CheckBox name="isActed" checked={props.isActed} onChange={props.onChangeElementCheckbox} />
             </td>
             <td className="character-table__table__character__name">
-                <span className="character-table__table__character__name">{props.name}</span>
+                <span className="character-table__table__character__name">
+                    <InputField
+                        name={'name'}
+                        value={props.name}
+                        kind="number"
+                        onChange={props.onChangeElementText}
+                        showBorder={false}
+                        textAlign={'right'}
+                    />
+                </span>
             </td>
             <td className="character-table__table__character__action-priority">
                 <ComibnedInputField
