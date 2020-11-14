@@ -1,6 +1,6 @@
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { CharacterTableState } from '../components/characters-table';
-import { actions, CharacterUUID } from '../actions/actions';
+import { actions, CharacterID } from '../actions/actions';
 import { updateSessionName } from './session-name-reducer';
 import {
     updateCharacterAttributeNumberText,
@@ -24,16 +24,16 @@ const initialState: CharacterTableState = {
     },
     current: {
         currentNewCharacter: Character(),
-        deleteCharacterUUID: '',
-        modalCharacterUUID: '',
+        deleteCharacterID: '',
+        modalCharacterID: '',
     },
     dom: {
         modal: null,
     },
 };
 
-export function characterSelector(CharacterUUID: CharacterUUID) {
-    return (character: Character, _: number) => character.uuid === CharacterUUID;
+export function characterSelector(CharacterID: CharacterID) {
+    return (character: Character, _: number) => character.id === CharacterID;
 }
 
 export function skillSelector(skillName: string) {
@@ -66,8 +66,8 @@ export const tableReducer = reducerWithInitialState(initialState)
         };
     })
     .case(actions.openCharacterDetails, (state, props) => {
-        const { payload: uuid } = props;
-        const character = state.state.characters.find(x => x.uuid === uuid);
+        const { payload: id } = props;
+        const character = state.state.characters.find(x => x.id === id);
 
         if (character === undefined) {
             console.log('Failed actions.openCharacterDetails');
@@ -76,7 +76,7 @@ export const tableReducer = reducerWithInitialState(initialState)
 
         return {
             ...state,
-            dom: { ...state.dom, modal: { type: 'CharacterDetailsModal', characterUUID: uuid } },
+            dom: { ...state.dom, modal: { type: 'CharacterDetailsModal', characterID: id } },
         };
     })
     .case(actions.closeModal, (state, _props) => {
@@ -92,9 +92,9 @@ export const tableReducer = reducerWithInitialState(initialState)
     })
     .case(actions.doneLoadingSkillsCsv, (state, props) => {
         const skills = props.result.skills;
-        const characterUUID = props.params.characterUUID;
+        const characterID = props.params.characterID;
 
-        const characters = updateItemInArray(state.state.characters, characterSelector(characterUUID), character => {
+        const characters = updateItemInArray(state.state.characters, characterSelector(characterID), character => {
             return updateObject(character, { skills });
         });
 
