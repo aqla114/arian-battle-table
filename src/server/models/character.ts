@@ -74,9 +74,6 @@ export class Character {
     @Column({ default: '' })
     name: string;
 
-    @Column({ default: '' })
-    frontEndId: string;
-
     @Column({ default: 'None' })
     attribute: string;
 
