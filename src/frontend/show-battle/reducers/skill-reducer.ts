@@ -1,12 +1,12 @@
 import { Skill } from '../../types/skill';
 import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
-import { ChangeActionProps, CharacterFrontEndID, MouseActionProps, SkillName } from '../actions/actions';
+import { ChangeActionProps, CharacterID, MouseActionProps, SkillName } from '../actions/actions';
 import { CharacterTableState } from '../components/characters-table';
 import { characterSelector, indexSelector } from './reducers';
 
 export const updateSkillAttributeText: (
     state: CharacterTableState,
-    props: ChangeActionProps<{ characterID: CharacterFrontEndID; skillIndex: number }>,
+    props: ChangeActionProps<{ characterID: CharacterID; skillIndex: number }>,
 ) => CharacterTableState = (state, props) => {
     const e = props.e;
     const { characterID, skillIndex } = props.payload;
@@ -59,7 +59,7 @@ export const addNewSkill: (state: CharacterTableState) => CharacterTableState = 
 
 export const deleteSkill: (
     state: CharacterTableState,
-    props: MouseActionProps<{ characterID: CharacterFrontEndID; skillName: SkillName }>,
+    props: MouseActionProps<{ characterID: CharacterID; skillName: SkillName }>,
 ) => CharacterTableState = (state, props) => {
     const {
         payload: { characterID, skillName },
@@ -85,7 +85,7 @@ export const deleteSkill: (
 
 export const moveSkill: (
     state: CharacterTableState,
-    props: { characterID: CharacterFrontEndID; dragIdx: number; dropIdx: number },
+    props: { characterID: CharacterID; dragIdx: number; dropIdx: number },
 ) => CharacterTableState = (state, props) => {
     const { characterID, dragIdx, dropIdx } = props;
 

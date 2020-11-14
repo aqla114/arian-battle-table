@@ -1,6 +1,6 @@
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { CharacterTableState } from '../components/characters-table';
-import { actions, CharacterFrontEndID } from '../actions/actions';
+import { actions, CharacterID } from '../actions/actions';
 import { updateSessionName } from './session-name-reducer';
 import {
     updateCharacterAttributeNumberText,
@@ -32,8 +32,8 @@ const initialState: CharacterTableState = {
     },
 };
 
-export function characterSelector(CharacterID: CharacterFrontEndID) {
-    return (character: Character, _: number) => character.frontEndId === CharacterID;
+export function characterSelector(CharacterID: CharacterID) {
+    return (character: Character, _: number) => character.id === CharacterID;
 }
 
 export function skillSelector(skillName: string) {
@@ -67,7 +67,7 @@ export const tableReducer = reducerWithInitialState(initialState)
     })
     .case(actions.openCharacterDetails, (state, props) => {
         const { payload: id } = props;
-        const character = state.state.characters.find(x => x.frontEndId === id);
+        const character = state.state.characters.find(x => x.id === id);
 
         if (character === undefined) {
             console.log('Failed actions.openCharacterDetails');

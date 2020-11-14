@@ -18,7 +18,6 @@ export type CharacterWithoutId = Omit<Character, 'id'>;
 @Entity('characters')
 export class Character {
     public static mk(
-        frontEndId: string,
         name: string,
         attribute: string,
         actionPriority: number,
@@ -34,7 +33,6 @@ export class Character {
     ): Character {
         const c = new Character();
         return Object.assign(c, {
-            frontEndId,
             name,
             attribute,
             actionPriority,
