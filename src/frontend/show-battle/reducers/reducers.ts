@@ -1,6 +1,6 @@
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { CharacterTableState } from '../components/characters-table';
-import { actions } from '../actions/actions';
+import { actions, CharacterUUID } from '../actions/actions';
 import { updateSessionName } from './session-name-reducer';
 import {
     updateCharacterAttributeNumberText,
@@ -24,16 +24,16 @@ const initialState: CharacterTableState = {
     },
     current: {
         currentNewCharacter: Character(),
-        deleteCharacterName: '',
-        modalCharacterName: '',
+        deleteCharacterUUID: 0,
+        modalCharacterUUID: 0,
     },
     dom: {
         modal: null,
     },
 };
 
-export function characterSelector(characterName: string) {
-    return (character: Character, _: number) => character.name === characterName;
+export function characterSelector(CharacterUUID: CharacterUUID) {
+    return (character: Character, _: number) => character.uuid === CharacterUUID;
 }
 
 export function skillSelector(skillName: string) {
@@ -44,7 +44,6 @@ export function indexSelector<T>(targetIdx: number) {
     return (_: T, idx: number) => idx === targetIdx;
 }
 
-// TODO: キャラクター名で filter するの結構微妙みあるからできれば id とかをちゃんと扱うようにしたいかも。
 export const tableReducer = reducerWithInitialState(initialState)
     .case(actions.updateSessionName, updateSessionName)
     .case(actions.updateCharacterAttributeText, updateCharacterAttributeText)
@@ -67,8 +66,8 @@ export const tableReducer = reducerWithInitialState(initialState)
         };
     })
     .case(actions.openCharacterDetails, (state, props) => {
-        const { payload: name } = props;
-        const character = state.state.characters.find(x => x.name === name);
+        const { payload: uuid } = props;
+        const character = state.state.characters.find(x => x.uuid === uuid);
 
         if (character === undefined) {
             console.log('Failed actions.openCharacterDetails');
@@ -77,14 +76,14 @@ export const tableReducer = reducerWithInitialState(initialState)
 
         return {
             ...state,
-            dom: { ...state.dom, modal: { type: 'CharacterDetailsModal', characterName: name } },
+            dom: { ...state.dom, modal: { type: 'CharacterDetailsModal', characterUUID: uuid } },
         };
     })
     .case(actions.closeModal, (state, _props) => {
         return { ...state, dom: { ...state.dom, modal: null } };
     })
     .case(actions.updateCurrentNewCharacter, (state, props) => {
-        const currentNewCharacter = Character(props.target.value);
+        const currentNewCharacter = Character(undefined, props.target.value);
 
         return { ...state, current: { ...state.current, currentNewCharacter } };
     })
@@ -93,9 +92,9 @@ export const tableReducer = reducerWithInitialState(initialState)
     })
     .case(actions.doneLoadingSkillsCsv, (state, props) => {
         const skills = props.result.skills;
-        const characterName = props.params.characterName;
+        const characterUUID = props.params.characterUUID;
 
-        const characters = updateItemInArray(state.state.characters, characterSelector(characterName), character => {
+        const characters = updateItemInArray(state.state.characters, characterSelector(characterUUID), character => {
             return updateObject(character, { skills });
         });
 

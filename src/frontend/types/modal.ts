@@ -1,4 +1,4 @@
-import { CharacterName } from '../show-battle/actions/actions';
+import { CharacterUUID } from '../show-battle/actions/actions';
 
 export type Modal =
     | {
@@ -6,5 +6,5 @@ export type Modal =
       }
     | {
           type: 'CharacterDetailsModal';
-          characterName: CharacterName;
+          characterUUID: CharacterUUID;
       };

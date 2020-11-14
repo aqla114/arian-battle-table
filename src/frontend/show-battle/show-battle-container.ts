@@ -7,7 +7,7 @@ import {
     MouseActionProps,
     ChangeSessionNameProps,
     ClickDropDownListItemProps,
-    CharacterName,
+    CharacterUUID,
     SkillName,
     MoveSkillProps,
 } from './actions/actions';
@@ -18,20 +18,20 @@ import { parseCsv } from '../utils/skill-csv-parser';
 
 export interface Actions {
     updateSessionName: (v: ChangeSessionNameProps) => Action<string>;
-    updateCharacterAttributeNumberText: (v: ChangeActionProps<CharacterName>) => Action<string>;
-    updateCharacterAttributeText: (v: ChangeActionProps<CharacterName>) => Action<string>;
+    updateCharacterAttributeNumberText: (v: ChangeActionProps<CharacterUUID>) => Action<string>;
+    updateCharacterAttributeText: (v: ChangeActionProps<CharacterUUID>) => Action<string>;
     updateSkillAttributeText: (
-        v: ChangeActionProps<{ characterName: CharacterName; skillIndex: number }>,
+        v: ChangeActionProps<{ characterUUID: CharacterUUID; skillIndex: number }>,
     ) => Action<string>;
-    updateCharacterCheckbox: (v: ChangeActionProps<CharacterName>) => Action<string>;
+    updateCharacterCheckbox: (v: ChangeActionProps<CharacterUUID>) => Action<string>;
     updateButtonDropdownBadStatus: (v: ClickDropDownListItemProps) => Action<string>;
-    updateCharacterAttributeDropdown: (v: ChangeActionProps<CharacterName>) => Action<string>;
-    openDeletionModal: (v: MouseActionProps<CharacterName>) => Action<string>;
+    updateCharacterAttributeDropdown: (v: ChangeActionProps<CharacterUUID>) => Action<string>;
+    openDeletionModal: (v: MouseActionProps<CharacterUUID>) => Action<string>;
     closeModal: () => Action<string>;
-    openCharacterDetails: (v: MouseActionProps<CharacterName>) => Action<string>;
+    openCharacterDetails: (v: MouseActionProps<CharacterUUID>) => Action<string>;
     copyCharacter: (v: Character) => Action<string>;
     deleteCharacter: () => Action<string>;
-    deleteSkill: (v: MouseActionProps<{ characterName: CharacterName; skillName: SkillName }>) => Action<string>;
+    deleteSkill: (v: MouseActionProps<{ characterUUID: CharacterUUID; skillName: SkillName }>) => Action<string>;
     moveSkill: (v: MoveSkillProps) => Action<string>;
     updateCurrentNewCharacter: (v: React.ChangeEvent<HTMLInputElement>) => Action<string>;
     addNewCharacter: () => Action<string>;
@@ -39,7 +39,7 @@ export interface Actions {
     loadCharacters: () => void;
     saveCharacters: (sessionName: string, v: Character[]) => void;
     saveCharactersNewly: (sessionName: string, characters: Character[]) => void;
-    loadSkillsCsv: (characterName: CharacterName, files: FileList | null) => void;
+    loadSkillsCsv: (characterUUID: CharacterUUID, files: FileList | null) => void;
 }
 
 function mapStateToProps(state: State): CharacterTableState {
@@ -49,24 +49,24 @@ function mapStateToProps(state: State): CharacterTableState {
 function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
     return {
         updateSessionName: (v: ChangeSessionNameProps) => dispatch(actions.updateSessionName(v)),
-        updateCharacterAttributeNumberText: (v: ChangeActionProps<CharacterName>) =>
+        updateCharacterAttributeNumberText: (v: ChangeActionProps<CharacterUUID>) =>
             dispatch(actions.updateCharacterAttributeNumberText(v)),
-        updateCharacterAttributeText: (v: ChangeActionProps<CharacterName>) =>
+        updateCharacterAttributeText: (v: ChangeActionProps<CharacterUUID>) =>
             dispatch(actions.updateCharacterAttributeText(v)),
-        updateSkillAttributeText: (v: ChangeActionProps<{ characterName: CharacterName; skillIndex: number }>) =>
+        updateSkillAttributeText: (v: ChangeActionProps<{ characterUUID: CharacterUUID; skillIndex: number }>) =>
             dispatch(actions.updateSkillAttributeText(v)),
-        updateCharacterCheckbox: (v: ChangeActionProps<CharacterName>) => dispatch(actions.updateCharacterCheckbox(v)),
+        updateCharacterCheckbox: (v: ChangeActionProps<CharacterUUID>) => dispatch(actions.updateCharacterCheckbox(v)),
         updateButtonDropdownBadStatus: (v: ClickDropDownListItemProps) =>
             dispatch(actions.updateButtonDropdownBadStatus(v)),
-        updateCharacterAttributeDropdown: (v: ChangeActionProps<CharacterName>) =>
+        updateCharacterAttributeDropdown: (v: ChangeActionProps<CharacterUUID>) =>
             dispatch(actions.updateCharacterAttributeDropdown(v)),
-        openDeletionModal: (v: MouseActionProps<CharacterName>) => dispatch(actions.openDeletionModal(v)),
+        openDeletionModal: (v: MouseActionProps<CharacterUUID>) => dispatch(actions.openDeletionModal(v)),
         closeModal: () => dispatch(actions.closeModal()),
         deleteCharacter: () => dispatch(actions.deleteCharacter()),
-        deleteSkill: (v: MouseActionProps<{ characterName: CharacterName; skillName: SkillName }>) =>
+        deleteSkill: (v: MouseActionProps<{ characterUUID: CharacterUUID; skillName: SkillName }>) =>
             dispatch(actions.deleteSkill(v)),
         moveSkill: (v: MoveSkillProps) => dispatch(actions.moveSkill(v)),
-        openCharacterDetails: (v: MouseActionProps<CharacterName>) => dispatch(actions.openCharacterDetails(v)),
+        openCharacterDetails: (v: MouseActionProps<CharacterUUID>) => dispatch(actions.openCharacterDetails(v)),
         copyCharacter: (v: Character) => dispatch(actions.copyCharacter({ character: v })),
         updateCurrentNewCharacter: (v: React.ChangeEvent<HTMLInputElement>) =>
             dispatch(actions.updateCurrentNewCharacter(v)),
@@ -118,11 +118,11 @@ function loadCharactersMapper(dispatch: Dispatch<Action<string>>) {
 }
 
 function loadSkillsCsvMapper(dispatch: Dispatch<Action<string>>) {
-    return (characterName: CharacterName, files: FileList | null) => {
-        dispatch(actions.startedLoadingSkillsCsv({ characterName }));
+    return (characterUUID: CharacterUUID, files: FileList | null) => {
+        dispatch(actions.startedLoadingSkillsCsv({ characterUUID }));
 
         if (files === null || files.length === 0) {
-            dispatch(actions.failedLoadingSkillsCsv({ params: { characterName }, error: {} }));
+            dispatch(actions.failedLoadingSkillsCsv({ params: { characterUUID }, error: {} }));
             return;
         }
 
@@ -144,14 +144,14 @@ function loadSkillsCsvMapper(dispatch: Dispatch<Action<string>>) {
 
                 dispatch(
                     actions.doneLoadingSkillsCsv({
-                        params: { characterName },
+                        params: { characterUUID },
                         result: { skills: parsedSkills },
                     }),
                 );
             })
             .catch(err => {
                 console.log(err);
-                dispatch(actions.failedLoadingSkillsCsv({ params: { characterName }, error: {} }));
+                dispatch(actions.failedLoadingSkillsCsv({ params: { characterUUID }, error: {} }));
             });
     };
 }

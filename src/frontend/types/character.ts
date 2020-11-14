@@ -3,7 +3,7 @@ import { BadStatus, defaultBadStatus } from './bad-status';
 import { Skill } from './skill';
 
 export type Character = {
-    id?: string;
+    uuid: number,
     name: string;
     attribute: Attribute;
     defaultActionPriority: number;
@@ -35,6 +35,7 @@ export type Character = {
 };
 
 export function Character(
+    uuid: number = 0,
     name: string = '',
     attribute: Attribute = 'None',
     actionPriority: number = 0,
@@ -66,6 +67,7 @@ export function Character(
     skills: Skill[] = [],
 ): Character {
     return {
+        uuid,
         name,
         attribute,
         defaultActionPriority,
