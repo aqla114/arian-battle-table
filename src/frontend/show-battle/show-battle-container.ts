@@ -165,7 +165,7 @@ function saveCharactersMapper(dispatch: Dispatch<Action<string>>) {
         // characters から frontend id を取り除く
         const charactersWithoutId = characters.map(character => {
             const {id: _, ...characterWithoutId} = character;
-            characterWithoutId
+            return characterWithoutId
         });
 
         Request.post(`/api/${id}/update`)
