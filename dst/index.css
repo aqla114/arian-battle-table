@@ -126,6 +126,7 @@
   height: 24px;
   border-radius: 3px;
   border: none;
+  background-color: transparent;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
