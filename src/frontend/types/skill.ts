@@ -2,7 +2,7 @@ export type Skill = {
     id?: number;
     name: string;
     timing: string;
-    detemination_way: string;
+    determinationWay: string;
     target: string;
     range: string;
     restriction: string;
@@ -12,7 +12,7 @@ export type Skill = {
 export function Skill(
     name: string = '',
     timing: string = '',
-    detemination_way: string = '',
+    determinationWay: string = '',
     target: string = '',
     range: string = '',
     restriction: string = '',
@@ -21,7 +21,7 @@ export function Skill(
     return {
         name,
         timing,
-        detemination_way,
+        determinationWay,
         target,
         range,
         restriction,
