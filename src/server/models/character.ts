@@ -14,42 +14,8 @@ import { BadStatus } from './bad-status';
 import { Skill } from './skill';
 
 export type CharacterWithoutId = Omit<Character, 'id'>;
-
 @Entity('characters')
 export class Character {
-    public static mk(
-        name: string,
-        attribute: string,
-        actionPriority: number,
-        defaultActionPriority: number,
-        hp: number,
-        maxHp: number,
-        physicalDefence: number,
-        defaultPhysicalDefence: number,
-        magicalDefence: number,
-        defaultMagicalDefence: number,
-        memo: string,
-        skills: Skill[],
-    ): Character {
-        const c = new Character();
-        return Object.assign(c, {
-            name,
-            attribute,
-            actionPriority,
-            defaultActionPriority,
-            hp,
-            maxHp,
-            physicalDefence,
-            defaultPhysicalDefence,
-            magicalDefence,
-            defaultMagicalDefence,
-            badStatus: BadStatus.mk(),
-            isActed: false,
-            memo,
-            skills,
-        });
-    }
-
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -74,6 +40,7 @@ export class Character {
     @Column({ default: '' })
     name: string;
 
+    // TODO: お前、string 型じゃないやろ。Attribute 型や。
     @Column({ default: 'None' })
     attribute: string;
 

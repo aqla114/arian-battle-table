@@ -3,20 +3,6 @@ import { Character } from './character';
 
 @Entity('bad_status')
 export class BadStatus {
-    public static mk(): BadStatus {
-        const b = new BadStatus();
-        return Object.assign(b, {
-            isActed: false,
-            overwhelmed: false,
-            slipped: false,
-            abstracted: false,
-            frenzied: false,
-            stunned: false,
-            knockback: 0,
-            poisoned: 0,
-        });
-    }
-
     @PrimaryGeneratedColumn()
     id: number;
 
