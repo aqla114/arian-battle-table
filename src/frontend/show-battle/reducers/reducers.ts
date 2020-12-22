@@ -61,8 +61,8 @@ export const tableReducer = reducerWithInitialState(initialState)
     .case(actions.openDeletionModal, (state, props) => {
         return {
             ...state,
-            current: { ...state.current, deleteCharacterName: props.payload },
-            dom: { ...state.dom, modal: { type: 'DeletionModal' } },
+            current: updateObject(state.current, { deleteCharacterID: props.payload }),
+            dom: updateObject(state.dom, { modal: { type: 'DeletionModal' } }),
         };
     })
     .case(actions.openCharacterDetails, (state, props) => {
