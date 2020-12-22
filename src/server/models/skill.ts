@@ -3,6 +3,26 @@ import { Character } from './character';
 
 @Entity('skills')
 export class Skill {
+    public static mk(
+        name = '',
+        timing = '',
+        determinationWay = '',
+        target = '',
+        range = '',
+        restriction = '',
+        detail = '',
+    ): Skill {
+        const s = new Skill();
+        return Object.assign(s, {
+            name,
+            timing,
+            determinationWay,
+            target,
+            range,
+            restriction,
+            detail,
+        });
+    }
     // TODO: ここら辺のカラム、色々と制約あるし ValueObject として表現したい。
     @PrimaryGeneratedColumn()
     id: number;

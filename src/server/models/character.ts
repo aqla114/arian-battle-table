@@ -13,9 +13,21 @@ import { BattleSession } from './battle-session';
 import { BadStatus } from './bad-status';
 import { Skill } from './skill';
 
+import { Character as CharacterType } from '../../types';
+
 export type CharacterWithoutId = Omit<Character, 'id'>;
+
 @Entity('characters')
 export class Character {
+    public static mk(character: Partial<CharacterType>): Character {
+        const c = new Character();
+        return Object.assign(c, {
+            ...character,
+            badStatus: BadStatus.mk(),
+            isActed: false,
+        });
+    }
+
     @PrimaryGeneratedColumn()
     id: number;
 

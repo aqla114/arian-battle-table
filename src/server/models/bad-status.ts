@@ -1,8 +1,14 @@
 import { PrimaryGeneratedColumn, Column, Entity, JoinColumn, OneToOne } from 'typeorm';
+import { defaultBadStatus } from '../../types/bad-status';
 import { Character } from './character';
 
 @Entity('bad_status')
 export class BadStatus {
+    public static mk(): BadStatus {
+        const b = new BadStatus();
+        return Object.assign(b, defaultBadStatus);
+    }
+
     @PrimaryGeneratedColumn()
     id: number;
 
