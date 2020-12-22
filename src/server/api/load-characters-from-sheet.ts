@@ -35,7 +35,7 @@ export async function loadCharactersFromSheet(ctx: Context) {
         return;
     }
 
-    const characters = parseCharactersFromJson(response.body);
+    const characters = parseCharactersFromJson(response.body, currentCharacters);
 
     battleSession.characters = [...currentCharacters, ...characters];
 
@@ -45,7 +45,7 @@ export async function loadCharactersFromSheet(ctx: Context) {
 }
 
 // load-character-server から飛んできたリクエストを Character の配列に変換する。
-function parseCharactersFromJson(jsonBody: any): CharacterModel[] {
+function parseCharactersFromJson(jsonBody: any, currentCharacters: CharacterModel[]): CharacterModel[] {
     if (!Array.isArray(jsonBody)) {
         return [];
     }
