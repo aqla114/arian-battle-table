@@ -1,15 +1,15 @@
 import { ParameterizedContext } from 'koa';
 import Router from 'koa-router';
 import { Repository } from 'typeorm';
-import { BattleSession } from './server/models/battle-session';
-import { Character } from './server/models/character';
+import { BattleSession as BattleSessionModel } from './models/battle-session';
+import { Character as CharacterModel } from './models/character';
 
 export type StateT = {};
 
 export type CustomT = {
     ports: {
-        battleSession: Repository<BattleSession>;
-        character: Repository<Character>;
+        battleSession: Repository<BattleSessionModel>;
+        character: Repository<CharacterModel>;
     };
 };
 

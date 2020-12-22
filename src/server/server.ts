@@ -9,7 +9,7 @@ import { Character } from './models/character';
 import { BattleSession } from './models/battle-session';
 import { mkRouter } from './mk-router';
 import { pathCanonicalizer } from 'koa-path-canonicalizer';
-import { StateT, CustomT } from '../types';
+import { StateT, CustomT } from './types';
 import { BadStatus } from './models/bad-status';
 import { Skill } from './models/skill';
 

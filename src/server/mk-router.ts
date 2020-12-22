@@ -2,7 +2,7 @@ import { listBattleSession } from './api/list-battle-session';
 import { getBattleSession } from './api/get-battle-session';
 import { updateBattleSession } from './api/update-battle-session';
 import { createBattleSession } from './api/creare-battle-session';
-import { MiddleWare } from '../types';
+import { MiddleWare } from './types';
 import { pageRenderer } from './page-renderer';
 import { deleteBattleSession } from './api/delete-battle-session';
 
