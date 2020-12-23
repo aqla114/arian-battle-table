@@ -10,7 +10,7 @@ import { InputField } from '../../components/atoms/input-field';
 import { CharacterDetails } from './character-details';
 import { Modal } from '../../types/modal';
 import { Character } from '../../types/character';
-import { CharacterID, CharacterName } from '../actions/actions';
+import { CharacterID, CharacterName, GuildId } from '../actions/actions';
 
 export type CharacterTableState = {
     state: {
@@ -19,6 +19,7 @@ export type CharacterTableState = {
     };
     current: {
         currentNewCharacterName: CharacterName;
+        currentGuildId: GuildId;
         deleteCharacterID: CharacterID;
         modalCharacterID: CharacterID;
     };
@@ -36,7 +37,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
 
     const {
         state: { sessionName, characters },
-        current: { currentNewCharacterName },
+        current: { currentNewCharacterName, currentGuildId },
         dom: { modal },
     } = props;
 
@@ -48,9 +49,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                 key={character.id}
                 {...character}
                 isNextPrior={!character.isActed && character.actionPriority === nextActionPriority}
-                onChangeElementNumberText={e =>
-                    props.updateCharacterAttributeNumberText({ e, payload: character.id })
-                }
+                onChangeElementNumberText={e => props.updateCharacterAttributeNumberText({ e, payload: character.id })}
                 onChangeElementText={e => props.updateCharacterAttributeText({ e, payload: character.id })}
                 onChangeElementCheckbox={e => props.updateCharacterCheckbox({ e, payload: character.id })}
                 onClickDropdownItem={(key, value) =>
@@ -81,9 +80,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                     onChangeNumberInputField={e =>
                         props.updateCharacterAttributeNumberText({ e, payload: modal.characterID })
                     }
-                    onChangeTextInputField={e =>
-                        props.updateCharacterAttributeText({ e, payload: modal.characterID })
-                    }
+                    onChangeTextInputField={e => props.updateCharacterAttributeText({ e, payload: modal.characterID })}
                     onChangeElementSkillText={(e, idx) =>
                         props.updateSkillAttributeText({
                             e,
@@ -152,6 +149,16 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                     placeholder={'キャラクター名'}
                     onChange={e => props.updateCurrentNewCharacterName(e)}
                     onClick={() => props.addNewCharacter()}
+                />
+                <InputFieldWithButton
+                    name={'guild-id'}
+                    value={currentGuildId}
+                    buttonLabel={'ギルドからキャラクターをインポート'}
+                    placeholder={'ギルドID (ex.114514)'}
+                    onChange={e => props.updateCurrentGuildId({ e })}
+                    onClick={() =>
+                        props.importCharactersByGuildId(props.current.currentGuildId, props.state.characters)
+                    }
                 />
             </CardContainer>
         </div>
