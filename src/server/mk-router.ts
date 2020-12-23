@@ -2,9 +2,10 @@ import { listBattleSession } from './api/list-battle-session';
 import { getBattleSession } from './api/get-battle-session';
 import { updateBattleSession } from './api/update-battle-session';
 import { createBattleSession } from './api/creare-battle-session';
-import { MiddleWare } from '../types';
+import { MiddleWare } from './types';
 import { pageRenderer } from './page-renderer';
 import { deleteBattleSession } from './api/delete-battle-session';
+import { loadCharactersFromSheet } from './api/load-characters-from-sheet';
 
 export function mkRouter(router: MiddleWare): MiddleWare {
     router.get('/', pageRenderer, (ctx, next) => {
@@ -90,6 +91,22 @@ export function mkRouter(router: MiddleWare): MiddleWare {
         console.log(ctx.request.body);
 
         const battleSession = await createBattleSession(ctx);
+
+        if (!battleSession) {
+            ctx.status = 500;
+        } else {
+            ctx.status = 200;
+            ctx.body = battleSession;
+        }
+
+        return next();
+    });
+
+    router.post('/api/:id/load-characters-from-sheet', async (ctx, next) => {
+        console.log('/api/load-characters-from-sheet');
+        console.log(ctx.request.body);
+
+        const battleSession = await loadCharactersFromSheet(ctx);
 
         if (!battleSession) {
             ctx.status = 500;

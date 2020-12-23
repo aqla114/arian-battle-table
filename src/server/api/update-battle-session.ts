@@ -1,7 +1,7 @@
 import { Repository } from 'typeorm';
 import { Character } from '../models/character';
 import { BattleSession } from '../models/battle-session';
-import { Context } from '../../types';
+import { Context } from '../types';
 
 export async function updateBattleSession(ctx: Context) {
     const battleSessionRepo: Repository<BattleSession> = ctx.ports.battleSession;

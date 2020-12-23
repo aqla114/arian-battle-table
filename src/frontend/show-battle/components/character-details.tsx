@@ -299,10 +299,10 @@ const DraggableSkillTableRow = (props: {
                     changeOnBlur={false}
                 />
             </td>
-            <td className="character-details__skills__table__skill__detetmination-way">
+            <td className="character-details__skills__table__skill__detertmination-way">
                 <InputField
                     name={'determimnation-way'}
-                    value={skill.detemination_way}
+                    value={skill.determinationWay}
                     kind={'text'}
                     size={'small'}
                     onChange={e => onChangeElementSkillText(e, idx)}

@@ -24,6 +24,7 @@ const initialState: CharacterTableState = {
     },
     current: {
         currentNewCharacterName: '',
+        currentGuildId: '',
         deleteCharacterID: '',
         modalCharacterID: '',
     },
@@ -61,8 +62,8 @@ export const tableReducer = reducerWithInitialState(initialState)
     .case(actions.openDeletionModal, (state, props) => {
         return {
             ...state,
-            current: { ...state.current, deleteCharacterName: props.payload },
-            dom: { ...state.dom, modal: { type: 'DeletionModal' } },
+            current: updateObject(state.current, { deleteCharacterID: props.payload }),
+            dom: updateObject(state.dom, { modal: { type: 'DeletionModal' } }),
         };
     })
     .case(actions.openCharacterDetails, (state, props) => {
@@ -85,6 +86,9 @@ export const tableReducer = reducerWithInitialState(initialState)
     .case(actions.updateCurrentNewCharacterName, (state, props) => {
         return { ...state, current: { ...state.current, currentNewCharacterName: props.target.value } };
     })
+    .case(actions.updateCurrentGuildId, (state, props) => {
+        return { ...state, current: updateObject(state.current, { currentGuildId: props.e.target.value }) };
+    })
     .case(actions.doneLoadingCharacters, (state, props) => {
         return { ...state, state: props.result.state };
     })
@@ -97,6 +101,9 @@ export const tableReducer = reducerWithInitialState(initialState)
         });
 
         return { ...state, state: { ...state.state, characters } };
+    })
+    .case(actions.doneImportCharactersByGuildId, (state, props) => {
+        return { ...state, state: updateObject(state.state, { characters: props.result.characters }) };
     })
     .default(state => {
         console.log('The default reducer is used.');

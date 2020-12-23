@@ -6,27 +6,35 @@ export class Skill {
     public static mk(
         name = '',
         timing = '',
-        determination_way = '',
+        determinationWay = '',
         target = '',
         range = '',
         restriction = '',
         detail = '',
     ): Skill {
         const s = new Skill();
-        return Object.assign(s, { name, timing, determination_way, target, range, restriction, detail });
+        return Object.assign(s, {
+            name,
+            timing,
+            determinationWay,
+            target,
+            range,
+            restriction,
+            detail,
+        });
     }
     // TODO: ここら辺のカラム、色々と制約あるし ValueObject として表現したい。
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ default: '', name: 'namme' })
+    @Column({ default: '', name: 'name' })
     name: string;
 
     @Column({ default: '', name: 'timing' })
     timing: string;
 
     @Column({ default: '', name: 'determination_way' })
-    determination_way: string;
+    determinationWay: string;
 
     @Column({ default: '', name: 'target' })
     target: string;
