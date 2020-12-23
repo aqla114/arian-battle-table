@@ -1,4 +1,15 @@
 import * as React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    faDiceFive,
+    faDiceFour,
+    faDiceOne,
+    faDiceSix,
+    faDiceThree,
+    faDiceTwo,
+} from '@fortawesome/free-solid-svg-icons';
+import * as uuid from 'uuid';
+
 import { Dropdown } from '../../components/atoms/dropdown';
 import { Button } from '../../components/atoms/button';
 import { CardContainer } from '../../components/card-container';
@@ -48,7 +59,7 @@ export class DiceRoller extends React.Component<{}, DiceRollerState> {
         return (
             <CardContainer>
                 <div className="dice-roller">
-                    <div>だいすろーる</div>
+                    <div>ダイスロール</div>
                     <Dropdown
                         value={this.state.count}
                         options={diceCountOptions}
@@ -62,7 +73,11 @@ export class DiceRoller extends React.Component<{}, DiceRollerState> {
                     />
                     <Button kind="primary" name="roll-button" value="ロール" onClick={() => this.roll()} />
                     <div className="dice-roller__result">
-                        <span className="dice-roller__result__dices">{this.state.result.join(', ')}</span>
+                        <span className="dice-roller__result__dices">
+                            {this.state.result.map(dice => (
+                                <DiceIcon key={uuid.v4()} dice={dice} />
+                            ))}
+                        </span>
                         <span className="dice-roller__result__sum">
                             {this.state.result.reduce((acc, v) => acc + v)}
                         </span>
@@ -76,3 +91,28 @@ export class DiceRoller extends React.Component<{}, DiceRollerState> {
         );
     }
 }
+
+const DiceIcon = ({ dice }: { dice: number }) => {
+    let diceIcon = faDiceOne;
+    switch (dice) {
+        case 1:
+            diceIcon = faDiceOne;
+            break;
+        case 2:
+            diceIcon = faDiceTwo;
+            break;
+        case 3:
+            diceIcon = faDiceThree;
+            break;
+        case 4:
+            diceIcon = faDiceFour;
+            break;
+        case 5:
+            diceIcon = faDiceFive;
+            break;
+        case 6:
+            diceIcon = faDiceSix;
+            break;
+    }
+    return <FontAwesomeIcon icon={diceIcon} className={'dice-roller__result__dices__icon'} />;
+};

@@ -363,7 +363,7 @@ body {
   height: 28px;
 }
 .dice-roller {
-  font: 16px;
+  font-size: 16px;
 }
 .dice-roller__roll-button {
   margin-left: 10px;
@@ -375,8 +375,14 @@ body {
   background-color: #a8a8a8;
   cursor: pointer;
 }
+.dice-roller__result__dices {
+  font-size: 32px;
+}
+.dice-roller__result__dices__icon {
+  margin-left: 8px;
+}
 .dice-roller__result__sum {
-  margin: 0px 15px;
+  margin: 0px 16px;
   font-size: 20px;
 }
 .dice-roller__result__critical {
