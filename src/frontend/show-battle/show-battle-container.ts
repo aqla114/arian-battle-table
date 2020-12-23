@@ -244,8 +244,16 @@ function saveCharactersNewlyMapper(dispatch: Dispatch<Action<string>>) {
     return (sessionName: string, characters: Character[]) => {
         dispatch(actions.startedSavingNewly({}));
 
+        const serverCharacters = characters.map(character => {
+            const { id: _, serverId, ...characterWithoutId } = character;
+            if (serverId === null) {
+                return { ...characterWithoutId };
+            }
+            return { ...characterWithoutId, id: serverId };
+        });
+
         Request.post(`/api/create`)
-            .send({ sessionName, characters })
+            .send({ sessionName, characters: serverCharacters })
             .end((err, res) => {
                 if (err) {
                     console.error(err);
