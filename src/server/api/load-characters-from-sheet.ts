@@ -1,30 +1,14 @@
 import * as Request from 'superagent';
-import { Repository } from 'typeorm';
 import { Character } from '../../types';
 import { Character as CharacterModel } from '../models/character';
-import { BattleSession } from '../models/battle-session';
 import { Context } from '../types';
 
 export async function loadCharactersFromSheet(ctx: Context) {
-    const battleSessionRepo: Repository<BattleSession> = ctx.ports.battleSession;
-
     const req = ctx.request.body;
-    const { guildId, characters: currentCharacters }: { guildId: string; characters: CharacterModel[] } = req;
+    const { guildId }: { guildId: string } = req;
 
     if (!guildId) {
         console.error('Bad request.');
-        return;
-    }
-
-    const sessionId: string = (ctx as any).params['id'];
-
-    const battleSession = await battleSessionRepo.findOne({
-        where: { id: sessionId },
-        relations: ['characters', 'characters.badStatus', 'characters.skills'],
-    });
-
-    if (!battleSession) {
-        console.error('The battle session is not found.');
         return;
     }
 
@@ -35,17 +19,13 @@ export async function loadCharactersFromSheet(ctx: Context) {
         return;
     }
 
-    const characters = parseCharactersFromJson(response.body, currentCharacters);
+    const characters = parseCharactersFromJson(response.body);
 
-    battleSession.characters = [...currentCharacters, ...characters];
-
-    const res = await battleSessionRepo.save(battleSession);
-
-    return res;
+    return { characters };
 }
 
 // load-character-server から飛んできたリクエストを Character の配列に変換する。
-function parseCharactersFromJson(jsonBody: any, currentCharacters: CharacterModel[]): CharacterModel[] {
+function parseCharactersFromJson(jsonBody: any): CharacterModel[] {
     if (!Array.isArray(jsonBody)) {
         return [];
     }
