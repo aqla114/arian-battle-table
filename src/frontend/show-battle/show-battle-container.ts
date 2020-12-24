@@ -35,7 +35,6 @@ export interface Actions {
     deleteCharacter: () => Action<string>;
     deleteSkill: (v: MouseActionProps<{ characterID: CharacterID; skillName: SkillName }>) => Action<string>;
     moveSkill: (v: MoveSkillProps) => Action<string>;
-    updateCurrentNewCharacterName: (v: React.ChangeEvent<HTMLInputElement>) => Action<string>;
     updateCurrentGuildId: (v: ChangeActionProps) => Action<string>;
     addNewCharacter: () => Action<string>;
     addNewSkill: () => Action<string>;
@@ -72,8 +71,6 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
         moveSkill: (v: MoveSkillProps) => dispatch(actions.moveSkill(v)),
         openCharacterDetails: (v: MouseActionProps<CharacterID>) => dispatch(actions.openCharacterDetails(v)),
         copyCharacter: (v: Character) => dispatch(actions.copyCharacter({ character: v })),
-        updateCurrentNewCharacterName: (v: React.ChangeEvent<HTMLInputElement>) =>
-            dispatch(actions.updateCurrentNewCharacterName(v)),
         updateCurrentGuildId: (v: ChangeActionProps) => dispatch(actions.updateCurrentGuildId(v)),
         addNewCharacter: () => dispatch(actions.addNewCharacter()),
         addNewSkill: () => dispatch(actions.addNewSkill()),

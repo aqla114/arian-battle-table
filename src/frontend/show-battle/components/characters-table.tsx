@@ -10,7 +10,9 @@ import { InputField } from '../../components/atoms/input-field';
 import { CharacterDetails } from './character-details';
 import { Modal } from '../../types/modal';
 import { Character } from '../../types/character';
-import { CharacterID, CharacterName, GuildId } from '../actions/actions';
+import { CharacterID, GuildId } from '../actions/actions';
+import { faPlusSquare } from '@fortawesome/free-regular-svg-icons';
+import { IconButton } from '../../components/atoms/icon-button';
 
 export type CharacterTableState = {
     state: {
@@ -18,7 +20,6 @@ export type CharacterTableState = {
         characters: Character[];
     };
     current: {
-        currentNewCharacterName: CharacterName;
         currentGuildId: GuildId;
         deleteCharacterID: CharacterID;
         modalCharacterID: CharacterID;
@@ -37,7 +38,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
 
     const {
         state: { sessionName, characters },
-        current: { currentNewCharacterName, currentGuildId },
+        current: { currentGuildId },
         dom: { modal },
     } = props;
 
@@ -142,14 +143,9 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                     </thead>
                     <tbody>{characterElement}</tbody>
                 </table>
-                <InputFieldWithButton
-                    name={'character-name'}
-                    value={currentNewCharacterName}
-                    buttonLabel={'新しくキャラクターを追加'}
-                    placeholder={'キャラクター名'}
-                    onChange={e => props.updateCurrentNewCharacterName(e)}
-                    onClick={() => props.addNewCharacter()}
-                />
+                <div className="character-table__add-button">
+                    <IconButton name={'add'} icon={faPlusSquare} size={'small'} onClick={props.addNewCharacter} />
+                </div>
                 <InputFieldWithButton
                     name={'guild-id'}
                     value={currentGuildId}

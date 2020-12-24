@@ -23,7 +23,6 @@ const initialState: CharacterTableState = {
         characters: [],
     },
     current: {
-        currentNewCharacterName: '',
         currentGuildId: '',
         deleteCharacterID: '',
         modalCharacterID: '',
@@ -82,9 +81,6 @@ export const tableReducer = reducerWithInitialState(initialState)
     })
     .case(actions.closeModal, (state, _props) => {
         return { ...state, dom: { ...state.dom, modal: null } };
-    })
-    .case(actions.updateCurrentNewCharacterName, (state, props) => {
-        return { ...state, current: { ...state.current, currentNewCharacterName: props.target.value } };
     })
     .case(actions.updateCurrentGuildId, (state, props) => {
         return { ...state, current: updateObject(state.current, { currentGuildId: props.e.target.value }) };

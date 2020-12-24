@@ -52,7 +52,6 @@ export type ActionTypes =
     | 'MOVE_SKILL'
     | 'COPY_CHARACTER'
     | 'OPEN_CHARACTER_DETAILS'
-    | 'UPDATE_CURRENT_NEW_CHARACTER_NAME'
     | 'ADD_NEW_CHARACTER'
     | 'ADD_NEW_SKILL'
     | 'LOAD_CHARACTERS'
@@ -84,9 +83,6 @@ export const actions = {
     moveSkill: actionCreator<MoveSkillProps>('MOVE_SKILL'),
     copyCharacter: actionCreator<{ character: Character }>('COPY_CHARACTER'),
     openCharacterDetails: actionCreator<MouseActionProps<CharacterID>>('OPEN_CHARACTER_DETAILS'),
-    updateCurrentNewCharacterName: actionCreator<React.ChangeEvent<HTMLInputElement>>(
-        'UPDATE_CURRENT_NEW_CHARACTER_NAME',
-    ),
     addNewCharacter: actionCreator('ADD_NEW_CHARACTER'),
     addNewSkill: actionCreator('ADD_NEW_SKILL'),
     updateCurrentGuildId: actionCreator<ChangeActionProps>('UPDATE_CURRENT_GUILD_ID'),
