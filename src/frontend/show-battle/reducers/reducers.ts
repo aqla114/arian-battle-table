@@ -99,7 +99,11 @@ export const tableReducer = reducerWithInitialState(initialState)
         return { ...state, state: { ...state.state, characters } };
     })
     .case(actions.doneImportCharactersByGuildId, (state, props) => {
-        return { ...state, state: updateObject(state.state, { characters: props.result.characters }) };
+        return {
+            ...state,
+            state: updateObject(state.state, { characters: props.result.characters }),
+            current: updateObject(state.current, { currentGuildId: '' }),
+        };
     })
     .default(state => {
         console.log('The default reducer is used.');
