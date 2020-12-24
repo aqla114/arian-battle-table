@@ -131,7 +131,7 @@ export const copyCharacter: (state: CharacterTableState, props: { character: Cha
     let { character } = props;
 
     const { id: _, ...badStatusWithoutId } = character.badStatus;
-    const { ...newCharacter } = { ...character, id: uuid.v4(), badStatus: badStatusWithoutId };
+    const newCharacter: Character = { ...character, id: uuid.v4(), badStatus: badStatusWithoutId, serverId: null };
 
     const characters: Character[] = [...state.state.characters, newCharacter].slice().map(x => ({ ...x }));
 
