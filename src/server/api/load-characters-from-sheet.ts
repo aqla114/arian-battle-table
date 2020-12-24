@@ -30,7 +30,17 @@ function parseCharactersFromJson(jsonBody: any): CharacterModel[] {
         return [];
     }
 
-    const characters = jsonBody.map((x: Partial<Character>) => CharacterModel.mk(Character(x)));
+    const characters = jsonBody.map((x: Partial<Character>) =>
+        CharacterModel.mk(
+            Character({
+                ...x,
+                maxHp: x.hp,
+                defaultActionPriority: x.actionPriority,
+                defaultPhysicalDefence: x.physicalDefence,
+                defaultMagicalDefence: x.magicalDefence,
+            }),
+        ),
+    );
 
     return characters;
 }
