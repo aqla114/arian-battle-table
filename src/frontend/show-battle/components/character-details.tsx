@@ -82,7 +82,7 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
-                                    textAlign={'right'}
+                                    textAlign={'center'}
                                 />
                             </td>
                             <td className="character-details__attribute-values__table1__physical-defence">
@@ -92,7 +92,7 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
-                                    textAlign={'right'}
+                                    textAlign={'center'}
                                 />
                             </td>
                             <td className="character-details__attribute-values__table1__magical-defence">
@@ -102,7 +102,7 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
-                                    textAlign={'right'}
+                                    textAlign={'center'}
                                 />
                             </td>
                             <td className="character-details__attribute-values__table1__attribute">
@@ -115,7 +115,7 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
-                                    textAlign={'right'}
+                                    textAlign={'center'}
                                 />
                             </td>
                         </tr>
@@ -142,7 +142,7 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
-                                    textAlign={'right'}
+                                    textAlign={'center'}
                                 />
                             </td>
                             <td>
@@ -152,7 +152,7 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
-                                    textAlign={'right'}
+                                    textAlign={'center'}
                                 />
                             </td>
                             <td>
@@ -162,7 +162,7 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
-                                    textAlign={'right'}
+                                    textAlign={'center'}
                                 />
                             </td>
                             <td>
@@ -172,7 +172,7 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
-                                    textAlign={'right'}
+                                    textAlign={'center'}
                                 />
                             </td>
                             <td>
@@ -182,7 +182,7 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
-                                    textAlign={'right'}
+                                    textAlign={'center'}
                                 />
                             </td>
                             <td>
@@ -192,7 +192,7 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
-                                    textAlign={'right'}
+                                    textAlign={'center'}
                                 />
                             </td>
                             <td>
@@ -202,7 +202,7 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
-                                    textAlign={'right'}
+                                    textAlign={'center'}
                                 />
                             </td>
                         </tr>
