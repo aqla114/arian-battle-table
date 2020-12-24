@@ -103,8 +103,6 @@ function loadCharactersMapper(dispatch: Dispatch<Action<string>>) {
                     id: uuid.v4(),
                 }));
 
-                console.log(characters);
-
                 dispatch(
                     actions.doneLoadingCharacters({
                         params: {},
@@ -245,11 +243,9 @@ function saveCharactersNewlyMapper(dispatch: Dispatch<Action<string>>) {
         dispatch(actions.startedSavingNewly({}));
 
         const serverCharacters = characters.map(character => {
-            const { id: _, serverId, ...characterWithoutId } = character;
-            if (serverId === null) {
-                return { ...characterWithoutId };
-            }
-            return { ...characterWithoutId, id: serverId };
+            const { id: _, serverId, badStatus, ...characterWithoutId } = character;
+            const { id, ...badStatusWithoutId } = badStatus;
+            return { ...characterWithoutId, badStatus: badStatusWithoutId };
         });
 
         Request.post(`/api/create`)
