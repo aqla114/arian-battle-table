@@ -103,6 +103,12 @@
   border: none;
   background-color: transparent;
 }
+.input-field__number.--left {
+  text-align: left;
+}
+.input-field__number.--center {
+  text-align: center;
+}
 .input-field__number.--right {
   text-align: right;
 }
