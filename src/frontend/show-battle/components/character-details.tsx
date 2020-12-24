@@ -282,7 +282,7 @@ const DraggableSkillTableRow = (props: {
 
     return (
         <tr ref={drag} className="character-details__skills__table__skill">
-            <td className="character-details__skills__table__skill__timing">
+            <td ref={drop} className="character-details__skills__table__skill__timing">
                 <InputField
                     name={'timing'}
                     value={skill.timing}
@@ -290,28 +290,18 @@ const DraggableSkillTableRow = (props: {
                     onChange={e => onChangeElementSkillText(e, idx)}
                 />
             </td>
-            <td ref={drop} className="character-details__skills__table__skill__name">
+            <td className="character-details__skills__table__skill__name">
                 <InputField
                     name={'name'}
                     value={skill.name}
                     kind={'text'}
                     onChange={e => onChangeElementSkillText(e, idx)}
-                    changeOnBlur={false}
                 />
             </td>
-            <td className="character-details__skills__table__skill__detertmination-way">
+            <td className="character-details__skills__table__skill__determination-way">
                 <InputField
-                    name={'determimnation-way'}
+                    name={'determinationWay'}
                     value={skill.determinationWay}
-                    kind={'text'}
-                    size={'small'}
-                    onChange={e => onChangeElementSkillText(e, idx)}
-                />
-            </td>
-            <td className="character-details__skills__table__skill__target">
-                <InputField
-                    name={'target'}
-                    value={skill.target}
                     kind={'text'}
                     size={'small'}
                     onChange={e => onChangeElementSkillText(e, idx)}
@@ -321,6 +311,15 @@ const DraggableSkillTableRow = (props: {
                 <InputField
                     name={'range'}
                     value={skill.range}
+                    kind={'text'}
+                    size={'small'}
+                    onChange={e => onChangeElementSkillText(e, idx)}
+                />
+            </td>
+            <td className="character-details__skills__table__skill__target">
+                <InputField
+                    name={'target'}
+                    value={skill.target}
                     kind={'text'}
                     size={'small'}
                     onChange={e => onChangeElementSkillText(e, idx)}

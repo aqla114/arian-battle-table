@@ -112,7 +112,7 @@ export const updateCharacterAttributeDropdown: (
 export const addNewCharacter: (state: CharacterTableState) => CharacterTableState = state => {
     const characters = state.state.characters.slice().map(x => ({ ...x }));
 
-    const newCharacter = Character(uuid.v4(), state.current.currentNewCharacterName);
+    const newCharacter = Character(uuid.v4());
 
     characters.push(newCharacter);
     characters.sort((a, b) => b.actionPriority - a.actionPriority);
@@ -120,7 +120,7 @@ export const addNewCharacter: (state: CharacterTableState) => CharacterTableStat
     return {
         ...state,
         state: { ...state.state, characters },
-        current: { ...state.current, currentNewCharacterName: '' },
+        current: { ...state.current },
     };
 };
 
@@ -131,7 +131,7 @@ export const copyCharacter: (state: CharacterTableState, props: { character: Cha
     let { character } = props;
 
     const { id: _, ...badStatusWithoutId } = character.badStatus;
-    const { ...newCharacter } = { ...character, id: uuid.v4(), badStatus: badStatusWithoutId };
+    const newCharacter: Character = { ...character, id: uuid.v4(), badStatus: badStatusWithoutId, serverId: null };
 
     const characters: Character[] = [...state.state.characters, newCharacter].slice().map(x => ({ ...x }));
 

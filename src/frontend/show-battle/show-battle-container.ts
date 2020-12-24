@@ -35,7 +35,6 @@ export interface Actions {
     deleteCharacter: () => Action<string>;
     deleteSkill: (v: MouseActionProps<{ characterID: CharacterID; skillName: SkillName }>) => Action<string>;
     moveSkill: (v: MoveSkillProps) => Action<string>;
-    updateCurrentNewCharacterName: (v: React.ChangeEvent<HTMLInputElement>) => Action<string>;
     updateCurrentGuildId: (v: ChangeActionProps) => Action<string>;
     addNewCharacter: () => Action<string>;
     addNewSkill: () => Action<string>;
@@ -72,8 +71,6 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
         moveSkill: (v: MoveSkillProps) => dispatch(actions.moveSkill(v)),
         openCharacterDetails: (v: MouseActionProps<CharacterID>) => dispatch(actions.openCharacterDetails(v)),
         copyCharacter: (v: Character) => dispatch(actions.copyCharacter({ character: v })),
-        updateCurrentNewCharacterName: (v: React.ChangeEvent<HTMLInputElement>) =>
-            dispatch(actions.updateCurrentNewCharacterName(v)),
         updateCurrentGuildId: (v: ChangeActionProps) => dispatch(actions.updateCurrentGuildId(v)),
         addNewCharacter: () => dispatch(actions.addNewCharacter()),
         addNewSkill: () => dispatch(actions.addNewSkill()),
@@ -102,8 +99,6 @@ function loadCharactersMapper(dispatch: Dispatch<Action<string>>) {
                     serverId: character.id,
                     id: uuid.v4(),
                 }));
-
-                console.log(characters);
 
                 dispatch(
                     actions.doneLoadingCharacters({
@@ -244,8 +239,14 @@ function saveCharactersNewlyMapper(dispatch: Dispatch<Action<string>>) {
     return (sessionName: string, characters: Character[]) => {
         dispatch(actions.startedSavingNewly({}));
 
+        const serverCharacters = characters.map(character => {
+            const { id: _, serverId, badStatus, ...characterWithoutId } = character;
+            const { id, ...badStatusWithoutId } = badStatus;
+            return { ...characterWithoutId, badStatus: badStatusWithoutId };
+        });
+
         Request.post(`/api/create`)
-            .send({ sessionName, characters })
+            .send({ sessionName, characters: serverCharacters })
             .end((err, res) => {
                 if (err) {
                     console.error(err);

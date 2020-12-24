@@ -410,7 +410,7 @@ body {
   width: 50px;
 }
 .battles-list__header__session-name {
-  width: 200px;
+  width: 320px;
 }
 .battles-list__header__created-at {
   width: 120px;
@@ -434,7 +434,7 @@ body {
   text-align: center;
 }
 .battles-list__session__session-name {
-  width: 200px;
+  width: 320px;
   text-align: center;
 }
 .battles-list__session__created-at {
