@@ -466,3 +466,6 @@ input[class=text-checkbox] {
 body {
   background-color: #ecebea;
 }
+th {
+  font-weight: inherit;
+}
