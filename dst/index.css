@@ -323,6 +323,9 @@ input[class=text-checkbox] {
   transition: background-color 0.2s linear;
   background-color: #ffa500;
 }
+.character-table__add-button {
+  margin: 16px;
+}
 .character-details__name {
   font-size: 24px;
 }
