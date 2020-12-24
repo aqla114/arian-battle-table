@@ -287,6 +287,13 @@ input[class=text-checkbox] {
   text-align: center;
   border-spacing: 0px;
 }
+.character-table__table__header th {
+  font-weight: inherit;
+  background-color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
 .character-table__table__character__is-acted,
 .character-table__table__character__name,
 .character-table__table__character__attribute {
