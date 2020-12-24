@@ -51,6 +51,7 @@ export class Skill {
     @ManyToOne(
         type => Character,
         character => character.skills,
+        { onDelete: 'CASCADE' },
     )
     character: Character;
 }

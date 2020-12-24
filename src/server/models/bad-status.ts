@@ -36,6 +36,7 @@ export class BadStatus {
     @OneToOne(
         type => Character,
         character => character.badStatus,
+        { onDelete: 'CASCADE' },
     )
     @JoinColumn()
     character: Character;

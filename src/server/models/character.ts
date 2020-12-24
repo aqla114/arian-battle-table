@@ -46,6 +46,7 @@ export class Character {
     @ManyToOne(
         type => BattleSession,
         battleSession => battleSession.characters,
+        { onDelete: 'CASCADE' },
     )
     battleSession: BattleSession;
 
