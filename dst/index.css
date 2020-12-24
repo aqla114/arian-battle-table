@@ -273,9 +273,6 @@ input[class=text-checkbox] {
   border-radius: 4px;
   border: 1px solid #e5e5e5;
 }
-body {
-  background-color: #ecebea;
-}
 .character-table {
   width: 1600px;
 }
@@ -361,6 +358,12 @@ body {
 }
 .character-details__skills__table__skill {
   height: 28px;
+}
+.save-container {
+  margin: 20px 0px 0px 20px;
+}
+.save-container__save-newly-button {
+  margin-left: 20px;
 }
 .dice-roller {
   font-size: 16px;
@@ -450,9 +453,6 @@ body {
   text-align: center;
   vertical-align: middle;
 }
-.save-container {
-  margin: 20px 0px 0px 20px;
-}
-.save-container__save-newly-button {
-  margin-left: 20px;
+body {
+  background-color: #ecebea;
 }
