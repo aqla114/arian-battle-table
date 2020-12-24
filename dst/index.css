@@ -103,6 +103,12 @@
   border: none;
   background-color: transparent;
 }
+.input-field__number.--left {
+  text-align: left;
+}
+.input-field__number.--center {
+  text-align: center;
+}
 .input-field__number.--right {
   text-align: right;
 }
@@ -273,9 +279,6 @@ input[class=text-checkbox] {
   border-radius: 4px;
   border: 1px solid #e5e5e5;
 }
-body {
-  background-color: #ecebea;
-}
 .character-table {
   width: 1600px;
 }
@@ -289,6 +292,13 @@ body {
   font-size: 16px;
   text-align: center;
   border-spacing: 0px;
+}
+.character-table__table__header th {
+  font-weight: inherit;
+  background-color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 .character-table__table__character__is-acted,
 .character-table__table__character__name,
@@ -326,6 +336,9 @@ body {
   transition: background-color 0.2s linear;
   background-color: #ffa500;
 }
+.character-table__add-button {
+  margin: 16px;
+}
 .character-details__name {
   font-size: 24px;
 }
@@ -361,6 +374,12 @@ body {
 }
 .character-details__skills__table__skill {
   height: 28px;
+}
+.save-container {
+  margin: 20px 0px 0px 20px;
+}
+.save-container__save-newly-button {
+  margin-left: 20px;
 }
 .dice-roller {
   font-size: 16px;
@@ -450,9 +469,9 @@ body {
   text-align: center;
   vertical-align: middle;
 }
-.save-container {
-  margin: 20px 0px 0px 20px;
+body {
+  background-color: #ecebea;
 }
-.save-container__save-newly-button {
-  margin-left: 20px;
+th {
+  font-weight: inherit;
 }

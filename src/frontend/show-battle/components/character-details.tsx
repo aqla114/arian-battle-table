@@ -66,11 +66,11 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                 <table className="character-details__attribute-values__table1">
                     <thead>
                         <tr>
-                            <td>最大HP</td>
-                            <td>物防</td>
-                            <td>魔防</td>
-                            <td>属性</td>
-                            <td>行動値</td>
+                            <th>最大HP</th>
+                            <th>物防</th>
+                            <th>魔防</th>
+                            <th>属性</th>
+                            <th>行動値</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -82,7 +82,7 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
-                                    textAlign={'right'}
+                                    textAlign={'center'}
                                 />
                             </td>
                             <td className="character-details__attribute-values__table1__physical-defence">
@@ -92,7 +92,7 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
-                                    textAlign={'right'}
+                                    textAlign={'center'}
                                 />
                             </td>
                             <td className="character-details__attribute-values__table1__magical-defence">
@@ -102,7 +102,7 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
-                                    textAlign={'right'}
+                                    textAlign={'center'}
                                 />
                             </td>
                             <td className="character-details__attribute-values__table1__attribute">
@@ -115,7 +115,7 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
-                                    textAlign={'right'}
+                                    textAlign={'center'}
                                 />
                             </td>
                         </tr>
@@ -124,13 +124,13 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                 <table className="character-details__attribute-values__table2">
                     <thead>
                         <tr>
-                            <td>筋力</td>
-                            <td>器用</td>
-                            <td>敏捷</td>
-                            <td>知力</td>
-                            <td>感知</td>
-                            <td>精神</td>
-                            <td>幸運</td>
+                            <th>筋力</th>
+                            <th>器用</th>
+                            <th>敏捷</th>
+                            <th>知力</th>
+                            <th>感知</th>
+                            <th>精神</th>
+                            <th>幸運</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -142,7 +142,7 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
-                                    textAlign={'right'}
+                                    textAlign={'center'}
                                 />
                             </td>
                             <td>
@@ -152,7 +152,7 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
-                                    textAlign={'right'}
+                                    textAlign={'center'}
                                 />
                             </td>
                             <td>
@@ -162,7 +162,7 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
-                                    textAlign={'right'}
+                                    textAlign={'center'}
                                 />
                             </td>
                             <td>
@@ -172,7 +172,7 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
-                                    textAlign={'right'}
+                                    textAlign={'center'}
                                 />
                             </td>
                             <td>
@@ -182,7 +182,7 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
-                                    textAlign={'right'}
+                                    textAlign={'center'}
                                 />
                             </td>
                             <td>
@@ -192,7 +192,7 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
-                                    textAlign={'right'}
+                                    textAlign={'center'}
                                 />
                             </td>
                             <td>
@@ -202,7 +202,7 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                                     kind="number"
                                     onChange={onChangeNumberInputField}
                                     showBorder={false}
-                                    textAlign={'right'}
+                                    textAlign={'center'}
                                 />
                             </td>
                         </tr>
@@ -233,14 +233,14 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                 <table className="character-details__skills__table">
                     <thead>
                         <tr>
-                            <td>タイミング</td>
-                            <td>スキル名</td>
-                            <td>判定</td>
-                            <td>対象</td>
-                            <td>射程</td>
-                            <td>使用条件</td>
-                            <td>効果</td>
-                            <td>削除</td>
+                            <th>タイミング</th>
+                            <th>スキル名</th>
+                            <th>判定</th>
+                            <th>対象</th>
+                            <th>射程</th>
+                            <th>使用条件</th>
+                            <th>効果</th>
+                            <th>削除</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 type Kind = 'number' | 'text';
-type TextAlign = 'left' | 'right';
+type TextAlign = 'left' | 'center' | 'right';
 type Size = 'small' | 'midddle' | 'large';
 
 type Props = {

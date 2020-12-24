@@ -1,18 +1,3 @@
-@import 'style/button.styl'
-@import 'style/button-dropdown.styl'
-@import 'style/icon-button.styl'
-@import 'style/input-field.styl'
-@import 'style/input-field-with-button.styl'
-@import 'style/dropdown.styl'
-@import 'style/dialog.styl'
-@import 'style/side-modal.styl'
-@import 'style/text-checkbox.styl'
-@import 'style/card-container.styl'
-@import 'style/textarea.styl'
-
-body
-    background-color: #ecebea;
-
 .character-table
     width: 1600px;
     &__session-name
@@ -24,6 +9,13 @@ body
         font-size: 16px;
         text-align: center;
         border-spacing: 0px;
+        &__header
+            th
+                font-weight: inherit;
+                background-color: white;
+                position: sticky;
+                top: 0;
+                z-index: 1;
         &__character
             &__is-acted, &__name, &__attribute
                 width: 100px;
@@ -49,6 +41,8 @@ body
                 box-shadow: 0 2px 4px rgba(0,0,0,0.12), 0 2px 3px rgba(0,0,0,0.24);
                 transition: background-color 0.2s linear;
                 background-color: orange;
+    &__add-button
+        margin: 16px;
 
 .character-details
     &__name
@@ -79,6 +73,11 @@ body
             &__skill
                 height: 28px;
 
+.save-container
+    margin: 20px 0px 0px 20px;
+    &__save-newly-button
+        margin-left: 20px;
+
 .dice-roller
     font-size: 16px;
     &__roll-button
@@ -101,53 +100,3 @@ body
             color: #ffd326;
         &__fanble
             color: red;
-
-.battles-list
-    width: 800px;
-    padding: 0px;
-    &__header
-        list-style: none;
-        height: 40px;
-        margin: 8px;
-        padding: 0 20px;
-        div
-            text-align: center;
-            vertical-align: middle;
-            display: inline-block;
-        &__id
-            width: 50px;
-        &__session-name
-            width: 320px;
-        &__created-at
-            width: 120px;
-        &__updated-at
-            width: 120px;
-        &__delete
-            width: 110px;
-    &__session
-        list-style: none;
-        margin: 4px;
-        color: black;
-        div
-            display: inline-block;
-        &__id
-            width: 50px;
-            text-align: center;
-        &__session-name
-            width: 320px;
-            text-align: center;
-        &__created-at
-            width: 120px;
-            text-align: center;
-        &__updated-at
-            width: 120px;
-            text-align: center;
-        &__delete
-            width: 60px;
-            text-align: center;
-            vertical-align: middle;
-
-.save-container
-    margin: 20px 0px 0px 20px;
-    &__save-newly-button
-        margin-left: 20px;

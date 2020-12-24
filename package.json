@@ -65,10 +65,10 @@
     "uuid": "^8.0.0"
   },
   "scripts": {
-    "build": "webpack && stylus src/frontend/index.styl -o dst/index.css && tsc -p .",
+    "build": "webpack && stylus src/frontend/style/index.styl -o dst/index.css && tsc -p .",
     "watch": "npm-run-all --parallel watch:*",
     "watch:frontend": "webpack --watch",
-    "watch:stylus": "yarn stylus -w src/frontend/index.styl -o dst/index.css",
+    "watch:stylus": "yarn stylus -w src/frontend/style/index.styl -o dst/index.css",
     "watch:server": "yarn tsc -p . -w",
     "test": "echo 'this is test'"
   }
