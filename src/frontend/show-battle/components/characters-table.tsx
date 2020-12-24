@@ -127,21 +127,21 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                     onChange={e => props.updateSessionName({ e })}
                 />
                 <table className="character-table__table">
-                    <thead>
+                    <thead className="character-table__table__header">
                         <tr>
-                            <td>行動済</td>
-                            <td>名前</td>
-                            <td>行動値 / 元</td>
-                            <td>HP / 最大HP</td>
-                            <td>物理防御力 / 元</td>
-                            <td>魔法防御力 / 元</td>
-                            <td>属性</td>
-                            <td>バッドステータス</td>
-                            <td>メモ</td>
-                            <td>各種操作</td>
+                            <th>行動済</th>
+                            <th>名前</th>
+                            <th>行動値 / 元</th>
+                            <th>HP / 最大HP</th>
+                            <th>物理防御力 / 元</th>
+                            <th>魔法防御力 / 元</th>
+                            <th>属性</th>
+                            <th>バッドステータス</th>
+                            <th>メモ</th>
+                            <th>各種操作</th>
                         </tr>
                     </thead>
-                    <tbody>{characterElement}</tbody>
+                    <tbody className="character-table__table__body">{characterElement}</tbody>
                 </table>
                 <div className="character-table__add-button">
                     <IconButton name={'add'} icon={faPlusSquare} size={'small'} onClick={props.addNewCharacter} />
