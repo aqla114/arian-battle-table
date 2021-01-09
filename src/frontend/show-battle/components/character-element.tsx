@@ -132,7 +132,7 @@ export function CharacterElement(props: CharacterElementProps) {
             <td className="character-table__table__character__badstatus">
                 <BadStatusButtons badStatusList={badStatusList} />
             </td>
-            <td className="character-table__character__memo">
+            <td className="character-table__table__character__memo">
                 <Textarea
                     name="memo"
                     value={props.memo}
