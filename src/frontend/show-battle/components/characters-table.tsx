@@ -10,7 +10,7 @@ import { InputField } from '../../components/atoms/input-field';
 import { CharacterDetails } from './character-details';
 import { Modal } from '../../types/modal';
 import { FrontendCharacter } from '../../types/character';
-import { CharacterID, GuildId } from '../actions/actions';
+import { CharacterId, GuildId } from '../actions/actions';
 import { faPlusSquare } from '@fortawesome/free-regular-svg-icons';
 import { IconButton } from '../../components/atoms/icon-button';
 
@@ -21,8 +21,8 @@ export type CharacterTableState = {
     };
     current: {
         currentGuildId: GuildId;
-        deleteCharacterID: CharacterID;
-        modalCharacterID: CharacterID;
+        deleteCharacterID: CharacterId;
+        modalCharacterID: CharacterId;
     };
     dom: {
         modal: Modal | null;

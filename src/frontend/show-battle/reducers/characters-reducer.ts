@@ -1,6 +1,6 @@
 import * as uuid from 'uuid';
 import { CharacterTableState } from '../components/characters-table';
-import { ChangeActionProps, ClickDropDownListItemProps, CharacterID } from '../actions/actions';
+import { ChangeActionProps, ClickDropDownListItemProps, CharacterId } from '../actions/actions';
 import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
 import { characterSelector } from './reducers';
 import { BadStatus } from '../../types/bad-status';
@@ -9,7 +9,7 @@ import { FrontendCharacter } from '../../types/character';
 
 export const updateCharacterAttributeNumberText: (
     state: CharacterTableState,
-    props: ChangeActionProps<CharacterID>,
+    props: ChangeActionProps<CharacterId>,
 ) => CharacterTableState = (state, props) => {
     const { e, payload: id } = props;
 
@@ -33,7 +33,7 @@ export const updateCharacterAttributeNumberText: (
 
 export const updateCharacterAttributeText: (
     state: CharacterTableState,
-    props: ChangeActionProps<CharacterID>,
+    props: ChangeActionProps<CharacterId>,
 ) => CharacterTableState = (state, props) => {
     const { e, payload: id } = props;
 
@@ -46,7 +46,7 @@ export const updateCharacterAttributeText: (
 
 export const updateCharacterCheckbox: (
     state: CharacterTableState,
-    props: ChangeActionProps<CharacterID>,
+    props: ChangeActionProps<CharacterId>,
 ) => CharacterTableState = (state, props) => {
     const { e, payload: id } = props;
     const action = e.target.name;
@@ -98,7 +98,7 @@ export const updateButtonDropdownBadStatus: (
 
 export const updateCharacterAttributeDropdown: (
     state: CharacterTableState,
-    props: ChangeActionProps<CharacterID>,
+    props: ChangeActionProps<CharacterId>,
 ) => CharacterTableState = (state, props) => {
     const { e, payload: id } = props;
 

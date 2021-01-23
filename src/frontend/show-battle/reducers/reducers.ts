@@ -1,6 +1,6 @@
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { CharacterTableState } from '../components/characters-table';
-import { actions, CharacterID } from '../actions/actions';
+import { actions, CharacterId } from '../actions/actions';
 import { updateSessionName } from './session-name-reducer';
 import {
     updateCharacterAttributeNumberText,
@@ -32,7 +32,7 @@ const initialState: CharacterTableState = {
     },
 };
 
-export function characterSelector(CharacterID: CharacterID) {
+export function characterSelector(CharacterID: CharacterId) {
     return (character: FrontendCharacter, _: number) => character.frontendId === CharacterID;
 }
 

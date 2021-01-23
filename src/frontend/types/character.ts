@@ -3,13 +3,13 @@ import * as uuid from 'uuid';
 import { Attribute } from './attribute';
 import { BadStatus, defaultBadStatus } from './bad-status';
 import { FrontendSkill } from './skill';
-import { CharacterName, CharacterID } from '../show-battle/actions/actions';
+import { CharacterName, CharacterId } from '../show-battle/actions/actions';
 import { Character } from '../../types/character';
 
 // id は server で保存する id を、frontendId は frontend で描画用の key を指す。
 // frontend で id を参照することはなく、frontendId で全ての処理をする。
 export type FrontendCharacter = Omit<Character, 'skills'> & {
-    frontendId: CharacterID;
+    frontendId: CharacterId;
     skills: FrontendSkill[];
 };
 
@@ -42,7 +42,7 @@ export function FrontendCharacter(
     memo: string = '',
     badStatus: BadStatus = defaultBadStatus,
     skills: FrontendSkill[] = [],
-    frontendId: CharacterID = uuid.v4(),
+    frontendId: CharacterId = uuid.v4(),
 ): FrontendCharacter {
     return {
         id: undefined,

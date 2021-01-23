@@ -7,7 +7,7 @@ import { useDrag, useDrop } from 'react-dnd';
 import { InputField } from '../../components/atoms/input-field';
 import { attributeLabels } from '../../types/attribute';
 import { FrontendCharacter } from '../../types/character';
-import { CharacterID } from '../actions/actions';
+import { CharacterId } from '../actions/actions';
 import { IconButton } from '../../components/atoms/icon-button';
 import { FrontendSkill, SkillId } from '../../types/skill';
 import { Textarea } from '../../components/atoms/textarea';
@@ -21,7 +21,7 @@ export type CharacterDetailsProps = {
     onClickDeleteSkillButton: (e: React.MouseEvent<HTMLInputElement, MouseEvent>, skillId: SkillId) => void;
     onMoveSkill: (dragIdx: number, dropIdx: number) => void;
     onCloseModal: () => void;
-    onLoadSkillsCsv: (characterID: CharacterID, files: FileList | null) => void;
+    onLoadSkillsCsv: (characterID: CharacterId, files: FileList | null) => void;
 };
 
 export const CharacterDetails: React.SFC<CharacterDetailsProps> = (props: CharacterDetailsProps) => {

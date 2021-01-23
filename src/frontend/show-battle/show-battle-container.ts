@@ -7,7 +7,7 @@ import {
     MouseActionProps,
     ChangeSessionNameProps,
     ClickDropDownListItemProps,
-    CharacterID,
+    CharacterId,
     MoveSkillProps,
     GuildId,
 } from './actions/actions';
@@ -21,20 +21,20 @@ import { FrontendSkill, SkillId } from '../types/skill';
 
 export interface Actions {
     updateSessionName: (v: ChangeSessionNameProps) => Action<string>;
-    updateCharacterAttributeNumberText: (v: ChangeActionProps<CharacterID>) => Action<string>;
-    updateCharacterAttributeText: (v: ChangeActionProps<CharacterID>) => Action<string>;
+    updateCharacterAttributeNumberText: (v: ChangeActionProps<CharacterId>) => Action<string>;
+    updateCharacterAttributeText: (v: ChangeActionProps<CharacterId>) => Action<string>;
     updateSkillAttributeText: (
-        v: ChangeActionProps<{ characterID: CharacterID; skillIndex: number }>,
+        v: ChangeActionProps<{ characterID: CharacterId; skillIndex: number }>,
     ) => Action<string>;
-    updateCharacterCheckbox: (v: ChangeActionProps<CharacterID>) => Action<string>;
+    updateCharacterCheckbox: (v: ChangeActionProps<CharacterId>) => Action<string>;
     updateButtonDropdownBadStatus: (v: ClickDropDownListItemProps) => Action<string>;
-    updateCharacterAttributeDropdown: (v: ChangeActionProps<CharacterID>) => Action<string>;
-    openDeletionModal: (v: MouseActionProps<CharacterID>) => Action<string>;
+    updateCharacterAttributeDropdown: (v: ChangeActionProps<CharacterId>) => Action<string>;
+    openDeletionModal: (v: MouseActionProps<CharacterId>) => Action<string>;
     closeModal: () => Action<string>;
-    openCharacterDetails: (v: MouseActionProps<CharacterID>) => Action<string>;
+    openCharacterDetails: (v: MouseActionProps<CharacterId>) => Action<string>;
     copyCharacter: (v: FrontendCharacter) => Action<string>;
     deleteCharacter: () => Action<string>;
-    deleteSkill: (v: MouseActionProps<{ characterID: CharacterID; skillId: string }>) => Action<string>;
+    deleteSkill: (v: MouseActionProps<{ characterID: CharacterId; skillId: string }>) => Action<string>;
     moveSkill: (v: MoveSkillProps) => Action<string>;
     updateCurrentGuildId: (v: ChangeActionProps) => Action<string>;
     addNewCharacter: () => Action<string>;
@@ -42,7 +42,7 @@ export interface Actions {
     loadCharacters: () => void;
     saveCharacters: (sessionName: string, v: FrontendCharacter[]) => void;
     saveCharactersNewly: (sessionName: string, characters: FrontendCharacter[]) => void;
-    loadSkillsCsv: (characterID: CharacterID, files: FileList | null) => void;
+    loadSkillsCsv: (characterID: CharacterId, files: FileList | null) => void;
     importCharactersByGuildId: (guildId: GuildId, characters: FrontendCharacter[]) => void;
 }
 
@@ -53,24 +53,24 @@ function mapStateToProps(state: State): CharacterTableState {
 function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
     return {
         updateSessionName: (v: ChangeSessionNameProps) => dispatch(actions.updateSessionName(v)),
-        updateCharacterAttributeNumberText: (v: ChangeActionProps<CharacterID>) =>
+        updateCharacterAttributeNumberText: (v: ChangeActionProps<CharacterId>) =>
             dispatch(actions.updateCharacterAttributeNumberText(v)),
-        updateCharacterAttributeText: (v: ChangeActionProps<CharacterID>) =>
+        updateCharacterAttributeText: (v: ChangeActionProps<CharacterId>) =>
             dispatch(actions.updateCharacterAttributeText(v)),
-        updateSkillAttributeText: (v: ChangeActionProps<{ characterID: CharacterID; skillIndex: number }>) =>
+        updateSkillAttributeText: (v: ChangeActionProps<{ characterID: CharacterId; skillIndex: number }>) =>
             dispatch(actions.updateSkillAttributeText(v)),
-        updateCharacterCheckbox: (v: ChangeActionProps<CharacterID>) => dispatch(actions.updateCharacterCheckbox(v)),
+        updateCharacterCheckbox: (v: ChangeActionProps<CharacterId>) => dispatch(actions.updateCharacterCheckbox(v)),
         updateButtonDropdownBadStatus: (v: ClickDropDownListItemProps) =>
             dispatch(actions.updateButtonDropdownBadStatus(v)),
-        updateCharacterAttributeDropdown: (v: ChangeActionProps<CharacterID>) =>
+        updateCharacterAttributeDropdown: (v: ChangeActionProps<CharacterId>) =>
             dispatch(actions.updateCharacterAttributeDropdown(v)),
-        openDeletionModal: (v: MouseActionProps<CharacterID>) => dispatch(actions.openDeletionModal(v)),
+        openDeletionModal: (v: MouseActionProps<CharacterId>) => dispatch(actions.openDeletionModal(v)),
         closeModal: () => dispatch(actions.closeModal()),
         deleteCharacter: () => dispatch(actions.deleteCharacter()),
-        deleteSkill: (v: MouseActionProps<{ characterID: CharacterID; skillId: SkillId }>) =>
+        deleteSkill: (v: MouseActionProps<{ characterID: CharacterId; skillId: SkillId }>) =>
             dispatch(actions.deleteSkill(v)),
         moveSkill: (v: MoveSkillProps) => dispatch(actions.moveSkill(v)),
-        openCharacterDetails: (v: MouseActionProps<CharacterID>) => dispatch(actions.openCharacterDetails(v)),
+        openCharacterDetails: (v: MouseActionProps<CharacterId>) => dispatch(actions.openCharacterDetails(v)),
         copyCharacter: (v: FrontendCharacter) => dispatch(actions.copyCharacter({ character: v })),
         updateCurrentGuildId: (v: ChangeActionProps) => dispatch(actions.updateCurrentGuildId(v)),
         addNewCharacter: () => dispatch(actions.addNewCharacter()),
@@ -163,7 +163,7 @@ function importCharactersMapper(dispatch: Dispatch<Action<string>>) {
 }
 
 function loadSkillsCsvMapper(dispatch: Dispatch<Action<string>>) {
-    return (characterID: CharacterID, files: FileList | null) => {
+    return (characterID: CharacterId, files: FileList | null) => {
         dispatch(actions.startedLoadingSkillsCsv({ characterID }));
 
         if (files === null || files.length === 0) {

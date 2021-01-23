@@ -8,7 +8,7 @@ import { loadSkillsCsvActions } from './load-skills-csv';
 import { importCharactersByGuildIdActions } from './import-characters-by-guild-id';
 import { SkillId } from '../../types/skill';
 
-export type CharacterID = string;
+export type CharacterId = string;
 export type GuildId = string;
 export type CharacterName = string;
 
@@ -35,9 +35,9 @@ export type MouseActionProps<T> = {
 export type ClickDropDownListItemProps = {
     key: string;
     value: ButtonDropdownValue;
-    characterId: CharacterID;
+    characterId: CharacterId;
 };
-export type MoveSkillProps = { characterID: CharacterID; dragIdx: number; dropIdx: number };
+export type MoveSkillProps = { characterID: CharacterId; dragIdx: number; dropIdx: number };
 
 export type ActionTypes =
     | 'UPDATE_SESSION_NAME_TEXT'
@@ -66,23 +66,23 @@ const actionCreator = actionCreatorFactory();
 
 export const actions = {
     updateSessionName: actionCreator<ChangeSessionNameProps>('UPDATE_SESSION_NAME_TEXT'),
-    updateCharacterAttributeNumberText: actionCreator<ChangeActionProps<CharacterID>>(
+    updateCharacterAttributeNumberText: actionCreator<ChangeActionProps<CharacterId>>(
         'UPDATE_CHARACTER_ATTRIBUTE_NUMBER_TEXT',
     ),
-    updateCharacterAttributeText: actionCreator<ChangeActionProps<CharacterID>>('UPDATE_CHARACTER_ATTRIBUTE_TEXT'),
-    updateSkillAttributeText: actionCreator<ChangeActionProps<{ characterID: CharacterID; skillIndex: number }>>(
+    updateCharacterAttributeText: actionCreator<ChangeActionProps<CharacterId>>('UPDATE_CHARACTER_ATTRIBUTE_TEXT'),
+    updateSkillAttributeText: actionCreator<ChangeActionProps<{ characterID: CharacterId; skillIndex: number }>>(
         'UPDATE_SKILL_ATTRIBUTE_TEXT',
     ),
-    updateCharacterCheckbox: actionCreator<ChangeActionProps<CharacterID>>('UPDATE_CHARACTER_IS_KNOCKBACK'),
+    updateCharacterCheckbox: actionCreator<ChangeActionProps<CharacterId>>('UPDATE_CHARACTER_IS_KNOCKBACK'),
     updateButtonDropdownBadStatus: actionCreator<ClickDropDownListItemProps>('UPDATE_BUTTON_DROPDOWN_BAD_STATUS'),
-    updateCharacterAttributeDropdown: actionCreator<ChangeActionProps<CharacterID>>('UPDATE_CHARACTER_DROPDOWN'),
-    openDeletionModal: actionCreator<MouseActionProps<CharacterID>>('OPEN_DELETION_MODAL'),
+    updateCharacterAttributeDropdown: actionCreator<ChangeActionProps<CharacterId>>('UPDATE_CHARACTER_DROPDOWN'),
+    openDeletionModal: actionCreator<MouseActionProps<CharacterId>>('OPEN_DELETION_MODAL'),
     closeModal: actionCreator('CLOSE_MODAL'),
     deleteCharacter: actionCreator('DELETE_CHARACTER'),
-    deleteSkill: actionCreator<MouseActionProps<{ characterID: CharacterID; skillId: SkillId }>>('DELETE_SKILL'),
+    deleteSkill: actionCreator<MouseActionProps<{ characterID: CharacterId; skillId: SkillId }>>('DELETE_SKILL'),
     moveSkill: actionCreator<MoveSkillProps>('MOVE_SKILL'),
     copyCharacter: actionCreator<{ character: FrontendCharacter }>('COPY_CHARACTER'),
-    openCharacterDetails: actionCreator<MouseActionProps<CharacterID>>('OPEN_CHARACTER_DETAILS'),
+    openCharacterDetails: actionCreator<MouseActionProps<CharacterId>>('OPEN_CHARACTER_DETAILS'),
     addNewCharacter: actionCreator('ADD_NEW_CHARACTER'),
     addNewSkill: actionCreator('ADD_NEW_SKILL'),
     updateCurrentGuildId: actionCreator<ChangeActionProps>('UPDATE_CURRENT_GUILD_ID'),
