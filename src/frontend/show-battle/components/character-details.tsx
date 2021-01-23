@@ -9,7 +9,6 @@ import { attributeLabels } from '../../types/attribute';
 import { FrontendCharacter } from '../../types/character';
 import { CharacterID, SkillName } from '../actions/actions';
 import { IconButton } from '../../components/atoms/icon-button';
-import * as uuid from 'uuid';
 import { FrontendSkill } from '../../types/skill';
 import { Textarea } from '../../components/atoms/textarea';
 
@@ -246,7 +245,7 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                     <tbody>
                         {character.skills.map((skill, idx) => (
                             <DraggableSkillTableRow
-                                key={skill.id || uuid.v4()}
+                                key={skill.frontendId}
                                 skill={skill}
                                 idx={idx}
                                 onChangeElementSkillText={onChangeElementSkillText}
