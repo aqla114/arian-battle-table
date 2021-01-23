@@ -6,11 +6,11 @@ import { ButtonDropdownValue } from '../../components/atoms/button-dropdown';
 import { FrontendCharacter } from '../../types/character';
 import { loadSkillsCsvActions } from './load-skills-csv';
 import { importCharactersByGuildIdActions } from './import-characters-by-guild-id';
+import { SkillId } from '../../types/skill';
 
 export type CharacterID = string;
 export type GuildId = string;
 export type CharacterName = string;
-export type SkillName = string;
 
 // TODO 全部これ使う。
 export type ActionProps<S, T = undefined> = T extends undefined
@@ -79,7 +79,7 @@ export const actions = {
     openDeletionModal: actionCreator<MouseActionProps<CharacterID>>('OPEN_DELETION_MODAL'),
     closeModal: actionCreator('CLOSE_MODAL'),
     deleteCharacter: actionCreator('DELETE_CHARACTER'),
-    deleteSkill: actionCreator<MouseActionProps<{ characterID: CharacterID; skillName: SkillName }>>('DELETE_SKILL'),
+    deleteSkill: actionCreator<MouseActionProps<{ characterID: CharacterID; skillId: SkillId }>>('DELETE_SKILL'),
     moveSkill: actionCreator<MoveSkillProps>('MOVE_SKILL'),
     copyCharacter: actionCreator<{ character: FrontendCharacter }>('COPY_CHARACTER'),
     openCharacterDetails: actionCreator<MouseActionProps<CharacterID>>('OPEN_CHARACTER_DETAILS'),

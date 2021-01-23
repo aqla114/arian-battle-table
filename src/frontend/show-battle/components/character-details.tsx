@@ -7,9 +7,9 @@ import { useDrag, useDrop } from 'react-dnd';
 import { InputField } from '../../components/atoms/input-field';
 import { attributeLabels } from '../../types/attribute';
 import { FrontendCharacter } from '../../types/character';
-import { CharacterID, SkillName } from '../actions/actions';
+import { CharacterID } from '../actions/actions';
 import { IconButton } from '../../components/atoms/icon-button';
-import { FrontendSkill } from '../../types/skill';
+import { FrontendSkill, SkillId } from '../../types/skill';
 import { Textarea } from '../../components/atoms/textarea';
 
 export type CharacterDetailsProps = {
@@ -18,7 +18,7 @@ export type CharacterDetailsProps = {
     onChangeNumberInputField: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onChangeTextInputField: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
     onClickAddSkillButton: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
-    onClickDeleteSkillButton: (e: React.MouseEvent<HTMLInputElement, MouseEvent>, skillName: SkillName) => void;
+    onClickDeleteSkillButton: (e: React.MouseEvent<HTMLInputElement, MouseEvent>, skillId: SkillId) => void;
     onMoveSkill: (dragIdx: number, dropIdx: number) => void;
     onCloseModal: () => void;
     onLoadSkillsCsv: (characterID: CharacterID, files: FileList | null) => void;
@@ -265,7 +265,7 @@ const DraggableSkillTableRow = (props: {
     skill: FrontendSkill;
     idx: number;
     onChangeElementSkillText: (e: React.ChangeEvent<HTMLInputElement>, idx: number) => void;
-    onClickDeleteSkillButton: (e: React.MouseEvent<HTMLInputElement, MouseEvent>, skillName: SkillName) => void;
+    onClickDeleteSkillButton: (e: React.MouseEvent<HTMLInputElement, MouseEvent>, skillId: SkillId) => void;
     onMoveSkill: (dragIdx: number, dropIdx: number) => void;
 }) => {
     const { skill, idx, onChangeElementSkillText, onClickDeleteSkillButton, onMoveSkill } = props;
@@ -346,7 +346,7 @@ const DraggableSkillTableRow = (props: {
                     name={'delete'}
                     icon={faTrashAlt}
                     size={'small'}
-                    onClick={e => onClickDeleteSkillButton(e, skill.name)}
+                    onClick={e => onClickDeleteSkillButton(e, skill.frontendId)}
                 />
             </td>
         </tr>

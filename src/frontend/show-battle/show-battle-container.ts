@@ -8,7 +8,6 @@ import {
     ChangeSessionNameProps,
     ClickDropDownListItemProps,
     CharacterID,
-    SkillName,
     MoveSkillProps,
     GuildId,
 } from './actions/actions';
@@ -18,7 +17,7 @@ import * as uuid from 'uuid';
 import { FrontendCharacter } from '../types/character';
 import { parseCsv } from '../utils/skill-csv-parser';
 import { Character } from '../../types/character';
-import { FrontendSkill } from '../types/skill';
+import { FrontendSkill, SkillId } from '../types/skill';
 
 export interface Actions {
     updateSessionName: (v: ChangeSessionNameProps) => Action<string>;
@@ -35,7 +34,7 @@ export interface Actions {
     openCharacterDetails: (v: MouseActionProps<CharacterID>) => Action<string>;
     copyCharacter: (v: FrontendCharacter) => Action<string>;
     deleteCharacter: () => Action<string>;
-    deleteSkill: (v: MouseActionProps<{ characterID: CharacterID; skillName: SkillName }>) => Action<string>;
+    deleteSkill: (v: MouseActionProps<{ characterID: CharacterID; skillId: string }>) => Action<string>;
     moveSkill: (v: MoveSkillProps) => Action<string>;
     updateCurrentGuildId: (v: ChangeActionProps) => Action<string>;
     addNewCharacter: () => Action<string>;
@@ -68,7 +67,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
         openDeletionModal: (v: MouseActionProps<CharacterID>) => dispatch(actions.openDeletionModal(v)),
         closeModal: () => dispatch(actions.closeModal()),
         deleteCharacter: () => dispatch(actions.deleteCharacter()),
-        deleteSkill: (v: MouseActionProps<{ characterID: CharacterID; skillName: SkillName }>) =>
+        deleteSkill: (v: MouseActionProps<{ characterID: CharacterID; skillId: SkillId }>) =>
             dispatch(actions.deleteSkill(v)),
         moveSkill: (v: MoveSkillProps) => dispatch(actions.moveSkill(v)),
         openCharacterDetails: (v: MouseActionProps<CharacterID>) => dispatch(actions.openCharacterDetails(v)),

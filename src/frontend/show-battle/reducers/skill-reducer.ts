@@ -1,6 +1,6 @@
-import { FrontendSkill } from '../../types/skill';
+import { FrontendSkill, SkillId } from '../../types/skill';
 import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
-import { ChangeActionProps, CharacterID, MouseActionProps, SkillName } from '../actions/actions';
+import { ChangeActionProps, CharacterID, MouseActionProps } from '../actions/actions';
 import { CharacterTableState } from '../components/characters-table';
 import { characterSelector, indexSelector } from './reducers';
 
@@ -59,14 +59,14 @@ export const addNewSkill: (state: CharacterTableState) => CharacterTableState = 
 
 export const deleteSkill: (
     state: CharacterTableState,
-    props: MouseActionProps<{ characterID: CharacterID; skillName: SkillName }>,
+    props: MouseActionProps<{ characterID: CharacterID; skillId: SkillId }>,
 ) => CharacterTableState = (state, props) => {
     const {
-        payload: { characterID, skillName },
+        payload: { characterID, skillId },
     } = props;
 
     const characters = updateItemInArray(state.state.characters, characterSelector(characterID), character => {
-        const skills = character.skills.filter(s => s.name !== skillName);
+        const skills = character.skills.filter(s => s.frontendId !== skillId);
         return updateObject(character, { skills });
     });
 
