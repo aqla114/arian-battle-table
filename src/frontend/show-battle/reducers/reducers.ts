@@ -13,7 +13,7 @@ import {
     updateCharacterAttributeText,
 } from './characters-reducer';
 import { Skill } from '../../types/skill';
-import { Character } from '../../types/character';
+import { FrontendCharacter } from '../../types/character';
 import { addNewSkill, deleteSkill, moveSkill, updateSkillAttributeText } from './skill-reducer';
 import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
 
@@ -33,7 +33,7 @@ const initialState: CharacterTableState = {
 };
 
 export function characterSelector(CharacterID: CharacterID) {
-    return (character: Character, _: number) => character.id === CharacterID;
+    return (character: FrontendCharacter, _: number) => character.frontendId === CharacterID;
 }
 
 export function skillSelector(skillName: string) {

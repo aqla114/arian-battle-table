@@ -3,7 +3,7 @@ import { loadCharactersActions } from './load-characters';
 import { saveCharactersActions } from './save-characters';
 import { saveCharactersNewlyActions } from './save-characters-newly';
 import { ButtonDropdownValue } from '../../components/atoms/button-dropdown';
-import { Character } from '../../types/character';
+import { FrontendCharacter } from '../../types/character';
 import { loadSkillsCsvActions } from './load-skills-csv';
 import { importCharactersByGuildIdActions } from './import-characters-by-guild-id';
 
@@ -81,7 +81,7 @@ export const actions = {
     deleteCharacter: actionCreator('DELETE_CHARACTER'),
     deleteSkill: actionCreator<MouseActionProps<{ characterID: CharacterID; skillName: SkillName }>>('DELETE_SKILL'),
     moveSkill: actionCreator<MoveSkillProps>('MOVE_SKILL'),
-    copyCharacter: actionCreator<{ character: Character }>('COPY_CHARACTER'),
+    copyCharacter: actionCreator<{ character: FrontendCharacter }>('COPY_CHARACTER'),
     openCharacterDetails: actionCreator<MouseActionProps<CharacterID>>('OPEN_CHARACTER_DETAILS'),
     addNewCharacter: actionCreator('ADD_NEW_CHARACTER'),
     addNewSkill: actionCreator('ADD_NEW_SKILL'),

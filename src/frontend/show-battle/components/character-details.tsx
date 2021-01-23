@@ -6,7 +6,7 @@ import { useDrag, useDrop } from 'react-dnd';
 
 import { InputField } from '../../components/atoms/input-field';
 import { attributeLabels } from '../../types/attribute';
-import { Character } from '../../types/character';
+import { FrontendCharacter } from '../../types/character';
 import { CharacterID, SkillName } from '../actions/actions';
 import { IconButton } from '../../components/atoms/icon-button';
 import * as uuid from 'uuid';
@@ -14,7 +14,7 @@ import { Skill } from '../../types/skill';
 import { Textarea } from '../../components/atoms/textarea';
 
 export type CharacterDetailsProps = {
-    character: Character;
+    character: FrontendCharacter;
     onChangeElementSkillText: (e: React.ChangeEvent<HTMLInputElement>, idx: number) => void;
     onChangeNumberInputField: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onChangeTextInputField: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
@@ -227,7 +227,7 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                     name="upload"
                     onChange={e => {
                         console.log(e.target.files);
-                        onLoadSkillsCsv(character.id, e.target.files);
+                        onLoadSkillsCsv(character.frontendId, e.target.files);
                     }}
                 />
                 <table className="character-details__skills__table">

@@ -1,43 +1,18 @@
+import * as uuid from 'uuid';
+
 import { Attribute } from './attribute';
 import { BadStatus, defaultBadStatus } from './bad-status';
 import { Skill } from './skill';
 import { CharacterName, CharacterID } from '../show-battle/actions/actions';
+import { Character } from '../../types/character';
 
-export type Character = {
-    id: CharacterID,
-    name: CharacterName;
-    attribute: Attribute;
-    defaultActionPriority: number;
-    actionPriority: number;
-    hp: number;
-    maxHp: number;
-    physicalDefence: number;
-    defaultPhysicalDefence: number;
-    magicalDefence: number;
-    defaultMagicalDefence: number;
-    strength: number;
-    strength_base: number;
-    dexterity: number;
-    dexterity_base: number;
-    agility: number;
-    agility_base: number;
-    wisdom: number;
-    wisdom_base: number;
-    sensitivity: number;
-    sensitivity_base: number;
-    power: number;
-    power_base: number;
-    luck: number;
-    luck_base: number;
-    isActed: boolean;
-    memo: string;
-    badStatus: BadStatus;
-    skills: Skill[];
-    serverId: number | null,
+// id は server で保存する id を、frontendId は frontend で描画用の key を指す。
+// frontend で id を参照することはなく、frontendId で全ての処理をする。
+export type FrontendCharacter = Character & {
+    frontendId: CharacterID;
 };
 
-export function Character(
-    id: CharacterID = '',
+export function FrontendCharacter(
     name: CharacterName = '',
     attribute: Attribute = 'None',
     actionPriority: number = 0,
@@ -66,10 +41,10 @@ export function Character(
     memo: string = '',
     badStatus: BadStatus = defaultBadStatus,
     skills: Skill[] = [],
-    serverId: number | null = null,
-): Character {
+    frontendId: CharacterID = uuid.v4(),
+): FrontendCharacter {
     return {
-        id,
+        id: undefined,
         name,
         attribute,
         defaultActionPriority,
@@ -98,6 +73,6 @@ export function Character(
         power_base,
         luck,
         luck_base,
-        serverId,
+        frontendId,
     };
 }

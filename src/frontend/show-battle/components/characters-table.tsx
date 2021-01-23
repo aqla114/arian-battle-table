@@ -9,7 +9,7 @@ import { CardContainer } from '../../components/card-container';
 import { InputField } from '../../components/atoms/input-field';
 import { CharacterDetails } from './character-details';
 import { Modal } from '../../types/modal';
-import { Character } from '../../types/character';
+import { FrontendCharacter } from '../../types/character';
 import { CharacterID, GuildId } from '../actions/actions';
 import { faPlusSquare } from '@fortawesome/free-regular-svg-icons';
 import { IconButton } from '../../components/atoms/icon-button';
@@ -17,7 +17,7 @@ import { IconButton } from '../../components/atoms/icon-button';
 export type CharacterTableState = {
     state: {
         sessionName: string;
-        characters: Character[];
+        characters: FrontendCharacter[];
     };
     current: {
         currentGuildId: GuildId;
@@ -47,19 +47,23 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
     const characterElement = characters.map(character => {
         return (
             <CharacterElement
-                key={character.id}
+                key={character.frontendId}
                 {...character}
                 isNextPrior={!character.isActed && character.actionPriority === nextActionPriority}
-                onChangeElementNumberText={e => props.updateCharacterAttributeNumberText({ e, payload: character.id })}
-                onChangeElementText={e => props.updateCharacterAttributeText({ e, payload: character.id })}
-                onChangeElementCheckbox={e => props.updateCharacterCheckbox({ e, payload: character.id })}
-                onClickDropdownItem={(key, value) =>
-                    props.updateButtonDropdownBadStatus({ key, value, characterId: character.id })
+                onChangeElementNumberText={e =>
+                    props.updateCharacterAttributeNumberText({ e, payload: character.frontendId })
                 }
-                onChangeElementDropdown={e => props.updateCharacterAttributeDropdown({ e, payload: character.id })}
+                onChangeElementText={e => props.updateCharacterAttributeText({ e, payload: character.frontendId })}
+                onChangeElementCheckbox={e => props.updateCharacterCheckbox({ e, payload: character.frontendId })}
+                onClickDropdownItem={(key, value) =>
+                    props.updateButtonDropdownBadStatus({ key, value, characterId: character.frontendId })
+                }
+                onChangeElementDropdown={e =>
+                    props.updateCharacterAttributeDropdown({ e, payload: character.frontendId })
+                }
                 onCopyCharacter={_ => props.copyCharacter(character)}
-                onDeleteCharacter={e => props.openDeletionModal({ e, payload: character.id })}
-                onClickCharacterDetailsButton={e => props.openCharacterDetails({ e, payload: character.id })}
+                onDeleteCharacter={e => props.openDeletionModal({ e, payload: character.frontendId })}
+                onClickCharacterDetailsButton={e => props.openCharacterDetails({ e, payload: character.frontendId })}
             />
         );
     });

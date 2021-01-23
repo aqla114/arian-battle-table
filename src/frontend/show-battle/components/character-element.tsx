@@ -12,9 +12,9 @@ import { faCopy, faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import { OnClickDropdownListItem } from '../../components/atoms/button-dropdown';
 import { Textarea } from '../../components/atoms/textarea';
-import { Character } from '../../types/character';
+import { FrontendCharacter } from '../../types/character';
 
-type CharacterElementProps = Character & {
+type CharacterElementProps = FrontendCharacter & {
     isNextPrior: boolean;
     onChangeElementText: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     onChangeElementNumberText: (e: React.ChangeEvent<HTMLInputElement>) => void;

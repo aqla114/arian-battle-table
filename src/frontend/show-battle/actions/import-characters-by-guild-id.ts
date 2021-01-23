@@ -1,7 +1,7 @@
 import actionCreatorFactory, { ActionCreator, Failure, Success } from 'typescript-fsa';
-import { Character } from '../../types/character';
+import { FrontendCharacter } from '../../types/character';
 
-type Session = { characters: Character[] };
+type Session = { characters: FrontendCharacter[] };
 
 const actionCreator = actionCreatorFactory();
 

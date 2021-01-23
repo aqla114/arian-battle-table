@@ -15,8 +15,9 @@ import {
 import { State } from './store';
 import * as Request from 'superagent';
 import * as uuid from 'uuid';
-import { Character } from '../types/character';
+import { FrontendCharacter } from '../types/character';
 import { parseCsv } from '../utils/skill-csv-parser';
+import { Character } from '../../types/character';
 
 export interface Actions {
     updateSessionName: (v: ChangeSessionNameProps) => Action<string>;
@@ -31,7 +32,7 @@ export interface Actions {
     openDeletionModal: (v: MouseActionProps<CharacterID>) => Action<string>;
     closeModal: () => Action<string>;
     openCharacterDetails: (v: MouseActionProps<CharacterID>) => Action<string>;
-    copyCharacter: (v: Character) => Action<string>;
+    copyCharacter: (v: FrontendCharacter) => Action<string>;
     deleteCharacter: () => Action<string>;
     deleteSkill: (v: MouseActionProps<{ characterID: CharacterID; skillName: SkillName }>) => Action<string>;
     moveSkill: (v: MoveSkillProps) => Action<string>;
@@ -39,10 +40,10 @@ export interface Actions {
     addNewCharacter: () => Action<string>;
     addNewSkill: () => Action<string>;
     loadCharacters: () => void;
-    saveCharacters: (sessionName: string, v: Character[]) => void;
-    saveCharactersNewly: (sessionName: string, characters: Character[]) => void;
+    saveCharacters: (sessionName: string, v: FrontendCharacter[]) => void;
+    saveCharactersNewly: (sessionName: string, characters: FrontendCharacter[]) => void;
     loadSkillsCsv: (characterID: CharacterID, files: FileList | null) => void;
-    importCharactersByGuildId: (guildId: GuildId, characters: Character[]) => void;
+    importCharactersByGuildId: (guildId: GuildId, characters: FrontendCharacter[]) => void;
 }
 
 function mapStateToProps(state: State): CharacterTableState {
@@ -70,7 +71,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
             dispatch(actions.deleteSkill(v)),
         moveSkill: (v: MoveSkillProps) => dispatch(actions.moveSkill(v)),
         openCharacterDetails: (v: MouseActionProps<CharacterID>) => dispatch(actions.openCharacterDetails(v)),
-        copyCharacter: (v: Character) => dispatch(actions.copyCharacter({ character: v })),
+        copyCharacter: (v: FrontendCharacter) => dispatch(actions.copyCharacter({ character: v })),
         updateCurrentGuildId: (v: ChangeActionProps) => dispatch(actions.updateCurrentGuildId(v)),
         addNewCharacter: () => dispatch(actions.addNewCharacter()),
         addNewSkill: () => dispatch(actions.addNewSkill()),
@@ -94,10 +95,9 @@ function loadCharactersMapper(dispatch: Dispatch<Action<string>>) {
                 dispatch(actions.failedLoadingCharacters({ params: {}, error: {} }));
             } else {
                 const { characters: resCharacters, sessionName }: { characters: any[]; sessionName: string } = res.body;
-                const characters: Character[] = resCharacters.map((character: any) => ({
+                const characters: FrontendCharacter[] = resCharacters.map((character: Character) => ({
                     ...character,
-                    serverId: character.id,
-                    id: uuid.v4(),
+                    frontendId: character.id || uuid.v4(),
                 }));
 
                 dispatch(
@@ -117,7 +117,7 @@ function loadCharactersMapper(dispatch: Dispatch<Action<string>>) {
 }
 
 function importCharactersMapper(dispatch: Dispatch<Action<string>>) {
-    return (guildId: GuildId, currentCharacters: Character[]) => {
+    return (guildId: GuildId, currentCharacters: FrontendCharacter[]) => {
         dispatch(actions.startedImportCharactersByGuildId({}));
 
         const id = location.pathname.split('/').slice(-1)[0];
@@ -138,12 +138,11 @@ function importCharactersMapper(dispatch: Dispatch<Action<string>>) {
                     dispatch(actions.failedImportCharactersByGuildId({ params: {}, error: {} }));
                 } else {
                     const { characters: importedCharacters }: { characters: any[] } = res.body;
-                    const characters: Character[] = [
+                    const characters: FrontendCharacter[] = [
                         ...currentCharacters,
                         ...importedCharacters.map((character: any) => ({
                             ...character,
-                            serverId: character.id,
-                            id: character.id || uuid.v4(),
+                            frontendId: character.id || uuid.v4(),
                         })),
                     ];
 
@@ -202,17 +201,14 @@ function loadSkillsCsvMapper(dispatch: Dispatch<Action<string>>) {
 }
 
 function saveCharactersMapper(dispatch: Dispatch<Action<string>>) {
-    return (sessionName: string, characters: Character[]) => {
+    return (sessionName: string, characters: FrontendCharacter[]) => {
         dispatch(actions.startedSaving({}));
 
         const id = location.pathname.split('/').slice(-1)[0];
 
         const serverCharacters = characters.map(character => {
-            const { id: _, serverId, ...characterWithoutId } = character;
-            if (serverId === null) {
-                return { ...characterWithoutId };
-            }
-            return { ...characterWithoutId, id: serverId };
+            const { frontendId, ...serverCharacter } = character;
+            return serverCharacter;
         });
 
         Request.post(`/api/${id}/update`)
@@ -236,13 +232,14 @@ function saveCharactersMapper(dispatch: Dispatch<Action<string>>) {
 }
 
 function saveCharactersNewlyMapper(dispatch: Dispatch<Action<string>>) {
-    return (sessionName: string, characters: Character[]) => {
+    return (sessionName: string, characters: FrontendCharacter[]) => {
         dispatch(actions.startedSavingNewly({}));
 
+        // TODO. ここらへんのコピーとかの処理、どう考えてもサーバー側でやるべきじゃない？
         const serverCharacters = characters.map(character => {
-            const { id: _, serverId, badStatus, ...characterWithoutId } = character;
+            const { frontendId, badStatus, ...serverCharacter } = character;
             const { id, ...badStatusWithoutId } = badStatus;
-            return { ...characterWithoutId, badStatus: badStatusWithoutId };
+            return { ...serverCharacter, badStatus: badStatusWithoutId };
         });
 
         Request.post(`/api/create`)
