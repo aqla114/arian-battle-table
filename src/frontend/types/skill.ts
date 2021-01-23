@@ -1,30 +1,11 @@
-export type Skill = {
-    id?: number;
-    name: string;
-    timing: string;
-    determinationWay: string;
-    target: string;
-    range: string;
-    restriction: string;
-    detail: string;
+import * as uuid from 'uuid';
+
+import { Skill } from '../../types/skill';
+
+export type FrontendSkill = Skill & {
+    frontendId: string;
 };
 
-export function Skill(
-    name: string = '',
-    timing: string = '',
-    determinationWay: string = '',
-    target: string = '',
-    range: string = '',
-    restriction: string = '',
-    detail: string = '',
-): Skill {
-    return {
-        name,
-        timing,
-        determinationWay,
-        target,
-        range,
-        restriction,
-        detail,
-    };
+export function FrontendSkill() {
+    return { ...Skill(), frontendId: uuid.v4() };
 }

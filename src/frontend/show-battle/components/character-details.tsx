@@ -10,7 +10,7 @@ import { FrontendCharacter } from '../../types/character';
 import { CharacterID, SkillName } from '../actions/actions';
 import { IconButton } from '../../components/atoms/icon-button';
 import * as uuid from 'uuid';
-import { Skill } from '../../types/skill';
+import { FrontendSkill } from '../../types/skill';
 import { Textarea } from '../../components/atoms/textarea';
 
 export type CharacterDetailsProps = {
@@ -263,7 +263,7 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
 };
 
 const DraggableSkillTableRow = (props: {
-    skill: Skill;
+    skill: FrontendSkill;
     idx: number;
     onChangeElementSkillText: (e: React.ChangeEvent<HTMLInputElement>, idx: number) => void;
     onClickDeleteSkillButton: (e: React.MouseEvent<HTMLInputElement, MouseEvent>, skillName: SkillName) => void;

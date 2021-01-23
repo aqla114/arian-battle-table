@@ -12,7 +12,7 @@ import {
     addNewCharacter,
     updateCharacterAttributeText,
 } from './characters-reducer';
-import { Skill } from '../../types/skill';
+import { FrontendSkill } from '../../types/skill';
 import { FrontendCharacter } from '../../types/character';
 import { addNewSkill, deleteSkill, moveSkill, updateSkillAttributeText } from './skill-reducer';
 import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
@@ -37,7 +37,7 @@ export function characterSelector(CharacterID: CharacterID) {
 }
 
 export function skillSelector(skillName: string) {
-    return (skill: Skill, _: number) => skill.name === skillName;
+    return (skill: FrontendSkill, _: number) => skill.name === skillName;
 }
 
 export function indexSelector<T>(targetIdx: number) {

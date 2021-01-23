@@ -1,7 +1,7 @@
 import parse = require('csv-parse/lib/sync');
-import { Skill } from '../types/skill';
+import { FrontendSkill } from '../types/skill';
 
-export function parseCsv(csvString: string): Skill[] {
+export function parseCsv(csvString: string): Omit<FrontendSkill, 'frontendId'>[] {
     const records = parse(csvString, {
         columns: ['timing', 'name', 'determinationWay', 'target', 'range', 'restriction', 'detail'],
         skip_empty_lines: true,

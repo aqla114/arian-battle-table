@@ -18,6 +18,7 @@ import * as uuid from 'uuid';
 import { FrontendCharacter } from '../types/character';
 import { parseCsv } from '../utils/skill-csv-parser';
 import { Character } from '../../types/character';
+import { FrontendSkill } from '../types/skill';
 
 export interface Actions {
     updateSessionName: (v: ChangeSessionNameProps) => Action<string>;
@@ -98,6 +99,7 @@ function loadCharactersMapper(dispatch: Dispatch<Action<string>>) {
                 const characters: FrontendCharacter[] = resCharacters.map((character: Character) => ({
                     ...character,
                     frontendId: character.id || uuid.v4(),
+                    skills: character.skills.map(s => ({ ...s, frontendId: s.id || uuid.v4() })),
                 }));
 
                 dispatch(
@@ -185,11 +187,12 @@ function loadSkillsCsvMapper(dispatch: Dispatch<Action<string>>) {
         })
             .then(res => {
                 const parsedSkills = parseCsv(res);
+                const skills: FrontendSkill[] = parsedSkills.map(s => ({ ...s, frontendId: uuid.v4() }));
 
                 dispatch(
                     actions.doneLoadingSkillsCsv({
                         params: { characterID },
-                        result: { skills: parsedSkills },
+                        result: { skills },
                     }),
                 );
             })

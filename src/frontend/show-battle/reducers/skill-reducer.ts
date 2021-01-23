@@ -1,4 +1,4 @@
-import { Skill } from '../../types/skill';
+import { FrontendSkill } from '../../types/skill';
 import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
 import { ChangeActionProps, CharacterID, MouseActionProps, SkillName } from '../actions/actions';
 import { CharacterTableState } from '../components/characters-table';
@@ -41,7 +41,7 @@ export const addNewSkill: (state: CharacterTableState) => CharacterTableState = 
     const characterID = state.dom.modal.characterID;
 
     const characters = updateItemInArray(state.state.characters, characterSelector(characterID), character =>
-        updateObject(character, updateObject(character, { skills: [...character.skills, Skill()] })),
+        updateObject(character, updateObject(character, { skills: [...character.skills, FrontendSkill()] })),
     );
 
     const character = characters.find(characterSelector(characterID));
