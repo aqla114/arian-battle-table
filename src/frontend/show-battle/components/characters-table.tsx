@@ -81,24 +81,24 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
             ) : null}
             {modal?.type === 'CharacterDetailsModal' ? (
                 <CharacterDetails
-                    character={characters.filter(x => x.id === modal.characterID)[0]}
+                    character={characters.filter(x => x.frontendId === modal.characterId)[0]}
                     onChangeNumberInputField={e =>
-                        props.updateCharacterAttributeNumberText({ e, payload: modal.characterID })
+                        props.updateCharacterAttributeNumberText({ e, payload: modal.characterId })
                     }
-                    onChangeTextInputField={e => props.updateCharacterAttributeText({ e, payload: modal.characterID })}
+                    onChangeTextInputField={e => props.updateCharacterAttributeText({ e, payload: modal.characterId })}
                     onChangeElementSkillText={(e, idx) =>
                         props.updateSkillAttributeText({
                             e,
-                            payload: { characterID: modal.characterID, skillIndex: idx },
+                            payload: { characterId: modal.characterId, skillIndex: idx },
                         })
                     }
                     onClickAddSkillButton={props.addNewSkill}
                     onClickDeleteSkillButton={(e, skillId) =>
-                        props.deleteSkill({ e, payload: { characterID: modal.characterID, skillId } })
+                        props.deleteSkill({ e, payload: { characterId: modal.characterId, skillId } })
                     }
                     onCloseModal={props.closeModal}
                     onMoveSkill={(dragIdx, dropIdx) =>
-                        props.moveSkill({ characterID: modal.characterID, dragIdx, dropIdx })
+                        props.moveSkill({ characterId: modal.characterId, dragIdx, dropIdx })
                     }
                     onLoadSkillsCsv={props.loadSkillsCsv}
                 />

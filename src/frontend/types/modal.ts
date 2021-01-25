@@ -6,5 +6,5 @@ export type Modal =
       }
     | {
           type: 'CharacterDetailsModal';
-          characterID: CharacterId;
+          characterId: CharacterId;
       };

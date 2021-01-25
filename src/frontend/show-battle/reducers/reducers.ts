@@ -67,7 +67,7 @@ export const tableReducer = reducerWithInitialState(initialState)
     })
     .case(actions.openCharacterDetails, (state, props) => {
         const { payload: id } = props;
-        const character = state.state.characters.find(x => x.id === id);
+        const character = state.state.characters.find(x => x.frontendId === id);
 
         if (character === undefined) {
             console.log('Failed actions.openCharacterDetails');
@@ -76,7 +76,7 @@ export const tableReducer = reducerWithInitialState(initialState)
 
         return {
             ...state,
-            dom: { ...state.dom, modal: { type: 'CharacterDetailsModal', characterID: id } },
+            dom: { ...state.dom, modal: { type: 'CharacterDetailsModal', characterId: id } },
         };
     })
     .case(actions.closeModal, (state, _props) => {
@@ -90,9 +90,9 @@ export const tableReducer = reducerWithInitialState(initialState)
     })
     .case(actions.doneLoadingSkillsCsv, (state, props) => {
         const skills = props.result.skills;
-        const characterID = props.params.characterID;
+        const characterId = props.params.characterId;
 
-        const characters = updateItemInArray(state.state.characters, characterSelector(characterID), character => {
+        const characters = updateItemInArray(state.state.characters, characterSelector(characterId), character => {
             return updateObject(character, { skills });
         });
 

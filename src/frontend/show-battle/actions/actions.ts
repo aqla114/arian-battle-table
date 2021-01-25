@@ -37,7 +37,7 @@ export type ClickDropDownListItemProps = {
     value: ButtonDropdownValue;
     characterId: CharacterId;
 };
-export type MoveSkillProps = { characterID: CharacterId; dragIdx: number; dropIdx: number };
+export type MoveSkillProps = { characterId: CharacterId; dragIdx: number; dropIdx: number };
 
 export type ActionTypes =
     | 'UPDATE_SESSION_NAME_TEXT'
@@ -70,7 +70,7 @@ export const actions = {
         'UPDATE_CHARACTER_ATTRIBUTE_NUMBER_TEXT',
     ),
     updateCharacterAttributeText: actionCreator<ChangeActionProps<CharacterId>>('UPDATE_CHARACTER_ATTRIBUTE_TEXT'),
-    updateSkillAttributeText: actionCreator<ChangeActionProps<{ characterID: CharacterId; skillIndex: number }>>(
+    updateSkillAttributeText: actionCreator<ChangeActionProps<{ characterId: CharacterId; skillIndex: number }>>(
         'UPDATE_SKILL_ATTRIBUTE_TEXT',
     ),
     updateCharacterCheckbox: actionCreator<ChangeActionProps<CharacterId>>('UPDATE_CHARACTER_IS_KNOCKBACK'),
@@ -79,7 +79,7 @@ export const actions = {
     openDeletionModal: actionCreator<MouseActionProps<CharacterId>>('OPEN_DELETION_MODAL'),
     closeModal: actionCreator('CLOSE_MODAL'),
     deleteCharacter: actionCreator('DELETE_CHARACTER'),
-    deleteSkill: actionCreator<MouseActionProps<{ characterID: CharacterId; skillId: SkillId }>>('DELETE_SKILL'),
+    deleteSkill: actionCreator<MouseActionProps<{ characterId: CharacterId; skillId: SkillId }>>('DELETE_SKILL'),
     moveSkill: actionCreator<MoveSkillProps>('MOVE_SKILL'),
     copyCharacter: actionCreator<{ character: FrontendCharacter }>('COPY_CHARACTER'),
     openCharacterDetails: actionCreator<MouseActionProps<CharacterId>>('OPEN_CHARACTER_DETAILS'),

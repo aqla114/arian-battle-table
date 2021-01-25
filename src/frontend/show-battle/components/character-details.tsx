@@ -21,7 +21,7 @@ export type CharacterDetailsProps = {
     onClickDeleteSkillButton: (e: React.MouseEvent<HTMLInputElement, MouseEvent>, skillId: SkillId) => void;
     onMoveSkill: (dragIdx: number, dropIdx: number) => void;
     onCloseModal: () => void;
-    onLoadSkillsCsv: (characterID: CharacterId, files: FileList | null) => void;
+    onLoadSkillsCsv: (characterId: CharacterId, files: FileList | null) => void;
 };
 
 export const CharacterDetails: React.SFC<CharacterDetailsProps> = (props: CharacterDetailsProps) => {

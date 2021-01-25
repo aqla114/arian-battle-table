@@ -24,7 +24,7 @@ export interface Actions {
     updateCharacterAttributeNumberText: (v: ChangeActionProps<CharacterId>) => Action<string>;
     updateCharacterAttributeText: (v: ChangeActionProps<CharacterId>) => Action<string>;
     updateSkillAttributeText: (
-        v: ChangeActionProps<{ characterID: CharacterId; skillIndex: number }>,
+        v: ChangeActionProps<{ characterId: CharacterId; skillIndex: number }>,
     ) => Action<string>;
     updateCharacterCheckbox: (v: ChangeActionProps<CharacterId>) => Action<string>;
     updateButtonDropdownBadStatus: (v: ClickDropDownListItemProps) => Action<string>;
@@ -34,7 +34,7 @@ export interface Actions {
     openCharacterDetails: (v: MouseActionProps<CharacterId>) => Action<string>;
     copyCharacter: (v: FrontendCharacter) => Action<string>;
     deleteCharacter: () => Action<string>;
-    deleteSkill: (v: MouseActionProps<{ characterID: CharacterId; skillId: string }>) => Action<string>;
+    deleteSkill: (v: MouseActionProps<{ characterId: CharacterId; skillId: string }>) => Action<string>;
     moveSkill: (v: MoveSkillProps) => Action<string>;
     updateCurrentGuildId: (v: ChangeActionProps) => Action<string>;
     addNewCharacter: () => Action<string>;
@@ -42,7 +42,7 @@ export interface Actions {
     loadCharacters: () => void;
     saveCharacters: (sessionName: string, v: FrontendCharacter[]) => void;
     saveCharactersNewly: (sessionName: string, characters: FrontendCharacter[]) => void;
-    loadSkillsCsv: (characterID: CharacterId, files: FileList | null) => void;
+    loadSkillsCsv: (characterId: CharacterId, files: FileList | null) => void;
     importCharactersByGuildId: (guildId: GuildId, characters: FrontendCharacter[]) => void;
 }
 
@@ -57,7 +57,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
             dispatch(actions.updateCharacterAttributeNumberText(v)),
         updateCharacterAttributeText: (v: ChangeActionProps<CharacterId>) =>
             dispatch(actions.updateCharacterAttributeText(v)),
-        updateSkillAttributeText: (v: ChangeActionProps<{ characterID: CharacterId; skillIndex: number }>) =>
+        updateSkillAttributeText: (v: ChangeActionProps<{ characterId: CharacterId; skillIndex: number }>) =>
             dispatch(actions.updateSkillAttributeText(v)),
         updateCharacterCheckbox: (v: ChangeActionProps<CharacterId>) => dispatch(actions.updateCharacterCheckbox(v)),
         updateButtonDropdownBadStatus: (v: ClickDropDownListItemProps) =>
@@ -67,7 +67,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
         openDeletionModal: (v: MouseActionProps<CharacterId>) => dispatch(actions.openDeletionModal(v)),
         closeModal: () => dispatch(actions.closeModal()),
         deleteCharacter: () => dispatch(actions.deleteCharacter()),
-        deleteSkill: (v: MouseActionProps<{ characterID: CharacterId; skillId: SkillId }>) =>
+        deleteSkill: (v: MouseActionProps<{ characterId: CharacterId; skillId: SkillId }>) =>
             dispatch(actions.deleteSkill(v)),
         moveSkill: (v: MoveSkillProps) => dispatch(actions.moveSkill(v)),
         openCharacterDetails: (v: MouseActionProps<CharacterId>) => dispatch(actions.openCharacterDetails(v)),
@@ -163,11 +163,11 @@ function importCharactersMapper(dispatch: Dispatch<Action<string>>) {
 }
 
 function loadSkillsCsvMapper(dispatch: Dispatch<Action<string>>) {
-    return (characterID: CharacterId, files: FileList | null) => {
-        dispatch(actions.startedLoadingSkillsCsv({ characterID }));
+    return (characterId: CharacterId, files: FileList | null) => {
+        dispatch(actions.startedLoadingSkillsCsv({ characterId }));
 
         if (files === null || files.length === 0) {
-            dispatch(actions.failedLoadingSkillsCsv({ params: { characterID }, error: {} }));
+            dispatch(actions.failedLoadingSkillsCsv({ params: { characterId }, error: {} }));
             return;
         }
 
@@ -190,14 +190,14 @@ function loadSkillsCsvMapper(dispatch: Dispatch<Action<string>>) {
 
                 dispatch(
                     actions.doneLoadingSkillsCsv({
-                        params: { characterID },
+                        params: { characterId },
                         result: { skills },
                     }),
                 );
             })
             .catch(err => {
                 console.log(err);
-                dispatch(actions.failedLoadingSkillsCsv({ params: { characterID }, error: {} }));
+                dispatch(actions.failedLoadingSkillsCsv({ params: { characterId }, error: {} }));
             });
     };
 }
