@@ -1,6 +1,6 @@
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { CharacterTableState } from '../components/characters-table';
-import { actions, CharacterID } from '../actions/actions';
+import { actions, CharacterId } from '../actions/actions';
 import { updateSessionName } from './session-name-reducer';
 import {
     updateCharacterAttributeNumberText,
@@ -12,8 +12,8 @@ import {
     addNewCharacter,
     updateCharacterAttributeText,
 } from './characters-reducer';
-import { Skill } from '../../types/skill';
-import { Character } from '../../types/character';
+import { FrontendSkill } from '../../types/skill';
+import { FrontendCharacter } from '../../types/character';
 import { addNewSkill, deleteSkill, moveSkill, updateSkillAttributeText } from './skill-reducer';
 import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
 
@@ -32,12 +32,12 @@ const initialState: CharacterTableState = {
     },
 };
 
-export function characterSelector(CharacterID: CharacterID) {
-    return (character: Character, _: number) => character.id === CharacterID;
+export function characterSelector(CharacterID: CharacterId) {
+    return (character: FrontendCharacter, _: number) => character.frontendId === CharacterID;
 }
 
 export function skillSelector(skillName: string) {
-    return (skill: Skill, _: number) => skill.name === skillName;
+    return (skill: FrontendSkill, _: number) => skill.name === skillName;
 }
 
 export function indexSelector<T>(targetIdx: number) {
@@ -67,7 +67,7 @@ export const tableReducer = reducerWithInitialState(initialState)
     })
     .case(actions.openCharacterDetails, (state, props) => {
         const { payload: id } = props;
-        const character = state.state.characters.find(x => x.id === id);
+        const character = state.state.characters.find(x => x.frontendId === id);
 
         if (character === undefined) {
             console.log('Failed actions.openCharacterDetails');
@@ -76,7 +76,7 @@ export const tableReducer = reducerWithInitialState(initialState)
 
         return {
             ...state,
-            dom: { ...state.dom, modal: { type: 'CharacterDetailsModal', characterID: id } },
+            dom: { ...state.dom, modal: { type: 'CharacterDetailsModal', characterId: id } },
         };
     })
     .case(actions.closeModal, (state, _props) => {
@@ -90,9 +90,9 @@ export const tableReducer = reducerWithInitialState(initialState)
     })
     .case(actions.doneLoadingSkillsCsv, (state, props) => {
         const skills = props.result.skills;
-        const characterID = props.params.characterID;
+        const characterId = props.params.characterId;
 
-        const characters = updateItemInArray(state.state.characters, characterSelector(characterID), character => {
+        const characters = updateItemInArray(state.state.characters, characterSelector(characterId), character => {
             return updateObject(character, { skills });
         });
 

@@ -9,20 +9,20 @@ import { CardContainer } from '../../components/card-container';
 import { InputField } from '../../components/atoms/input-field';
 import { CharacterDetails } from './character-details';
 import { Modal } from '../../types/modal';
-import { Character } from '../../types/character';
-import { CharacterID, GuildId } from '../actions/actions';
+import { FrontendCharacter } from '../../types/character';
+import { CharacterId, GuildId } from '../actions/actions';
 import { faPlusSquare } from '@fortawesome/free-regular-svg-icons';
 import { IconButton } from '../../components/atoms/icon-button';
 
 export type CharacterTableState = {
     state: {
         sessionName: string;
-        characters: Character[];
+        characters: FrontendCharacter[];
     };
     current: {
         currentGuildId: GuildId;
-        deleteCharacterID: CharacterID;
-        modalCharacterID: CharacterID;
+        deleteCharacterID: CharacterId;
+        modalCharacterID: CharacterId;
     };
     dom: {
         modal: Modal | null;
@@ -47,19 +47,23 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
     const characterElement = characters.map(character => {
         return (
             <CharacterElement
-                key={character.id}
+                key={character.frontendId}
                 {...character}
                 isNextPrior={!character.isActed && character.actionPriority === nextActionPriority}
-                onChangeElementNumberText={e => props.updateCharacterAttributeNumberText({ e, payload: character.id })}
-                onChangeElementText={e => props.updateCharacterAttributeText({ e, payload: character.id })}
-                onChangeElementCheckbox={e => props.updateCharacterCheckbox({ e, payload: character.id })}
-                onClickDropdownItem={(key, value) =>
-                    props.updateButtonDropdownBadStatus({ key, value, characterId: character.id })
+                onChangeElementNumberText={e =>
+                    props.updateCharacterAttributeNumberText({ e, payload: character.frontendId })
                 }
-                onChangeElementDropdown={e => props.updateCharacterAttributeDropdown({ e, payload: character.id })}
+                onChangeElementText={e => props.updateCharacterAttributeText({ e, payload: character.frontendId })}
+                onChangeElementCheckbox={e => props.updateCharacterCheckbox({ e, payload: character.frontendId })}
+                onClickDropdownItem={(key, value) =>
+                    props.updateButtonDropdownBadStatus({ key, value, characterId: character.frontendId })
+                }
+                onChangeElementDropdown={e =>
+                    props.updateCharacterAttributeDropdown({ e, payload: character.frontendId })
+                }
                 onCopyCharacter={_ => props.copyCharacter(character)}
-                onDeleteCharacter={e => props.openDeletionModal({ e, payload: character.id })}
-                onClickCharacterDetailsButton={e => props.openCharacterDetails({ e, payload: character.id })}
+                onDeleteCharacter={e => props.openDeletionModal({ e, payload: character.frontendId })}
+                onClickCharacterDetailsButton={e => props.openCharacterDetails({ e, payload: character.frontendId })}
             />
         );
     });
@@ -77,24 +81,24 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
             ) : null}
             {modal?.type === 'CharacterDetailsModal' ? (
                 <CharacterDetails
-                    character={characters.filter(x => x.id === modal.characterID)[0]}
+                    character={characters.filter(x => x.frontendId === modal.characterId)[0]}
                     onChangeNumberInputField={e =>
-                        props.updateCharacterAttributeNumberText({ e, payload: modal.characterID })
+                        props.updateCharacterAttributeNumberText({ e, payload: modal.characterId })
                     }
-                    onChangeTextInputField={e => props.updateCharacterAttributeText({ e, payload: modal.characterID })}
+                    onChangeTextInputField={e => props.updateCharacterAttributeText({ e, payload: modal.characterId })}
                     onChangeElementSkillText={(e, idx) =>
                         props.updateSkillAttributeText({
                             e,
-                            payload: { characterID: modal.characterID, skillIndex: idx },
+                            payload: { characterId: modal.characterId, skillIndex: idx },
                         })
                     }
                     onClickAddSkillButton={props.addNewSkill}
-                    onClickDeleteSkillButton={(e, skillName) =>
-                        props.deleteSkill({ e, payload: { characterID: modal.characterID, skillName } })
+                    onClickDeleteSkillButton={(e, skillId) =>
+                        props.deleteSkill({ e, payload: { characterId: modal.characterId, skillId } })
                     }
                     onCloseModal={props.closeModal}
                     onMoveSkill={(dragIdx, dropIdx) =>
-                        props.moveSkill({ characterID: modal.characterID, dragIdx, dropIdx })
+                        props.moveSkill({ characterId: modal.characterId, dragIdx, dropIdx })
                     }
                     onLoadSkillsCsv={props.loadSkillsCsv}
                 />

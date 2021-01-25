@@ -1,17 +1,17 @@
-import { Skill } from '../../types/skill';
+import { FrontendSkill, SkillId } from '../../types/skill';
 import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
-import { ChangeActionProps, CharacterID, MouseActionProps, SkillName } from '../actions/actions';
+import { ChangeActionProps, CharacterId, MouseActionProps } from '../actions/actions';
 import { CharacterTableState } from '../components/characters-table';
 import { characterSelector, indexSelector } from './reducers';
 
 export const updateSkillAttributeText: (
     state: CharacterTableState,
-    props: ChangeActionProps<{ characterID: CharacterID; skillIndex: number }>,
+    props: ChangeActionProps<{ characterId: CharacterId; skillIndex: number }>,
 ) => CharacterTableState = (state, props) => {
     const e = props.e;
-    const { characterID, skillIndex } = props.payload;
+    const { characterId, skillIndex } = props.payload;
 
-    const characters = updateItemInArray(state.state.characters, characterSelector(characterID), character => {
+    const characters = updateItemInArray(state.state.characters, characterSelector(characterId), character => {
         return updateObject(character, {
             skills: updateItemInArray(character.skills, indexSelector(skillIndex), skill =>
                 updateObject(skill, { [e.target.name]: e.target.value }),
@@ -19,7 +19,7 @@ export const updateSkillAttributeText: (
         });
     });
 
-    const character = characters.find(characterSelector(characterID));
+    const character = characters.find(characterSelector(characterId));
 
     if (character === undefined) {
         console.log('Failed actions.updateSkillAttributeText');
@@ -38,13 +38,13 @@ export const addNewSkill: (state: CharacterTableState) => CharacterTableState = 
         return state;
     }
 
-    const characterID = state.dom.modal.characterID;
+    const characterId = state.dom.modal.characterId;
 
-    const characters = updateItemInArray(state.state.characters, characterSelector(characterID), character =>
-        updateObject(character, updateObject(character, { skills: [...character.skills, Skill()] })),
+    const characters = updateItemInArray(state.state.characters, characterSelector(characterId), character =>
+        updateObject(character, updateObject(character, { skills: [...character.skills, FrontendSkill()] })),
     );
 
-    const character = characters.find(characterSelector(characterID));
+    const character = characters.find(characterSelector(characterId));
 
     if (character === undefined) {
         console.log('Failed actions.deleteSkill');
@@ -59,18 +59,18 @@ export const addNewSkill: (state: CharacterTableState) => CharacterTableState = 
 
 export const deleteSkill: (
     state: CharacterTableState,
-    props: MouseActionProps<{ characterID: CharacterID; skillName: SkillName }>,
+    props: MouseActionProps<{ characterId: CharacterId; skillId: SkillId }>,
 ) => CharacterTableState = (state, props) => {
     const {
-        payload: { characterID, skillName },
+        payload: { characterId, skillId },
     } = props;
 
-    const characters = updateItemInArray(state.state.characters, characterSelector(characterID), character => {
-        const skills = character.skills.filter(s => s.name !== skillName);
+    const characters = updateItemInArray(state.state.characters, characterSelector(characterId), character => {
+        const skills = character.skills.filter(s => s.frontendId !== skillId);
         return updateObject(character, { skills });
     });
 
-    const character = characters.find(characterSelector(characterID));
+    const character = characters.find(characterSelector(characterId));
 
     if (character === undefined) {
         console.log('Failed actions.deleteSkill');
@@ -85,11 +85,11 @@ export const deleteSkill: (
 
 export const moveSkill: (
     state: CharacterTableState,
-    props: { characterID: CharacterID; dragIdx: number; dropIdx: number },
+    props: { characterId: CharacterId; dragIdx: number; dropIdx: number },
 ) => CharacterTableState = (state, props) => {
-    const { characterID, dragIdx, dropIdx } = props;
+    const { characterId, dragIdx, dropIdx } = props;
 
-    const characters = updateItemInArray(state.state.characters, characterSelector(characterID), character => {
+    const characters = updateItemInArray(state.state.characters, characterSelector(characterId), character => {
         const smallIdx = Math.min(dragIdx, dropIdx);
         const largeIdx = Math.max(dragIdx, dropIdx);
 
@@ -104,7 +104,7 @@ export const moveSkill: (
         return updateObject(character, { skills });
     });
 
-    const character = characters.find(characterSelector(characterID));
+    const character = characters.find(characterSelector(characterId));
 
     if (character === undefined) {
         console.log('Failed actions.moveSkill');

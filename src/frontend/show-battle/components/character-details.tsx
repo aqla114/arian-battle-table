@@ -6,23 +6,22 @@ import { useDrag, useDrop } from 'react-dnd';
 
 import { InputField } from '../../components/atoms/input-field';
 import { attributeLabels } from '../../types/attribute';
-import { Character } from '../../types/character';
-import { CharacterID, SkillName } from '../actions/actions';
+import { FrontendCharacter } from '../../types/character';
+import { CharacterId } from '../actions/actions';
 import { IconButton } from '../../components/atoms/icon-button';
-import * as uuid from 'uuid';
-import { Skill } from '../../types/skill';
+import { FrontendSkill, SkillId } from '../../types/skill';
 import { Textarea } from '../../components/atoms/textarea';
 
 export type CharacterDetailsProps = {
-    character: Character;
+    character: FrontendCharacter;
     onChangeElementSkillText: (e: React.ChangeEvent<HTMLInputElement>, idx: number) => void;
     onChangeNumberInputField: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onChangeTextInputField: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
     onClickAddSkillButton: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
-    onClickDeleteSkillButton: (e: React.MouseEvent<HTMLInputElement, MouseEvent>, skillName: SkillName) => void;
+    onClickDeleteSkillButton: (e: React.MouseEvent<HTMLInputElement, MouseEvent>, skillId: SkillId) => void;
     onMoveSkill: (dragIdx: number, dropIdx: number) => void;
     onCloseModal: () => void;
-    onLoadSkillsCsv: (characterID: CharacterID, files: FileList | null) => void;
+    onLoadSkillsCsv: (characterId: CharacterId, files: FileList | null) => void;
 };
 
 export const CharacterDetails: React.SFC<CharacterDetailsProps> = (props: CharacterDetailsProps) => {
@@ -227,7 +226,7 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                     name="upload"
                     onChange={e => {
                         console.log(e.target.files);
-                        onLoadSkillsCsv(character.id, e.target.files);
+                        onLoadSkillsCsv(character.frontendId, e.target.files);
                     }}
                 />
                 <table className="character-details__skills__table">
@@ -246,7 +245,7 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                     <tbody>
                         {character.skills.map((skill, idx) => (
                             <DraggableSkillTableRow
-                                key={skill.id || uuid.v4()}
+                                key={skill.frontendId}
                                 skill={skill}
                                 idx={idx}
                                 onChangeElementSkillText={onChangeElementSkillText}
@@ -263,10 +262,10 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
 };
 
 const DraggableSkillTableRow = (props: {
-    skill: Skill;
+    skill: FrontendSkill;
     idx: number;
     onChangeElementSkillText: (e: React.ChangeEvent<HTMLInputElement>, idx: number) => void;
-    onClickDeleteSkillButton: (e: React.MouseEvent<HTMLInputElement, MouseEvent>, skillName: SkillName) => void;
+    onClickDeleteSkillButton: (e: React.MouseEvent<HTMLInputElement, MouseEvent>, skillId: SkillId) => void;
     onMoveSkill: (dragIdx: number, dropIdx: number) => void;
 }) => {
     const { skill, idx, onChangeElementSkillText, onClickDeleteSkillButton, onMoveSkill } = props;
@@ -347,7 +346,7 @@ const DraggableSkillTableRow = (props: {
                     name={'delete'}
                     icon={faTrashAlt}
                     size={'small'}
-                    onClick={e => onClickDeleteSkillButton(e, skill.name)}
+                    onClick={e => onClickDeleteSkillButton(e, skill.frontendId)}
                 />
             </td>
         </tr>

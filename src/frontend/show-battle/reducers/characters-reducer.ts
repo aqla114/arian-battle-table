@@ -1,26 +1,26 @@
 import * as uuid from 'uuid';
 import { CharacterTableState } from '../components/characters-table';
-import { ChangeActionProps, ClickDropDownListItemProps, CharacterID } from '../actions/actions';
+import { ChangeActionProps, ClickDropDownListItemProps, CharacterId } from '../actions/actions';
 import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
 import { characterSelector } from './reducers';
 import { BadStatus } from '../../types/bad-status';
 import { Attribute } from '../../types/attribute';
-import { Character } from '../../types/character';
+import { FrontendCharacter } from '../../types/character';
 
 export const updateCharacterAttributeNumberText: (
     state: CharacterTableState,
-    props: ChangeActionProps<CharacterID>,
+    props: ChangeActionProps<CharacterId>,
 ) => CharacterTableState = (state, props) => {
     const { e, payload: id } = props;
 
     const characters = updateItemInArray(state.state.characters, characterSelector(id), item => {
         if (e.target.value === '' || e.target.value === '-') {
-            return updateObject(item, { [e.target.name as keyof Character]: e.target.value });
+            return updateObject(item, { [e.target.name as keyof FrontendCharacter]: e.target.value });
         }
 
         const targetValue: number = parseInt(e.target.value);
         if (!isNaN(targetValue)) {
-            return updateObject(item, { [e.target.name as keyof Character]: targetValue });
+            return updateObject(item, { [e.target.name as keyof FrontendCharacter]: targetValue });
         } else {
             return item;
         }
@@ -33,7 +33,7 @@ export const updateCharacterAttributeNumberText: (
 
 export const updateCharacterAttributeText: (
     state: CharacterTableState,
-    props: ChangeActionProps<CharacterID>,
+    props: ChangeActionProps<CharacterId>,
 ) => CharacterTableState = (state, props) => {
     const { e, payload: id } = props;
 
@@ -46,7 +46,7 @@ export const updateCharacterAttributeText: (
 
 export const updateCharacterCheckbox: (
     state: CharacterTableState,
-    props: ChangeActionProps<CharacterID>,
+    props: ChangeActionProps<CharacterId>,
 ) => CharacterTableState = (state, props) => {
     const { e, payload: id } = props;
     const action = e.target.name;
@@ -98,7 +98,7 @@ export const updateButtonDropdownBadStatus: (
 
 export const updateCharacterAttributeDropdown: (
     state: CharacterTableState,
-    props: ChangeActionProps<CharacterID>,
+    props: ChangeActionProps<CharacterId>,
 ) => CharacterTableState = (state, props) => {
     const { e, payload: id } = props;
 
@@ -112,7 +112,7 @@ export const updateCharacterAttributeDropdown: (
 export const addNewCharacter: (state: CharacterTableState) => CharacterTableState = state => {
     const characters = state.state.characters.slice().map(x => ({ ...x }));
 
-    const newCharacter = Character(uuid.v4());
+    const newCharacter = FrontendCharacter();
 
     characters.push(newCharacter);
     characters.sort((a, b) => b.actionPriority - a.actionPriority);
@@ -124,16 +124,21 @@ export const addNewCharacter: (state: CharacterTableState) => CharacterTableStat
     };
 };
 
-export const copyCharacter: (state: CharacterTableState, props: { character: Character }) => CharacterTableState = (
-    state,
-    props,
-) => {
+export const copyCharacter: (
+    state: CharacterTableState,
+    props: { character: FrontendCharacter },
+) => CharacterTableState = (state, props) => {
     let { character } = props;
 
     const { id: _, ...badStatusWithoutId } = character.badStatus;
-    const newCharacter: Character = { ...character, id: uuid.v4(), badStatus: badStatusWithoutId, serverId: null };
+    const newCharacter: FrontendCharacter = {
+        ...character,
+        id: undefined,
+        badStatus: badStatusWithoutId,
+        frontendId: uuid.v4(),
+    };
 
-    const characters: Character[] = [...state.state.characters, newCharacter].slice().map(x => ({ ...x }));
+    const characters: FrontendCharacter[] = [...state.state.characters, newCharacter].slice().map(x => ({ ...x }));
 
     return { ...state, state: { ...state.state, characters } };
 };
@@ -142,7 +147,7 @@ export const deleteCharacter: (state: CharacterTableState, props: void) => Chara
     const characters = state.state.characters
         .slice()
         .map(x => ({ ...x }))
-        .filter(x => x.id !== state.current.deleteCharacterID);
+        .filter(x => x.frontendId !== state.current.deleteCharacterID);
 
     return {
         ...state,

@@ -7,42 +7,43 @@ import {
     MouseActionProps,
     ChangeSessionNameProps,
     ClickDropDownListItemProps,
-    CharacterID,
-    SkillName,
+    CharacterId,
     MoveSkillProps,
     GuildId,
 } from './actions/actions';
 import { State } from './store';
 import * as Request from 'superagent';
 import * as uuid from 'uuid';
-import { Character } from '../types/character';
+import { FrontendCharacter } from '../types/character';
 import { parseCsv } from '../utils/skill-csv-parser';
+import { Character } from '../../types/character';
+import { FrontendSkill, SkillId } from '../types/skill';
 
 export interface Actions {
     updateSessionName: (v: ChangeSessionNameProps) => Action<string>;
-    updateCharacterAttributeNumberText: (v: ChangeActionProps<CharacterID>) => Action<string>;
-    updateCharacterAttributeText: (v: ChangeActionProps<CharacterID>) => Action<string>;
+    updateCharacterAttributeNumberText: (v: ChangeActionProps<CharacterId>) => Action<string>;
+    updateCharacterAttributeText: (v: ChangeActionProps<CharacterId>) => Action<string>;
     updateSkillAttributeText: (
-        v: ChangeActionProps<{ characterID: CharacterID; skillIndex: number }>,
+        v: ChangeActionProps<{ characterId: CharacterId; skillIndex: number }>,
     ) => Action<string>;
-    updateCharacterCheckbox: (v: ChangeActionProps<CharacterID>) => Action<string>;
+    updateCharacterCheckbox: (v: ChangeActionProps<CharacterId>) => Action<string>;
     updateButtonDropdownBadStatus: (v: ClickDropDownListItemProps) => Action<string>;
-    updateCharacterAttributeDropdown: (v: ChangeActionProps<CharacterID>) => Action<string>;
-    openDeletionModal: (v: MouseActionProps<CharacterID>) => Action<string>;
+    updateCharacterAttributeDropdown: (v: ChangeActionProps<CharacterId>) => Action<string>;
+    openDeletionModal: (v: MouseActionProps<CharacterId>) => Action<string>;
     closeModal: () => Action<string>;
-    openCharacterDetails: (v: MouseActionProps<CharacterID>) => Action<string>;
-    copyCharacter: (v: Character) => Action<string>;
+    openCharacterDetails: (v: MouseActionProps<CharacterId>) => Action<string>;
+    copyCharacter: (v: FrontendCharacter) => Action<string>;
     deleteCharacter: () => Action<string>;
-    deleteSkill: (v: MouseActionProps<{ characterID: CharacterID; skillName: SkillName }>) => Action<string>;
+    deleteSkill: (v: MouseActionProps<{ characterId: CharacterId; skillId: string }>) => Action<string>;
     moveSkill: (v: MoveSkillProps) => Action<string>;
     updateCurrentGuildId: (v: ChangeActionProps) => Action<string>;
     addNewCharacter: () => Action<string>;
     addNewSkill: () => Action<string>;
     loadCharacters: () => void;
-    saveCharacters: (sessionName: string, v: Character[]) => void;
-    saveCharactersNewly: (sessionName: string, characters: Character[]) => void;
-    loadSkillsCsv: (characterID: CharacterID, files: FileList | null) => void;
-    importCharactersByGuildId: (guildId: GuildId, characters: Character[]) => void;
+    saveCharacters: (sessionName: string, v: FrontendCharacter[]) => void;
+    saveCharactersNewly: (sessionName: string, characters: FrontendCharacter[]) => void;
+    loadSkillsCsv: (characterId: CharacterId, files: FileList | null) => void;
+    importCharactersByGuildId: (guildId: GuildId, characters: FrontendCharacter[]) => void;
 }
 
 function mapStateToProps(state: State): CharacterTableState {
@@ -52,25 +53,25 @@ function mapStateToProps(state: State): CharacterTableState {
 function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
     return {
         updateSessionName: (v: ChangeSessionNameProps) => dispatch(actions.updateSessionName(v)),
-        updateCharacterAttributeNumberText: (v: ChangeActionProps<CharacterID>) =>
+        updateCharacterAttributeNumberText: (v: ChangeActionProps<CharacterId>) =>
             dispatch(actions.updateCharacterAttributeNumberText(v)),
-        updateCharacterAttributeText: (v: ChangeActionProps<CharacterID>) =>
+        updateCharacterAttributeText: (v: ChangeActionProps<CharacterId>) =>
             dispatch(actions.updateCharacterAttributeText(v)),
-        updateSkillAttributeText: (v: ChangeActionProps<{ characterID: CharacterID; skillIndex: number }>) =>
+        updateSkillAttributeText: (v: ChangeActionProps<{ characterId: CharacterId; skillIndex: number }>) =>
             dispatch(actions.updateSkillAttributeText(v)),
-        updateCharacterCheckbox: (v: ChangeActionProps<CharacterID>) => dispatch(actions.updateCharacterCheckbox(v)),
+        updateCharacterCheckbox: (v: ChangeActionProps<CharacterId>) => dispatch(actions.updateCharacterCheckbox(v)),
         updateButtonDropdownBadStatus: (v: ClickDropDownListItemProps) =>
             dispatch(actions.updateButtonDropdownBadStatus(v)),
-        updateCharacterAttributeDropdown: (v: ChangeActionProps<CharacterID>) =>
+        updateCharacterAttributeDropdown: (v: ChangeActionProps<CharacterId>) =>
             dispatch(actions.updateCharacterAttributeDropdown(v)),
-        openDeletionModal: (v: MouseActionProps<CharacterID>) => dispatch(actions.openDeletionModal(v)),
+        openDeletionModal: (v: MouseActionProps<CharacterId>) => dispatch(actions.openDeletionModal(v)),
         closeModal: () => dispatch(actions.closeModal()),
         deleteCharacter: () => dispatch(actions.deleteCharacter()),
-        deleteSkill: (v: MouseActionProps<{ characterID: CharacterID; skillName: SkillName }>) =>
+        deleteSkill: (v: MouseActionProps<{ characterId: CharacterId; skillId: SkillId }>) =>
             dispatch(actions.deleteSkill(v)),
         moveSkill: (v: MoveSkillProps) => dispatch(actions.moveSkill(v)),
-        openCharacterDetails: (v: MouseActionProps<CharacterID>) => dispatch(actions.openCharacterDetails(v)),
-        copyCharacter: (v: Character) => dispatch(actions.copyCharacter({ character: v })),
+        openCharacterDetails: (v: MouseActionProps<CharacterId>) => dispatch(actions.openCharacterDetails(v)),
+        copyCharacter: (v: FrontendCharacter) => dispatch(actions.copyCharacter({ character: v })),
         updateCurrentGuildId: (v: ChangeActionProps) => dispatch(actions.updateCurrentGuildId(v)),
         addNewCharacter: () => dispatch(actions.addNewCharacter()),
         addNewSkill: () => dispatch(actions.addNewSkill()),
@@ -94,10 +95,10 @@ function loadCharactersMapper(dispatch: Dispatch<Action<string>>) {
                 dispatch(actions.failedLoadingCharacters({ params: {}, error: {} }));
             } else {
                 const { characters: resCharacters, sessionName }: { characters: any[]; sessionName: string } = res.body;
-                const characters: Character[] = resCharacters.map((character: any) => ({
+                const characters: FrontendCharacter[] = resCharacters.map((character: Character) => ({
                     ...character,
-                    serverId: character.id,
-                    id: uuid.v4(),
+                    frontendId: character.id || uuid.v4(),
+                    skills: character.skills.map(s => ({ ...s, frontendId: s.id || uuid.v4() })),
                 }));
 
                 dispatch(
@@ -117,7 +118,7 @@ function loadCharactersMapper(dispatch: Dispatch<Action<string>>) {
 }
 
 function importCharactersMapper(dispatch: Dispatch<Action<string>>) {
-    return (guildId: GuildId, currentCharacters: Character[]) => {
+    return (guildId: GuildId, currentCharacters: FrontendCharacter[]) => {
         dispatch(actions.startedImportCharactersByGuildId({}));
 
         const id = location.pathname.split('/').slice(-1)[0];
@@ -138,12 +139,11 @@ function importCharactersMapper(dispatch: Dispatch<Action<string>>) {
                     dispatch(actions.failedImportCharactersByGuildId({ params: {}, error: {} }));
                 } else {
                     const { characters: importedCharacters }: { characters: any[] } = res.body;
-                    const characters: Character[] = [
+                    const characters: FrontendCharacter[] = [
                         ...currentCharacters,
                         ...importedCharacters.map((character: any) => ({
                             ...character,
-                            serverId: character.id,
-                            id: character.id || uuid.v4(),
+                            frontendId: character.id || uuid.v4(),
                         })),
                     ];
 
@@ -163,11 +163,11 @@ function importCharactersMapper(dispatch: Dispatch<Action<string>>) {
 }
 
 function loadSkillsCsvMapper(dispatch: Dispatch<Action<string>>) {
-    return (characterID: CharacterID, files: FileList | null) => {
-        dispatch(actions.startedLoadingSkillsCsv({ characterID }));
+    return (characterId: CharacterId, files: FileList | null) => {
+        dispatch(actions.startedLoadingSkillsCsv({ characterId }));
 
         if (files === null || files.length === 0) {
-            dispatch(actions.failedLoadingSkillsCsv({ params: { characterID }, error: {} }));
+            dispatch(actions.failedLoadingSkillsCsv({ params: { characterId }, error: {} }));
             return;
         }
 
@@ -186,33 +186,31 @@ function loadSkillsCsvMapper(dispatch: Dispatch<Action<string>>) {
         })
             .then(res => {
                 const parsedSkills = parseCsv(res);
+                const skills: FrontendSkill[] = parsedSkills.map(s => ({ ...s, frontendId: uuid.v4() }));
 
                 dispatch(
                     actions.doneLoadingSkillsCsv({
-                        params: { characterID },
-                        result: { skills: parsedSkills },
+                        params: { characterId },
+                        result: { skills },
                     }),
                 );
             })
             .catch(err => {
                 console.log(err);
-                dispatch(actions.failedLoadingSkillsCsv({ params: { characterID }, error: {} }));
+                dispatch(actions.failedLoadingSkillsCsv({ params: { characterId }, error: {} }));
             });
     };
 }
 
 function saveCharactersMapper(dispatch: Dispatch<Action<string>>) {
-    return (sessionName: string, characters: Character[]) => {
+    return (sessionName: string, characters: FrontendCharacter[]) => {
         dispatch(actions.startedSaving({}));
 
         const id = location.pathname.split('/').slice(-1)[0];
 
         const serverCharacters = characters.map(character => {
-            const { id: _, serverId, ...characterWithoutId } = character;
-            if (serverId === null) {
-                return { ...characterWithoutId };
-            }
-            return { ...characterWithoutId, id: serverId };
+            const { frontendId, ...serverCharacter } = character;
+            return serverCharacter;
         });
 
         Request.post(`/api/${id}/update`)
@@ -236,13 +234,14 @@ function saveCharactersMapper(dispatch: Dispatch<Action<string>>) {
 }
 
 function saveCharactersNewlyMapper(dispatch: Dispatch<Action<string>>) {
-    return (sessionName: string, characters: Character[]) => {
+    return (sessionName: string, characters: FrontendCharacter[]) => {
         dispatch(actions.startedSavingNewly({}));
 
+        // TODO. ここらへんのコピーとかの処理、どう考えてもサーバー側でやるべきじゃない？
         const serverCharacters = characters.map(character => {
-            const { id: _, serverId, badStatus, ...characterWithoutId } = character;
+            const { frontendId, badStatus, ...serverCharacter } = character;
             const { id, ...badStatusWithoutId } = badStatus;
-            return { ...characterWithoutId, badStatus: badStatusWithoutId };
+            return { ...serverCharacter, badStatus: badStatusWithoutId };
         });
 
         Request.post(`/api/create`)

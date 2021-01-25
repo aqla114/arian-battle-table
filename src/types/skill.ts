@@ -1,5 +1,5 @@
 export type Skill = {
-    id?: number;
+    id?: string; //TODO: 型違うかも。number?
     name: string;
     timing: string;
     determinationWay: string;

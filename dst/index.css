@@ -311,7 +311,7 @@ input[class=text-checkbox] {
   white-space: nowrap;
 }
 .character-table__table__character__name {
-  width: 120px;
+  width: 200px;
 }
 .character-table__table__character__hp,
 .character-table__table__character__physical-defence,
@@ -325,7 +325,7 @@ input[class=text-checkbox] {
   margin: 4px;
 }
 .character-table__table__character__memo {
-  width: 400px;
+  width: 280px;
 }
 .character-table__table__character__delete-button {
   width: 160px;
