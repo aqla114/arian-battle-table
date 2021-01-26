@@ -11,13 +11,17 @@ import {
     deleteCharacter,
     addNewCharacter,
     updateCharacterAttributeText,
+    doneLoadingCharacters,
+    doneSaving,
+    startedSavingNewly,
 } from './characters-reducer';
 import { FrontendSkill } from '../../types/skill';
 import { FrontendCharacter } from '../../types/character';
-import { addNewSkill, deleteSkill, moveSkill, updateSkillAttributeText } from './skill-reducer';
-import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
+import { addNewSkill, deleteSkill, doneLoadingSkillsCsv, moveSkill, updateSkillAttributeText } from './skill-reducer';
+import { updateObject } from '../../utils/reducer-commons';
 import { Reducer } from 'react';
 import { closeModal, openCharacterDetails, openDeletionModal } from './modal-reducer';
+import { doneImportCharactersByGuildId, updateCurrentGuildId } from './guild-id-reducer';
 
 const initialState: CharacterTableState = {
     state: {
@@ -80,41 +84,12 @@ export const tableReducer = reducerWithInitialState(initialState)
     .case(actions.openDeletionModal, openDeletionModal)
     .case(actions.openCharacterDetails, openCharacterDetails)
     .case(actions.closeModal, closeModal)
-    .case(actions.updateCurrentGuildId, (state, props) => {
-        return { ...state, current: updateObject(state.current, { currentGuildId: props.e.target.value }) };
-    })
-    .case(actions.doneLoadingCharacters, (state, props) => {
-        return { ...state, state: props.result.state };
-    })
-    .case(actions.doneLoadingSkillsCsv, (state, props) => {
-        const skills = props.result.skills;
-        const characterId = props.params.characterId;
-
-        const characters = updateItemInArray(state.state.characters, characterSelector(characterId), character => {
-            return updateObject(character, { skills });
-        });
-
-        return { ...state, state: { ...state.state, characters } };
-    })
-    .case(actions.doneImportCharactersByGuildId, (state, props) => {
-        return {
-            ...state,
-            state: updateObject(state.state, { characters: props.result.characters }),
-            current: updateObject(state.current, { currentGuildId: '' }),
-        };
-    })
-    .case(actions.doneSaving, (state, props) => {
-        return {
-            ...state,
-            current: { ...state.current, unsaved: false },
-        };
-    })
-    .case(actions.startedSavingNewly, (state, props) => {
-        return {
-            ...state,
-            current: { ...state.current, unsaved: false },
-        };
-    })
+    .case(actions.updateCurrentGuildId, updateCurrentGuildId)
+    .case(actions.doneLoadingCharacters, doneLoadingCharacters)
+    .case(actions.doneLoadingSkillsCsv, doneLoadingSkillsCsv)
+    .case(actions.doneImportCharactersByGuildId, doneImportCharactersByGuildId)
+    .case(actions.doneSaving, doneSaving)
+    .case(actions.startedSavingNewly, startedSavingNewly)
     .default(state => {
         console.log('The default reducer is used.');
         return state;

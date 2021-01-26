@@ -6,6 +6,8 @@ import { characterSelector } from './reducers';
 import { BadStatus } from '../../types/bad-status';
 import { Attribute } from '../../types/attribute';
 import { FrontendCharacter } from '../../types/character';
+import { DoneLoadingCharactersSuccess } from '../actions/load-characters';
+import { DoneSaveCharactersSuccess } from '../actions/save-characters';
 
 export const updateCharacterAttributeNumberText: (
     state: CharacterTableState,
@@ -154,5 +156,29 @@ export const deleteCharacter: (state: CharacterTableState, props: void) => Chara
         state: { ...state.state, characters },
         current: { ...state.current, deleteCharacterID: '' },
         dom: { ...state.dom, modal: null },
+    };
+};
+
+export const doneLoadingCharacters: (
+    state: CharacterTableState,
+    props: DoneLoadingCharactersSuccess,
+) => CharacterTableState = (state, props) => {
+    return { ...state, state: props.result.state };
+};
+
+export const doneSaving: (state: CharacterTableState, props: DoneSaveCharactersSuccess) => CharacterTableState = (
+    state,
+    _,
+) => {
+    return {
+        ...state,
+        current: { ...state.current, unsaved: false },
+    };
+};
+
+export const startedSavingNewly: (state: CharacterTableState, props: {}) => CharacterTableState = (state, _) => {
+    return {
+        ...state,
+        current: { ...state.current, unsaved: false },
     };
 };
