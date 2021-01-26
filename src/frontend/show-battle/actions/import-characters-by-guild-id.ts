@@ -1,16 +1,20 @@
 import actionCreatorFactory, { ActionCreator, Failure, Success } from 'typescript-fsa';
 import { FrontendCharacter } from '../../types/character';
 
-type Session = { characters: FrontendCharacter[] };
+type ImportCharactersByGuildIdResult = { characters: FrontendCharacter[] };
 
 const actionCreator = actionCreatorFactory();
 
-const importCharactersByGuildId = actionCreator.async<{}, Session, {}>('IMPORT_CHARACTERS_BY_GUILD_ID');
+const importCharactersByGuildId = actionCreator.async<{}, ImportCharactersByGuildIdResult, {}>(
+    'IMPORT_CHARACTERS_BY_GUILD_ID',
+);
+
+export type ImportCharactersByGuildIdSuccess = Success<{}, ImportCharactersByGuildIdResult>;
 
 interface ImportCharactersByGuildIdActions {
     startedImportCharactersByGuildId: ActionCreator<{}>;
     failedImportCharactersByGuildId: ActionCreator<Failure<{}, {}>>;
-    doneImportCharactersByGuildId: ActionCreator<Success<{}, Session>>;
+    doneImportCharactersByGuildId: ActionCreator<ImportCharactersByGuildIdSuccess>;
 }
 
 export const importCharactersByGuildIdActions: ImportCharactersByGuildIdActions = {

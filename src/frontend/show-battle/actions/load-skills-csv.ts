@@ -4,14 +4,17 @@ import { CharacterId } from './actions';
 
 const actionCreator = actionCreatorFactory();
 
-const loadCharacters = actionCreator.async<{ characterId: CharacterId }, { skills: FrontendSkill[] }, {}>(
-    'LOAD_SKILLS_CSV',
-);
+type LoadSkillsCsvParams = { characterId: CharacterId };
+type LoadSkillsCsvResult = { skills: FrontendSkill[] };
+
+const loadCharacters = actionCreator.async<LoadSkillsCsvParams, LoadSkillsCsvResult, {}>('LOAD_SKILLS_CSV');
+
+export type DoneLoadingSkillsCsvSuccess = Success<LoadSkillsCsvParams, LoadSkillsCsvResult>;
 
 interface LoadSkillsCsvActions {
-    startedLoadingSkillsCsv: ActionCreator<{ characterId: CharacterId }>;
-    failedLoadingSkillsCsv: ActionCreator<Failure<{ characterId: CharacterId }, {}>>;
-    doneLoadingSkillsCsv: ActionCreator<Success<{ characterId: CharacterId }, { skills: FrontendSkill[] }>>;
+    startedLoadingSkillsCsv: ActionCreator<LoadSkillsCsvParams>;
+    failedLoadingSkillsCsv: ActionCreator<Failure<LoadSkillsCsvParams, {}>>;
+    doneLoadingSkillsCsv: ActionCreator<DoneLoadingSkillsCsvSuccess>;
 }
 
 export const loadSkillsCsvActions: LoadSkillsCsvActions = {

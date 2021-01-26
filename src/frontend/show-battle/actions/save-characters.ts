@@ -4,10 +4,12 @@ const actionCreator = actionCreatorFactory();
 
 const saveCharacters = actionCreator.async<{}, {}, {}>('SAVE_CHARACTERS');
 
+export type DoneSaveCharactersSuccess = Success<{}, {}>;
+
 interface SaveCharactersActions {
     startedSaving: ActionCreator<{}>;
     failedSaving: ActionCreator<Failure<{}, {}>>;
-    doneSaving: ActionCreator<Success<{}, {}>>;
+    doneSaving: ActionCreator<DoneSaveCharactersSuccess>;
 }
 
 export const saveCharactersActions: SaveCharactersActions = {
