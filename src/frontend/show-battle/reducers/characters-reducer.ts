@@ -1,4 +1,6 @@
 import * as uuid from 'uuid';
+import { toast } from 'react-toastify';
+
 import { CharacterTableState } from '../components/characters-table';
 import { ChangeActionProps, ClickDropDownListItemProps, CharacterId } from '../actions/actions';
 import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
@@ -170,6 +172,7 @@ export const doneSaving: (state: CharacterTableState, props: DoneSaveCharactersS
     state,
     _,
 ) => {
+    toast.success('戦況を保存しました。');
     return {
         ...state,
         current: { ...state.current, unsaved: false },
