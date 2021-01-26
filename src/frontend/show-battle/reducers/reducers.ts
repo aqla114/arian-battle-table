@@ -16,6 +16,8 @@ import { FrontendSkill } from '../../types/skill';
 import { FrontendCharacter } from '../../types/character';
 import { addNewSkill, deleteSkill, moveSkill, updateSkillAttributeText } from './skill-reducer';
 import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
+import { Reducer } from 'react';
+import { closeModal, openCharacterDetails, openDeletionModal } from './modal-reducer';
 
 const initialState: CharacterTableState = {
     state: {
@@ -33,17 +35,17 @@ const initialState: CharacterTableState = {
     },
 };
 
-// Reducer の型。 State と Props を受け取り、State を返す。
-export type Reducer<T> = (state: CharacterTableState, props: T) => CharacterTableState;
-
 // reducer のミドルウェア的な処理をする。reducer を受け取り reducer を返す。
 // 全 reducer で共通したい処理などを、middleware として与える。
-export function reducerWrapper<T>(srcReducer: Reducer<T>, middleware: Reducer<T>): Reducer<T> {
+export function reducerWrapper<T>(
+    srcReducer: Reducer<CharacterTableState, T>,
+    middleware: Reducer<CharacterTableState, T>,
+): Reducer<CharacterTableState, T> {
     return (state: CharacterTableState, props: T) => middleware(srcReducer(state, props), props);
 }
 
 // Character 要素の更新時に入れたい State の更新を入れる。
-export function characterReducerWrapper<T>(reducer: Reducer<T>): Reducer<T> {
+export function characterReducerWrapper<T>(reducer: Reducer<CharacterTableState, T>): Reducer<CharacterTableState, T> {
     return reducerWrapper(reducer, (state: CharacterTableState, _: T) => {
         return updateObject(state, { current: updateObject(state.current, { unsaved: true }) });
     });
@@ -75,30 +77,9 @@ export const tableReducer = reducerWithInitialState(initialState)
     .case(actions.copyCharacter, characterReducerWrapper(copyCharacter))
     .case(actions.deleteCharacter, characterReducerWrapper(deleteCharacter))
     .case(actions.deleteSkill, characterReducerWrapper(deleteSkill))
-    .case(actions.openDeletionModal, (state, props) => {
-        return {
-            ...state,
-            current: updateObject(state.current, { deleteCharacterID: props.payload }),
-            dom: updateObject(state.dom, { modal: { type: 'DeletionModal' } }),
-        };
-    })
-    .case(actions.openCharacterDetails, (state, props) => {
-        const { payload: id } = props;
-        const character = state.state.characters.find(x => x.frontendId === id);
-
-        if (character === undefined) {
-            console.log('Failed actions.openCharacterDetails');
-            return state;
-        }
-
-        return {
-            ...state,
-            dom: { ...state.dom, modal: { type: 'CharacterDetailsModal', characterId: id } },
-        };
-    })
-    .case(actions.closeModal, (state, _props) => {
-        return { ...state, dom: { ...state.dom, modal: null } };
-    })
+    .case(actions.openDeletionModal, openDeletionModal)
+    .case(actions.openCharacterDetails, openCharacterDetails)
+    .case(actions.closeModal, closeModal)
     .case(actions.updateCurrentGuildId, (state, props) => {
         return { ...state, current: updateObject(state.current, { currentGuildId: props.e.target.value }) };
     })
