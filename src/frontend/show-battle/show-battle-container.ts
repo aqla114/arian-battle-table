@@ -239,9 +239,13 @@ function saveCharactersNewlyMapper(dispatch: Dispatch<Action<string>>) {
 
         // TODO. ここらへんのコピーとかの処理、どう考えてもサーバー側でやるべきじゃない？
         const serverCharacters = characters.map(character => {
-            const { frontendId, badStatus, ...serverCharacter } = character;
+            const { id: _, frontendId, badStatus, skills, ...serverCharacter } = character;
+            const skillsWithoutId = skills.map(skill => {
+                const { frontendId, id, ...skillWithoutId } = skill;
+                return skillWithoutId;
+            });
             const { id, ...badStatusWithoutId } = badStatus;
-            return { ...serverCharacter, badStatus: badStatusWithoutId };
+            return { ...serverCharacter, badStatus: badStatusWithoutId, skill: skillsWithoutId };
         });
 
         Request.post(`/api/create`)
