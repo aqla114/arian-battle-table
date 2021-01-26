@@ -1,8 +1,12 @@
 const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = [
     {
-        entry: './src/frontend/index.tsx',
+        entry: {
+            main: './src/frontend/index.tsx',
+            css: './src/frontend/style/index.styl',
+        },
         mode: 'development',
         module: {
             rules: [
@@ -15,14 +19,22 @@ module.exports = [
                     test: /\.mjs$/,
                     type: 'javascript/auto',
                 },
+                {
+                    test: /\.styl$/,
+                    use: [MiniCssExtractPlugin.loader, 'css-loader?url=false', 'stylus-loader'],
+                },
             ],
         },
         resolve: {
             extensions: ['.js', '.tsx', '.ts', '.mjs'],
         },
         output: {
-            filename: 'main.js',
             path: path.resolve(__dirname, './dst'),
         },
+        plugins: [
+            new MiniCssExtractPlugin({
+                filename: 'index.css',
+            }),
+        ],
     },
 ];
