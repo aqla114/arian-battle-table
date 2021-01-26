@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Beforeunload } from 'react-beforeunload';
+import { ToastContainer } from 'react-toastify';
 
 import { CharacterElement } from './character-element';
 import { Actions } from '../show-battle-container';
@@ -167,6 +168,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                     />
                 </CardContainer>
             </div>
+            <ToastContainer position={'top-center'} autoClose={2000} />
         </Beforeunload>
     );
 };
