@@ -62,7 +62,11 @@ export type ActionTypes =
     | 'OPEN_DELETION_MODAL'
     | 'CLOSE_MODAL';
 
-const actionCreator = actionCreatorFactory();
+const _actionCreator = actionCreatorFactory();
+
+function actionCreator<T>(actionType: ActionTypes) {
+    return _actionCreator<T>(actionType);
+}
 
 export const actions = {
     updateSessionName: actionCreator<ChangeSessionNameProps>('UPDATE_SESSION_NAME_TEXT'),
