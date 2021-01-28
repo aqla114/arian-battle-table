@@ -64,7 +64,7 @@ export type ActionTypes =
 
 const _actionCreator = actionCreatorFactory();
 
-function actionCreator<T>(actionType: ActionTypes) {
+function actionCreator<T = void>(actionType: ActionTypes) {
     return _actionCreator<T>(actionType);
 }
 
