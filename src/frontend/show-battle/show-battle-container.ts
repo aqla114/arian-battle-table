@@ -44,6 +44,7 @@ export interface Actions {
     saveCharactersNewly: (sessionName: string, characters: FrontendCharacter[]) => void;
     loadSkillsCsv: (characterId: CharacterId, files: FileList | null) => void;
     importCharactersByGuildId: (guildId: GuildId, characters: FrontendCharacter[]) => void;
+    restoreHistory: () => Action<string>;
 }
 
 function mapStateToProps(state: State): CharacterTableState {
@@ -80,6 +81,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
         saveCharactersNewly: saveCharactersNewlyMapper(dispatch),
         loadSkillsCsv: loadSkillsCsvMapper(dispatch),
         importCharactersByGuildId: importCharactersMapper(dispatch),
+        restoreHistory: () => dispatch(actions.restoreHistory()),
     };
 }
 

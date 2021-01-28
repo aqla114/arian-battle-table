@@ -15,17 +15,21 @@ import { FrontendCharacter } from '../../types/character';
 import { CharacterId, GuildId } from '../actions/actions';
 import { faPlusSquare } from '@fortawesome/free-regular-svg-icons';
 import { IconButton } from '../../components/atoms/icon-button';
+import { useHotkeys } from 'react-hotkeys-hook';
+
+type State = {
+    sessionName: string;
+    characters: FrontendCharacter[];
+};
 
 export type CharacterTableState = {
-    state: {
-        sessionName: string;
-        characters: FrontendCharacter[];
-    };
+    state: State;
     current: {
         currentGuildId: GuildId;
         deleteCharacterID: CharacterId;
         modalCharacterID: CharacterId;
         unsaved: boolean;
+        history: State[];
     };
     dom: {
         modal: Modal | null;
@@ -38,6 +42,10 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
     React.useEffect(() => {
         props.loadCharacters();
     }, []);
+
+    useHotkeys('command+z, ctrl+z', () => {
+        props.restoreHistory();
+    });
 
     const {
         state: { sessionName, characters },

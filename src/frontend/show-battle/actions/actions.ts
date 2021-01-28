@@ -60,9 +60,14 @@ export type ActionTypes =
     | 'SAVE_CHARACTERS'
     | 'SAVE_CHARACTERS_NEWLY'
     | 'OPEN_DELETION_MODAL'
-    | 'CLOSE_MODAL';
+    | 'CLOSE_MODAL'
+    | 'RESTORE_HISTORY';
 
-const actionCreator = actionCreatorFactory();
+const _actionCreator = actionCreatorFactory();
+
+function actionCreator<T = void>(actionType: ActionTypes) {
+    return _actionCreator<T>(actionType);
+}
 
 export const actions = {
     updateSessionName: actionCreator<ChangeSessionNameProps>('UPDATE_SESSION_NAME_TEXT'),
@@ -78,6 +83,7 @@ export const actions = {
     updateCharacterAttributeDropdown: actionCreator<ChangeActionProps<CharacterId>>('UPDATE_CHARACTER_DROPDOWN'),
     openDeletionModal: actionCreator<MouseActionProps<CharacterId>>('OPEN_DELETION_MODAL'),
     closeModal: actionCreator('CLOSE_MODAL'),
+    restoreHistory: actionCreator('RESTORE_HISTORY'),
     deleteCharacter: actionCreator('DELETE_CHARACTER'),
     deleteSkill: actionCreator<MouseActionProps<{ characterId: CharacterId; skillId: SkillId }>>('DELETE_SKILL'),
     moveSkill: actionCreator<MoveSkillProps>('MOVE_SKILL'),
