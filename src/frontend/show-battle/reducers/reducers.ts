@@ -14,6 +14,7 @@ import {
     doneLoadingCharacters,
     doneSaving,
     startedSavingNewly,
+    restoreHistory,
 } from './characters-reducer';
 import { FrontendSkill } from '../../types/skill';
 import { FrontendCharacter } from '../../types/character';
@@ -33,6 +34,7 @@ const initialState: CharacterTableState = {
         deleteCharacterID: '',
         modalCharacterID: '',
         unsaved: false,
+        history: [],
     },
     dom: {
         modal: null,
@@ -51,7 +53,10 @@ export function reducerWrapper<T>(
 // Character 要素の更新時に入れたい State の更新を入れる。
 export function characterReducerWrapper<T>(reducer: Reducer<CharacterTableState, T>): Reducer<CharacterTableState, T> {
     return reducerWrapper(reducer, (state: CharacterTableState, _: T) => {
-        return updateObject(state, { current: updateObject(state.current, { unsaved: true }) });
+        console.log(state.current.history);
+        return updateObject(state, {
+            current: updateObject(state.current, { unsaved: true, history: [...state.current.history, state.state] }),
+        });
     });
 }
 
@@ -84,6 +89,7 @@ export const tableReducer = reducerWithInitialState(initialState)
     .case(actions.openDeletionModal, openDeletionModal)
     .case(actions.openCharacterDetails, openCharacterDetails)
     .case(actions.closeModal, closeModal)
+    .case(actions.restoreHistory, restoreHistory)
     .case(actions.updateCurrentGuildId, updateCurrentGuildId)
     .case(actions.doneLoadingCharacters, doneLoadingCharacters)
     .case(actions.doneLoadingSkillsCsv, doneLoadingSkillsCsv)

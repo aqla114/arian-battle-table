@@ -165,7 +165,7 @@ export const doneLoadingCharacters: (
     state: CharacterTableState,
     props: DoneLoadingCharactersSuccess,
 ) => CharacterTableState = (state, props) => {
-    return { ...state, state: props.result.state };
+    return { ...state, state: props.result.state, current: { ...state.current, history: [props.result.state] } };
 };
 
 export const doneSaving: (state: CharacterTableState, props: DoneSaveCharactersSuccess) => CharacterTableState = (
@@ -183,5 +183,19 @@ export const startedSavingNewly: (state: CharacterTableState, props: {}) => Char
     return {
         ...state,
         current: { ...state.current, unsaved: false },
+    };
+};
+
+export const restoreHistory: (state: CharacterTableState, props: void) => CharacterTableState = (state, _) => {
+    const historyLength = state.current.history.length;
+
+    // 1つ前の State に戻す。 history の最後の要素は現在の State が入っているので1つ前を取り出している。
+    const lastState = historyLength > 1 ? state.current.history[historyLength - 2] : state.state;
+    const history = historyLength > 1 ? state.current.history.slice(0, -1) : state.current.history;
+
+    return {
+        ...state,
+        state: { ...lastState },
+        current: { ...state.current, history },
     };
 };
