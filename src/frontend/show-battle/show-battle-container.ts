@@ -12,11 +12,12 @@ import { FrontendSkill, SkillId } from '../types/skill';
 import { ChangeActionProps, MouseActionProps } from '../types/actions';
 import { UpdateSessionNameTextProps } from './actions/update-session-name';
 import { UpdateCharacterAttributeNumberTextProps } from './actions/update-character-attribute-number-text';
+import { UpdateCharacterAttributeTextProps } from './actions/update-character-attribute-text';
 
 export interface Actions {
     updateSessionName: (v: UpdateSessionNameTextProps) => Action<string>;
     updateCharacterAttributeNumberText: (v: UpdateCharacterAttributeNumberTextProps) => Action<string>;
-    updateCharacterAttributeText: (v: ChangeActionProps<CharacterId>) => Action<string>;
+    updateCharacterAttributeText: (v: UpdateCharacterAttributeTextProps) => Action<string>;
     updateSkillAttributeText: (
         v: ChangeActionProps<{ characterId: CharacterId; skillIndex: number }>,
     ) => Action<string>;
@@ -50,7 +51,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
         updateSessionName: (v: UpdateSessionNameTextProps) => dispatch(actions.updateSessionName(v)),
         updateCharacterAttributeNumberText: (v: UpdateCharacterAttributeNumberTextProps) =>
             dispatch(actions.updateCharacterAttributeNumberText(v)),
-        updateCharacterAttributeText: (v: ChangeActionProps<CharacterId>) =>
+        updateCharacterAttributeText: (v: UpdateCharacterAttributeTextProps) =>
             dispatch(actions.updateCharacterAttributeText(v)),
         updateSkillAttributeText: (v: ChangeActionProps<{ characterId: CharacterId; skillIndex: number }>) =>
             dispatch(actions.updateSkillAttributeText(v)),

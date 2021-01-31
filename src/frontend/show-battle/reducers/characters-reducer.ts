@@ -11,6 +11,7 @@ import { FrontendCharacter } from '../../types/character';
 import { DoneLoadingCharactersSuccess } from '../actions/load-characters';
 import { DoneSaveCharactersSuccess } from '../actions/save-characters';
 import { ChangeActionProps } from '../../types/actions';
+import { UpdateCharacterAttributeTextProps } from '../actions/update-character-attribute-text';
 
 export const updateCharacterAttributeNumberText: (
     state: CharacterTableState,
@@ -38,7 +39,7 @@ export const updateCharacterAttributeNumberText: (
 
 export const updateCharacterAttributeText: (
     state: CharacterTableState,
-    props: ChangeActionProps<CharacterId>,
+    props: UpdateCharacterAttributeTextProps,
 ) => CharacterTableState = (state, props) => {
     const { e, payload: id } = props;
 

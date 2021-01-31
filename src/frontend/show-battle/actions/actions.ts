@@ -13,6 +13,10 @@ import {
     UpdateCharacterAttributeNumberTextProps,
     ACTION_TYPE as UPDATE_CHARACTER_ATTRIBUTE_NUMBER_TEXT,
 } from './update-character-attribute-number-text';
+import {
+    UpdateCharacterAttributeTextProps,
+    ACTION_TYPE as UPDATE_CHARACTER_ATTRIBUTE_TEXT,
+} from './update-character-attribute-text';
 
 export type CharacterId = string;
 export type GuildId = string;
@@ -28,7 +32,7 @@ export type MoveSkillProps = { characterId: CharacterId; dragIdx: number; dropId
 export type ActionTypes =
     | UPDATE_SESSION_NAME_TEXT
     | UPDATE_CHARACTER_ATTRIBUTE_NUMBER_TEXT
-    | 'UPDATE_CHARACTER_ATTRIBUTE_TEXT'
+    | UPDATE_CHARACTER_ATTRIBUTE_TEXT
     | 'UPDATE_SKILL_ATTRIBUTE_TEXT'
     | 'UPDATE_CHARACTER_IS_KNOCKBACK'
     | 'UPDATE_BUTTON_DROPDOWN_BAD_STATUS'
@@ -56,11 +60,13 @@ function actionCreator<T = void>(actionType: ActionTypes) {
 }
 
 export const actions = {
+    // TODO : updateSessionName`Text`
     updateSessionName: actionCreator<UpdateSessionNameTextProps>('UPDATE_SESSION_NAME_TEXT'),
+    // TODO: NumberText とかいうのわからんし、Number だけでよくね？
     updateCharacterAttributeNumberText: actionCreator<UpdateCharacterAttributeNumberTextProps>(
         'UPDATE_CHARACTER_ATTRIBUTE_NUMBER_TEXT',
     ),
-    updateCharacterAttributeText: actionCreator<ChangeActionProps<CharacterId>>('UPDATE_CHARACTER_ATTRIBUTE_TEXT'),
+    updateCharacterAttributeText: actionCreator<UpdateCharacterAttributeTextProps>('UPDATE_CHARACTER_ATTRIBUTE_TEXT'),
     updateSkillAttributeText: actionCreator<ChangeActionProps<{ characterId: CharacterId; skillIndex: number }>>(
         'UPDATE_SKILL_ATTRIBUTE_TEXT',
     ),
