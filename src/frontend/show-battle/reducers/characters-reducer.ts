@@ -2,7 +2,7 @@ import * as uuid from 'uuid';
 import { toast } from 'react-toastify';
 
 import { CharacterTableState } from '../components/characters-table';
-import { ClickDropDownListItemProps, CharacterId } from '../actions/actions';
+import { CharacterId } from '../actions/actions';
 import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
 import { characterSelector } from './reducers';
 import { BadStatus } from '../../types/bad-status';
@@ -13,6 +13,7 @@ import { DoneSaveCharactersSuccess } from '../actions/save-characters';
 import { ChangeActionProps } from '../../types/actions';
 import { UpdateCharacterAttributeTextProps } from '../actions/update-character-attribute-text';
 import { UpdateCharacterCheckboxProps } from '../actions/update-character-checkbox';
+import { UpdateButtonDropdownBadStatusProps } from '../actions/update-button-dropdown-bad-status';
 
 export const updateCharacterAttributeNumberText: (
     state: CharacterTableState,
@@ -79,7 +80,7 @@ export const updateCharacterCheckbox: (
 
 export const updateButtonDropdownBadStatus: (
     state: CharacterTableState,
-    props: ClickDropDownListItemProps,
+    props: UpdateButtonDropdownBadStatusProps,
 ) => CharacterTableState = (state, props) => {
     const { key, value, characterId } = props;
 

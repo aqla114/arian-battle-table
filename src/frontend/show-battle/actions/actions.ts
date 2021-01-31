@@ -2,7 +2,6 @@ import actionCreatorFactory from 'typescript-fsa';
 import { loadCharactersActions } from './load-characters';
 import { saveCharactersActions } from './save-characters';
 import { saveCharactersNewlyActions } from './save-characters-newly';
-import { ButtonDropdownValue } from '../../components/atoms/button-dropdown';
 import { FrontendCharacter } from '../../types/character';
 import { loadSkillsCsvActions } from './load-skills-csv';
 import { importCharactersByGuildIdActions } from './import-characters-by-guild-id';
@@ -18,16 +17,15 @@ import {
     ACTION_TYPE as UPDATE_CHARACTER_ATTRIBUTE_TEXT,
 } from './update-character-attribute-text';
 import { UpdateCharacterCheckboxProps, ACTION_TYPE as UPDATE_CHARACTER_CHECKBOX } from './update-character-checkbox';
+import {
+    UpdateButtonDropdownBadStatusProps,
+    ACTION_TYPE as UPDATE_BUTTON_DROPDOWN_BAD_STATUS,
+} from './update-button-dropdown-bad-status';
 
 export type CharacterId = string;
 export type GuildId = string;
 export type CharacterName = string;
 
-export type ClickDropDownListItemProps = {
-    key: string;
-    value: ButtonDropdownValue;
-    characterId: CharacterId;
-};
 export type MoveSkillProps = { characterId: CharacterId; dragIdx: number; dropIdx: number };
 
 export type ActionTypes =
@@ -35,7 +33,7 @@ export type ActionTypes =
     | UPDATE_CHARACTER_ATTRIBUTE_NUMBER_TEXT
     | UPDATE_CHARACTER_ATTRIBUTE_TEXT
     | UPDATE_CHARACTER_CHECKBOX
-    | 'UPDATE_BUTTON_DROPDOWN_BAD_STATUS'
+    | UPDATE_BUTTON_DROPDOWN_BAD_STATUS
     | 'UPDATE_CHARACTER_DROPDOWN'
     | 'DELETE_CHARACTER'
     | 'UPDATE_SKILL_ATTRIBUTE_TEXT'
@@ -68,8 +66,11 @@ export const actions = {
         'UPDATE_CHARACTER_ATTRIBUTE_NUMBER_TEXT',
     ),
     updateCharacterAttributeText: actionCreator<UpdateCharacterAttributeTextProps>('UPDATE_CHARACTER_ATTRIBUTE_TEXT'),
+    // TODO?: 行動済み・未行動と boolean のバステの処理が同じになっているけど分けた方がいいかもしれん。
     updateCharacterCheckbox: actionCreator<UpdateCharacterCheckboxProps>('UPDATE_CHARACTER_CHECKBOX'),
-    updateButtonDropdownBadStatus: actionCreator<ClickDropDownListItemProps>('UPDATE_BUTTON_DROPDOWN_BAD_STATUS'),
+    updateButtonDropdownBadStatus: actionCreator<UpdateButtonDropdownBadStatusProps>(
+        'UPDATE_BUTTON_DROPDOWN_BAD_STATUS',
+    ),
     updateCharacterAttributeDropdown: actionCreator<ChangeActionProps<CharacterId>>('UPDATE_CHARACTER_DROPDOWN'),
     openDeletionModal: actionCreator<MouseActionProps<CharacterId>>('OPEN_DELETION_MODAL'),
     closeModal: actionCreator('CLOSE_MODAL'),

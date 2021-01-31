@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { CharactersTable, CharacterTableState } from './components/characters-table';
 import { Dispatch, Action } from 'redux';
-import { actions, ClickDropDownListItemProps, CharacterId, MoveSkillProps, GuildId } from './actions/actions';
+import { actions, CharacterId, MoveSkillProps, GuildId } from './actions/actions';
 import { State } from './store';
 import * as Request from 'superagent';
 import * as uuid from 'uuid';
@@ -14,13 +14,14 @@ import { UpdateSessionNameTextProps } from './actions/update-session-name';
 import { UpdateCharacterAttributeNumberTextProps } from './actions/update-character-attribute-number-text';
 import { UpdateCharacterAttributeTextProps } from './actions/update-character-attribute-text';
 import { UpdateCharacterCheckboxProps } from './actions/update-character-checkbox';
+import { UpdateButtonDropdownBadStatusProps } from './actions/update-button-dropdown-bad-status';
 
 export interface Actions {
     updateSessionName: (v: UpdateSessionNameTextProps) => Action<string>;
     updateCharacterAttributeNumberText: (v: UpdateCharacterAttributeNumberTextProps) => Action<string>;
     updateCharacterAttributeText: (v: UpdateCharacterAttributeTextProps) => Action<string>;
     updateCharacterCheckbox: (v: UpdateCharacterCheckboxProps) => Action<string>;
-    updateButtonDropdownBadStatus: (v: ClickDropDownListItemProps) => Action<string>;
+    updateButtonDropdownBadStatus: (v: UpdateButtonDropdownBadStatusProps) => Action<string>;
     updateCharacterAttributeDropdown: (v: ChangeActionProps<CharacterId>) => Action<string>;
     openDeletionModal: (v: MouseActionProps<CharacterId>) => Action<string>;
     closeModal: () => Action<string>;
@@ -55,7 +56,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
         updateCharacterAttributeText: (v: UpdateCharacterAttributeTextProps) =>
             dispatch(actions.updateCharacterAttributeText(v)),
         updateCharacterCheckbox: (v: UpdateCharacterCheckboxProps) => dispatch(actions.updateCharacterCheckbox(v)),
-        updateButtonDropdownBadStatus: (v: ClickDropDownListItemProps) =>
+        updateButtonDropdownBadStatus: (v: UpdateButtonDropdownBadStatusProps) =>
             dispatch(actions.updateButtonDropdownBadStatus(v)),
         updateCharacterAttributeDropdown: (v: ChangeActionProps<CharacterId>) =>
             dispatch(actions.updateCharacterAttributeDropdown(v)),
