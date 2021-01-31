@@ -75,46 +75,34 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                     <tbody>
                         <tr>
                             <td className="character-details__attribute-values__table1__hp">
-                                <InputField
+                                <ParameterInputField
                                     name={'maxHp'}
                                     value={character.maxHp}
-                                    kind="number"
                                     onChange={onChangeNumberInputField}
-                                    showBorder={false}
-                                    textAlign={'center'}
                                 />
                             </td>
                             <td className="character-details__attribute-values__table1__physical-defence">
-                                <InputField
+                                <ParameterInputField
                                     name={'physicalDefence'}
                                     value={character.physicalDefence}
-                                    kind="number"
                                     onChange={onChangeNumberInputField}
-                                    showBorder={false}
-                                    textAlign={'center'}
                                 />
                             </td>
                             <td className="character-details__attribute-values__table1__magical-defence">
-                                <InputField
+                                <ParameterInputField
                                     name={'magicalDefence'}
                                     value={character.magicalDefence}
-                                    kind="number"
                                     onChange={onChangeNumberInputField}
-                                    showBorder={false}
-                                    textAlign={'center'}
                                 />
                             </td>
                             <td className="character-details__attribute-values__table1__attribute">
                                 {attributeLabels[character.attribute]}
                             </td>
                             <td className="character-details__attribute-values__table1__action-priority">
-                                <InputField
+                                <ParameterInputField
                                     name={'actionPriority'}
                                     value={character.actionPriority}
-                                    kind="number"
                                     onChange={onChangeNumberInputField}
-                                    showBorder={false}
-                                    textAlign={'center'}
                                 />
                             </td>
                         </tr>
@@ -135,73 +123,52 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                     <tbody>
                         <tr>
                             <td>
-                                <InputField
+                                <ParameterInputField
                                     name={'strength'}
                                     value={character.strength}
-                                    kind="number"
                                     onChange={onChangeNumberInputField}
-                                    showBorder={false}
-                                    textAlign={'center'}
                                 />
                             </td>
                             <td>
-                                <InputField
+                                <ParameterInputField
                                     name={'dexterity'}
                                     value={character.dexterity}
-                                    kind="number"
                                     onChange={onChangeNumberInputField}
-                                    showBorder={false}
-                                    textAlign={'center'}
                                 />
                             </td>
                             <td>
-                                <InputField
+                                <ParameterInputField
                                     name={'agility'}
                                     value={character.agility}
-                                    kind="number"
                                     onChange={onChangeNumberInputField}
-                                    showBorder={false}
-                                    textAlign={'center'}
                                 />
                             </td>
                             <td>
-                                <InputField
+                                <ParameterInputField
                                     name={'wisdom'}
                                     value={character.wisdom}
-                                    kind="number"
                                     onChange={onChangeNumberInputField}
-                                    showBorder={false}
-                                    textAlign={'center'}
                                 />
                             </td>
                             <td>
-                                <InputField
+                                <ParameterInputField
                                     name={'sensitivity'}
                                     value={character.sensitivity}
-                                    kind="number"
                                     onChange={onChangeNumberInputField}
-                                    showBorder={false}
-                                    textAlign={'center'}
                                 />
                             </td>
                             <td>
-                                <InputField
+                                <ParameterInputField
                                     name={'power'}
                                     value={character.power}
-                                    kind="number"
                                     onChange={onChangeNumberInputField}
-                                    showBorder={false}
-                                    textAlign={'center'}
                                 />
                             </td>
                             <td>
-                                <InputField
+                                <ParameterInputField
                                     name={'luck'}
                                     value={character.luck}
-                                    kind="number"
                                     onChange={onChangeNumberInputField}
-                                    showBorder={false}
-                                    textAlign={'center'}
                                 />
                             </td>
                         </tr>
@@ -258,6 +225,23 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                 <IconButton name={'add'} icon={faPlusSquare} size={'small'} onClick={onClickAddSkillButton} />
             </div>
         </div>
+    );
+};
+
+const ParameterInputField = (props: {
+    name: string;
+    value: number;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}) => {
+    return (
+        <InputField
+            name={props.name}
+            value={props.value}
+            kind="number"
+            onChange={props.onChange}
+            showBorder={false}
+            textAlign={'center'}
+        />
     );
 };
 
