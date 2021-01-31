@@ -3,8 +3,6 @@ import { CharactersTable, CharacterTableState } from './components/characters-ta
 import { Dispatch, Action } from 'redux';
 import {
     actions,
-    ChangeActionProps,
-    MouseActionProps,
     ChangeSessionNameProps,
     ClickDropDownListItemProps,
     CharacterId,
@@ -18,6 +16,7 @@ import { FrontendCharacter } from '../types/character';
 import { parseCsv } from '../utils/skill-csv-parser';
 import { Character } from '../../types/character';
 import { FrontendSkill, SkillId } from '../types/skill';
+import { ChangeActionProps, MouseActionProps } from '../types/actions';
 
 export interface Actions {
     updateSessionName: (v: ChangeSessionNameProps) => Action<string>;

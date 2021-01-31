@@ -1,6 +1,6 @@
 import { Reducer } from 'react';
+import { ChangeActionProps } from '../../types/actions';
 import { updateObject } from '../../utils/reducer-commons';
-import { ChangeActionProps } from '../actions/actions';
 import { ImportCharactersByGuildIdSuccess } from '../actions/import-characters-by-guild-id';
 import { CharacterTableState } from '../components/characters-table';
 

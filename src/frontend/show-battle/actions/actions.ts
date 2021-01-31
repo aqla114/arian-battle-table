@@ -7,31 +7,14 @@ import { FrontendCharacter } from '../../types/character';
 import { loadSkillsCsvActions } from './load-skills-csv';
 import { importCharactersByGuildIdActions } from './import-characters-by-guild-id';
 import { SkillId } from '../../types/skill';
+import { ActionProps, ChangeActionProps, MouseActionProps } from '../../types/actions';
 
 export type CharacterId = string;
 export type GuildId = string;
 export type CharacterName = string;
 
-// TODO 全部これ使う。
-export type ActionProps<S, T = undefined> = T extends undefined
-    ? {
-          e: S;
-      }
-    : {
-          e: S;
-          payload: T;
-      };
+export type ChangeSessionNameProps = ActionProps<React.ChangeEvent<HTMLInputElement>>;
 
-export type ChangeSessionNameProps = { e: React.ChangeEvent<HTMLInputElement> };
-export type ChangeActionProps<T = undefined> = ActionProps<
-    React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    T
->;
-
-export type MouseActionProps<T> = {
-    e: React.MouseEvent<HTMLInputElement | HTMLLIElement, MouseEvent>;
-    payload: T;
-};
 export type ClickDropDownListItemProps = {
     key: string;
     value: ButtonDropdownValue;

@@ -2,7 +2,7 @@ import * as uuid from 'uuid';
 import { toast } from 'react-toastify';
 
 import { CharacterTableState } from '../components/characters-table';
-import { ChangeActionProps, ClickDropDownListItemProps, CharacterId } from '../actions/actions';
+import { ClickDropDownListItemProps, CharacterId } from '../actions/actions';
 import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
 import { characterSelector } from './reducers';
 import { BadStatus } from '../../types/bad-status';
@@ -10,6 +10,7 @@ import { Attribute } from '../../types/attribute';
 import { FrontendCharacter } from '../../types/character';
 import { DoneLoadingCharactersSuccess } from '../actions/load-characters';
 import { DoneSaveCharactersSuccess } from '../actions/save-characters';
+import { ChangeActionProps } from '../../types/actions';
 
 export const updateCharacterAttributeNumberText: (
     state: CharacterTableState,

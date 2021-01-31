@@ -1,6 +1,6 @@
 import { Reducer } from 'react';
+import { MouseActionProps } from '../../types/actions';
 import { updateObject } from '../../utils/reducer-commons';
-import { MouseActionProps } from '../actions/actions';
 import { CharacterTableState } from '../components/characters-table';
 
 export const openDeletionModal: Reducer<CharacterTableState, MouseActionProps<string>> = (

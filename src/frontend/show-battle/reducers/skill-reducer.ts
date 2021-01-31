@@ -1,6 +1,7 @@
+import { ChangeActionProps, MouseActionProps } from '../../types/actions';
 import { FrontendSkill, SkillId } from '../../types/skill';
 import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
-import { ChangeActionProps, CharacterId, MouseActionProps } from '../actions/actions';
+import { CharacterId } from '../actions/actions';
 import { DoneLoadingSkillsCsvSuccess } from '../actions/load-skills-csv';
 import { CharacterTableState } from '../components/characters-table';
 import { characterSelector, indexSelector } from './reducers';
