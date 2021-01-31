@@ -21,6 +21,10 @@ import {
     UpdateButtonDropdownBadStatusProps,
     ACTION_TYPE as UPDATE_BUTTON_DROPDOWN_BAD_STATUS,
 } from './update-button-dropdown-bad-status';
+import {
+    UpdateCharacterAttributeDropdownProps,
+    ACTION_TYPE as UPDATE_CHARACTER_ATTRIBUTE_DROPDOWN,
+} from './update-character-attribute-dropdown';
 
 export type CharacterId = string;
 export type GuildId = string;
@@ -34,7 +38,7 @@ export type ActionTypes =
     | UPDATE_CHARACTER_ATTRIBUTE_TEXT
     | UPDATE_CHARACTER_CHECKBOX
     | UPDATE_BUTTON_DROPDOWN_BAD_STATUS
-    | 'UPDATE_CHARACTER_DROPDOWN'
+    | UPDATE_CHARACTER_ATTRIBUTE_DROPDOWN
     | 'DELETE_CHARACTER'
     | 'UPDATE_SKILL_ATTRIBUTE_TEXT'
     | 'DELETE_SKILL'
@@ -71,7 +75,9 @@ export const actions = {
     updateButtonDropdownBadStatus: actionCreator<UpdateButtonDropdownBadStatusProps>(
         'UPDATE_BUTTON_DROPDOWN_BAD_STATUS',
     ),
-    updateCharacterAttributeDropdown: actionCreator<ChangeActionProps<CharacterId>>('UPDATE_CHARACTER_DROPDOWN'),
+    updateCharacterAttributeDropdown: actionCreator<UpdateCharacterAttributeDropdownProps>(
+        'UPDATE_CHARACTER_ATTRIBUTE_DROPDOWN',
+    ),
     openDeletionModal: actionCreator<MouseActionProps<CharacterId>>('OPEN_DELETION_MODAL'),
     closeModal: actionCreator('CLOSE_MODAL'),
     restoreHistory: actionCreator('RESTORE_HISTORY'),

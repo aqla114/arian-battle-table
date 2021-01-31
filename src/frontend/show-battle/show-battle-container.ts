@@ -15,6 +15,7 @@ import { UpdateCharacterAttributeNumberTextProps } from './actions/update-charac
 import { UpdateCharacterAttributeTextProps } from './actions/update-character-attribute-text';
 import { UpdateCharacterCheckboxProps } from './actions/update-character-checkbox';
 import { UpdateButtonDropdownBadStatusProps } from './actions/update-button-dropdown-bad-status';
+import { UpdateCharacterAttributeDropdownProps } from './actions/update-character-attribute-dropdown';
 
 export interface Actions {
     updateSessionName: (v: UpdateSessionNameTextProps) => Action<string>;
@@ -22,7 +23,7 @@ export interface Actions {
     updateCharacterAttributeText: (v: UpdateCharacterAttributeTextProps) => Action<string>;
     updateCharacterCheckbox: (v: UpdateCharacterCheckboxProps) => Action<string>;
     updateButtonDropdownBadStatus: (v: UpdateButtonDropdownBadStatusProps) => Action<string>;
-    updateCharacterAttributeDropdown: (v: ChangeActionProps<CharacterId>) => Action<string>;
+    updateCharacterAttributeDropdown: (v: UpdateCharacterAttributeDropdownProps) => Action<string>;
     openDeletionModal: (v: MouseActionProps<CharacterId>) => Action<string>;
     closeModal: () => Action<string>;
     openCharacterDetails: (v: MouseActionProps<CharacterId>) => Action<string>;
@@ -58,7 +59,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
         updateCharacterCheckbox: (v: UpdateCharacterCheckboxProps) => dispatch(actions.updateCharacterCheckbox(v)),
         updateButtonDropdownBadStatus: (v: UpdateButtonDropdownBadStatusProps) =>
             dispatch(actions.updateButtonDropdownBadStatus(v)),
-        updateCharacterAttributeDropdown: (v: ChangeActionProps<CharacterId>) =>
+        updateCharacterAttributeDropdown: (v: UpdateCharacterAttributeDropdownProps) =>
             dispatch(actions.updateCharacterAttributeDropdown(v)),
         openDeletionModal: (v: MouseActionProps<CharacterId>) => dispatch(actions.openDeletionModal(v)),
         closeModal: () => dispatch(actions.closeModal()),
