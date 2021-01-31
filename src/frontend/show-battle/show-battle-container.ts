@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { CharactersTable, CharacterTableState } from './components/characters-table';
 import { Dispatch, Action } from 'redux';
-import { actions, CharacterId, MoveSkillProps, GuildId } from './actions/actions';
+import { actions, CharacterId, GuildId } from './actions/actions';
 import { State } from './store';
 import * as Request from 'superagent';
 import * as uuid from 'uuid';
@@ -18,6 +18,7 @@ import { UpdateButtonDropdownBadStatusProps } from './actions/update-button-drop
 import { UpdateCharacterAttributeDropdownProps } from './actions/update-character-attribute-dropdown';
 import { UpdateSkillAttributeTextProps } from './actions/update-skill-attribute-text';
 import { DeleteSkillProps } from './actions/delete-skill';
+import { MoveSkillProps } from './actions/move-skill';
 
 export interface Actions {
     updateSessionName: (v: UpdateSessionNameTextProps) => Action<string>;

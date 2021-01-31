@@ -29,12 +29,11 @@ import {
     ACTION_TYPE as UPDATE_SKILL_ATTRIBUTE_TEXT,
 } from './update-skill-attribute-text';
 import { DeleteSkillProps, ACTION_TYPE as DELETE_SKILL } from './delete-skill';
+import { MoveSkillProps, ACTION_TYPE as MOVE_SKILL } from './move-skill';
 
 export type CharacterId = string;
 export type GuildId = string;
 export type CharacterName = string;
-
-export type MoveSkillProps = { characterId: CharacterId; dragIdx: number; dropIdx: number };
 
 export type ActionTypes =
     | UPDATE_SESSION_NAME_TEXT
@@ -45,7 +44,7 @@ export type ActionTypes =
     | UPDATE_CHARACTER_ATTRIBUTE_DROPDOWN
     | UPDATE_SKILL_ATTRIBUTE_TEXT
     | DELETE_SKILL
-    | 'MOVE_SKILL'
+    | MOVE_SKILL
     | 'DELETE_CHARACTER'
     | 'COPY_CHARACTER'
     | 'OPEN_CHARACTER_DETAILS'

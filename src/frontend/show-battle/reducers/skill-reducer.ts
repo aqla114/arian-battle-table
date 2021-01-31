@@ -4,6 +4,7 @@ import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
 import { CharacterId } from '../actions/actions';
 import { DeleteSkillProps } from '../actions/delete-skill';
 import { DoneLoadingSkillsCsvSuccess } from '../actions/load-skills-csv';
+import { MoveSkillProps } from '../actions/move-skill';
 import { CharacterTableState } from '../components/characters-table';
 import { characterSelector, indexSelector } from './reducers';
 
@@ -86,10 +87,7 @@ export const deleteSkill: (state: CharacterTableState, props: DeleteSkillProps) 
     };
 };
 
-export const moveSkill: (
-    state: CharacterTableState,
-    props: { characterId: CharacterId; dragIdx: number; dropIdx: number },
-) => CharacterTableState = (state, props) => {
+export const moveSkill: (state: CharacterTableState, props: MoveSkillProps) => CharacterTableState = (state, props) => {
     const { characterId, dragIdx, dropIdx } = props;
 
     const characters = updateItemInArray(state.state.characters, characterSelector(characterId), character => {
