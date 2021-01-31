@@ -4,7 +4,6 @@ import { saveCharactersActions } from './save-characters';
 import { saveCharactersNewlyActions } from './save-characters-newly';
 import { loadSkillsCsvActions } from './load-skills-csv';
 import { importCharactersByGuildIdActions } from './import-characters-by-guild-id';
-import { ChangeActionProps } from '../../types/actions';
 import { UpdateSessionNameTextProps, ACTION_TYPE as UPDATE_SESSION_NAME_TEXT } from './update-session-name';
 import {
     UpdateCharacterAttributeNumberTextProps,
@@ -32,6 +31,7 @@ import { MoveSkillProps, ACTION_TYPE as MOVE_SKILL } from './move-skill';
 import { OpenDeletionModalProps, ACTION_TYPE as OPEN_DELETION_MODAL } from './open-deletion-modal';
 import { CopyCharacterProps, ACTION_TYPE as COPY_CHARACTER } from './copy-character';
 import { OpenCharacterDetailsProps, ACTION_TYPE as OPEN_CHARACTER_DETAILS } from './open-character-details';
+import { UpdateCurrentGuildIdProps, ACTION_TYPE as UPDATE_CURRENT_GUILD_ID } from './update-current-guild-id';
 
 export type CharacterId = string;
 export type GuildId = string;
@@ -52,7 +52,7 @@ export type ActionTypes =
     | 'ADD_NEW_CHARACTER'
     | 'ADD_NEW_SKILL'
     | 'LOAD_CHARACTERS'
-    | 'UPDATE_CURRENT_GUILD_ID'
+    | UPDATE_CURRENT_GUILD_ID
     | 'IMPORT_CHARACTERS_BY_GUILD_ID'
     | 'SAVE_CHARACTERS'
     | 'SAVE_CHARACTERS_NEWLY'
@@ -94,7 +94,7 @@ export const actions = {
     closeModal: actionCreator('CLOSE_MODAL'),
     addNewCharacter: actionCreator('ADD_NEW_CHARACTER'),
     addNewSkill: actionCreator('ADD_NEW_SKILL'),
-    updateCurrentGuildId: actionCreator<ChangeActionProps>('UPDATE_CURRENT_GUILD_ID'),
+    updateCurrentGuildId: actionCreator<UpdateCurrentGuildIdProps>('UPDATE_CURRENT_GUILD_ID'),
     ...loadCharactersActions,
     ...saveCharactersActions,
     ...saveCharactersNewlyActions,

@@ -9,7 +9,6 @@ import { FrontendCharacter } from '../types/character';
 import { parseCsv } from '../utils/skill-csv-parser';
 import { Character } from '../../types/character';
 import { FrontendSkill } from '../types/skill';
-import { ChangeActionProps } from '../types/actions';
 import { UpdateSessionNameTextProps } from './actions/update-session-name';
 import { UpdateCharacterAttributeNumberTextProps } from './actions/update-character-attribute-number-text';
 import { UpdateCharacterAttributeTextProps } from './actions/update-character-attribute-text';
@@ -22,6 +21,7 @@ import { MoveSkillProps } from './actions/move-skill';
 import { OpenDeletionModalProps } from './actions/open-deletion-modal';
 import { CopyCharacterProps } from './actions/copy-character';
 import { OpenCharacterDetailsProps } from './actions/open-character-details';
+import { UpdateCurrentGuildIdProps } from './actions/update-current-guild-id';
 
 export interface Actions {
     updateSessionName: (v: UpdateSessionNameTextProps) => Action<string>;
@@ -38,7 +38,7 @@ export interface Actions {
     updateSkillAttributeText: (v: UpdateSkillAttributeTextProps) => Action<string>;
     deleteSkill: (v: DeleteSkillProps) => Action<string>;
     moveSkill: (v: MoveSkillProps) => Action<string>;
-    updateCurrentGuildId: (v: ChangeActionProps) => Action<string>;
+    updateCurrentGuildId: (v: UpdateCurrentGuildIdProps) => Action<string>;
     addNewCharacter: () => Action<string>;
     addNewSkill: () => Action<string>;
     loadCharacters: () => void;
@@ -73,7 +73,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
         moveSkill: (v: MoveSkillProps) => dispatch(actions.moveSkill(v)),
         openCharacterDetails: (v: OpenCharacterDetailsProps) => dispatch(actions.openCharacterDetails(v)),
         copyCharacter: (v: CopyCharacterProps) => dispatch(actions.copyCharacter(v)),
-        updateCurrentGuildId: (v: ChangeActionProps) => dispatch(actions.updateCurrentGuildId(v)),
+        updateCurrentGuildId: (v: UpdateCurrentGuildIdProps) => dispatch(actions.updateCurrentGuildId(v)),
         addNewCharacter: () => dispatch(actions.addNewCharacter()),
         addNewSkill: () => dispatch(actions.addNewSkill()),
         loadCharacters: loadCharactersMapper(dispatch),
