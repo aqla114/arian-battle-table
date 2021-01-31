@@ -39,10 +39,10 @@ export type ActionTypes =
     | UPDATE_CHARACTER_CHECKBOX
     | UPDATE_BUTTON_DROPDOWN_BAD_STATUS
     | UPDATE_CHARACTER_ATTRIBUTE_DROPDOWN
-    | 'DELETE_CHARACTER'
     | 'UPDATE_SKILL_ATTRIBUTE_TEXT'
     | 'DELETE_SKILL'
     | 'MOVE_SKILL'
+    | 'DELETE_CHARACTER'
     | 'COPY_CHARACTER'
     | 'OPEN_CHARACTER_DETAILS'
     | 'ADD_NEW_CHARACTER'
@@ -78,16 +78,16 @@ export const actions = {
     updateCharacterAttributeDropdown: actionCreator<UpdateCharacterAttributeDropdownProps>(
         'UPDATE_CHARACTER_ATTRIBUTE_DROPDOWN',
     ),
-    openDeletionModal: actionCreator<MouseActionProps<CharacterId>>('OPEN_DELETION_MODAL'),
-    closeModal: actionCreator('CLOSE_MODAL'),
-    restoreHistory: actionCreator('RESTORE_HISTORY'),
-    deleteCharacter: actionCreator('DELETE_CHARACTER'),
     updateSkillAttributeText: actionCreator<ChangeActionProps<{ characterId: CharacterId; skillIndex: number }>>(
         'UPDATE_SKILL_ATTRIBUTE_TEXT',
     ),
     deleteSkill: actionCreator<MouseActionProps<{ characterId: CharacterId; skillId: SkillId }>>('DELETE_SKILL'),
     moveSkill: actionCreator<MoveSkillProps>('MOVE_SKILL'),
+    deleteCharacter: actionCreator('DELETE_CHARACTER'),
     copyCharacter: actionCreator<{ character: FrontendCharacter }>('COPY_CHARACTER'),
+    restoreHistory: actionCreator('RESTORE_HISTORY'),
+    openDeletionModal: actionCreator<MouseActionProps<CharacterId>>('OPEN_DELETION_MODAL'),
+    closeModal: actionCreator('CLOSE_MODAL'),
     openCharacterDetails: actionCreator<MouseActionProps<CharacterId>>('OPEN_CHARACTER_DETAILS'),
     addNewCharacter: actionCreator('ADD_NEW_CHARACTER'),
     addNewSkill: actionCreator('ADD_NEW_SKILL'),

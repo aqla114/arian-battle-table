@@ -16,6 +16,7 @@ import { UpdateCharacterAttributeTextProps } from './actions/update-character-at
 import { UpdateCharacterCheckboxProps } from './actions/update-character-checkbox';
 import { UpdateButtonDropdownBadStatusProps } from './actions/update-button-dropdown-bad-status';
 import { UpdateCharacterAttributeDropdownProps } from './actions/update-character-attribute-dropdown';
+import { UpdateSkillAttributeTextProps } from './actions/update-skill-attribute-text';
 
 export interface Actions {
     updateSessionName: (v: UpdateSessionNameTextProps) => Action<string>;
@@ -29,9 +30,7 @@ export interface Actions {
     openCharacterDetails: (v: MouseActionProps<CharacterId>) => Action<string>;
     copyCharacter: (v: FrontendCharacter) => Action<string>;
     deleteCharacter: () => Action<string>;
-    updateSkillAttributeText: (
-        v: ChangeActionProps<{ characterId: CharacterId; skillIndex: number }>,
-    ) => Action<string>;
+    updateSkillAttributeText: (v: UpdateSkillAttributeTextProps) => Action<string>;
     deleteSkill: (v: MouseActionProps<{ characterId: CharacterId; skillId: string }>) => Action<string>;
     moveSkill: (v: MoveSkillProps) => Action<string>;
     updateCurrentGuildId: (v: ChangeActionProps) => Action<string>;
@@ -64,8 +63,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
         openDeletionModal: (v: MouseActionProps<CharacterId>) => dispatch(actions.openDeletionModal(v)),
         closeModal: () => dispatch(actions.closeModal()),
         deleteCharacter: () => dispatch(actions.deleteCharacter()),
-        updateSkillAttributeText: (v: ChangeActionProps<{ characterId: CharacterId; skillIndex: number }>) =>
-            dispatch(actions.updateSkillAttributeText(v)),
+        updateSkillAttributeText: (v: UpdateSkillAttributeTextProps) => dispatch(actions.updateSkillAttributeText(v)),
         deleteSkill: (v: MouseActionProps<{ characterId: CharacterId; skillId: SkillId }>) =>
             dispatch(actions.deleteSkill(v)),
         moveSkill: (v: MoveSkillProps) => dispatch(actions.moveSkill(v)),
