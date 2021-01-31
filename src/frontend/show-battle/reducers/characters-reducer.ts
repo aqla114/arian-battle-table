@@ -12,6 +12,7 @@ import { DoneLoadingCharactersSuccess } from '../actions/load-characters';
 import { DoneSaveCharactersSuccess } from '../actions/save-characters';
 import { ChangeActionProps } from '../../types/actions';
 import { UpdateCharacterAttributeTextProps } from '../actions/update-character-attribute-text';
+import { UpdateCharacterCheckboxProps } from '../actions/update-character-checkbox';
 
 export const updateCharacterAttributeNumberText: (
     state: CharacterTableState,
@@ -52,7 +53,7 @@ export const updateCharacterAttributeText: (
 
 export const updateCharacterCheckbox: (
     state: CharacterTableState,
-    props: ChangeActionProps<CharacterId>,
+    props: UpdateCharacterCheckboxProps,
 ) => CharacterTableState = (state, props) => {
     const { e, payload: id } = props;
     const action = e.target.name;

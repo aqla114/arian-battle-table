@@ -17,6 +17,7 @@ import {
     UpdateCharacterAttributeTextProps,
     ACTION_TYPE as UPDATE_CHARACTER_ATTRIBUTE_TEXT,
 } from './update-character-attribute-text';
+import { UpdateCharacterCheckboxProps, ACTION_TYPE as UPDATE_CHARACTER_CHECKBOX } from './update-character-checkbox';
 
 export type CharacterId = string;
 export type GuildId = string;
@@ -33,11 +34,11 @@ export type ActionTypes =
     | UPDATE_SESSION_NAME_TEXT
     | UPDATE_CHARACTER_ATTRIBUTE_NUMBER_TEXT
     | UPDATE_CHARACTER_ATTRIBUTE_TEXT
-    | 'UPDATE_SKILL_ATTRIBUTE_TEXT'
-    | 'UPDATE_CHARACTER_IS_KNOCKBACK'
+    | UPDATE_CHARACTER_CHECKBOX
     | 'UPDATE_BUTTON_DROPDOWN_BAD_STATUS'
     | 'UPDATE_CHARACTER_DROPDOWN'
     | 'DELETE_CHARACTER'
+    | 'UPDATE_SKILL_ATTRIBUTE_TEXT'
     | 'DELETE_SKILL'
     | 'MOVE_SKILL'
     | 'COPY_CHARACTER'
@@ -67,16 +68,16 @@ export const actions = {
         'UPDATE_CHARACTER_ATTRIBUTE_NUMBER_TEXT',
     ),
     updateCharacterAttributeText: actionCreator<UpdateCharacterAttributeTextProps>('UPDATE_CHARACTER_ATTRIBUTE_TEXT'),
-    updateSkillAttributeText: actionCreator<ChangeActionProps<{ characterId: CharacterId; skillIndex: number }>>(
-        'UPDATE_SKILL_ATTRIBUTE_TEXT',
-    ),
-    updateCharacterCheckbox: actionCreator<ChangeActionProps<CharacterId>>('UPDATE_CHARACTER_IS_KNOCKBACK'),
+    updateCharacterCheckbox: actionCreator<UpdateCharacterCheckboxProps>('UPDATE_CHARACTER_CHECKBOX'),
     updateButtonDropdownBadStatus: actionCreator<ClickDropDownListItemProps>('UPDATE_BUTTON_DROPDOWN_BAD_STATUS'),
     updateCharacterAttributeDropdown: actionCreator<ChangeActionProps<CharacterId>>('UPDATE_CHARACTER_DROPDOWN'),
     openDeletionModal: actionCreator<MouseActionProps<CharacterId>>('OPEN_DELETION_MODAL'),
     closeModal: actionCreator('CLOSE_MODAL'),
     restoreHistory: actionCreator('RESTORE_HISTORY'),
     deleteCharacter: actionCreator('DELETE_CHARACTER'),
+    updateSkillAttributeText: actionCreator<ChangeActionProps<{ characterId: CharacterId; skillIndex: number }>>(
+        'UPDATE_SKILL_ATTRIBUTE_TEXT',
+    ),
     deleteSkill: actionCreator<MouseActionProps<{ characterId: CharacterId; skillId: SkillId }>>('DELETE_SKILL'),
     moveSkill: actionCreator<MoveSkillProps>('MOVE_SKILL'),
     copyCharacter: actionCreator<{ character: FrontendCharacter }>('COPY_CHARACTER'),
