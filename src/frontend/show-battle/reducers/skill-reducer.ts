@@ -1,7 +1,8 @@
-import { ChangeActionProps, MouseActionProps } from '../../types/actions';
-import { FrontendSkill, SkillId } from '../../types/skill';
+import { ChangeActionProps } from '../../types/actions';
+import { FrontendSkill } from '../../types/skill';
 import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
 import { CharacterId } from '../actions/actions';
+import { DeleteSkillProps } from '../actions/delete-skill';
 import { DoneLoadingSkillsCsvSuccess } from '../actions/load-skills-csv';
 import { CharacterTableState } from '../components/characters-table';
 import { characterSelector, indexSelector } from './reducers';
@@ -59,10 +60,10 @@ export const addNewSkill: (state: CharacterTableState) => CharacterTableState = 
     };
 };
 
-export const deleteSkill: (
-    state: CharacterTableState,
-    props: MouseActionProps<{ characterId: CharacterId; skillId: SkillId }>,
-) => CharacterTableState = (state, props) => {
+export const deleteSkill: (state: CharacterTableState, props: DeleteSkillProps) => CharacterTableState = (
+    state,
+    props,
+) => {
     const {
         payload: { characterId, skillId },
     } = props;

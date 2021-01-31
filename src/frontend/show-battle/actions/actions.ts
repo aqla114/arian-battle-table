@@ -5,7 +5,6 @@ import { saveCharactersNewlyActions } from './save-characters-newly';
 import { FrontendCharacter } from '../../types/character';
 import { loadSkillsCsvActions } from './load-skills-csv';
 import { importCharactersByGuildIdActions } from './import-characters-by-guild-id';
-import { SkillId } from '../../types/skill';
 import { ChangeActionProps, MouseActionProps } from '../../types/actions';
 import { UpdateSessionNameTextProps, ACTION_TYPE as UPDATE_SESSION_NAME_TEXT } from './update-session-name';
 import {
@@ -25,6 +24,11 @@ import {
     UpdateCharacterAttributeDropdownProps,
     ACTION_TYPE as UPDATE_CHARACTER_ATTRIBUTE_DROPDOWN,
 } from './update-character-attribute-dropdown';
+import {
+    UpdateSkillAttributeTextProps,
+    ACTION_TYPE as UPDATE_SKILL_ATTRIBUTE_TEXT,
+} from './update-skill-attribute-text';
+import { DeleteSkillProps, ACTION_TYPE as DELETE_SKILL } from './delete-skill';
 
 export type CharacterId = string;
 export type GuildId = string;
@@ -39,8 +43,8 @@ export type ActionTypes =
     | UPDATE_CHARACTER_CHECKBOX
     | UPDATE_BUTTON_DROPDOWN_BAD_STATUS
     | UPDATE_CHARACTER_ATTRIBUTE_DROPDOWN
-    | 'UPDATE_SKILL_ATTRIBUTE_TEXT'
-    | 'DELETE_SKILL'
+    | UPDATE_SKILL_ATTRIBUTE_TEXT
+    | DELETE_SKILL
     | 'MOVE_SKILL'
     | 'DELETE_CHARACTER'
     | 'COPY_CHARACTER'
@@ -78,10 +82,8 @@ export const actions = {
     updateCharacterAttributeDropdown: actionCreator<UpdateCharacterAttributeDropdownProps>(
         'UPDATE_CHARACTER_ATTRIBUTE_DROPDOWN',
     ),
-    updateSkillAttributeText: actionCreator<ChangeActionProps<{ characterId: CharacterId; skillIndex: number }>>(
-        'UPDATE_SKILL_ATTRIBUTE_TEXT',
-    ),
-    deleteSkill: actionCreator<MouseActionProps<{ characterId: CharacterId; skillId: SkillId }>>('DELETE_SKILL'),
+    updateSkillAttributeText: actionCreator<UpdateSkillAttributeTextProps>('UPDATE_SKILL_ATTRIBUTE_TEXT'),
+    deleteSkill: actionCreator<DeleteSkillProps>('DELETE_SKILL'),
     moveSkill: actionCreator<MoveSkillProps>('MOVE_SKILL'),
     deleteCharacter: actionCreator('DELETE_CHARACTER'),
     copyCharacter: actionCreator<{ character: FrontendCharacter }>('COPY_CHARACTER'),

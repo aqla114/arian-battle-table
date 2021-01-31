@@ -8,7 +8,7 @@ import * as uuid from 'uuid';
 import { FrontendCharacter } from '../types/character';
 import { parseCsv } from '../utils/skill-csv-parser';
 import { Character } from '../../types/character';
-import { FrontendSkill, SkillId } from '../types/skill';
+import { FrontendSkill } from '../types/skill';
 import { ChangeActionProps, MouseActionProps } from '../types/actions';
 import { UpdateSessionNameTextProps } from './actions/update-session-name';
 import { UpdateCharacterAttributeNumberTextProps } from './actions/update-character-attribute-number-text';
@@ -17,6 +17,7 @@ import { UpdateCharacterCheckboxProps } from './actions/update-character-checkbo
 import { UpdateButtonDropdownBadStatusProps } from './actions/update-button-dropdown-bad-status';
 import { UpdateCharacterAttributeDropdownProps } from './actions/update-character-attribute-dropdown';
 import { UpdateSkillAttributeTextProps } from './actions/update-skill-attribute-text';
+import { DeleteSkillProps } from './actions/delete-skill';
 
 export interface Actions {
     updateSessionName: (v: UpdateSessionNameTextProps) => Action<string>;
@@ -31,7 +32,7 @@ export interface Actions {
     copyCharacter: (v: FrontendCharacter) => Action<string>;
     deleteCharacter: () => Action<string>;
     updateSkillAttributeText: (v: UpdateSkillAttributeTextProps) => Action<string>;
-    deleteSkill: (v: MouseActionProps<{ characterId: CharacterId; skillId: string }>) => Action<string>;
+    deleteSkill: (v: DeleteSkillProps) => Action<string>;
     moveSkill: (v: MoveSkillProps) => Action<string>;
     updateCurrentGuildId: (v: ChangeActionProps) => Action<string>;
     addNewCharacter: () => Action<string>;
@@ -64,8 +65,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
         closeModal: () => dispatch(actions.closeModal()),
         deleteCharacter: () => dispatch(actions.deleteCharacter()),
         updateSkillAttributeText: (v: UpdateSkillAttributeTextProps) => dispatch(actions.updateSkillAttributeText(v)),
-        deleteSkill: (v: MouseActionProps<{ characterId: CharacterId; skillId: SkillId }>) =>
-            dispatch(actions.deleteSkill(v)),
+        deleteSkill: (v: DeleteSkillProps) => dispatch(actions.deleteSkill(v)),
         moveSkill: (v: MoveSkillProps) => dispatch(actions.moveSkill(v)),
         openCharacterDetails: (v: MouseActionProps<CharacterId>) => dispatch(actions.openCharacterDetails(v)),
         copyCharacter: (v: FrontendCharacter) => dispatch(actions.copyCharacter({ character: v })),
