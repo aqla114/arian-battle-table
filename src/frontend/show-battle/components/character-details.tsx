@@ -69,7 +69,8 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                             <th>物防</th>
                             <th>魔防</th>
                             <th>属性</th>
-                            <th>行動値</th>
+                            <th>行動値 / 初期</th>
+                            <th>移動力 / 初期</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -102,6 +103,25 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
                                 <ParameterInputField
                                     name={'actionPriority'}
                                     value={character.actionPriority}
+                                    onChange={onChangeNumberInputField}
+                                />
+                                {'/'}
+                                <ParameterInputField
+                                    name={'defaultActionPriority'}
+                                    value={character.defaultActionPriority}
+                                    onChange={onChangeNumberInputField}
+                                />
+                            </td>
+                            <td className="character-details__attribute-values__table1__mobility">
+                                <ParameterInputField
+                                    name={'mobility'}
+                                    value={character.mobility}
+                                    onChange={onChangeNumberInputField}
+                                />
+                                {'/'}
+                                <ParameterInputField
+                                    name={'defaultMobility'}
+                                    value={character.defaultMobility}
                                     onChange={onChangeNumberInputField}
                                 />
                             </td>
