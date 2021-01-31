@@ -2,7 +2,6 @@ import * as uuid from 'uuid';
 import { toast } from 'react-toastify';
 
 import { CharacterTableState } from '../components/characters-table';
-import { CharacterId } from '../actions/actions';
 import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
 import { characterSelector } from './reducers';
 import { BadStatus } from '../../types/bad-status';
@@ -10,15 +9,16 @@ import { Attribute } from '../../types/attribute';
 import { FrontendCharacter } from '../../types/character';
 import { DoneLoadingCharactersSuccess } from '../actions/load-characters';
 import { DoneSaveCharactersSuccess } from '../actions/save-characters';
-import { ChangeActionProps } from '../../types/actions';
 import { UpdateCharacterAttributeTextProps } from '../actions/update-character-attribute-text';
 import { UpdateCharacterCheckboxProps } from '../actions/update-character-checkbox';
 import { UpdateButtonDropdownBadStatusProps } from '../actions/update-button-dropdown-bad-status';
 import { CopyCharacterProps } from '../actions/copy-character';
+import { UpdateCharacterAttributeNumberTextProps } from '../actions/update-character-attribute-number-text';
+import { UpdateCharacterAttributeDropdownProps } from '../actions/update-character-attribute-dropdown';
 
 export const updateCharacterAttributeNumberText: (
     state: CharacterTableState,
-    props: ChangeActionProps<CharacterId>,
+    props: UpdateCharacterAttributeNumberTextProps,
 ) => CharacterTableState = (state, props) => {
     const { e, payload: id } = props;
 
@@ -107,7 +107,7 @@ export const updateButtonDropdownBadStatus: (
 
 export const updateCharacterAttributeDropdown: (
     state: CharacterTableState,
-    props: ChangeActionProps<CharacterId>,
+    props: UpdateCharacterAttributeDropdownProps,
 ) => CharacterTableState = (state, props) => {
     const { e, payload: id } = props;
 
