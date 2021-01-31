@@ -10,7 +10,7 @@ import { parseCsv } from '../utils/skill-csv-parser';
 import { Character } from '../../types/character';
 import { FrontendSkill } from '../types/skill';
 import { UpdateSessionNameTextProps } from './actions/update-session-name';
-import { UpdateCharacterAttributeNumberTextProps } from './actions/update-character-attribute-number-text';
+import { UpdateCharacterAttributeNumberProps } from './actions/update-character-attribute-number-text';
 import { UpdateCharacterAttributeTextProps } from './actions/update-character-attribute-text';
 import { UpdateCharacterCheckboxProps } from './actions/update-character-checkbox';
 import { UpdateButtonDropdownBadStatusProps } from './actions/update-button-dropdown-bad-status';
@@ -25,7 +25,7 @@ import { UpdateCurrentGuildIdProps } from './actions/update-current-guild-id';
 
 export interface Actions {
     updateSessionName: (v: UpdateSessionNameTextProps) => Action<string>;
-    updateCharacterAttributeNumberText: (v: UpdateCharacterAttributeNumberTextProps) => Action<string>;
+    updateCharacterAttributeNumber: (v: UpdateCharacterAttributeNumberProps) => Action<string>;
     updateCharacterAttributeText: (v: UpdateCharacterAttributeTextProps) => Action<string>;
     updateCharacterCheckbox: (v: UpdateCharacterCheckboxProps) => Action<string>;
     updateButtonDropdownBadStatus: (v: UpdateButtonDropdownBadStatusProps) => Action<string>;
@@ -56,8 +56,8 @@ function mapStateToProps(state: State): CharacterTableState {
 function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
     return {
         updateSessionName: (v: UpdateSessionNameTextProps) => dispatch(actions.updateSessionName(v)),
-        updateCharacterAttributeNumberText: (v: UpdateCharacterAttributeNumberTextProps) =>
-            dispatch(actions.updateCharacterAttributeNumberText(v)),
+        updateCharacterAttributeNumber: (v: UpdateCharacterAttributeNumberProps) =>
+            dispatch(actions.updateCharacterAttributeNumber(v)),
         updateCharacterAttributeText: (v: UpdateCharacterAttributeTextProps) =>
             dispatch(actions.updateCharacterAttributeText(v)),
         updateCharacterCheckbox: (v: UpdateCharacterCheckboxProps) => dispatch(actions.updateCharacterCheckbox(v)),

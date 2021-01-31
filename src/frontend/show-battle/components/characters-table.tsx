@@ -61,9 +61,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                 key={character.frontendId}
                 {...character}
                 isNextPrior={!character.isActed && character.actionPriority === nextActionPriority}
-                onChangeElementNumberText={e =>
-                    props.updateCharacterAttributeNumberText({ e, payload: character.frontendId })
-                }
+                onChangeElementNumber={e => props.updateCharacterAttributeNumber({ e, payload: character.frontendId })}
                 onChangeElementText={e => props.updateCharacterAttributeText({ e, payload: character.frontendId })}
                 onChangeElementCheckbox={e => props.updateCharacterCheckbox({ e, payload: character.frontendId })}
                 onClickDropdownItem={(key, value) =>
@@ -95,7 +93,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                     <CharacterDetails
                         character={characters.filter(x => x.frontendId === modal.characterId)[0]}
                         onChangeNumberInputField={e =>
-                            props.updateCharacterAttributeNumberText({ e, payload: modal.characterId })
+                            props.updateCharacterAttributeNumber({ e, payload: modal.characterId })
                         }
                         onChangeTextInputField={e =>
                             props.updateCharacterAttributeText({ e, payload: modal.characterId })

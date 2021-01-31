@@ -6,8 +6,8 @@ import { loadSkillsCsvActions } from './load-skills-csv';
 import { importCharactersByGuildIdActions } from './import-characters-by-guild-id';
 import { UpdateSessionNameTextProps, ACTION_TYPE as UPDATE_SESSION_NAME_TEXT } from './update-session-name';
 import {
-    UpdateCharacterAttributeNumberTextProps,
-    ACTION_TYPE as UPDATE_CHARACTER_ATTRIBUTE_NUMBER_TEXT,
+    UpdateCharacterAttributeNumberProps,
+    ACTION_TYPE as UPDATE_CHARACTER_ATTRIBUTE_NUMBER,
 } from './update-character-attribute-number-text';
 import {
     UpdateCharacterAttributeTextProps,
@@ -39,7 +39,7 @@ export type CharacterName = string;
 
 export type ActionTypes =
     | UPDATE_SESSION_NAME_TEXT
-    | UPDATE_CHARACTER_ATTRIBUTE_NUMBER_TEXT
+    | UPDATE_CHARACTER_ATTRIBUTE_NUMBER
     | UPDATE_CHARACTER_ATTRIBUTE_TEXT
     | UPDATE_CHARACTER_CHECKBOX
     | UPDATE_BUTTON_DROPDOWN_BAD_STATUS
@@ -68,11 +68,9 @@ function actionCreator<T = void>(actionType: ActionTypes) {
 }
 
 export const actions = {
-    // TODO : updateSessionName`Text`
     updateSessionName: actionCreator<UpdateSessionNameTextProps>('UPDATE_SESSION_NAME_TEXT'),
-    // TODO: NumberText とかいうのわからんし、Number だけでよくね？
-    updateCharacterAttributeNumberText: actionCreator<UpdateCharacterAttributeNumberTextProps>(
-        'UPDATE_CHARACTER_ATTRIBUTE_NUMBER_TEXT',
+    updateCharacterAttributeNumber: actionCreator<UpdateCharacterAttributeNumberProps>(
+        'UPDATE_CHARACTER_ATTRIBUTE_NUMBER',
     ),
     updateCharacterAttributeText: actionCreator<UpdateCharacterAttributeTextProps>('UPDATE_CHARACTER_ATTRIBUTE_TEXT'),
     // TODO?: 行動済み・未行動と boolean のバステの処理が同じになっているけど分けた方がいいかもしれん。

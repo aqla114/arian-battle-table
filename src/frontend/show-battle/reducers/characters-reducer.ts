@@ -13,12 +13,12 @@ import { UpdateCharacterAttributeTextProps } from '../actions/update-character-a
 import { UpdateCharacterCheckboxProps } from '../actions/update-character-checkbox';
 import { UpdateButtonDropdownBadStatusProps } from '../actions/update-button-dropdown-bad-status';
 import { CopyCharacterProps } from '../actions/copy-character';
-import { UpdateCharacterAttributeNumberTextProps } from '../actions/update-character-attribute-number-text';
+import { UpdateCharacterAttributeNumberProps } from '../actions/update-character-attribute-number-text';
 import { UpdateCharacterAttributeDropdownProps } from '../actions/update-character-attribute-dropdown';
 
-export const updateCharacterAttributeNumberText: (
+export const updateCharacterAttributeNumber: (
     state: CharacterTableState,
-    props: UpdateCharacterAttributeNumberTextProps,
+    props: UpdateCharacterAttributeNumberProps,
 ) => CharacterTableState = (state, props) => {
     const { e, payload: id } = props;
 
