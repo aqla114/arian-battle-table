@@ -30,6 +30,7 @@ import {
 } from './update-skill-attribute-text';
 import { DeleteSkillProps, ACTION_TYPE as DELETE_SKILL } from './delete-skill';
 import { MoveSkillProps, ACTION_TYPE as MOVE_SKILL } from './move-skill';
+import { OpenDeletionModalProps, ACTION_TYPE as OPEN_DELETION_MODAL } from './open-deletion-modal';
 
 export type CharacterId = string;
 export type GuildId = string;
@@ -55,7 +56,7 @@ export type ActionTypes =
     | 'IMPORT_CHARACTERS_BY_GUILD_ID'
     | 'SAVE_CHARACTERS'
     | 'SAVE_CHARACTERS_NEWLY'
-    | 'OPEN_DELETION_MODAL'
+    | OPEN_DELETION_MODAL
     | 'CLOSE_MODAL'
     | 'RESTORE_HISTORY';
 
@@ -87,7 +88,7 @@ export const actions = {
     deleteCharacter: actionCreator('DELETE_CHARACTER'),
     copyCharacter: actionCreator<{ character: FrontendCharacter }>('COPY_CHARACTER'),
     restoreHistory: actionCreator('RESTORE_HISTORY'),
-    openDeletionModal: actionCreator<MouseActionProps<CharacterId>>('OPEN_DELETION_MODAL'),
+    openDeletionModal: actionCreator<OpenDeletionModalProps>('OPEN_DELETION_MODAL'),
     closeModal: actionCreator('CLOSE_MODAL'),
     openCharacterDetails: actionCreator<MouseActionProps<CharacterId>>('OPEN_CHARACTER_DETAILS'),
     addNewCharacter: actionCreator('ADD_NEW_CHARACTER'),

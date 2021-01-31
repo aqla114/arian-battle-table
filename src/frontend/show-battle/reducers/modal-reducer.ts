@@ -1,11 +1,12 @@
 import { Reducer } from 'react';
 import { MouseActionProps } from '../../types/actions';
 import { updateObject } from '../../utils/reducer-commons';
+import { OpenDeletionModalProps } from '../actions/open-deletion-modal';
 import { CharacterTableState } from '../components/characters-table';
 
 export const openDeletionModal: Reducer<CharacterTableState, MouseActionProps<string>> = (
     state: CharacterTableState,
-    props: MouseActionProps<string>,
+    props: OpenDeletionModalProps,
 ) => {
     return {
         ...state,

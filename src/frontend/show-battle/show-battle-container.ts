@@ -19,6 +19,7 @@ import { UpdateCharacterAttributeDropdownProps } from './actions/update-characte
 import { UpdateSkillAttributeTextProps } from './actions/update-skill-attribute-text';
 import { DeleteSkillProps } from './actions/delete-skill';
 import { MoveSkillProps } from './actions/move-skill';
+import { OpenDeletionModalProps } from './actions/open-deletion-modal';
 
 export interface Actions {
     updateSessionName: (v: UpdateSessionNameTextProps) => Action<string>;
@@ -27,7 +28,7 @@ export interface Actions {
     updateCharacterCheckbox: (v: UpdateCharacterCheckboxProps) => Action<string>;
     updateButtonDropdownBadStatus: (v: UpdateButtonDropdownBadStatusProps) => Action<string>;
     updateCharacterAttributeDropdown: (v: UpdateCharacterAttributeDropdownProps) => Action<string>;
-    openDeletionModal: (v: MouseActionProps<CharacterId>) => Action<string>;
+    openDeletionModal: (v: OpenDeletionModalProps) => Action<string>;
     closeModal: () => Action<string>;
     openCharacterDetails: (v: MouseActionProps<CharacterId>) => Action<string>;
     copyCharacter: (v: FrontendCharacter) => Action<string>;
@@ -62,7 +63,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
             dispatch(actions.updateButtonDropdownBadStatus(v)),
         updateCharacterAttributeDropdown: (v: UpdateCharacterAttributeDropdownProps) =>
             dispatch(actions.updateCharacterAttributeDropdown(v)),
-        openDeletionModal: (v: MouseActionProps<CharacterId>) => dispatch(actions.openDeletionModal(v)),
+        openDeletionModal: (v: OpenDeletionModalProps) => dispatch(actions.openDeletionModal(v)),
         closeModal: () => dispatch(actions.closeModal()),
         deleteCharacter: () => dispatch(actions.deleteCharacter()),
         updateSkillAttributeText: (v: UpdateSkillAttributeTextProps) => dispatch(actions.updateSkillAttributeText(v)),
