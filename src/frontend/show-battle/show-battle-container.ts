@@ -9,7 +9,7 @@ import { FrontendCharacter } from '../types/character';
 import { parseCsv } from '../utils/skill-csv-parser';
 import { Character } from '../../types/character';
 import { FrontendSkill } from '../types/skill';
-import { ChangeActionProps, MouseActionProps } from '../types/actions';
+import { ChangeActionProps } from '../types/actions';
 import { UpdateSessionNameTextProps } from './actions/update-session-name';
 import { UpdateCharacterAttributeNumberTextProps } from './actions/update-character-attribute-number-text';
 import { UpdateCharacterAttributeTextProps } from './actions/update-character-attribute-text';
@@ -21,6 +21,7 @@ import { DeleteSkillProps } from './actions/delete-skill';
 import { MoveSkillProps } from './actions/move-skill';
 import { OpenDeletionModalProps } from './actions/open-deletion-modal';
 import { CopyCharacterProps } from './actions/copy-character';
+import { OpenCharacterDetailsProps } from './actions/open-character-details';
 
 export interface Actions {
     updateSessionName: (v: UpdateSessionNameTextProps) => Action<string>;
@@ -31,7 +32,7 @@ export interface Actions {
     updateCharacterAttributeDropdown: (v: UpdateCharacterAttributeDropdownProps) => Action<string>;
     openDeletionModal: (v: OpenDeletionModalProps) => Action<string>;
     closeModal: () => Action<string>;
-    openCharacterDetails: (v: MouseActionProps<CharacterId>) => Action<string>;
+    openCharacterDetails: (v: OpenCharacterDetailsProps) => Action<string>;
     copyCharacter: (v: CopyCharacterProps) => Action<string>;
     deleteCharacter: () => Action<string>;
     updateSkillAttributeText: (v: UpdateSkillAttributeTextProps) => Action<string>;
@@ -70,7 +71,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
         updateSkillAttributeText: (v: UpdateSkillAttributeTextProps) => dispatch(actions.updateSkillAttributeText(v)),
         deleteSkill: (v: DeleteSkillProps) => dispatch(actions.deleteSkill(v)),
         moveSkill: (v: MoveSkillProps) => dispatch(actions.moveSkill(v)),
-        openCharacterDetails: (v: MouseActionProps<CharacterId>) => dispatch(actions.openCharacterDetails(v)),
+        openCharacterDetails: (v: OpenCharacterDetailsProps) => dispatch(actions.openCharacterDetails(v)),
         copyCharacter: (v: CopyCharacterProps) => dispatch(actions.copyCharacter(v)),
         updateCurrentGuildId: (v: ChangeActionProps) => dispatch(actions.updateCurrentGuildId(v)),
         addNewCharacter: () => dispatch(actions.addNewCharacter()),

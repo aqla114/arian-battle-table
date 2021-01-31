@@ -1,6 +1,7 @@
 import { Reducer } from 'react';
 import { MouseActionProps } from '../../types/actions';
 import { updateObject } from '../../utils/reducer-commons';
+import { OpenCharacterDetailsProps } from '../actions/open-character-details';
 import { OpenDeletionModalProps } from '../actions/open-deletion-modal';
 import { CharacterTableState } from '../components/characters-table';
 
@@ -17,7 +18,7 @@ export const openDeletionModal: Reducer<CharacterTableState, MouseActionProps<st
 
 export const openCharacterDetails: Reducer<CharacterTableState, MouseActionProps<string>> = (
     state: CharacterTableState,
-    props: MouseActionProps<string>,
+    props: OpenCharacterDetailsProps,
 ) => {
     const { payload: id } = props;
     const character = state.state.characters.find(x => x.frontendId === id);

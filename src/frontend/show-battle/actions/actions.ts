@@ -4,7 +4,7 @@ import { saveCharactersActions } from './save-characters';
 import { saveCharactersNewlyActions } from './save-characters-newly';
 import { loadSkillsCsvActions } from './load-skills-csv';
 import { importCharactersByGuildIdActions } from './import-characters-by-guild-id';
-import { ChangeActionProps, MouseActionProps } from '../../types/actions';
+import { ChangeActionProps } from '../../types/actions';
 import { UpdateSessionNameTextProps, ACTION_TYPE as UPDATE_SESSION_NAME_TEXT } from './update-session-name';
 import {
     UpdateCharacterAttributeNumberTextProps,
@@ -31,6 +31,7 @@ import { DeleteSkillProps, ACTION_TYPE as DELETE_SKILL } from './delete-skill';
 import { MoveSkillProps, ACTION_TYPE as MOVE_SKILL } from './move-skill';
 import { OpenDeletionModalProps, ACTION_TYPE as OPEN_DELETION_MODAL } from './open-deletion-modal';
 import { CopyCharacterProps, ACTION_TYPE as COPY_CHARACTER } from './copy-character';
+import { OpenCharacterDetailsProps, ACTION_TYPE as OPEN_CHARACTER_DETAILS } from './open-character-details';
 
 export type CharacterId = string;
 export type GuildId = string;
@@ -48,7 +49,6 @@ export type ActionTypes =
     | MOVE_SKILL
     | 'DELETE_CHARACTER'
     | COPY_CHARACTER
-    | 'OPEN_CHARACTER_DETAILS'
     | 'ADD_NEW_CHARACTER'
     | 'ADD_NEW_SKILL'
     | 'LOAD_CHARACTERS'
@@ -57,6 +57,7 @@ export type ActionTypes =
     | 'SAVE_CHARACTERS'
     | 'SAVE_CHARACTERS_NEWLY'
     | OPEN_DELETION_MODAL
+    | OPEN_CHARACTER_DETAILS
     | 'CLOSE_MODAL'
     | 'RESTORE_HISTORY';
 
@@ -89,8 +90,8 @@ export const actions = {
     copyCharacter: actionCreator<CopyCharacterProps>('COPY_CHARACTER'),
     restoreHistory: actionCreator('RESTORE_HISTORY'),
     openDeletionModal: actionCreator<OpenDeletionModalProps>('OPEN_DELETION_MODAL'),
+    openCharacterDetails: actionCreator<OpenCharacterDetailsProps>('OPEN_CHARACTER_DETAILS'),
     closeModal: actionCreator('CLOSE_MODAL'),
-    openCharacterDetails: actionCreator<MouseActionProps<CharacterId>>('OPEN_CHARACTER_DETAILS'),
     addNewCharacter: actionCreator('ADD_NEW_CHARACTER'),
     addNewSkill: actionCreator('ADD_NEW_SKILL'),
     updateCurrentGuildId: actionCreator<ChangeActionProps>('UPDATE_CURRENT_GUILD_ID'),
