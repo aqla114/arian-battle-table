@@ -63,6 +63,12 @@ export class Character {
     @Column({ default: 0, name: 'default_action_priority' })
     defaultActionPriority: number;
 
+    @Column({ default: 0, name: 'mobility' })
+    mobility: number;
+
+    @Column({ default: 0, name: 'default_mobility' })
+    defaultMobility: number;
+
     @Column({ default: 0, name: 'hp' })
     hp: number;
 
