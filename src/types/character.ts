@@ -8,6 +8,8 @@ export type Character = {
     attribute: Attribute;
     defaultActionPriority: number;
     actionPriority: number;
+    defaultMobility: number;
+    mobility: number;
     hp: number;
     maxHp: number;
     physicalDefence: number;
@@ -40,6 +42,8 @@ export function Character(character: Partial<Character>): Omit<Character, 'id'> 
         attribute: 'None',
         actionPriority: 0,
         defaultActionPriority: 0,
+        mobility: 0,
+        defaultMobility: 0,
         hp: 0,
         maxHp: 0,
         physicalDefence: 0,
