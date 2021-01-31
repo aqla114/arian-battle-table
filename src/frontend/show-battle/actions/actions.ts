@@ -9,6 +9,10 @@ import { importCharactersByGuildIdActions } from './import-characters-by-guild-i
 import { SkillId } from '../../types/skill';
 import { ChangeActionProps, MouseActionProps } from '../../types/actions';
 import { UpdateSessionNameTextProps, ACTION_TYPE as UPDATE_SESSION_NAME_TEXT } from './update-session-name';
+import {
+    UpdateCharacterAttributeNumberTextProps,
+    ACTION_TYPE as UPDATE_CHARACTER_ATTRIBUTE_NUMBER_TEXT,
+} from './update-character-attribute-number-text';
 
 export type CharacterId = string;
 export type GuildId = string;
@@ -23,7 +27,7 @@ export type MoveSkillProps = { characterId: CharacterId; dragIdx: number; dropId
 
 export type ActionTypes =
     | UPDATE_SESSION_NAME_TEXT
-    | 'UPDATE_CHARACTER_ATTRIBUTE_NUMBER_TEXT'
+    | UPDATE_CHARACTER_ATTRIBUTE_NUMBER_TEXT
     | 'UPDATE_CHARACTER_ATTRIBUTE_TEXT'
     | 'UPDATE_SKILL_ATTRIBUTE_TEXT'
     | 'UPDATE_CHARACTER_IS_KNOCKBACK'
@@ -53,7 +57,7 @@ function actionCreator<T = void>(actionType: ActionTypes) {
 
 export const actions = {
     updateSessionName: actionCreator<UpdateSessionNameTextProps>('UPDATE_SESSION_NAME_TEXT'),
-    updateCharacterAttributeNumberText: actionCreator<ChangeActionProps<CharacterId>>(
+    updateCharacterAttributeNumberText: actionCreator<UpdateCharacterAttributeNumberTextProps>(
         'UPDATE_CHARACTER_ATTRIBUTE_NUMBER_TEXT',
     ),
     updateCharacterAttributeText: actionCreator<ChangeActionProps<CharacterId>>('UPDATE_CHARACTER_ATTRIBUTE_TEXT'),

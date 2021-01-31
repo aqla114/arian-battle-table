@@ -11,10 +11,11 @@ import { Character } from '../../types/character';
 import { FrontendSkill, SkillId } from '../types/skill';
 import { ChangeActionProps, MouseActionProps } from '../types/actions';
 import { UpdateSessionNameTextProps } from './actions/update-session-name';
+import { UpdateCharacterAttributeNumberTextProps } from './actions/update-character-attribute-number-text';
 
 export interface Actions {
     updateSessionName: (v: UpdateSessionNameTextProps) => Action<string>;
-    updateCharacterAttributeNumberText: (v: ChangeActionProps<CharacterId>) => Action<string>;
+    updateCharacterAttributeNumberText: (v: UpdateCharacterAttributeNumberTextProps) => Action<string>;
     updateCharacterAttributeText: (v: ChangeActionProps<CharacterId>) => Action<string>;
     updateSkillAttributeText: (
         v: ChangeActionProps<{ characterId: CharacterId; skillIndex: number }>,
@@ -47,7 +48,7 @@ function mapStateToProps(state: State): CharacterTableState {
 function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
     return {
         updateSessionName: (v: UpdateSessionNameTextProps) => dispatch(actions.updateSessionName(v)),
-        updateCharacterAttributeNumberText: (v: ChangeActionProps<CharacterId>) =>
+        updateCharacterAttributeNumberText: (v: UpdateCharacterAttributeNumberTextProps) =>
             dispatch(actions.updateCharacterAttributeNumberText(v)),
         updateCharacterAttributeText: (v: ChangeActionProps<CharacterId>) =>
             dispatch(actions.updateCharacterAttributeText(v)),
