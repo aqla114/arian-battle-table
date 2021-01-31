@@ -36,5 +36,8 @@ module.exports = [
                 filename: 'index.css',
             }),
         ],
+        watchOptions: {
+            aggregateTimeout: 300,
+        },
     },
 ];
