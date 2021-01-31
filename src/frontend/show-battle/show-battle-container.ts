@@ -1,14 +1,7 @@
 import { connect } from 'react-redux';
 import { CharactersTable, CharacterTableState } from './components/characters-table';
 import { Dispatch, Action } from 'redux';
-import {
-    actions,
-    ChangeSessionNameProps,
-    ClickDropDownListItemProps,
-    CharacterId,
-    MoveSkillProps,
-    GuildId,
-} from './actions/actions';
+import { actions, ClickDropDownListItemProps, CharacterId, MoveSkillProps, GuildId } from './actions/actions';
 import { State } from './store';
 import * as Request from 'superagent';
 import * as uuid from 'uuid';
@@ -17,9 +10,10 @@ import { parseCsv } from '../utils/skill-csv-parser';
 import { Character } from '../../types/character';
 import { FrontendSkill, SkillId } from '../types/skill';
 import { ChangeActionProps, MouseActionProps } from '../types/actions';
+import { UpdateSessionNameTextProps } from './actions/update-session-name';
 
 export interface Actions {
-    updateSessionName: (v: ChangeSessionNameProps) => Action<string>;
+    updateSessionName: (v: UpdateSessionNameTextProps) => Action<string>;
     updateCharacterAttributeNumberText: (v: ChangeActionProps<CharacterId>) => Action<string>;
     updateCharacterAttributeText: (v: ChangeActionProps<CharacterId>) => Action<string>;
     updateSkillAttributeText: (
@@ -52,7 +46,7 @@ function mapStateToProps(state: State): CharacterTableState {
 
 function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
     return {
-        updateSessionName: (v: ChangeSessionNameProps) => dispatch(actions.updateSessionName(v)),
+        updateSessionName: (v: UpdateSessionNameTextProps) => dispatch(actions.updateSessionName(v)),
         updateCharacterAttributeNumberText: (v: ChangeActionProps<CharacterId>) =>
             dispatch(actions.updateCharacterAttributeNumberText(v)),
         updateCharacterAttributeText: (v: ChangeActionProps<CharacterId>) =>

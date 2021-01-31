@@ -7,13 +7,12 @@ import { FrontendCharacter } from '../../types/character';
 import { loadSkillsCsvActions } from './load-skills-csv';
 import { importCharactersByGuildIdActions } from './import-characters-by-guild-id';
 import { SkillId } from '../../types/skill';
-import { ActionProps, ChangeActionProps, MouseActionProps } from '../../types/actions';
+import { ChangeActionProps, MouseActionProps } from '../../types/actions';
+import { UpdateSessionNameTextProps, ACTION_TYPE as UPDATE_SESSION_NAME_TEXT } from './update-session-name';
 
 export type CharacterId = string;
 export type GuildId = string;
 export type CharacterName = string;
-
-export type ChangeSessionNameProps = ActionProps<React.ChangeEvent<HTMLInputElement>>;
 
 export type ClickDropDownListItemProps = {
     key: string;
@@ -23,7 +22,7 @@ export type ClickDropDownListItemProps = {
 export type MoveSkillProps = { characterId: CharacterId; dragIdx: number; dropIdx: number };
 
 export type ActionTypes =
-    | 'UPDATE_SESSION_NAME_TEXT'
+    | UPDATE_SESSION_NAME_TEXT
     | 'UPDATE_CHARACTER_ATTRIBUTE_NUMBER_TEXT'
     | 'UPDATE_CHARACTER_ATTRIBUTE_TEXT'
     | 'UPDATE_SKILL_ATTRIBUTE_TEXT'
@@ -53,7 +52,7 @@ function actionCreator<T = void>(actionType: ActionTypes) {
 }
 
 export const actions = {
-    updateSessionName: actionCreator<ChangeSessionNameProps>('UPDATE_SESSION_NAME_TEXT'),
+    updateSessionName: actionCreator<UpdateSessionNameTextProps>('UPDATE_SESSION_NAME_TEXT'),
     updateCharacterAttributeNumberText: actionCreator<ChangeActionProps<CharacterId>>(
         'UPDATE_CHARACTER_ATTRIBUTE_NUMBER_TEXT',
     ),
