@@ -72,7 +72,7 @@ export const CharactersTable: React.SFC<CharacterTableProps> = (props: Character
                 onChangeElementDropdown={e =>
                     props.updateCharacterAttributeDropdown({ e, payload: character.frontendId })
                 }
-                onCopyCharacter={_ => props.copyCharacter(character)}
+                onCopyCharacter={_ => props.copyCharacter({ character })}
                 onDeleteCharacter={e => props.openDeletionModal({ e, payload: character.frontendId })}
                 onClickCharacterDetailsButton={e => props.openCharacterDetails({ e, payload: character.frontendId })}
             />

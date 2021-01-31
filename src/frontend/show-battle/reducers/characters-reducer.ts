@@ -14,6 +14,7 @@ import { ChangeActionProps } from '../../types/actions';
 import { UpdateCharacterAttributeTextProps } from '../actions/update-character-attribute-text';
 import { UpdateCharacterCheckboxProps } from '../actions/update-character-checkbox';
 import { UpdateButtonDropdownBadStatusProps } from '../actions/update-button-dropdown-bad-status';
+import { CopyCharacterProps } from '../actions/copy-character';
 
 export const updateCharacterAttributeNumberText: (
     state: CharacterTableState,
@@ -132,10 +133,10 @@ export const addNewCharacter: (state: CharacterTableState) => CharacterTableStat
     };
 };
 
-export const copyCharacter: (
-    state: CharacterTableState,
-    props: { character: FrontendCharacter },
-) => CharacterTableState = (state, props) => {
+export const copyCharacter: (state: CharacterTableState, props: CopyCharacterProps) => CharacterTableState = (
+    state,
+    props,
+) => {
     let { character } = props;
 
     const { id: _, ...badStatusWithoutId } = character.badStatus;

@@ -2,7 +2,6 @@ import actionCreatorFactory from 'typescript-fsa';
 import { loadCharactersActions } from './load-characters';
 import { saveCharactersActions } from './save-characters';
 import { saveCharactersNewlyActions } from './save-characters-newly';
-import { FrontendCharacter } from '../../types/character';
 import { loadSkillsCsvActions } from './load-skills-csv';
 import { importCharactersByGuildIdActions } from './import-characters-by-guild-id';
 import { ChangeActionProps, MouseActionProps } from '../../types/actions';
@@ -31,6 +30,7 @@ import {
 import { DeleteSkillProps, ACTION_TYPE as DELETE_SKILL } from './delete-skill';
 import { MoveSkillProps, ACTION_TYPE as MOVE_SKILL } from './move-skill';
 import { OpenDeletionModalProps, ACTION_TYPE as OPEN_DELETION_MODAL } from './open-deletion-modal';
+import { CopyCharacterProps, ACTION_TYPE as COPY_CHARACTER } from './copy-character';
 
 export type CharacterId = string;
 export type GuildId = string;
@@ -47,7 +47,7 @@ export type ActionTypes =
     | DELETE_SKILL
     | MOVE_SKILL
     | 'DELETE_CHARACTER'
-    | 'COPY_CHARACTER'
+    | COPY_CHARACTER
     | 'OPEN_CHARACTER_DETAILS'
     | 'ADD_NEW_CHARACTER'
     | 'ADD_NEW_SKILL'
@@ -86,7 +86,7 @@ export const actions = {
     deleteSkill: actionCreator<DeleteSkillProps>('DELETE_SKILL'),
     moveSkill: actionCreator<MoveSkillProps>('MOVE_SKILL'),
     deleteCharacter: actionCreator('DELETE_CHARACTER'),
-    copyCharacter: actionCreator<{ character: FrontendCharacter }>('COPY_CHARACTER'),
+    copyCharacter: actionCreator<CopyCharacterProps>('COPY_CHARACTER'),
     restoreHistory: actionCreator('RESTORE_HISTORY'),
     openDeletionModal: actionCreator<OpenDeletionModalProps>('OPEN_DELETION_MODAL'),
     closeModal: actionCreator('CLOSE_MODAL'),

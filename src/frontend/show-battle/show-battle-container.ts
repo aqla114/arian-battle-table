@@ -20,6 +20,7 @@ import { UpdateSkillAttributeTextProps } from './actions/update-skill-attribute-
 import { DeleteSkillProps } from './actions/delete-skill';
 import { MoveSkillProps } from './actions/move-skill';
 import { OpenDeletionModalProps } from './actions/open-deletion-modal';
+import { CopyCharacterProps } from './actions/copy-character';
 
 export interface Actions {
     updateSessionName: (v: UpdateSessionNameTextProps) => Action<string>;
@@ -31,7 +32,7 @@ export interface Actions {
     openDeletionModal: (v: OpenDeletionModalProps) => Action<string>;
     closeModal: () => Action<string>;
     openCharacterDetails: (v: MouseActionProps<CharacterId>) => Action<string>;
-    copyCharacter: (v: FrontendCharacter) => Action<string>;
+    copyCharacter: (v: CopyCharacterProps) => Action<string>;
     deleteCharacter: () => Action<string>;
     updateSkillAttributeText: (v: UpdateSkillAttributeTextProps) => Action<string>;
     deleteSkill: (v: DeleteSkillProps) => Action<string>;
@@ -70,7 +71,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
         deleteSkill: (v: DeleteSkillProps) => dispatch(actions.deleteSkill(v)),
         moveSkill: (v: MoveSkillProps) => dispatch(actions.moveSkill(v)),
         openCharacterDetails: (v: MouseActionProps<CharacterId>) => dispatch(actions.openCharacterDetails(v)),
-        copyCharacter: (v: FrontendCharacter) => dispatch(actions.copyCharacter({ character: v })),
+        copyCharacter: (v: CopyCharacterProps) => dispatch(actions.copyCharacter(v)),
         updateCurrentGuildId: (v: ChangeActionProps) => dispatch(actions.updateCurrentGuildId(v)),
         addNewCharacter: () => dispatch(actions.addNewCharacter()),
         addNewSkill: () => dispatch(actions.addNewSkill()),
