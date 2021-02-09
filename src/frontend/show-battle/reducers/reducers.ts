@@ -3,7 +3,7 @@ import { CharacterTableState } from '../components/characters-table';
 import { actions, CharacterId } from '../actions/actions';
 import { updateSessionName } from './session-name-reducer';
 import {
-    updateCharacterAttributeNumberText,
+    updateCharacterAttributeNumber,
     updateCharacterCheckbox,
     updateButtonDropdownBadStatus,
     updateCharacterAttributeDropdown,
@@ -75,7 +75,7 @@ export function indexSelector<T>(targetIdx: number) {
 export const tableReducer = reducerWithInitialState(initialState)
     .case(actions.updateSessionName, characterReducerWrapper(updateSessionName))
     .case(actions.updateCharacterAttributeText, characterReducerWrapper(updateCharacterAttributeText))
-    .case(actions.updateCharacterAttributeNumberText, characterReducerWrapper(updateCharacterAttributeNumberText))
+    .case(actions.updateCharacterAttributeNumber, characterReducerWrapper(updateCharacterAttributeNumber))
     .case(actions.updateSkillAttributeText, characterReducerWrapper(updateSkillAttributeText))
     .case(actions.updateCharacterCheckbox, characterReducerWrapper(updateCharacterCheckbox))
     .case(actions.updateButtonDropdownBadStatus, characterReducerWrapper(updateButtonDropdownBadStatus))

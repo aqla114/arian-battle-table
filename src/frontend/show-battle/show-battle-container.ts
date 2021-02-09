@@ -1,42 +1,44 @@
 import { connect } from 'react-redux';
 import { CharactersTable, CharacterTableState } from './components/characters-table';
 import { Dispatch, Action } from 'redux';
-import {
-    actions,
-    ChangeActionProps,
-    MouseActionProps,
-    ChangeSessionNameProps,
-    ClickDropDownListItemProps,
-    CharacterId,
-    MoveSkillProps,
-    GuildId,
-} from './actions/actions';
+import { actions, CharacterId, GuildId } from './actions/actions';
 import { State } from './store';
 import * as Request from 'superagent';
 import * as uuid from 'uuid';
 import { FrontendCharacter } from '../types/character';
 import { parseCsv } from '../utils/skill-csv-parser';
 import { Character } from '../../types/character';
-import { FrontendSkill, SkillId } from '../types/skill';
+import { FrontendSkill } from '../types/skill';
+import { UpdateSessionNameTextProps } from './actions/update-session-name';
+import { UpdateCharacterAttributeNumberProps } from './actions/update-character-attribute-number-text';
+import { UpdateCharacterAttributeTextProps } from './actions/update-character-attribute-text';
+import { UpdateCharacterCheckboxProps } from './actions/update-character-checkbox';
+import { UpdateButtonDropdownBadStatusProps } from './actions/update-button-dropdown-bad-status';
+import { UpdateCharacterAttributeDropdownProps } from './actions/update-character-attribute-dropdown';
+import { UpdateSkillAttributeTextProps } from './actions/update-skill-attribute-text';
+import { DeleteSkillProps } from './actions/delete-skill';
+import { MoveSkillProps } from './actions/move-skill';
+import { OpenDeletionModalProps } from './actions/open-deletion-modal';
+import { CopyCharacterProps } from './actions/copy-character';
+import { OpenCharacterDetailsProps } from './actions/open-character-details';
+import { UpdateCurrentGuildIdProps } from './actions/update-current-guild-id';
 
 export interface Actions {
-    updateSessionName: (v: ChangeSessionNameProps) => Action<string>;
-    updateCharacterAttributeNumberText: (v: ChangeActionProps<CharacterId>) => Action<string>;
-    updateCharacterAttributeText: (v: ChangeActionProps<CharacterId>) => Action<string>;
-    updateSkillAttributeText: (
-        v: ChangeActionProps<{ characterId: CharacterId; skillIndex: number }>,
-    ) => Action<string>;
-    updateCharacterCheckbox: (v: ChangeActionProps<CharacterId>) => Action<string>;
-    updateButtonDropdownBadStatus: (v: ClickDropDownListItemProps) => Action<string>;
-    updateCharacterAttributeDropdown: (v: ChangeActionProps<CharacterId>) => Action<string>;
-    openDeletionModal: (v: MouseActionProps<CharacterId>) => Action<string>;
+    updateSessionName: (v: UpdateSessionNameTextProps) => Action<string>;
+    updateCharacterAttributeNumber: (v: UpdateCharacterAttributeNumberProps) => Action<string>;
+    updateCharacterAttributeText: (v: UpdateCharacterAttributeTextProps) => Action<string>;
+    updateCharacterCheckbox: (v: UpdateCharacterCheckboxProps) => Action<string>;
+    updateButtonDropdownBadStatus: (v: UpdateButtonDropdownBadStatusProps) => Action<string>;
+    updateCharacterAttributeDropdown: (v: UpdateCharacterAttributeDropdownProps) => Action<string>;
+    openDeletionModal: (v: OpenDeletionModalProps) => Action<string>;
     closeModal: () => Action<string>;
-    openCharacterDetails: (v: MouseActionProps<CharacterId>) => Action<string>;
-    copyCharacter: (v: FrontendCharacter) => Action<string>;
+    openCharacterDetails: (v: OpenCharacterDetailsProps) => Action<string>;
+    copyCharacter: (v: CopyCharacterProps) => Action<string>;
     deleteCharacter: () => Action<string>;
-    deleteSkill: (v: MouseActionProps<{ characterId: CharacterId; skillId: string }>) => Action<string>;
+    updateSkillAttributeText: (v: UpdateSkillAttributeTextProps) => Action<string>;
+    deleteSkill: (v: DeleteSkillProps) => Action<string>;
     moveSkill: (v: MoveSkillProps) => Action<string>;
-    updateCurrentGuildId: (v: ChangeActionProps) => Action<string>;
+    updateCurrentGuildId: (v: UpdateCurrentGuildIdProps) => Action<string>;
     addNewCharacter: () => Action<string>;
     addNewSkill: () => Action<string>;
     loadCharacters: () => void;
@@ -53,27 +55,25 @@ function mapStateToProps(state: State): CharacterTableState {
 
 function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
     return {
-        updateSessionName: (v: ChangeSessionNameProps) => dispatch(actions.updateSessionName(v)),
-        updateCharacterAttributeNumberText: (v: ChangeActionProps<CharacterId>) =>
-            dispatch(actions.updateCharacterAttributeNumberText(v)),
-        updateCharacterAttributeText: (v: ChangeActionProps<CharacterId>) =>
+        updateSessionName: (v: UpdateSessionNameTextProps) => dispatch(actions.updateSessionName(v)),
+        updateCharacterAttributeNumber: (v: UpdateCharacterAttributeNumberProps) =>
+            dispatch(actions.updateCharacterAttributeNumber(v)),
+        updateCharacterAttributeText: (v: UpdateCharacterAttributeTextProps) =>
             dispatch(actions.updateCharacterAttributeText(v)),
-        updateSkillAttributeText: (v: ChangeActionProps<{ characterId: CharacterId; skillIndex: number }>) =>
-            dispatch(actions.updateSkillAttributeText(v)),
-        updateCharacterCheckbox: (v: ChangeActionProps<CharacterId>) => dispatch(actions.updateCharacterCheckbox(v)),
-        updateButtonDropdownBadStatus: (v: ClickDropDownListItemProps) =>
+        updateCharacterCheckbox: (v: UpdateCharacterCheckboxProps) => dispatch(actions.updateCharacterCheckbox(v)),
+        updateButtonDropdownBadStatus: (v: UpdateButtonDropdownBadStatusProps) =>
             dispatch(actions.updateButtonDropdownBadStatus(v)),
-        updateCharacterAttributeDropdown: (v: ChangeActionProps<CharacterId>) =>
+        updateCharacterAttributeDropdown: (v: UpdateCharacterAttributeDropdownProps) =>
             dispatch(actions.updateCharacterAttributeDropdown(v)),
-        openDeletionModal: (v: MouseActionProps<CharacterId>) => dispatch(actions.openDeletionModal(v)),
+        openDeletionModal: (v: OpenDeletionModalProps) => dispatch(actions.openDeletionModal(v)),
         closeModal: () => dispatch(actions.closeModal()),
         deleteCharacter: () => dispatch(actions.deleteCharacter()),
-        deleteSkill: (v: MouseActionProps<{ characterId: CharacterId; skillId: SkillId }>) =>
-            dispatch(actions.deleteSkill(v)),
+        updateSkillAttributeText: (v: UpdateSkillAttributeTextProps) => dispatch(actions.updateSkillAttributeText(v)),
+        deleteSkill: (v: DeleteSkillProps) => dispatch(actions.deleteSkill(v)),
         moveSkill: (v: MoveSkillProps) => dispatch(actions.moveSkill(v)),
-        openCharacterDetails: (v: MouseActionProps<CharacterId>) => dispatch(actions.openCharacterDetails(v)),
-        copyCharacter: (v: FrontendCharacter) => dispatch(actions.copyCharacter({ character: v })),
-        updateCurrentGuildId: (v: ChangeActionProps) => dispatch(actions.updateCurrentGuildId(v)),
+        openCharacterDetails: (v: OpenCharacterDetailsProps) => dispatch(actions.openCharacterDetails(v)),
+        copyCharacter: (v: CopyCharacterProps) => dispatch(actions.copyCharacter(v)),
+        updateCurrentGuildId: (v: UpdateCurrentGuildIdProps) => dispatch(actions.updateCurrentGuildId(v)),
         addNewCharacter: () => dispatch(actions.addNewCharacter()),
         addNewSkill: () => dispatch(actions.addNewSkill()),
         loadCharacters: loadCharactersMapper(dispatch),

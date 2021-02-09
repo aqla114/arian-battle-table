@@ -2,7 +2,6 @@ import * as uuid from 'uuid';
 import { toast } from 'react-toastify';
 
 import { CharacterTableState } from '../components/characters-table';
-import { ChangeActionProps, ClickDropDownListItemProps, CharacterId } from '../actions/actions';
 import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
 import { characterSelector } from './reducers';
 import { BadStatus } from '../../types/bad-status';
@@ -10,10 +9,16 @@ import { Attribute } from '../../types/attribute';
 import { FrontendCharacter } from '../../types/character';
 import { DoneLoadingCharactersSuccess } from '../actions/load-characters';
 import { DoneSaveCharactersSuccess } from '../actions/save-characters';
+import { UpdateCharacterAttributeTextProps } from '../actions/update-character-attribute-text';
+import { UpdateCharacterCheckboxProps } from '../actions/update-character-checkbox';
+import { UpdateButtonDropdownBadStatusProps } from '../actions/update-button-dropdown-bad-status';
+import { CopyCharacterProps } from '../actions/copy-character';
+import { UpdateCharacterAttributeNumberProps } from '../actions/update-character-attribute-number-text';
+import { UpdateCharacterAttributeDropdownProps } from '../actions/update-character-attribute-dropdown';
 
-export const updateCharacterAttributeNumberText: (
+export const updateCharacterAttributeNumber: (
     state: CharacterTableState,
-    props: ChangeActionProps<CharacterId>,
+    props: UpdateCharacterAttributeNumberProps,
 ) => CharacterTableState = (state, props) => {
     const { e, payload: id } = props;
 
@@ -37,7 +42,7 @@ export const updateCharacterAttributeNumberText: (
 
 export const updateCharacterAttributeText: (
     state: CharacterTableState,
-    props: ChangeActionProps<CharacterId>,
+    props: UpdateCharacterAttributeTextProps,
 ) => CharacterTableState = (state, props) => {
     const { e, payload: id } = props;
 
@@ -50,7 +55,7 @@ export const updateCharacterAttributeText: (
 
 export const updateCharacterCheckbox: (
     state: CharacterTableState,
-    props: ChangeActionProps<CharacterId>,
+    props: UpdateCharacterCheckboxProps,
 ) => CharacterTableState = (state, props) => {
     const { e, payload: id } = props;
     const action = e.target.name;
@@ -76,7 +81,7 @@ export const updateCharacterCheckbox: (
 
 export const updateButtonDropdownBadStatus: (
     state: CharacterTableState,
-    props: ClickDropDownListItemProps,
+    props: UpdateButtonDropdownBadStatusProps,
 ) => CharacterTableState = (state, props) => {
     const { key, value, characterId } = props;
 
@@ -102,7 +107,7 @@ export const updateButtonDropdownBadStatus: (
 
 export const updateCharacterAttributeDropdown: (
     state: CharacterTableState,
-    props: ChangeActionProps<CharacterId>,
+    props: UpdateCharacterAttributeDropdownProps,
 ) => CharacterTableState = (state, props) => {
     const { e, payload: id } = props;
 
@@ -128,10 +133,10 @@ export const addNewCharacter: (state: CharacterTableState) => CharacterTableStat
     };
 };
 
-export const copyCharacter: (
-    state: CharacterTableState,
-    props: { character: FrontendCharacter },
-) => CharacterTableState = (state, props) => {
+export const copyCharacter: (state: CharacterTableState, props: CopyCharacterProps) => CharacterTableState = (
+    state,
+    props,
+) => {
     let { character } = props;
 
     const { id: _, ...badStatusWithoutId } = character.badStatus;

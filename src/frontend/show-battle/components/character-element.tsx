@@ -17,7 +17,7 @@ import { FrontendCharacter } from '../../types/character';
 type CharacterElementProps = FrontendCharacter & {
     isNextPrior: boolean;
     onChangeElementText: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-    onChangeElementNumberText: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChangeElementNumber: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onClickDropdownItem: OnClickDropdownListItem;
     onChangeElementCheckbox: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onChangeElementDropdown: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -84,7 +84,7 @@ export function CharacterElement(props: CharacterElementProps) {
                         name: 'defaultActionPriority',
                         value: props.defaultActionPriority,
                     }}
-                    onChange={props.onChangeElementNumberText}
+                    onChange={props.onChangeElementNumber}
                 />
             </td>
             <td className="character-table__table__character__hp">
@@ -97,7 +97,7 @@ export function CharacterElement(props: CharacterElementProps) {
                         name: 'maxHp',
                         value: props.maxHp,
                     }}
-                    onChange={props.onChangeElementNumberText}
+                    onChange={props.onChangeElementNumber}
                 />
             </td>
             <td className="character-table__table__character__physical-defence">
@@ -110,7 +110,7 @@ export function CharacterElement(props: CharacterElementProps) {
                         name: 'defaultPhysicalDefence',
                         value: props.defaultPhysicalDefence,
                     }}
-                    onChange={props.onChangeElementNumberText}
+                    onChange={props.onChangeElementNumber}
                 />
             </td>
             <td className="character-table__table__character__magical-defence">
@@ -123,7 +123,7 @@ export function CharacterElement(props: CharacterElementProps) {
                         name: 'defaultMagicalDefence',
                         value: props.defaultMagicalDefence,
                     }}
-                    onChange={props.onChangeElementNumberText}
+                    onChange={props.onChangeElementNumber}
                 />
             </td>
             <td className="character-table__table__character__attribute">
