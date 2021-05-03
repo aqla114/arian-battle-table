@@ -38,7 +38,7 @@ export type CharacterTableState = {
 
 type CharacterTableProps = CharacterTableState & Actions;
 
-export const CharactersTable: React.SFC<CharacterTableProps> = (props: CharacterTableProps) => {
+export const CharactersTable: React.FunctionComponent<CharacterTableProps> = (props: CharacterTableProps) => {
     React.useEffect(() => {
         props.loadCharacters();
     }, []);
