@@ -15,7 +15,7 @@ type Props = {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export const ComibnedInputField: React.SFC<Props> = (props: Props) => {
+export const ComibnedInputField: React.FunctionComponent<Props> = (props: Props) => {
     return (
         <div className="combined-input-field">
             <InputField

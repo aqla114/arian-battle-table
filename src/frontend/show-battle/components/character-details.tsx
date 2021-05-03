@@ -24,7 +24,7 @@ export type CharacterDetailsProps = {
     onLoadSkillsCsv: (characterId: CharacterId, files: FileList | null) => void;
 };
 
-export const CharacterDetails: React.SFC<CharacterDetailsProps> = (props: CharacterDetailsProps) => {
+export const CharacterDetails: React.FunctionComponent<CharacterDetailsProps> = (props: CharacterDetailsProps) => {
     return (
         <div
             className="side-modal-wrapper"

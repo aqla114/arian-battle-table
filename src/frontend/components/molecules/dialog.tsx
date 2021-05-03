@@ -9,7 +9,7 @@ type Props = {
     onClickCancel: (e: any) => void;
 };
 
-export const Dialog: React.SFC<Props> = (props: Props) => {
+export const Dialog: React.FunctionComponent<Props> = (props: Props) => {
     return (
         <div className="modal-wrapper">
             <div className="dialog-window">
