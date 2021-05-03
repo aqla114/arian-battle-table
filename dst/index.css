@@ -720,7 +720,7 @@
   background-color: #fff;
   padding: 30px 30px;
   border-radius: 4px;
-  width: 1200px;
+  width: 1240px;
   height: 100%;
   right: 0px;
   box-shadow: 0 0 10px rgba(0,0,0,0.6);
@@ -872,6 +872,10 @@ input[class=text-checkbox] {
 }
 .character-details__skills__title {
   font-size: 18px;
+}
+.character-details__skills__table {
+  width: 1160px;
+  margin: 0px auto;
 }
 .character-details__skills__table__skill {
   height: 28px;
