@@ -29,7 +29,7 @@ type NumberBadStatus = {
 
 const BADSTATUS_STRENGTH_OPTIONS = [...Array(40).keys()];
 
-export const BadStatusButtons: React.SFC<BadStatusButtonsProps> = (props: BadStatusButtonsProps) => {
+export const BadStatusButtons: React.FunctionComponent<BadStatusButtonsProps> = (props: BadStatusButtonsProps) => {
     return (
         <React.Fragment>
             {props.badStatusList.map(prop => {

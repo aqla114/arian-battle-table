@@ -12,7 +12,7 @@ type Props = {
     onClick: (e: any) => void;
 };
 
-export const IconButton: React.SFC<Props> = ({ size = 'middle', ...props }: Props) => {
+export const IconButton: React.FunctionComponent<Props> = ({ size = 'middle', ...props }: Props) => {
     return (
         <button type="button" className={`icon-button ${`--${size}`}`} {...props}>
             <FontAwesomeIcon icon={props.icon} className={`icon-button__icon`} />

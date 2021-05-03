@@ -11,7 +11,7 @@ type Props = {
     onClick: (e: any) => void;
 };
 
-export const InputFieldWithButton: React.SFC<Props> = (props: Props) => {
+export const InputFieldWithButton: React.FunctionComponent<Props> = (props: Props) => {
     return (
         <div className="input-field-with-button">
             <InputField

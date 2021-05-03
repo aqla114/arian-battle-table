@@ -9,6 +9,6 @@ type Props = {
     onClick: (e: any) => void;
 };
 
-export const Button: React.SFC<Props> = (props: Props) => {
+export const Button: React.FunctionComponent<Props> = (props: Props) => {
     return <input type="button" className={`button__${props.kind}`} {...props} />;
 };

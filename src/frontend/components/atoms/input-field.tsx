@@ -17,7 +17,7 @@ type Props = {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export const InputField: React.SFC<Props> = ({
+export const InputField: React.FunctionComponent<Props> = ({
     textAlign = 'left',
     showBorder = true,
     size = 'midddle',

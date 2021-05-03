@@ -6,7 +6,7 @@ type Props = {
     onChange: (e: any) => void;
 };
 
-export const Dropdown: React.SFC<Props> = (props: Props) => {
+export const Dropdown: React.FunctionComponent<Props> = (props: Props) => {
     return (
         <select className="dropdown" value={props.value} onChange={props.onChange}>
             {props.options}

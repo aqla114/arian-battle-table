@@ -14,12 +14,6 @@ import { Dropdown } from '../../components/atoms/dropdown';
 import { Button } from '../../components/atoms/button';
 import { CardContainer } from '../../components/card-container';
 
-type DiceRollerState = {
-    count: number;
-    max: number;
-    result: number[];
-};
-
 const diceCountOptions = [...Array(40).keys()].map(x => (
     <option value={x + 1} key={x + 1}>
         {x + 1}
@@ -32,65 +26,69 @@ const diceMaxOptions = [6, 10, 100].map(x => (
     </option>
 ));
 
-export class DiceRoller extends React.Component<{}, DiceRollerState> {
-    constructor(props: any) {
-        super(props);
-        this.state = {
-            count: 1,
-            max: 6,
-            result: [0],
-        };
-    }
+const INIT_MAX_DICE = 6;
+const INIT_COUNT = 1;
 
-    roll() {
-        const result = [...Array(this.state.count)].map(_ => Math.floor(Math.random() * this.state.max) + 1).sort();
+function useDiceRoll(
+    maxDice: number,
+): [number, number, boolean, number[], React.Dispatch<React.SetStateAction<number[]>>] {
+    const [rollResult, setResult] = React.useState<number[]>([0]);
 
-        console.log(result);
+    const maxDiceCount = rollResult.filter(dice => dice === maxDice).length;
+    const diceSum = rollResult.reduce((acc, v) => acc + v);
+    const isFanble = rollResult.every(dice => dice === 1);
 
-        this.setState({
-            result,
-        });
-    }
-
-    render() {
-        const maxCount = this.state.result.filter(dice => dice === this.state.max).length;
-        const isFanble = this.state.result.every(dice => dice === 1);
-
-        return (
-            <CardContainer>
-                <div className="dice-roller">
-                    <div>ダイスロール</div>
-                    <Dropdown
-                        value={this.state.count}
-                        options={diceCountOptions}
-                        onChange={e => this.setState({ count: Number(e.target.value) })}
-                    />
-                    <span>D</span>
-                    <Dropdown
-                        value={this.state.max}
-                        options={diceMaxOptions}
-                        onChange={e => this.setState({ max: Number(e.target.value) })}
-                    />
-                    <Button kind="primary" name="roll-button" value="ロール" onClick={() => this.roll()} />
-                    <div className="dice-roller__result">
-                        <span className="dice-roller__result__dices">
-                            {this.state.result.map(dice => (
-                                <DiceIcon key={uuid.v4()} dice={dice} />
-                            ))}
-                        </span>
-                        <span className="dice-roller__result__sum">
-                            {this.state.result.reduce((acc, v) => acc + v)}
-                        </span>
-                        {maxCount >= 2 ? (
-                            <span className="dice-roller__result__critical">{`クリティカル！ x${maxCount}`}</span>
-                        ) : null}
-                        {isFanble ? <span className="dice-roller__result__fanble">ファンブル！</span> : null}
-                    </div>
-                </div>
-            </CardContainer>
-        );
-    }
+    return [maxDiceCount, diceSum, isFanble, rollResult, setResult];
 }
+
+export const DiceRoller: React.FunctionComponent = () => {
+    const [maxDice, setMaxDice] = React.useState<number>(INIT_MAX_DICE);
+    const [diceNum, setDiceNum] = React.useState<number>(INIT_COUNT);
+
+    const [maxDiceCount, diceSum, isFanble, rollResult, setResult] = useDiceRoll(maxDice);
+
+    const isCritical = maxDiceCount >= 2;
+
+    return (
+        <CardContainer>
+            <div className="dice-roller">
+                <div>ダイスロール</div>
+                <Dropdown
+                    value={diceNum}
+                    options={diceCountOptions}
+                    onChange={e => setDiceNum(Number(e.target.value))}
+                />
+                <span>D</span>
+                <Dropdown value={maxDice} options={diceMaxOptions} onChange={e => setMaxDice(Number(e.target.value))} />
+                <Button
+                    kind="primary"
+                    name="roll-button"
+                    value="ロール"
+                    onClick={() => setResult(roll(maxDice, diceNum))}
+                />
+                <div className="dice-roller__result">
+                    <span className="dice-roller__result__dices">
+                        {rollResult.map(dice => (
+                            <DiceIcon key={uuid.v4()} dice={dice} />
+                        ))}
+                    </span>
+                    <span className="dice-roller__result__sum">{diceSum}</span>
+                    {isCritical ? (
+                        <span className="dice-roller__result__critical">{`クリティカル！ x${maxDiceCount}`}</span>
+                    ) : null}
+                    {isFanble ? <span className="dice-roller__result__fanble">ファンブル！</span> : null}
+                </div>
+            </div>
+        </CardContainer>
+    );
+};
+
+const roll = (maxDice: number, diceNum: number) => {
+    const result = [...Array(diceNum)].map(_ => Math.floor(Math.random() * maxDice) + 1).sort();
+    console.log(result);
+
+    return result;
+};
 
 const DiceIcon = ({ dice }: { dice: number }) => {
     let diceIcon = faDiceOne;

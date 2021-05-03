@@ -6,6 +6,6 @@ type Props = {
     onChange: (e: any) => void;
 };
 
-export const CheckBox: React.SFC<Props> = (props: Props) => {
+export const CheckBox: React.FunctionComponent<Props> = (props: Props) => {
     return <input type="checkbox" className="checkbox" value="checked" {...props} />;
 };

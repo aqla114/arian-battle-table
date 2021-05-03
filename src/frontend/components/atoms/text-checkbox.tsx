@@ -8,7 +8,7 @@ type Props = {
     onChange: (e: any) => void;
 };
 
-export const TextCheckBox: React.SFC<Props> = (props: Props) => {
+export const TextCheckBox: React.FunctionComponent<Props> = (props: Props) => {
     const id = uuid.v4();
     return (
         <React.Fragment>

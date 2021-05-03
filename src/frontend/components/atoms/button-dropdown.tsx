@@ -11,7 +11,7 @@ type Props = {
     onClick: OnClickDropdownListItem;
 };
 
-export const ButtonDropdown: React.SFC<Props> = (props: Props) => {
+export const ButtonDropdown: React.FunctionComponent<Props> = (props: Props) => {
     const [open, toggleOpen] = React.useState(false);
 
     React.useEffect(() => {
@@ -43,7 +43,7 @@ export const ButtonDropdown: React.SFC<Props> = (props: Props) => {
 
 export type OnClickDropdownListItem = (key: string, value: ButtonDropdownValue) => void;
 
-const DropdownOptions: React.SFC<{
+const DropdownOptions: React.FunctionComponent<{
     options: Options;
     dropdownKey: string;
     onClickListItem: OnClickDropdownListItem;

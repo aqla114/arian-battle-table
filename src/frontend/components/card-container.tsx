@@ -5,7 +5,7 @@ type Props = React.PropsWithChildren<{
     isClickable?: boolean;
 }>;
 
-export const CardContainer: React.SFC<Props> = props => {
+export const CardContainer: React.FunctionComponent<Props> = props => {
     const { className, isClickable, children } = props;
     return <div className={`card-container ${className || ''} ${isClickable ? '--clickable' : ''}`}>{children}</div>;
 };
