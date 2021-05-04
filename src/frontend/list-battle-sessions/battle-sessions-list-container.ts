@@ -108,4 +108,4 @@ function loadBattleSessionsMapper(dispatch: Dispatch<Action<string>>) {
     };
 }
 
-export const BattlesListContainer = connect(mapStateToProps, mapDispatchToProps)(BattleSessionsList);
+export const BattleSessionsListContainer = connect(mapStateToProps, mapDispatchToProps)(BattleSessionsList);

@@ -6,12 +6,12 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import ShowBattleStore from './show-battle/store';
 import ListBattlesStore from './list-battle-sessions/store';
-import { BattlesListContainer } from './list-battle-sessions/list-battles-container';
+import { BattleSessionsListContainer } from './list-battle-sessions/battle-sessions-list-container';
 
 const list = () => (
     <Provider store={ListBattlesStore}>
         <div className="container">
-            <BattlesListContainer />
+            <BattleSessionsListContainer />
         </div>
     </Provider>
 );

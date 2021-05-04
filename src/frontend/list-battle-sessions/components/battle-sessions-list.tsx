@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Actions } from '../list-battles-container';
+import { Actions } from '../battle-sessions-list-container';
 import { InputFieldWithButton } from '../../components/molecules/input-field-with-button';
 import { CardContainer } from '../../components/card-container';
 import { IconButton } from '../../components/atoms/icon-button';
