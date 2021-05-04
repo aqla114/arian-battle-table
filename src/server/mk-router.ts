@@ -22,7 +22,7 @@ export function mkRouter(router: MiddleWare): MiddleWare {
     });
 
     // TODO : getBattleSession までは要らなくて存在するかどうかで場合分けしたい。
-    router.get('/battle/:id', pageRenderer, async (ctx, next) => {
+    router.get('/battle-session/:id', pageRenderer, async (ctx, next) => {
         const battleSession = await getBattleSession(ctx, ctx.params['id']);
 
         if (battleSession) {

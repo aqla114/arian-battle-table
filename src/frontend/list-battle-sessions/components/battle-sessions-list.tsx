@@ -37,7 +37,7 @@ export const BattleSessionsList: React.FunctionComponent<BattlesListProps> = (pr
 
     const sessions = props.state.battlesList.map(session => (
         <li key={session.id} className="battles-list__session">
-            <a href={`/battle/${session.id}`}>
+            <a href={`/battle-session/${session.id}`}>
                 <CardContainer className="battles-list__session" isClickable={true}>
                     <div className="battles-list__session__id">{session.id}</div>
                     <div className="battles-list__session__session-name">{session.sessionName}</div>

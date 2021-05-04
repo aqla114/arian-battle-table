@@ -29,7 +29,7 @@ function Container() {
     return (
         <Router>
             <Route path="/battle-sessions" exact component={list} />
-            <Route path="/battle/:id" exact component={show} />
+            <Route path="/battle-session/:id" exact component={show} />
         </Router>
     );
 }
