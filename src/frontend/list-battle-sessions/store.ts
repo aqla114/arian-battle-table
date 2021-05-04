@@ -1,9 +1,9 @@
 import { createStore, combineReducers } from 'redux';
 import { tableReducer } from './reducers/reducers';
-import { BattlesListState } from './components/battle-sessions-list';
+import { BattleSessionssListState } from './components/battle-sessions-list';
 
 export type State = {
-    battlesList: BattlesListState;
+    battlesList: BattleSessionssListState;
 };
 
 const store = createStore(

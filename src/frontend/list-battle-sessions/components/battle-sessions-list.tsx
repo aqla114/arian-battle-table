@@ -14,9 +14,9 @@ export type BattleSession = {
     updatedAt: string;
 };
 
-export type BattlesListState = {
+export type BattleSessionssListState = {
     state: {
-        battlesList: BattleSession[];
+        battleSessions: BattleSession[];
     };
     current: { sessionName: string; deleteSessionId: number };
     dom: {
@@ -24,7 +24,7 @@ export type BattlesListState = {
     };
 };
 
-type BattlesListProps = Actions & BattlesListState;
+type BattlesListProps = Actions & BattleSessionssListState;
 
 function formatDate(date: Date): string {
     return `${date.getFullYear()}/${date.getMonth()}/${date.getDate()}`;
@@ -35,7 +35,7 @@ export const BattleSessionsList: React.FunctionComponent<BattlesListProps> = (pr
         props.loadBattleSessions();
     }, []);
 
-    const sessions = props.state.battlesList.map(session => (
+    const sessions = props.state.battleSessions.map(session => (
         <li key={session.id} className="battles-list__session">
             <a href={`/battle-session/${session.id}`}>
                 <CardContainer className="battles-list__session" isClickable={true}>

@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { Dispatch, Action } from 'redux';
 import { actions } from './actions/actions';
 import * as Request from 'superagent';
-import { BattleSessionsList, BattlesListState } from './components/battle-sessions-list';
+import { BattleSessionsList, BattleSessionssListState } from './components/battle-sessions-list';
 import { State } from './store';
 import { OpenDeletionModalProps } from './actions/open-deletion-modal';
 import { routeFunctions, routes } from '../../types/routes';
@@ -16,7 +16,7 @@ export interface Actions {
     closeDeletionModal: () => Action<string>;
 }
 
-function mapStateToProps(state: State): BattlesListState {
+function mapStateToProps(state: State): BattleSessionssListState {
     return Object.assign({}, state.battlesList);
 }
 

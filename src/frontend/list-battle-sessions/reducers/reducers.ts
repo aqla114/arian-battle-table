@@ -1,11 +1,11 @@
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { updateObject } from '../../utils/reducer-commons';
 import { actions } from '../actions/actions';
-import { BattlesListState } from '../components/battle-sessions-list';
+import { BattleSessionssListState } from '../components/battle-sessions-list';
 
-const initialState: BattlesListState = {
+const initialState: BattleSessionssListState = {
     state: {
-        battlesList: [],
+        battleSessions: [],
     },
     current: {
         sessionName: '',
@@ -19,22 +19,22 @@ const initialState: BattlesListState = {
 export const tableReducer = reducerWithInitialState(initialState)
     .case(actions.doneLoadingBattleSessions, (state, props) => {
         return updateObject(state, {
-            state: updateObject(state.state, { battlesList: props.result.battleSessions }),
+            state: updateObject(state.state, { battleSessions: props.result.battleSessions }),
         });
     })
     .case(actions.doneCreateBattleSession, (state, props) => {
-        const battlesList = [...state.state.battlesList, props.result.session];
+        const battleSessions = [...state.state.battleSessions, props.result.session];
 
         return updateObject(state, {
-            state: updateObject(state.state, { battlesList }),
+            state: updateObject(state.state, { battleSessions }),
             current: updateObject(state.current, { sessionName: '' }),
         });
     })
     .case(actions.doneDeleteBattleSession, (state, props) => {
-        const battlesList = state.state.battlesList.filter(b => b.id !== props.result.sessionId);
+        const battleSessions = state.state.battleSessions.filter(b => b.id !== props.result.sessionId);
 
         return updateObject(state, {
-            state: updateObject(state.state, { battlesList }),
+            state: updateObject(state.state, { battleSessions }),
             dom: updateObject(state.dom, { modal: null }),
         });
     })
