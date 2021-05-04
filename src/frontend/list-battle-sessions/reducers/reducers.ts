@@ -1,9 +1,9 @@
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { updateObject } from '../../utils/reducer-commons';
 import { actions } from '../actions/actions';
-import { BattleSessionssListState } from '../components/battle-sessions-list';
+import { BattleSessionsListState } from '../components/battle-sessions-list';
 
-const initialState: BattleSessionssListState = {
+const initialState: BattleSessionsListState = {
     state: {
         battleSessions: [],
     },

@@ -14,7 +14,7 @@ export type BattleSession = {
     updatedAt: string;
 };
 
-export type BattleSessionssListState = {
+export type BattleSessionsListState = {
     state: {
         battleSessions: BattleSession[];
     };
@@ -24,7 +24,7 @@ export type BattleSessionssListState = {
     };
 };
 
-type BattlesListProps = Actions & BattleSessionssListState;
+type BattlesListProps = Actions & BattleSessionsListState;
 
 function formatDate(date: Date): string {
     return `${date.getFullYear()}/${date.getMonth()}/${date.getDate()}`;
