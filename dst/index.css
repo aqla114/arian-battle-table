@@ -915,61 +915,61 @@ input[class=text-checkbox] {
 .dice-roller__result__fanble {
   color: #f00;
 }
-.battles-list {
+.battle-sessions-list {
   width: 800px;
   padding: 0px;
 }
-.battles-list__header {
+.battle-sessions-list__header {
   list-style: none;
   height: 40px;
   margin: 8px;
   padding: 0 20px;
 }
-.battles-list__header div {
+.battle-sessions-list__header div {
   text-align: center;
   vertical-align: middle;
   display: inline-block;
 }
-.battles-list__header__id {
+.battle-sessions-list__header__id {
   width: 50px;
 }
-.battles-list__header__session-name {
+.battle-sessions-list__header__session-name {
   width: 320px;
 }
-.battles-list__header__created-at {
+.battle-sessions-list__header__created-at {
   width: 120px;
 }
-.battles-list__header__updated-at {
+.battle-sessions-list__header__updated-at {
   width: 120px;
 }
-.battles-list__header__delete {
+.battle-sessions-list__header__delete {
   width: 110px;
 }
-.battles-list__session {
+.battle-sessions-list__session {
   list-style: none;
   margin: 4px;
   color: #000;
 }
-.battles-list__session div {
+.battle-sessions-list__session div {
   display: inline-block;
 }
-.battles-list__session__id {
+.battle-sessions-list__session__id {
   width: 50px;
   text-align: center;
 }
-.battles-list__session__session-name {
+.battle-sessions-list__session__session-name {
   width: 320px;
   text-align: center;
 }
-.battles-list__session__created-at {
+.battle-sessions-list__session__created-at {
   width: 120px;
   text-align: center;
 }
-.battles-list__session__updated-at {
+.battle-sessions-list__session__updated-at {
   width: 120px;
   text-align: center;
 }
-.battles-list__session__delete {
+.battle-sessions-list__session__delete {
   width: 60px;
   text-align: center;
   vertical-align: middle;

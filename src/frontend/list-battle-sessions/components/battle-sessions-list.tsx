@@ -36,16 +36,20 @@ export const BattleSessionsList: React.FunctionComponent<BattlesListProps> = (pr
     }, []);
 
     const sessions = props.state.battleSessions.map(session => (
-        <li key={session.id} className="battles-list__session">
+        <li key={session.id} className="battle-sessions-list__session">
             <a href={`/battle-session/${session.id}`}>
-                <CardContainer className="battles-list__session" isClickable={true}>
-                    <div className="battles-list__session__id">{session.id}</div>
-                    <div className="battles-list__session__session-name">{session.sessionName}</div>
-                    <div className="battles-list__session__created-at">{formatDate(new Date(session.createdAt))}</div>
-                    <div className="battles-list__session__updated-at">{formatDate(new Date(session.updatedAt))}</div>
+                <CardContainer className="battle-sessions-list__session" isClickable={true}>
+                    <div className="battle-sessions-list__session__id">{session.id}</div>
+                    <div className="battle-sessions-list__session__session-name">{session.sessionName}</div>
+                    <div className="battle-sessions-list__session__created-at">
+                        {formatDate(new Date(session.createdAt))}
+                    </div>
+                    <div className="battle-sessions-list__session__updated-at">
+                        {formatDate(new Date(session.updatedAt))}
+                    </div>
                 </CardContainer>
             </a>
-            <div className="battles-list__session__delete">
+            <div className="battle-sessions-list__session__delete">
                 <IconButton
                     name="delete"
                     icon={faTrashAlt}
@@ -74,13 +78,13 @@ export const BattleSessionsList: React.FunctionComponent<BattlesListProps> = (pr
                 onChange={e => props.updateCurrentSessionName(e)}
                 onClick={() => props.createBattleSession(props.current.sessionName)}
             />
-            <ul className="battles-list">
-                <li className="battles-list__header">
-                    <div className="battles-list__header__id">id</div>
-                    <div className="battles-list__header__session-name">セッション名</div>
-                    <div className="battles-list__header__created-at">作成日時</div>
-                    <div className="battles-list__header__updated-at">更新日時</div>
-                    <div className="battles-list__header__delete">削除</div>
+            <ul className="battle-sessions-list">
+                <li className="battle-sessions-list__header">
+                    <div className="battle-sessions-list__header__id">id</div>
+                    <div className="battle-sessions-list__header__session-name">セッション名</div>
+                    <div className="battle-sessions-list__header__created-at">作成日時</div>
+                    <div className="battle-sessions-list__header__updated-at">更新日時</div>
+                    <div className="battle-sessions-list__header__delete">削除</div>
                 </li>
                 {sessions}
             </ul>
