@@ -4,7 +4,7 @@ import { InputFieldWithButton } from '../../components/molecules/input-field-wit
 import { CardContainer } from '../../components/card-container';
 import { IconButton } from '../../components/atoms/icon-button';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { Modal } from '../../types/modal';
+import { Modal } from '../types/modal';
 import { Dialog } from '../../components/molecules/dialog';
 
 export type BattleSession = {
@@ -54,8 +54,6 @@ export const BattleSessionsList: React.FunctionComponent<BattlesListProps> = (pr
             </div>
         </li>
     ));
-
-    console.log(props.dom.modal);
 
     return (
         <div>

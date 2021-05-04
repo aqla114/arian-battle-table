@@ -1,4 +1,4 @@
-import { CharacterId } from '../show-battle/actions/actions';
+import { CharacterId } from '../actions/actions';
 
 export type Modal =
     | {
