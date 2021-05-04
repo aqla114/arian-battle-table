@@ -10,12 +10,12 @@ import { loadCharactersFromSheet } from './api/load-characters-from-sheet';
 export function mkRouter(router: MiddleWare): MiddleWare {
     router.get('/', pageRenderer, (ctx, next) => {
         ctx.status = 303;
-        ctx.redirect('/list-battles');
+        ctx.redirect('/battle-sessions');
 
         return next();
     });
 
-    router.get('/list-battles', pageRenderer, async (ctx, next) => {
+    router.get('/battle-sessions', pageRenderer, async (ctx, next) => {
         ctx.status = 200;
 
         return next();
