@@ -4,12 +4,15 @@ import { actions } from './actions/actions';
 import * as Request from 'superagent';
 import { BattleSessionsList, BattlesListState } from './components/battle-sessions-list';
 import { State } from './store';
+import { OpenDeletionModalProps } from './actions/open-deletion-modal';
 
 export interface Actions {
     loadBattleSessions: () => void;
     createBattleSession: (sessionName: string) => void;
     deleteBattleSession: (sessionId: number) => void;
     updateCurrentSessionName: (v: React.ChangeEvent<HTMLInputElement>) => Action<string>;
+    openDeletionModal: (v: OpenDeletionModalProps) => Action<string>;
+    closeDeletionModal: () => Action<string>;
 }
 
 function mapStateToProps(state: State): BattlesListState {
@@ -23,6 +26,8 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
         updateCurrentSessionName: (e: React.ChangeEvent<HTMLInputElement>) =>
             dispatch(actions.updateCurrentSessionName(e)),
         deleteBattleSession: deleteBattleSessionMapper(dispatch),
+        openDeletionModal: (v: OpenDeletionModalProps) => dispatch(actions.openDeletionModal(v)),
+        closeDeletionModal: () => dispatch(actions.closeDeletionModal()),
     };
 }
 
