@@ -28,8 +28,8 @@ const show = () => (
 function Container() {
     return (
         <Router>
-            <Route path="/list-battles" exact component={list} />
-            <Route path="/battle/:id" exact component={show} />
+            <Route path="/battle-sessions" exact component={list} />
+            <Route path="/battle-session/:id" exact component={show} />
         </Router>
     );
 }
