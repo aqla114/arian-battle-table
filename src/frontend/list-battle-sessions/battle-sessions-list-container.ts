@@ -5,6 +5,7 @@ import * as Request from 'superagent';
 import { BattleSessionsList, BattlesListState } from './components/battle-sessions-list';
 import { State } from './store';
 import { OpenDeletionModalProps } from './actions/open-deletion-modal';
+import { routeFunctions, routes } from '../../types/routes';
 
 export interface Actions {
     loadBattleSessions: () => void;
@@ -41,7 +42,7 @@ function createBattleSessionMapper(dispatch: Dispatch<Action<string>>) {
             return;
         }
 
-        Request.post(`/api/create`)
+        Request.post(routes.api.createBattleSession)
             .send({ sessionName, characters: [] })
             .end((err, res) => {
                 if (err) {
@@ -65,7 +66,7 @@ function deleteBattleSessionMapper(dispatch: Dispatch<Action<string>>) {
     return (sessionId: number) => {
         dispatch(actions.startedDeleteBattleSession({}));
 
-        Request.post(`/api/${sessionId}/delete`)
+        Request.post(routeFunctions.api.deleteBattleSession(sessionId.toString()))
             .send()
             .end((err, res) => {
                 if (err) {
@@ -88,7 +89,7 @@ function loadBattleSessionsMapper(dispatch: Dispatch<Action<string>>) {
     return () => {
         dispatch(actions.startedLoadingBattleSessions({}));
 
-        Request.get(`/api/list`).end((err, res) => {
+        Request.get(routes.api.listBattleSessions).end((err, res) => {
             if (err) {
                 console.log(err);
                 dispatch(actions.failedLoadingBattleSessions({ params: {}, error: {} }));

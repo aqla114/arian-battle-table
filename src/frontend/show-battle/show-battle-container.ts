@@ -6,6 +6,7 @@ import { State } from './store';
 import * as Request from 'superagent';
 import * as uuid from 'uuid';
 import { FrontendCharacter } from '../types/character';
+import { routeFunctions, routes } from '../../types/routes';
 import { parseCsv } from '../utils/skill-csv-parser';
 import { Character } from '../../types/character';
 import { FrontendSkill } from '../types/skill';
@@ -91,7 +92,7 @@ function loadCharactersMapper(dispatch: Dispatch<Action<string>>) {
 
         const id = location.pathname.split('/').slice(-1)[0];
 
-        Request.get(`/api/${id}/get`).end((err, res) => {
+        Request.get(routeFunctions.api.getBattleSession(id)).end((err, res) => {
             if (err) {
                 console.error(err);
                 dispatch(actions.failedLoadingCharacters({ params: {}, error: {} }));
@@ -133,7 +134,7 @@ function importCharactersMapper(dispatch: Dispatch<Action<string>>) {
             return;
         }
 
-        Request.post(`/api/${id}/load-characters-from-sheet`)
+        Request.post(routeFunctions.api.loadCharactersFromSheet(id))
             .send({ guildId: numberGuildId })
             .end((err, res) => {
                 if (err) {
@@ -215,7 +216,7 @@ function saveCharactersMapper(dispatch: Dispatch<Action<string>>) {
             return serverCharacter;
         });
 
-        Request.post(`/api/${id}/update`)
+        Request.post(routeFunctions.api.updateBattleSession(id))
             .send({ sessionName, characters: serverCharacters })
             .end((err, res) => {
                 if (err) {
@@ -250,7 +251,7 @@ function saveCharactersNewlyMapper(dispatch: Dispatch<Action<string>>) {
             return { ...serverCharacter, badStatus: badStatusWithoutId, skill: skillsWithoutId };
         });
 
-        Request.post(`/api/create`)
+        Request.post(routes.api.createBattleSession)
             .send({ sessionName, characters: serverCharacters })
             .end((err, res) => {
                 if (err) {
@@ -266,7 +267,7 @@ function saveCharactersNewlyMapper(dispatch: Dispatch<Action<string>>) {
                         }),
                     );
 
-                    location.href = `/battle-session/${res.body.id}`;
+                    location.href = routeFunctions.page.showBattleSession(res.body.id);
                 }
             });
     };
