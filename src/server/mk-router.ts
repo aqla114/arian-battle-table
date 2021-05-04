@@ -19,8 +19,6 @@ export function mkRouter(router: MiddleWare): MiddleWare {
     router.get(routes.page.listBattleSessions, pageRenderer, async (ctx, next) => {
         ctx.status = 200;
 
-        console.log('Hello');
-
         return next();
     });
 
