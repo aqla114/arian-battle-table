@@ -1,4 +1,4 @@
-import { listBattleSession } from './api/list-battle-session';
+import { listBattleSessions } from './api/list-battle-sessions';
 import { getBattleSession } from './api/get-battle-session';
 import { updateBattleSession } from './api/update-battle-session';
 import { createBattleSession } from './api/creare-battle-session';
@@ -35,7 +35,7 @@ export function mkRouter(router: MiddleWare): MiddleWare {
     });
 
     router.get('/api/list', async (ctx, next) => {
-        const battleSessions = await listBattleSession(ctx);
+        const battleSessions = await listBattleSessions(ctx);
 
         if (battleSessions) {
             ctx.body = battleSessions;

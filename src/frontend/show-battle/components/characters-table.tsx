@@ -10,7 +10,7 @@ import { Dialog } from '../../components/molecules/dialog';
 import { CardContainer } from '../../components/card-container';
 import { InputField } from '../../components/atoms/input-field';
 import { CharacterDetails } from './character-details';
-import { Modal } from '../../types/modal';
+import { Modal } from '../types/modal';
 import { FrontendCharacter } from '../../types/character';
 import { CharacterId, GuildId } from '../actions/actions';
 import { faPlusSquare } from '@fortawesome/free-regular-svg-icons';
