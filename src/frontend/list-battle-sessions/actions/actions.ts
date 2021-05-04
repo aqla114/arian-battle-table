@@ -1,7 +1,7 @@
 import React from 'react';
 import actionCreatorFactory from 'typescript-fsa';
 
-import { loadBattleSessionsActions } from '../../list-battles/actions/load-battle-sessions';
+import { loadBattleSessionsActions } from './load-battle-sessions';
 import { createBattleSessionsActions } from './create-battle-session';
 import { deleteBattleSessionsActions } from './delete-battle-session';
 import { OpenDeletionModalProps, ACTION_TYPE as OPEN_DELETION_MODAL_ACTION_TYPE } from './open-deletion-modal';
