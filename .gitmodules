@@ -1,0 +1,3 @@
+[submodule "arianrod-protos"]
+	path = arianrod-protos
+	url = git@github.com:aqla114/arianrod-protos.git
