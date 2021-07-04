@@ -12,6 +12,7 @@ import { pathCanonicalizer } from 'koa-path-canonicalizer';
 import { StateT, CustomT } from './types';
 import { BadStatus } from './models/bad-status';
 import { Skill } from './models/skill';
+import { GrpcClient } from './adapters/grpc-client';
 
 async function mkApp(): Promise<void> {
     const connectionOptions = await getConnectionOptions();
@@ -30,6 +31,7 @@ async function mkApp(): Promise<void> {
         ctx.ports = {
             character: connection.manager.getRepository(Character),
             battleSession: connection.manager.getRepository(BattleSession),
+            grpcClient: new GrpcClient('load-characters-server', 8001),
         };
 
         return next();
