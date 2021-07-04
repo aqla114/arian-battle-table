@@ -1,5 +1,6 @@
 import { Character } from '../../types';
 import { Character as CharacterModel } from '../models/character';
+import { Character as grpcCharacter } from '../../../protogen/arianrod_pb';
 import { Context } from '../types';
 
 export async function loadCharactersFromSheet(ctx: Context) {
@@ -23,13 +24,14 @@ export async function loadCharactersFromSheet(ctx: Context) {
     return { characters };
 }
 
+// TODO: この parser が API 内に定義されてるのかなり嘘という感じがするのでいい感じにしたい。
 // load-character-server から飛んできたリクエストを Character の配列に変換する。
 function parseCharactersFromJson(jsonBody: any): CharacterModel[] {
     if (!Array.isArray(jsonBody)) {
         return [];
     }
 
-    const characters = jsonBody.map((x: Partial<Character>) =>
+    const characters = jsonBody.map((x: grpcCharacter.AsObject) =>
         CharacterModel.mk(
             Character({
                 ...x,
@@ -37,6 +39,8 @@ function parseCharactersFromJson(jsonBody: any): CharacterModel[] {
                 defaultActionPriority: x.actionPriority,
                 defaultPhysicalDefence: x.physicalDefence,
                 defaultMagicalDefence: x.magicalDefence,
+                skills: x.skillsList,
+                attribute: 'None',
             }),
         ),
     );
