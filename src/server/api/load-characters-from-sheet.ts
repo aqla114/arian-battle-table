@@ -1,4 +1,3 @@
-import * as Request from 'superagent';
 import { Character } from '../../types';
 import { Character as CharacterModel } from '../models/character';
 import { Context } from '../types';
@@ -12,14 +11,14 @@ export async function loadCharactersFromSheet(ctx: Context) {
         return;
     }
 
-    const response = await Request.get(`load-characters-server:8001/guild/${guildId}`).catch(err => err);
+    const response = await ctx.ports.grpcClient.getCharacterByGuildId(guildId);
 
-    if (!response || response.status !== 200) {
+    if (response === null) {
         console.error(`Unable to load characters from sheets. SheetID is ${guildId}`);
         return;
     }
 
-    const characters = parseCharactersFromJson(response.body);
+    const characters = parseCharactersFromJson(response.charactersList);
 
     return { characters };
 }
