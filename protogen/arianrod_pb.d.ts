@@ -1,32 +1,35 @@
-// package: 
+// package:
 // file: arianrod.proto
 
 /* tslint:disable */
 /* eslint-disable */
 
-import * as jspb from "google-protobuf";
+import * as jspb from 'google-protobuf';
 
-export class GetGuildCharactersRequest extends jspb.Message { 
+export class GetGuildCharactersRequest extends jspb.Message {
     getGuildId(): string;
     setGuildId(value: string): GetGuildCharactersRequest;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): GetGuildCharactersRequest.AsObject;
     static toObject(includeInstance: boolean, msg: GetGuildCharactersRequest): GetGuildCharactersRequest.AsObject;
-    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static extensions: { [key: number]: jspb.ExtensionFieldInfo<jspb.Message> };
+    static extensionsBinary: { [key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message> };
     static serializeBinaryToWriter(message: GetGuildCharactersRequest, writer: jspb.BinaryWriter): void;
     static deserializeBinary(bytes: Uint8Array): GetGuildCharactersRequest;
-    static deserializeBinaryFromReader(message: GetGuildCharactersRequest, reader: jspb.BinaryReader): GetGuildCharactersRequest;
+    static deserializeBinaryFromReader(
+        message: GetGuildCharactersRequest,
+        reader: jspb.BinaryReader,
+    ): GetGuildCharactersRequest;
 }
 
 export namespace GetGuildCharactersRequest {
     export type AsObject = {
-        guildId: string,
-    }
+        guildId: string;
+    };
 }
 
-export class GetGuildCharactersResponse extends jspb.Message { 
+export class GetGuildCharactersResponse extends jspb.Message {
     clearCharactersList(): void;
     getCharactersList(): Array<Character>;
     setCharactersList(value: Array<Character>): GetGuildCharactersResponse;
@@ -35,20 +38,23 @@ export class GetGuildCharactersResponse extends jspb.Message {
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): GetGuildCharactersResponse.AsObject;
     static toObject(includeInstance: boolean, msg: GetGuildCharactersResponse): GetGuildCharactersResponse.AsObject;
-    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static extensions: { [key: number]: jspb.ExtensionFieldInfo<jspb.Message> };
+    static extensionsBinary: { [key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message> };
     static serializeBinaryToWriter(message: GetGuildCharactersResponse, writer: jspb.BinaryWriter): void;
     static deserializeBinary(bytes: Uint8Array): GetGuildCharactersResponse;
-    static deserializeBinaryFromReader(message: GetGuildCharactersResponse, reader: jspb.BinaryReader): GetGuildCharactersResponse;
+    static deserializeBinaryFromReader(
+        message: GetGuildCharactersResponse,
+        reader: jspb.BinaryReader,
+    ): GetGuildCharactersResponse;
 }
 
 export namespace GetGuildCharactersResponse {
     export type AsObject = {
-        charactersList: Array<Character.AsObject>,
-    }
+        charactersList: Array<Character.AsObject>;
+    };
 }
 
-export class Character extends jspb.Message { 
+export class Character extends jspb.Message {
     getId(): string;
     setId(value: string): Character;
     getName(): string;
@@ -101,8 +107,8 @@ export class Character extends jspb.Message {
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Character.AsObject;
     static toObject(includeInstance: boolean, msg: Character): Character.AsObject;
-    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static extensions: { [key: number]: jspb.ExtensionFieldInfo<jspb.Message> };
+    static extensionsBinary: { [key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message> };
     static serializeBinaryToWriter(message: Character, writer: jspb.BinaryWriter): void;
     static deserializeBinary(bytes: Uint8Array): Character;
     static deserializeBinaryFromReader(message: Character, reader: jspb.BinaryReader): Character;
@@ -110,33 +116,33 @@ export class Character extends jspb.Message {
 
 export namespace Character {
     export type AsObject = {
-        id: string,
-        name: string,
-        attribute: string,
-        actionPriority: number,
-        mobility: number,
-        hp: number,
-        physicalDefence: number,
-        magicalDefence: number,
-        strength: number,
-        strengthBase: number,
-        dexterity: number,
-        dexterityBase: number,
-        agility: number,
-        agilityBase: number,
-        wisdom: number,
-        wisdomBase: number,
-        sensitivity: number,
-        sensitivityBase: number,
-        power: number,
-        powerBase: number,
-        luck: number,
-        luckBase: number,
-        skillsList: Array<Skill.AsObject>,
-    }
+        id: string;
+        name: string;
+        attribute: string;
+        actionPriority: number;
+        mobility: number;
+        hp: number;
+        physicalDefence: number;
+        magicalDefence: number;
+        strength: number;
+        strengthBase: number;
+        dexterity: number;
+        dexterityBase: number;
+        agility: number;
+        agilityBase: number;
+        wisdom: number;
+        wisdomBase: number;
+        sensitivity: number;
+        sensitivityBase: number;
+        power: number;
+        powerBase: number;
+        luck: number;
+        luckBase: number;
+        skillsList: Array<Skill.AsObject>;
+    };
 }
 
-export class Skill extends jspb.Message { 
+export class Skill extends jspb.Message {
     getName(): string;
     setName(value: string): Skill;
     getTiming(): string;
@@ -155,8 +161,8 @@ export class Skill extends jspb.Message {
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Skill.AsObject;
     static toObject(includeInstance: boolean, msg: Skill): Skill.AsObject;
-    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static extensions: { [key: number]: jspb.ExtensionFieldInfo<jspb.Message> };
+    static extensionsBinary: { [key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message> };
     static serializeBinaryToWriter(message: Skill, writer: jspb.BinaryWriter): void;
     static deserializeBinary(bytes: Uint8Array): Skill;
     static deserializeBinaryFromReader(message: Skill, reader: jspb.BinaryReader): Skill;
@@ -164,12 +170,12 @@ export class Skill extends jspb.Message {
 
 export namespace Skill {
     export type AsObject = {
-        name: string,
-        timing: string,
-        determinationWay: string,
-        target: string,
-        range: string,
-        restriction: string,
-        detail: string,
-    }
+        name: string;
+        timing: string;
+        determinationWay: string;
+        target: string;
+        range: string;
+        restriction: string;
+        detail: string;
+    };
 }
