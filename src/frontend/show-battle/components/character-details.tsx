@@ -310,19 +310,19 @@ const DraggableSkillTableRow = (props: {
                     onChange={e => onChangeElementSkillText(e, idx)}
                 />
             </td>
-            <td className="character-details__skills__table__skill__range">
+            <td className="character-details__skills__table__skill__target">
                 <InputField
-                    name={'range'}
-                    value={skill.range}
+                    name={'target'}
+                    value={skill.target}
                     kind={'text'}
                     size={'small'}
                     onChange={e => onChangeElementSkillText(e, idx)}
                 />
             </td>
-            <td className="character-details__skills__table__skill__target">
+            <td className="character-details__skills__table__skill__range">
                 <InputField
-                    name={'target'}
-                    value={skill.target}
+                    name={'range'}
+                    value={skill.range}
                     kind={'text'}
                     size={'small'}
                     onChange={e => onChangeElementSkillText(e, idx)}
