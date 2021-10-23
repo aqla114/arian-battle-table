@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Action } from 'redux';
 import { Actions } from '../battle-sessions-list-container';
 import { InputFieldWithButton } from '../../components/molecules/input-field-with-button';
 import { CardContainer } from '../../components/card-container';
@@ -6,6 +7,7 @@ import { IconButton } from '../../components/atoms/icon-button';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from '../types/modal';
 import { Dialog } from '../../components/molecules/dialog';
+import { OpenDeletionModalProps } from '../actions/open-deletion-modal';
 
 export type BattleSession = {
     id: number;
@@ -36,27 +38,7 @@ export const BattleSessionsList: React.FunctionComponent<BattlesListProps> = (pr
     }, []);
 
     const sessions = props.state.battleSessions.map(session => (
-        <li key={session.id} className="battle-sessions-list__session">
-            <a href={`/battle-session/${session.id}`}>
-                <CardContainer className="battle-sessions-list__session" isClickable={true}>
-                    <div className="battle-sessions-list__session__id">{session.id}</div>
-                    <div className="battle-sessions-list__session__session-name">{session.sessionName}</div>
-                    <div className="battle-sessions-list__session__created-at">
-                        {formatDate(new Date(session.createdAt))}
-                    </div>
-                    <div className="battle-sessions-list__session__updated-at">
-                        {formatDate(new Date(session.updatedAt))}
-                    </div>
-                </CardContainer>
-            </a>
-            <div className="battle-sessions-list__session__delete">
-                <IconButton
-                    name="delete"
-                    icon={faTrashAlt}
-                    onClick={e => props.openDeletionModal({ e, payload: session.id })}
-                />
-            </div>
-        </li>
+        <BattleSessionsListItem key={session.id} session={session} openDeletionModal={props.openDeletionModal} />
     ));
 
     return (
@@ -89,5 +71,39 @@ export const BattleSessionsList: React.FunctionComponent<BattlesListProps> = (pr
                 {sessions}
             </ul>
         </div>
+    );
+};
+
+type BattleSessionsListItemProps = {
+    session: BattleSession;
+    openDeletionModal: (v: OpenDeletionModalProps) => Action<string>;
+};
+
+const BattleSessionsListItem: React.FC<BattleSessionsListItemProps> = ({
+    session,
+    openDeletionModal,
+}: BattleSessionsListItemProps) => {
+    return (
+        <li key={session.id} className="battle-sessions-list__session">
+            <a href={`/battle-session/${session.id}`}>
+                <CardContainer className="battle-sessions-list__session" isClickable={true}>
+                    <div className="battle-sessions-list__session__id">{session.id}</div>
+                    <div className="battle-sessions-list__session__session-name">{session.sessionName}</div>
+                    <div className="battle-sessions-list__session__created-at">
+                        {formatDate(new Date(session.createdAt))}
+                    </div>
+                    <div className="battle-sessions-list__session__updated-at">
+                        {formatDate(new Date(session.updatedAt))}
+                    </div>
+                </CardContainer>
+            </a>
+            <div className="battle-sessions-list__session__delete">
+                <IconButton
+                    name="delete"
+                    icon={faTrashAlt}
+                    onClick={e => openDeletionModal({ e, payload: session.id })}
+                />
+            </div>
+        </li>
     );
 };
