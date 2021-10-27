@@ -1,7 +1,7 @@
-import { State as ShowBattleState } from './show-battle/reducers/reducers';
+import { State as ShowBattleState } from './show-battle-session/reducers/reducers';
 import { State as ListBattleSessionsState } from './list-battle-sessions/reducers/reducers';
 import { combineReducers, createStore, Dispatch } from 'redux';
-import { showBattleReducer } from './show-battle/reducers/reducers';
+import { showBattleReducer } from './show-battle-session/reducers/reducers';
 import { listBattleSessionsReducer } from './list-battle-sessions/reducers/reducers';
 
 export type State = {
