@@ -1,23 +1,23 @@
 import * as React from 'react';
-import { Beforeunload } from 'react-beforeunload';
-import { ToastContainer } from 'react-toastify';
-
-import { CharacterElement } from './character-element';
-import { Actions } from '../show-battle-container';
-import { Button } from '../../components/atoms/button';
-import { InputFieldWithButton } from '../../components/molecules/input-field-with-button';
-import { Dialog } from '../../components/molecules/dialog';
-import { CardContainer } from '../../components/card-container';
-import { InputField } from '../../components/atoms/input-field';
-import { CharacterDetails } from './character-details';
-import { faPlusSquare } from '@fortawesome/free-regular-svg-icons';
-import { IconButton } from '../../components/atoms/icon-button';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { useSelector } from 'react-redux';
+import { Beforeunload } from 'react-beforeunload';
+import { ToastContainer } from 'react-toastify';
+import { faPlusSquare } from '@fortawesome/free-regular-svg-icons';
+
+import { CharacterElement } from './components/character-element';
+import { Actions } from './show-battle-container';
+import { Button } from '../components/atoms/button';
+import { InputFieldWithButton } from '../components/molecules/input-field-with-button';
+import { Dialog } from '../components/molecules/dialog';
+import { CardContainer } from '../components/card-container';
+import { InputField } from '../components/atoms/input-field';
+import { CharacterDetails } from './components/character-details';
+import { IconButton } from '../components/atoms/icon-button';
 
 type CharacterTableProps = Actions;
 
-export const CharactersTable: React.FunctionComponent<CharacterTableProps> = (props: CharacterTableProps) => {
+export const View: React.FunctionComponent<CharacterTableProps> = (props: CharacterTableProps) => {
     React.useEffect(() => {
         props.loadCharacters();
     }, []);

@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { CharactersTable } from './components/characters-table';
 import { Dispatch, Action } from 'redux';
 import { actions, CharacterId, GuildId } from './actions/actions';
 import * as Request from 'superagent';
@@ -24,6 +23,7 @@ import { OpenCharacterDetailsProps } from './actions/open-character-details';
 import { UpdateCurrentGuildIdProps } from './actions/update-current-guild-id';
 import { State } from './state';
 import { State as GlobalState } from '../store';
+import { View } from './view';
 export interface Actions {
     updateSessionName: (v: UpdateSessionNameTextProps) => Action<string>;
     updateCharacterAttributeNumber: (v: UpdateCharacterAttributeNumberProps) => Action<string>;
@@ -273,4 +273,4 @@ function saveCharactersNewlyMapper(dispatch: Dispatch<Action<string>>) {
     };
 }
 
-export const ShowBattleContainer = connect(mapStateToProps, mapDispatchToProps)(CharactersTable);
+export const ShowBattleContainer = connect(mapStateToProps, mapDispatchToProps)(View);
