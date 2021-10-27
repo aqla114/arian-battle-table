@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { Action } from 'redux';
-import { Actions } from '../battle-sessions-list-container';
-import { InputFieldWithButton } from '../../components/molecules/input-field-with-button';
-import { CardContainer } from '../../components/card-container';
-import { IconButton } from '../../components/atoms/icon-button';
+import { Actions } from './battle-sessions-list-container';
+import { InputFieldWithButton } from '../components/molecules/input-field-with-button';
+import { CardContainer } from '../components/card-container';
+import { IconButton } from '../components/atoms/icon-button';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { Dialog } from '../../components/molecules/dialog';
-import { OpenDeletionModalProps } from '../actions/open-deletion-modal';
+import { Dialog } from '../components/molecules/dialog';
+import { OpenDeletionModalProps } from './actions/open-deletion-modal';
 import { useSelector } from 'react-redux';
-import { BattleSession } from '../state';
+import { BattleSession } from './state';
 
 type BattlesListProps = Actions;
 

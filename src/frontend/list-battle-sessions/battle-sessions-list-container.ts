@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { Dispatch, Action } from 'redux';
 import { actions } from './actions/actions';
 import * as Request from 'superagent';
-import { BattleSessionsList } from './components/battle-sessions-list';
+import { BattleSessionsList } from './view';
 import { OpenDeletionModalProps } from './actions/open-deletion-modal';
 import { routeFunctions, routes } from '../../types/routes';
 import { State as GlobalState } from '../store';
