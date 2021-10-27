@@ -3,7 +3,7 @@ import { Dispatch, Action } from 'redux';
 import { actions } from './actions/actions';
 import * as Request from 'superagent';
 import { BattleSessionsList, BattleSessionsListState } from './components/battle-sessions-list';
-import { State } from './store';
+import { State } from './reducers/reducers';
 import { OpenDeletionModalProps } from './actions/open-deletion-modal';
 import { routeFunctions, routes } from '../../types/routes';
 

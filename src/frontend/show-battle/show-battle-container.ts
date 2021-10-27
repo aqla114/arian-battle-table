@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import { CharactersTable, CharacterTableState } from './components/characters-table';
 import { Dispatch, Action } from 'redux';
 import { actions, CharacterId, GuildId } from './actions/actions';
-import { State } from './store';
 import * as Request from 'superagent';
 import * as uuid from 'uuid';
 import { FrontendCharacter } from '../types/character';
@@ -23,6 +22,7 @@ import { OpenDeletionModalProps } from './actions/open-deletion-modal';
 import { CopyCharacterProps } from './actions/copy-character';
 import { OpenCharacterDetailsProps } from './actions/open-character-details';
 import { UpdateCurrentGuildIdProps } from './actions/update-current-guild-id';
+import { State } from './reducers/reducers';
 
 export interface Actions {
     updateSessionName: (v: UpdateSessionNameTextProps) => Action<string>;

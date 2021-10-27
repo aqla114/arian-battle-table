@@ -8,6 +8,7 @@ import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from '../types/modal';
 import { Dialog } from '../../components/molecules/dialog';
 import { OpenDeletionModalProps } from '../actions/open-deletion-modal';
+import { useSelector } from 'react-redux';
 
 export type BattleSession = {
     id: number;
@@ -26,7 +27,7 @@ export type BattleSessionsListState = {
     };
 };
 
-type BattlesListProps = Actions & BattleSessionsListState;
+type BattlesListProps = Actions;
 
 function formatDate(date: Date): string {
     return `${date.getFullYear()}/${date.getMonth()}/${date.getDate()}`;
@@ -37,28 +38,30 @@ export const BattleSessionsList: React.FunctionComponent<BattlesListProps> = (pr
         props.loadBattleSessions();
     }, []);
 
-    const sessions = props.state.battleSessions.map(session => (
+    const battleSessionsListState = useSelector(state => state.listBattleSessions.battleSessionsList);
+
+    const sessions = battleSessionsListState.state.battleSessions.map(session => (
         <BattleSessionsListItem key={session.id} session={session} openDeletionModal={props.openDeletionModal} />
     ));
 
     return (
         <div>
-            {props.dom.modal?.type === 'DeletionModal' ? (
+            {battleSessionsListState.dom.modal?.type === 'DeletionModal' ? (
                 <Dialog
                     description={'本当に削除しますか？'}
                     enterLabel={'削除する'}
                     cancelLabel={'キャンセル'}
-                    onClickEnter={() => props.deleteBattleSession(props.current.deleteSessionId)}
+                    onClickEnter={() => props.deleteBattleSession(battleSessionsListState.current.deleteSessionId)}
                     onClickCancel={() => props.closeDeletionModal()}
                 />
             ) : null}
             <InputFieldWithButton
                 name={'session-name'}
-                value={props.current.sessionName}
+                value={battleSessionsListState.current.sessionName}
                 buttonLabel={'新しくセッションを追加'}
                 placeholder={'セッション名'}
                 onChange={e => props.updateCurrentSessionName(e)}
-                onClick={() => props.createBattleSession(props.current.sessionName)}
+                onClick={() => props.createBattleSession(battleSessionsListState.current.sessionName)}
             />
             <ul className="battle-sessions-list">
                 <li className="battle-sessions-list__header">

@@ -23,6 +23,7 @@ import { updateObject } from '../../utils/reducer-commons';
 import { Reducer } from 'react';
 import { closeModal, openCharacterDetails, openDeletionModal } from './modal-reducer';
 import { doneImportCharactersByGuildId, updateCurrentGuildId } from './guild-id-reducer';
+import { combineReducers } from 'redux';
 
 const initialState: CharacterTableState = {
     state: {
@@ -100,3 +101,11 @@ export const tableReducer = reducerWithInitialState(initialState)
         console.log('The default reducer is used.');
         return state;
     });
+
+export type State = {
+    charactersTable: CharacterTableState;
+};
+
+export const showBattleReducer = combineReducers<State>({
+    charactersTable: tableReducer,
+});

@@ -1,3 +1,4 @@
+import { combineReducers } from 'redux';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { updateObject } from '../../utils/reducer-commons';
 import { actions } from '../actions/actions';
@@ -59,3 +60,11 @@ export const tableReducer = reducerWithInitialState(initialState)
         console.log('The default reducer is used.');
         return state;
     });
+
+export type State = {
+    battleSessionsList: BattleSessionsListState;
+};
+
+export const listBattleSessionsReducer = combineReducers<State>({
+    battleSessionsList: tableReducer,
+});
