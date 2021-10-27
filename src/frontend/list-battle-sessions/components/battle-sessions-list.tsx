@@ -5,27 +5,10 @@ import { InputFieldWithButton } from '../../components/molecules/input-field-wit
 import { CardContainer } from '../../components/card-container';
 import { IconButton } from '../../components/atoms/icon-button';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { Modal } from '../types/modal';
 import { Dialog } from '../../components/molecules/dialog';
 import { OpenDeletionModalProps } from '../actions/open-deletion-modal';
 import { useSelector } from 'react-redux';
-
-export type BattleSession = {
-    id: number;
-    sessionName: string;
-    createdAt: string;
-    updatedAt: string;
-};
-
-export type BattleSessionsListState = {
-    state: {
-        battleSessions: BattleSession[];
-    };
-    current: { sessionName: string; deleteSessionId: number };
-    dom: {
-        modal: Modal | null;
-    };
-};
+import { BattleSession } from '../state';
 
 type BattlesListProps = Actions;
 
@@ -38,7 +21,7 @@ export const BattleSessionsList: React.FunctionComponent<BattlesListProps> = (pr
         props.loadBattleSessions();
     }, []);
 
-    const battleSessionsListState = useSelector(state => state.listBattleSessions.battleSessionsList);
+    const battleSessionsListState = useSelector(state => state.listBattleSessions);
 
     const sessions = battleSessionsListState.state.battleSessions.map(session => (
         <BattleSessionsListItem key={session.id} session={session} openDeletionModal={props.openDeletionModal} />
