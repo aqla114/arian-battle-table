@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { Dispatch, Action } from 'redux';
 import { actions } from './actions/actions';
 import * as Request from 'superagent';
-import { BattleSessionsList } from './view';
+import { View } from './view';
 import { OpenDeletionModalProps } from './actions/open-deletion-modal';
 import { routeFunctions, routes } from '../../types/routes';
 import { State as GlobalState } from '../store';
@@ -110,4 +110,4 @@ function loadBattleSessionsMapper(dispatch: Dispatch<Action<string>>) {
     };
 }
 
-export const BattleSessionsListContainer = connect(mapStateToProps, mapDispatchToProps)(BattleSessionsList);
+export const BattleSessionsListContainer = connect(mapStateToProps, mapDispatchToProps)(View);
