@@ -10,32 +10,10 @@ import { Dialog } from '../../components/molecules/dialog';
 import { CardContainer } from '../../components/card-container';
 import { InputField } from '../../components/atoms/input-field';
 import { CharacterDetails } from './character-details';
-import { Modal } from '../types/modal';
-import { FrontendCharacter } from '../../types/character';
-import { CharacterId, GuildId } from '../actions/actions';
 import { faPlusSquare } from '@fortawesome/free-regular-svg-icons';
 import { IconButton } from '../../components/atoms/icon-button';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { useSelector } from 'react-redux';
-
-type State = {
-    sessionName: string;
-    characters: FrontendCharacter[];
-};
-
-export type CharacterTableState = {
-    state: State;
-    current: {
-        currentGuildId: GuildId;
-        deleteCharacterID: CharacterId;
-        modalCharacterID: CharacterId;
-        unsaved: boolean;
-        history: State[];
-    };
-    dom: {
-        modal: Modal | null;
-    };
-};
 
 type CharacterTableProps = Actions;
 
@@ -44,7 +22,7 @@ export const CharactersTable: React.FunctionComponent<CharacterTableProps> = (pr
         props.loadCharacters();
     }, []);
 
-    const charactersTableState = useSelector(state => state.showBattle.charactersTable);
+    const charactersTableState = useSelector(state => state.showBattle);
 
     useHotkeys('command+z, ctrl+z', () => {
         props.restoreHistory();

@@ -1,4 +1,4 @@
-import { State as ShowBattleState } from './show-battle-session/reducers/reducers';
+import { State as ShowBattleState } from './show-battle-session/state';
 import { State as ListBattleSessionsState } from './list-battle-sessions/state';
 import { combineReducers, createStore, Dispatch } from 'redux';
 import { showBattleReducer } from './show-battle-session/reducers/reducers';
