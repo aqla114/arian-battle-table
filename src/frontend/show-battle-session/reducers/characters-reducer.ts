@@ -1,7 +1,6 @@
 import * as uuid from 'uuid';
 import { toast } from 'react-toastify';
 
-import { CharacterTableState } from '../components/characters-table';
 import { updateItemInArray, updateObject } from '../../utils/reducer-commons';
 import { characterSelector } from './reducers';
 import { BadStatus } from '../../types/bad-status';
@@ -15,11 +14,12 @@ import { UpdateButtonDropdownBadStatusProps } from '../actions/update-button-dro
 import { CopyCharacterProps } from '../actions/copy-character';
 import { UpdateCharacterAttributeNumberProps } from '../actions/update-character-attribute-number-text';
 import { UpdateCharacterAttributeDropdownProps } from '../actions/update-character-attribute-dropdown';
+import { State } from '../state';
 
-export const updateCharacterAttributeNumber: (
-    state: CharacterTableState,
-    props: UpdateCharacterAttributeNumberProps,
-) => CharacterTableState = (state, props) => {
+export const updateCharacterAttributeNumber: (state: State, props: UpdateCharacterAttributeNumberProps) => State = (
+    state,
+    props,
+) => {
     const { e, payload: id } = props;
 
     const characters = updateItemInArray(state.state.characters, characterSelector(id), item => {
@@ -40,10 +40,10 @@ export const updateCharacterAttributeNumber: (
     return { ...state, state: { ...state.state, characters } };
 };
 
-export const updateCharacterAttributeText: (
-    state: CharacterTableState,
-    props: UpdateCharacterAttributeTextProps,
-) => CharacterTableState = (state, props) => {
+export const updateCharacterAttributeText: (state: State, props: UpdateCharacterAttributeTextProps) => State = (
+    state,
+    props,
+) => {
     const { e, payload: id } = props;
 
     const characters = updateItemInArray(state.state.characters, characterSelector(id), item => {
@@ -53,10 +53,7 @@ export const updateCharacterAttributeText: (
     return { ...state, state: { ...state.state, characters } };
 };
 
-export const updateCharacterCheckbox: (
-    state: CharacterTableState,
-    props: UpdateCharacterCheckboxProps,
-) => CharacterTableState = (state, props) => {
+export const updateCharacterCheckbox: (state: State, props: UpdateCharacterCheckboxProps) => State = (state, props) => {
     const { e, payload: id } = props;
     const action = e.target.name;
 
@@ -79,10 +76,10 @@ export const updateCharacterCheckbox: (
     return { ...state, state: { ...state.state, characters } };
 };
 
-export const updateButtonDropdownBadStatus: (
-    state: CharacterTableState,
-    props: UpdateButtonDropdownBadStatusProps,
-) => CharacterTableState = (state, props) => {
+export const updateButtonDropdownBadStatus: (state: State, props: UpdateButtonDropdownBadStatusProps) => State = (
+    state,
+    props,
+) => {
     const { key, value, characterId } = props;
 
     const characters = updateItemInArray(state.state.characters, characterSelector(characterId), item => {
@@ -105,10 +102,10 @@ export const updateButtonDropdownBadStatus: (
     return { ...state, state: { ...state.state, characters } };
 };
 
-export const updateCharacterAttributeDropdown: (
-    state: CharacterTableState,
-    props: UpdateCharacterAttributeDropdownProps,
-) => CharacterTableState = (state, props) => {
+export const updateCharacterAttributeDropdown: (state: State, props: UpdateCharacterAttributeDropdownProps) => State = (
+    state,
+    props,
+) => {
     const { e, payload: id } = props;
 
     const characters = updateItemInArray(state.state.characters, characterSelector(id), item =>
@@ -118,7 +115,7 @@ export const updateCharacterAttributeDropdown: (
     return { ...state, state: { ...state.state, characters } };
 };
 
-export const addNewCharacter: (state: CharacterTableState) => CharacterTableState = state => {
+export const addNewCharacter: (state: State) => State = state => {
     const characters = state.state.characters.slice().map(x => ({ ...x }));
 
     const newCharacter = FrontendCharacter();
@@ -133,10 +130,7 @@ export const addNewCharacter: (state: CharacterTableState) => CharacterTableStat
     };
 };
 
-export const copyCharacter: (state: CharacterTableState, props: CopyCharacterProps) => CharacterTableState = (
-    state,
-    props,
-) => {
+export const copyCharacter: (state: State, props: CopyCharacterProps) => State = (state, props) => {
     let { character } = props;
 
     const { id: _, ...badStatusWithoutId } = character.badStatus;
@@ -152,7 +146,7 @@ export const copyCharacter: (state: CharacterTableState, props: CopyCharacterPro
     return { ...state, state: { ...state.state, characters } };
 };
 
-export const deleteCharacter: (state: CharacterTableState, props: void) => CharacterTableState = (state, _) => {
+export const deleteCharacter: (state: State, props: void) => State = (state, _) => {
     const characters = state.state.characters
         .slice()
         .map(x => ({ ...x }))
@@ -166,17 +160,11 @@ export const deleteCharacter: (state: CharacterTableState, props: void) => Chara
     };
 };
 
-export const doneLoadingCharacters: (
-    state: CharacterTableState,
-    props: DoneLoadingCharactersSuccess,
-) => CharacterTableState = (state, props) => {
+export const doneLoadingCharacters: (state: State, props: DoneLoadingCharactersSuccess) => State = (state, props) => {
     return { ...state, state: props.result.state, current: { ...state.current, history: [props.result.state] } };
 };
 
-export const doneSaving: (state: CharacterTableState, props: DoneSaveCharactersSuccess) => CharacterTableState = (
-    state,
-    _,
-) => {
+export const doneSaving: (state: State, props: DoneSaveCharactersSuccess) => State = (state, _) => {
     toast.success('戦況を保存しました。');
     return {
         ...state,
@@ -184,14 +172,14 @@ export const doneSaving: (state: CharacterTableState, props: DoneSaveCharactersS
     };
 };
 
-export const startedSavingNewly: (state: CharacterTableState, props: {}) => CharacterTableState = (state, _) => {
+export const startedSavingNewly: (state: State, props: {}) => State = (state, _) => {
     return {
         ...state,
         current: { ...state.current, unsaved: false },
     };
 };
 
-export const restoreHistory: (state: CharacterTableState, props: void) => CharacterTableState = (state, _) => {
+export const restoreHistory: (state: State, props: void) => State = (state, _) => {
     const historyLength = state.current.history.length;
 
     // 1つ前の State に戻す。 history の最後の要素は現在の State が入っているので1つ前を取り出している。

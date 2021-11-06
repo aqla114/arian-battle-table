@@ -3,10 +3,10 @@ import { MouseActionProps } from '../../types/actions';
 import { updateObject } from '../../utils/reducer-commons';
 import { OpenCharacterDetailsProps } from '../actions/open-character-details';
 import { OpenDeletionModalProps } from '../actions/open-deletion-modal';
-import { CharacterTableState } from '../components/characters-table';
+import { State } from '../state';
 
-export const openDeletionModal: Reducer<CharacterTableState, MouseActionProps<string>> = (
-    state: CharacterTableState,
+export const openDeletionModal: Reducer<State, MouseActionProps<string>> = (
+    state: State,
     props: OpenDeletionModalProps,
 ) => {
     return {
@@ -16,8 +16,8 @@ export const openDeletionModal: Reducer<CharacterTableState, MouseActionProps<st
     };
 };
 
-export const openCharacterDetails: Reducer<CharacterTableState, MouseActionProps<string>> = (
-    state: CharacterTableState,
+export const openCharacterDetails: Reducer<State, MouseActionProps<string>> = (
+    state: State,
     props: OpenCharacterDetailsProps,
 ) => {
     const { payload: id } = props;
@@ -34,6 +34,6 @@ export const openCharacterDetails: Reducer<CharacterTableState, MouseActionProps
     };
 };
 
-export const closeModal: Reducer<CharacterTableState, void> = (state: CharacterTableState, _props: void) => {
+export const closeModal: Reducer<State, void> = (state: State, _props: void) => {
     return { ...state, dom: { ...state.dom, modal: null } };
 };

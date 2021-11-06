@@ -1,22 +1,9 @@
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { updateObject } from '../../utils/reducer-commons';
 import { actions } from '../actions/actions';
-import { BattleSessionsListState } from '../components/battle-sessions-list';
+import { initialState } from '../state';
 
-const initialState: BattleSessionsListState = {
-    state: {
-        battleSessions: [],
-    },
-    current: {
-        sessionName: '',
-        deleteSessionId: -1,
-    },
-    dom: {
-        modal: null,
-    },
-};
-
-export const tableReducer = reducerWithInitialState(initialState)
+export const listBattleSessionsReducer = reducerWithInitialState(initialState)
     .case(actions.doneLoadingBattleSessions, (state, props) => {
         return updateObject(state, {
             state: updateObject(state.state, { battleSessions: props.result.battleSessions }),

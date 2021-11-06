@@ -1,57 +1,40 @@
 import * as React from 'react';
+import { useHotkeys } from 'react-hotkeys-hook';
+import { useSelector } from 'react-redux';
 import { Beforeunload } from 'react-beforeunload';
 import { ToastContainer } from 'react-toastify';
-
-import { CharacterElement } from './character-element';
-import { Actions } from '../show-battle-container';
-import { Button } from '../../components/atoms/button';
-import { InputFieldWithButton } from '../../components/molecules/input-field-with-button';
-import { Dialog } from '../../components/molecules/dialog';
-import { CardContainer } from '../../components/card-container';
-import { InputField } from '../../components/atoms/input-field';
-import { CharacterDetails } from './character-details';
-import { Modal } from '../types/modal';
-import { FrontendCharacter } from '../../types/character';
-import { CharacterId, GuildId } from '../actions/actions';
 import { faPlusSquare } from '@fortawesome/free-regular-svg-icons';
-import { IconButton } from '../../components/atoms/icon-button';
-import { useHotkeys } from 'react-hotkeys-hook';
 
-type State = {
-    sessionName: string;
-    characters: FrontendCharacter[];
-};
+import { CharacterElement } from './components/character-element';
+import { Actions } from './show-battle-container';
+import { Button } from '../components/atoms/button';
+import { InputFieldWithButton } from '../components/molecules/input-field-with-button';
+import { Dialog } from '../components/molecules/dialog';
+import { CardContainer } from '../components/card-container';
+import { InputField } from '../components/atoms/input-field';
+import { CharacterDetails } from './components/character-details';
+import { IconButton } from '../components/atoms/icon-button';
 
-export type CharacterTableState = {
-    state: State;
-    current: {
-        currentGuildId: GuildId;
-        deleteCharacterID: CharacterId;
-        modalCharacterID: CharacterId;
-        unsaved: boolean;
-        history: State[];
-    };
-    dom: {
-        modal: Modal | null;
-    };
-};
+type CharacterTableProps = Actions;
 
-type CharacterTableProps = CharacterTableState & Actions;
-
-export const CharactersTable: React.FunctionComponent<CharacterTableProps> = (props: CharacterTableProps) => {
+export const View: React.FunctionComponent<CharacterTableProps> = (props: CharacterTableProps) => {
     React.useEffect(() => {
         props.loadCharacters();
     }, []);
+
+    const charactersTableState = useSelector(state => state.showBattle);
 
     useHotkeys('command+z, ctrl+z', () => {
         props.restoreHistory();
     });
 
+    console.log(charactersTableState);
+
     const {
         state: { sessionName, characters },
-        current: { currentGuildId },
+        current: { currentGuildId, unsaved },
         dom: { modal },
-    } = props;
+    } = charactersTableState;
 
     const nextActionPriority = Math.max(...characters.filter(x => !x.isActed).map(x => x.actionPriority));
 
@@ -78,7 +61,7 @@ export const CharactersTable: React.FunctionComponent<CharacterTableProps> = (pr
     });
 
     return (
-        <Beforeunload onBeforeunload={event => props.current.unsaved && event.preventDefault()}>
+        <Beforeunload onBeforeunload={event => unsaved && event.preventDefault()}>
             <div>
                 {modal?.type === 'DeletionModal' ? (
                     <Dialog
@@ -168,9 +151,7 @@ export const CharactersTable: React.FunctionComponent<CharacterTableProps> = (pr
                         buttonLabel={'ギルドからキャラクターをインポート'}
                         placeholder={'ギルドID (ex.114514)'}
                         onChange={e => props.updateCurrentGuildId({ e })}
-                        onClick={() =>
-                            props.importCharactersByGuildId(props.current.currentGuildId, props.state.characters)
-                        }
+                        onClick={() => props.importCharactersByGuildId(currentGuildId, characters)}
                     />
                 </CardContainer>
             </div>

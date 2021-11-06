@@ -1,7 +1,7 @@
 import actionCreatorFactory, { ActionCreator, Failure, Success } from 'typescript-fsa';
-import { CharacterTableState } from '../components/characters-table';
+import { State } from '../state';
 
-type LoadCharactersResult = Pick<CharacterTableState, 'state'>;
+type LoadCharactersResult = Pick<State, 'state'>;
 
 const actionCreator = actionCreatorFactory();
 

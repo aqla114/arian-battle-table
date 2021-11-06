@@ -1,5 +1,5 @@
 import actionCreatorFactory, { ActionCreator, Failure, Success } from 'typescript-fsa';
-import { BattleSession } from '../components/battle-sessions-list';
+import { BattleSession } from '../state';
 
 const actionCreator = actionCreatorFactory();
 

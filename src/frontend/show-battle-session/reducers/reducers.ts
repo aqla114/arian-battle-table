@@ -1,5 +1,4 @@
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
-import { CharacterTableState } from '../components/characters-table';
 import { actions, CharacterId } from '../actions/actions';
 import { updateSessionName } from './session-name-reducer';
 import {
@@ -23,36 +22,17 @@ import { updateObject } from '../../utils/reducer-commons';
 import { Reducer } from 'react';
 import { closeModal, openCharacterDetails, openDeletionModal } from './modal-reducer';
 import { doneImportCharactersByGuildId, updateCurrentGuildId } from './guild-id-reducer';
-
-const initialState: CharacterTableState = {
-    state: {
-        sessionName: '',
-        characters: [],
-    },
-    current: {
-        currentGuildId: '',
-        deleteCharacterID: '',
-        modalCharacterID: '',
-        unsaved: false,
-        history: [],
-    },
-    dom: {
-        modal: null,
-    },
-};
+import { initialState, State } from '../state';
 
 // reducer のミドルウェア的な処理をする。reducer を受け取り reducer を返す。
 // 全 reducer で共通したい処理などを、middleware として与える。
-export function reducerWrapper<T>(
-    srcReducer: Reducer<CharacterTableState, T>,
-    middleware: Reducer<CharacterTableState, T>,
-): Reducer<CharacterTableState, T> {
-    return (state: CharacterTableState, props: T) => middleware(srcReducer(state, props), props);
+export function reducerWrapper<T>(srcReducer: Reducer<State, T>, middleware: Reducer<State, T>): Reducer<State, T> {
+    return (state: State, props: T) => middleware(srcReducer(state, props), props);
 }
 
 // Character 要素の更新時に入れたい State の更新を入れる。
-export function characterReducerWrapper<T>(reducer: Reducer<CharacterTableState, T>): Reducer<CharacterTableState, T> {
-    return reducerWrapper(reducer, (state: CharacterTableState, _: T) => {
+export function characterReducerWrapper<T>(reducer: Reducer<State, T>): Reducer<State, T> {
+    return reducerWrapper(reducer, (state: State, _: T) => {
         console.log(state.current.history);
         return updateObject(state, {
             current: updateObject(state.current, { unsaved: true, history: [...state.current.history, state.state] }),
@@ -72,7 +52,7 @@ export function indexSelector<T>(targetIdx: number) {
     return (_: T, idx: number) => idx === targetIdx;
 }
 
-export const tableReducer = reducerWithInitialState(initialState)
+export const showBattleReducer = reducerWithInitialState(initialState)
     .case(actions.updateSessionName, characterReducerWrapper(updateSessionName))
     .case(actions.updateCharacterAttributeText, characterReducerWrapper(updateCharacterAttributeText))
     .case(actions.updateCharacterAttributeNumber, characterReducerWrapper(updateCharacterAttributeNumber))

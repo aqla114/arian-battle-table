@@ -5,13 +5,13 @@ import { CharacterId } from '../actions/actions';
 import { DeleteSkillProps } from '../actions/delete-skill';
 import { DoneLoadingSkillsCsvSuccess } from '../actions/load-skills-csv';
 import { MoveSkillProps } from '../actions/move-skill';
-import { CharacterTableState } from '../components/characters-table';
+import { State } from '../state';
 import { characterSelector, indexSelector } from './reducers';
 
 export const updateSkillAttributeText: (
-    state: CharacterTableState,
+    state: State,
     props: ChangeActionProps<{ characterId: CharacterId; skillIndex: number }>,
-) => CharacterTableState = (state, props) => {
+) => State = (state, props) => {
     const e = props.e;
     const { characterId, skillIndex } = props.payload;
 
@@ -36,7 +36,7 @@ export const updateSkillAttributeText: (
     };
 };
 
-export const addNewSkill: (state: CharacterTableState) => CharacterTableState = state => {
+export const addNewSkill: (state: State) => State = state => {
     if (state.dom.modal?.type !== 'CharacterDetailsModal') {
         console.log('Failed addNewSkill');
         return state;
@@ -61,10 +61,7 @@ export const addNewSkill: (state: CharacterTableState) => CharacterTableState = 
     };
 };
 
-export const deleteSkill: (state: CharacterTableState, props: DeleteSkillProps) => CharacterTableState = (
-    state,
-    props,
-) => {
+export const deleteSkill: (state: State, props: DeleteSkillProps) => State = (state, props) => {
     const {
         payload: { characterId, skillId },
     } = props;
@@ -87,7 +84,7 @@ export const deleteSkill: (state: CharacterTableState, props: DeleteSkillProps) 
     };
 };
 
-export const moveSkill: (state: CharacterTableState, props: MoveSkillProps) => CharacterTableState = (state, props) => {
+export const moveSkill: (state: State, props: MoveSkillProps) => State = (state, props) => {
     const { characterId, dragIdx, dropIdx } = props;
 
     const characters = updateItemInArray(state.state.characters, characterSelector(characterId), character => {
@@ -118,10 +115,7 @@ export const moveSkill: (state: CharacterTableState, props: MoveSkillProps) => C
     };
 };
 
-export const doneLoadingSkillsCsv: (
-    state: CharacterTableState,
-    props: DoneLoadingSkillsCsvSuccess,
-) => CharacterTableState = (state, props) => {
+export const doneLoadingSkillsCsv: (state: State, props: DoneLoadingSkillsCsvSuccess) => State = (state, props) => {
     const skills = props.result.skills;
     const characterId = props.params.characterId;
 

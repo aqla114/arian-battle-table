@@ -1,8 +1,6 @@
 import { connect } from 'react-redux';
-import { CharactersTable, CharacterTableState } from './components/characters-table';
 import { Dispatch, Action } from 'redux';
 import { actions, CharacterId, GuildId } from './actions/actions';
-import { State } from './store';
 import * as Request from 'superagent';
 import * as uuid from 'uuid';
 import { FrontendCharacter } from '../types/character';
@@ -23,7 +21,9 @@ import { OpenDeletionModalProps } from './actions/open-deletion-modal';
 import { CopyCharacterProps } from './actions/copy-character';
 import { OpenCharacterDetailsProps } from './actions/open-character-details';
 import { UpdateCurrentGuildIdProps } from './actions/update-current-guild-id';
-
+import { State } from './state';
+import { State as GlobalState } from '../store';
+import { View } from './view';
 export interface Actions {
     updateSessionName: (v: UpdateSessionNameTextProps) => Action<string>;
     updateCharacterAttributeNumber: (v: UpdateCharacterAttributeNumberProps) => Action<string>;
@@ -50,8 +50,8 @@ export interface Actions {
     restoreHistory: () => Action<string>;
 }
 
-function mapStateToProps(state: State): CharacterTableState {
-    return Object.assign({}, state.charactersTable);
+function mapStateToProps(state: GlobalState): State {
+    return Object.assign({}, state.showBattle);
 }
 
 function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
@@ -273,4 +273,4 @@ function saveCharactersNewlyMapper(dispatch: Dispatch<Action<string>>) {
     };
 }
 
-export const ShowBattleContainer = connect(mapStateToProps, mapDispatchToProps)(CharactersTable);
+export const ShowBattleContainer = connect(mapStateToProps, mapDispatchToProps)(View);
