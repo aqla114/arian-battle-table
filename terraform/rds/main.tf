@@ -73,6 +73,8 @@ resource "aws_rds_cluster" "this" {
   database_name   = var.database_name
   master_username = var.master_username
   master_password = var.master_password
+
+  skip_final_snapshot = true
 }
 
 resource "aws_rds_cluster_instance" "this" {
