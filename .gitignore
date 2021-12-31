@@ -3,3 +3,6 @@ src/**/*.js
 dst/*.js
 backup.sql
 cypress/videos/*
+terraform/.terraform/**/*
+terraform.tfstate
+terraform.tfstate.backup
