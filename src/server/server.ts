@@ -66,7 +66,7 @@ async function mkApp(): Promise<void> {
 
     app.use(mkRouter(router).routes());
 
-    app.listen(8000);
+    app.listen(parseInt(process.env.PORT || '8000'));
 
     console.log('Server running at http://localhost:8000/');
 
