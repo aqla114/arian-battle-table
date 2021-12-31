@@ -4,7 +4,7 @@ import * as Router from 'koa-router';
 import * as serve from 'koa-static';
 import * as bodyParser from 'koa-bodyparser';
 import Pug from 'koa-pug';
-import { createConnection, getConnectionOptions } from 'typeorm';
+import { ConnectionOptions, createConnection } from 'typeorm';
 import { Character } from './models/character';
 import { BattleSession } from './models/battle-session';
 import { mkRouter } from './mk-router';
@@ -15,7 +15,15 @@ import { Skill } from './models/skill';
 import { GrpcClient } from './adapters/grpc-client';
 
 async function mkApp(): Promise<void> {
-    const connectionOptions = await getConnectionOptions();
+    const connectionOptions: ConnectionOptions = {
+        type: 'mysql',
+        host: process.env.DB_HOSTNAME || 'mysql',
+        port: parseInt(process.env.DB_PORT || '3306'),
+        username: process.env.DB_USERNAME || 'arian',
+        password: process.env.DB_PASSWORD || 'arian',
+        database: process.env.DB_DATABASE_NAME || 'arian_db',
+        synchronize: true,
+    };
 
     const connection = await createConnection({
         ...connectionOptions,
@@ -58,7 +66,7 @@ async function mkApp(): Promise<void> {
 
     app.use(mkRouter(router).routes());
 
-    app.listen(8000);
+    app.listen(parseInt(process.env.PORT || '8000'));
 
     console.log('Server running at http://localhost:8000/');
 
