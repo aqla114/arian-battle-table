@@ -14,6 +14,7 @@ import { CardContainer } from '../../components/card-container';
 import { InputField } from '../../components/atoms/input-field';
 import { CharacterDetails } from './components/character-details';
 import { IconButton } from '../../components/atoms/icon-button';
+import { DiceRoller } from './components/dice-roller';
 
 type CharacterTableProps = Actions;
 
@@ -155,6 +156,7 @@ export const View: React.FunctionComponent<CharacterTableProps> = (props: Charac
                     />
                 </CardContainer>
             </div>
+            <DiceRoller />
             <ToastContainer position={'top-center'} autoClose={2000} />
         </Beforeunload>
     );
