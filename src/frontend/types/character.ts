@@ -3,7 +3,7 @@ import * as uuid from 'uuid';
 import { Attribute } from './attribute';
 import { BadStatus, defaultBadStatus } from './bad-status';
 import { FrontendSkill } from './skill';
-import { CharacterName, CharacterId } from '../show-battle-session/actions/actions';
+import { CharacterName, CharacterId } from '../pages/show-battle-session/actions/actions';
 import { Character } from '../../types/character';
 
 // id は server で保存する id を、frontendId は frontend で描画用の key を指す。
