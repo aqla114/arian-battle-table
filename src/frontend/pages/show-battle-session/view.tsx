@@ -9,12 +9,11 @@ import { CharacterElement } from './components/character-element';
 import { Actions } from './show-battle-container';
 import { Button } from '../../components/atoms/button';
 import { InputFieldWithButton } from '../../components/molecules/input-field-with-button';
-import { Dialog } from '../../components/molecules/dialog';
 import { CardContainer } from '../../components/card-container';
 import { InputField } from '../../components/atoms/input-field';
-import { CharacterDetails } from './components/character-details';
 import { IconButton } from '../../components/atoms/icon-button';
 import { DiceRoller } from './components/dice-roller';
+import { Modal } from './components/modal';
 
 type CharacterTableProps = Actions;
 
@@ -63,39 +62,7 @@ export const View: React.FunctionComponent<CharacterTableProps> = (props: Charac
 
     return (
         <Beforeunload onBeforeunload={event => unsaved && event.preventDefault()}>
-            {modal?.type === 'DeletionModal' ? (
-                <Dialog
-                    description={'本当に削除しますか？'}
-                    enterLabel={'削除する'}
-                    cancelLabel={'キャンセル'}
-                    onClickEnter={() => props.deleteCharacter()}
-                    onClickCancel={() => props.closeModal()}
-                />
-            ) : null}
-            {modal?.type === 'CharacterDetailsModal' ? (
-                <CharacterDetails
-                    character={characters.filter(x => x.frontendId === modal.characterId)[0]}
-                    onChangeNumberInputField={e =>
-                        props.updateCharacterAttributeNumber({ e, payload: modal.characterId })
-                    }
-                    onChangeTextInputField={e => props.updateCharacterAttributeText({ e, payload: modal.characterId })}
-                    onChangeElementSkillText={(e, idx) =>
-                        props.updateSkillAttributeText({
-                            e,
-                            payload: { characterId: modal.characterId, skillIndex: idx },
-                        })
-                    }
-                    onClickAddSkillButton={props.addNewSkill}
-                    onClickDeleteSkillButton={(e, skillId) =>
-                        props.deleteSkill({ e, payload: { characterId: modal.characterId, skillId } })
-                    }
-                    onCloseModal={props.closeModal}
-                    onMoveSkill={(dragIdx, dropIdx) =>
-                        props.moveSkill({ characterId: modal.characterId, dragIdx, dropIdx })
-                    }
-                    onLoadSkillsCsv={props.loadSkillsCsv}
-                />
-            ) : null}
+            <Modal modal={modal} characters={characters} {...props} />
             <div className="save-container">
                 <span className="save-container__save-button">
                     <Button
