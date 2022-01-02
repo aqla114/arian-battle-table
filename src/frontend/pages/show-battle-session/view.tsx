@@ -38,28 +38,6 @@ export const View: React.FunctionComponent<CharacterTableProps> = (props: Charac
 
     const nextActionPriority = Math.max(...characters.filter(x => !x.isActed).map(x => x.actionPriority));
 
-    const characterElement = characters.map(character => {
-        return (
-            <CharacterElement
-                key={character.frontendId}
-                {...character}
-                isNextPrior={!character.isActed && character.actionPriority === nextActionPriority}
-                onChangeElementNumber={e => props.updateCharacterAttributeNumber({ e, payload: character.frontendId })}
-                onChangeElementText={e => props.updateCharacterAttributeText({ e, payload: character.frontendId })}
-                onChangeElementCheckbox={e => props.updateCharacterCheckbox({ e, payload: character.frontendId })}
-                onClickDropdownItem={(key, value) =>
-                    props.updateButtonDropdownBadStatus({ key, value, characterId: character.frontendId })
-                }
-                onChangeElementDropdown={e =>
-                    props.updateCharacterAttributeDropdown({ e, payload: character.frontendId })
-                }
-                onCopyCharacter={_ => props.copyCharacter({ character })}
-                onDeleteCharacter={e => props.openDeletionModal({ e, payload: character.frontendId })}
-                onClickCharacterDetailsButton={e => props.openCharacterDetails({ e, payload: character.frontendId })}
-            />
-        );
-    });
-
     return (
         <Beforeunload onBeforeunload={event => unsaved && event.preventDefault()}>
             <Modal modal={modal} characters={characters} {...props} />
@@ -105,7 +83,39 @@ export const View: React.FunctionComponent<CharacterTableProps> = (props: Charac
                             <th>各種操作</th>
                         </tr>
                     </thead>
-                    <tbody className="character-table__table__body">{characterElement}</tbody>
+                    <tbody className="character-table__table__body">
+                        {characters.map(character => (
+                            <CharacterElement
+                                key={character.frontendId}
+                                {...character}
+                                isNextPrior={!character.isActed && character.actionPriority === nextActionPriority}
+                                onChangeElementNumber={e =>
+                                    props.updateCharacterAttributeNumber({ e, payload: character.frontendId })
+                                }
+                                onChangeElementText={e =>
+                                    props.updateCharacterAttributeText({ e, payload: character.frontendId })
+                                }
+                                onChangeElementCheckbox={e =>
+                                    props.updateCharacterCheckbox({ e, payload: character.frontendId })
+                                }
+                                onClickDropdownItem={(key, value) =>
+                                    props.updateButtonDropdownBadStatus({
+                                        key,
+                                        value,
+                                        characterId: character.frontendId,
+                                    })
+                                }
+                                onChangeElementDropdown={e =>
+                                    props.updateCharacterAttributeDropdown({ e, payload: character.frontendId })
+                                }
+                                onCopyCharacter={_ => props.copyCharacter({ character })}
+                                onDeleteCharacter={e => props.openDeletionModal({ e, payload: character.frontendId })}
+                                onClickCharacterDetailsButton={e =>
+                                    props.openCharacterDetails({ e, payload: character.frontendId })
+                                }
+                            />
+                        ))}
+                    </tbody>
                 </table>
                 <div className="character-table__add-button">
                     <IconButton name={'add'} icon={faPlusSquare} size={'small'} onClick={props.addNewCharacter} />
