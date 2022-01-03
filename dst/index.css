@@ -892,14 +892,10 @@ input[class=text-checkbox] {
   font-size: 16px;
 }
 .dice-roller__roll-button {
-  margin-left: 10px;
-  width: 80px;
-  height: 30px;
-  background-color: #bbb;
+  margin-left: 16px;
 }
-.dice-roller__roll-button:hover {
-  background-color: #a8a8a8;
-  cursor: pointer;
+.dice-roller__result {
+  margin-top: 12px;
 }
 .dice-roller__result__dices {
   font-size: 32px;

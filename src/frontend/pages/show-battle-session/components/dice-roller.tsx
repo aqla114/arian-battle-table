@@ -50,7 +50,6 @@ export const DiceRoller: React.FC<Props> = ({ rollResult }) => {
     return (
         <CardContainer>
             <div className="dice-roller">
-                <div>ダイスロール</div>
                 <Dropdown
                     value={diceNum}
                     options={diceCountOptions}
@@ -59,6 +58,7 @@ export const DiceRoller: React.FC<Props> = ({ rollResult }) => {
                 <span>D</span>
                 <Dropdown value={maxDice} options={diceMaxOptions} onChange={e => setMaxDice(Number(e.target.value))} />
                 <Button
+                    className="dice-roller__roll-button"
                     kind="primary"
                     name="roll-button"
                     value="ロール"
