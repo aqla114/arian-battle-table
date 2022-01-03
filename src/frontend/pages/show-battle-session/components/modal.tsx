@@ -32,8 +32,6 @@ export const Modal: React.FC<Props> = ({
     moveSkill,
     loadSkillsCsv,
 }) => {
-    console.log(modal);
-
     if (modal?.type === 'DeletionModal') {
         return (
             <Dialog
