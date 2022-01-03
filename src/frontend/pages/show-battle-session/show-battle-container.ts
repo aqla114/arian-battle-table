@@ -24,6 +24,9 @@ import { UpdateCurrentGuildIdProps } from './actions/update-current-guild-id';
 import { State } from './state';
 import { State as GlobalState } from '../../store';
 import { View } from './view';
+import { UpdateRollResultProps } from './actions/update-roll-result';
+import { UpdateDamageStateProps } from './actions/update-damage-state';
+import { AttackCharacterProps } from './actions/attack-character';
 export interface Actions {
     updateSessionName: (v: UpdateSessionNameTextProps) => Action<string>;
     updateCharacterAttributeNumber: (v: UpdateCharacterAttributeNumberProps) => Action<string>;
@@ -48,6 +51,9 @@ export interface Actions {
     loadSkillsCsv: (characterId: CharacterId, files: FileList | null) => void;
     importCharactersByGuildId: (guildId: GuildId, characters: FrontendCharacter[]) => void;
     restoreHistory: () => Action<string>;
+    updateRollResult: (v: UpdateRollResultProps) => Action<string>;
+    updateDamageState: (v: UpdateDamageStateProps) => Action<string>;
+    attackCharacter: (v: AttackCharacterProps) => Action<string>;
 }
 
 function mapStateToProps(state: GlobalState): State {
@@ -83,6 +89,9 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
         loadSkillsCsv: loadSkillsCsvMapper(dispatch),
         importCharactersByGuildId: importCharactersMapper(dispatch),
         restoreHistory: () => dispatch(actions.restoreHistory()),
+        updateRollResult: (v: UpdateRollResultProps) => dispatch(actions.updateRollResult(v)),
+        updateDamageState: (v: UpdateDamageStateProps) => dispatch(actions.updateDamageState(v)),
+        attackCharacter: (v: AttackCharacterProps) => dispatch(actions.attackCharacter(v)),
     };
 }
 
@@ -100,7 +109,7 @@ function loadCharactersMapper(dispatch: Dispatch<Action<string>>) {
                 const { characters: resCharacters, sessionName }: { characters: any[]; sessionName: string } = res.body;
                 const characters: FrontendCharacter[] = resCharacters.map((character: Character) => ({
                     ...character,
-                    frontendId: character.id || uuid.v4(),
+                    frontendId: character.id?.toString() || uuid.v4(),
                     skills: character.skills.map(s => ({ ...s, frontendId: s.id || uuid.v4() })),
                 }));
 
@@ -108,10 +117,8 @@ function loadCharactersMapper(dispatch: Dispatch<Action<string>>) {
                     actions.doneLoadingCharacters({
                         params: {},
                         result: {
-                            state: {
-                                sessionName,
-                                characters: characters.sort((a, b) => b.actionPriority - a.actionPriority),
-                            },
+                            sessionName,
+                            characters: characters.sort((a, b) => b.actionPriority - a.actionPriority),
                         },
                     }),
                 );

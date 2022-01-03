@@ -1,7 +1,10 @@
 import actionCreatorFactory, { ActionCreator, Failure, Success } from 'typescript-fsa';
-import { State } from '../state';
+import { FrontendCharacter } from '../../../types/character';
 
-type LoadCharactersResult = Pick<State, 'state'>;
+type LoadCharactersResult = {
+    sessionName: string;
+    characters: FrontendCharacter[];
+};
 
 const actionCreator = actionCreatorFactory();
 
