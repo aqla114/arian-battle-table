@@ -2,15 +2,14 @@
     "compilerOptions": {
       "lib": [
         "DOM",
-        "es2015",
-        "es2016",
-        "es2017"
+        "es2017",
+        "ESNext"
       ],
       "experimentalDecorators": true,
       "emitDecoratorMetadata": true,
       "inlineSourceMap": true,
-      "jsx": "react",
-      "module": "CommonJS",
+      "jsx": "react-jsx",
+      "module": "esnext",
       "moduleResolution": "node",
       "strict": true,
       "pretty": true,
