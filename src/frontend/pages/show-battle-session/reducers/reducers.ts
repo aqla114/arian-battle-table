@@ -24,6 +24,7 @@ import { closeModal, openCharacterDetails, openDeletionModal } from './modal-red
 import { doneImportCharactersByGuildId, updateCurrentGuildId } from './guild-id-reducer';
 import { initialState, State } from '../state';
 import { updateRollResult } from './dice-roller-reducer';
+import { updateDamageState } from './damage-calculator-reducer';
 
 // reducer のミドルウェア的な処理をする。reducer を受け取り reducer を返す。
 // 全 reducer で共通したい処理などを、middleware として与える。
@@ -73,6 +74,7 @@ export const showBattleReducer = reducerWithInitialState(initialState)
     .case(actions.restoreHistory, restoreHistory)
     .case(actions.updateCurrentGuildId, updateCurrentGuildId)
     .case(actions.updateRollResult, updateRollResult)
+    .case(actions.updateDamageState, updateDamageState)
     .case(actions.doneLoadingCharacters, doneLoadingCharacters)
     .case(actions.doneLoadingSkillsCsv, doneLoadingSkillsCsv)
     .case(actions.doneImportCharactersByGuildId, doneImportCharactersByGuildId)

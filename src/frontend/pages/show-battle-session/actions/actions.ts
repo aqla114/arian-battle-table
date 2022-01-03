@@ -33,6 +33,7 @@ import { CopyCharacterProps, ACTION_TYPE as COPY_CHARACTER } from './copy-charac
 import { OpenCharacterDetailsProps, ACTION_TYPE as OPEN_CHARACTER_DETAILS } from './open-character-details';
 import { UpdateCurrentGuildIdProps, ACTION_TYPE as UPDATE_CURRENT_GUILD_ID } from './update-current-guild-id';
 import { UpdateRollResultProps, ACTION_TYPE as UPDATE_DICE_RESULT } from './update-roll-result';
+import { UpdateDamageStateProps, ACTION_TYPE as UPDATE_DAMAGE_STATE } from './update-damage-state';
 
 export type CharacterId = string;
 export type GuildId = string;
@@ -61,7 +62,8 @@ export type ActionTypes =
     | OPEN_CHARACTER_DETAILS
     | 'CLOSE_MODAL'
     | 'RESTORE_HISTORY'
-    | UPDATE_DICE_RESULT;
+    | UPDATE_DICE_RESULT
+    | UPDATE_DAMAGE_STATE;
 
 const _actionCreator = actionCreatorFactory();
 
@@ -96,6 +98,7 @@ export const actions = {
     addNewSkill: actionCreator('ADD_NEW_SKILL'),
     updateCurrentGuildId: actionCreator<UpdateCurrentGuildIdProps>('UPDATE_CURRENT_GUILD_ID'),
     updateRollResult: actionCreator<UpdateRollResultProps>('UPDATE_ROLL_RESULT'),
+    updateDamageState: actionCreator<UpdateDamageStateProps>('UPDATE_DAMAGE_STATE'),
     ...loadCharactersActions,
     ...saveCharactersActions,
     ...saveCharactersNewlyActions,

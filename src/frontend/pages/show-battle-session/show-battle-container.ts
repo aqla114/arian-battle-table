@@ -25,6 +25,7 @@ import { State } from './state';
 import { State as GlobalState } from '../../store';
 import { View } from './view';
 import { UpdateRollResultProps } from './actions/update-roll-result';
+import { UpdateDamageStateProps } from './actions/update-damage-state';
 export interface Actions {
     updateSessionName: (v: UpdateSessionNameTextProps) => Action<string>;
     updateCharacterAttributeNumber: (v: UpdateCharacterAttributeNumberProps) => Action<string>;
@@ -50,6 +51,7 @@ export interface Actions {
     importCharactersByGuildId: (guildId: GuildId, characters: FrontendCharacter[]) => void;
     restoreHistory: () => Action<string>;
     updateRollResult: (v: UpdateRollResultProps) => Action<string>;
+    updateDamageState: (v: UpdateDamageStateProps) => Action<string>;
 }
 
 function mapStateToProps(state: GlobalState): State {
@@ -86,6 +88,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
         importCharactersByGuildId: importCharactersMapper(dispatch),
         restoreHistory: () => dispatch(actions.restoreHistory()),
         updateRollResult: (v: UpdateRollResultProps) => dispatch(actions.updateRollResult(v)),
+        updateDamageState: (v: UpdateDamageStateProps) => dispatch(actions.updateDamageState(v)),
     };
 }
 
@@ -103,7 +106,7 @@ function loadCharactersMapper(dispatch: Dispatch<Action<string>>) {
                 const { characters: resCharacters, sessionName }: { characters: any[]; sessionName: string } = res.body;
                 const characters: FrontendCharacter[] = resCharacters.map((character: Character) => ({
                     ...character,
-                    frontendId: character.id || uuid.v4(),
+                    frontendId: character.id?.toString() || uuid.v4(),
                     skills: character.skills.map(s => ({ ...s, frontendId: s.id || uuid.v4() })),
                 }));
 

@@ -1,3 +1,4 @@
+import { DamageAttributeRaw } from '../../types/attribute';
 import { FrontendCharacter } from '../../types/character';
 import { CharacterId, GuildId } from './actions/actions';
 import { Modal } from './types/modal';
@@ -5,6 +6,11 @@ import { Modal } from './types/modal';
 type _State = {
     sessionName: string;
     characters: FrontendCharacter[];
+    damage: {
+        fixedDamage: number;
+        damageAttribute: DamageAttributeRaw;
+        attackTarget: CharacterId;
+    };
 };
 
 export type State = {
@@ -26,6 +32,11 @@ export const initialState: State = {
     state: {
         sessionName: '',
         characters: [],
+        damage: {
+            fixedDamage: 0,
+            damageAttribute: 'Physic',
+            attackTarget: '',
+        },
     },
     current: {
         currentGuildId: '',

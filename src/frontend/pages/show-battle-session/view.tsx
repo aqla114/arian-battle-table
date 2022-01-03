@@ -14,6 +14,7 @@ import { InputField } from '../../components/atoms/input-field';
 import { IconButton } from '../../components/atoms/icon-button';
 import { DiceRoller } from './components/dice-roller';
 import { Modal } from './components/modal';
+import { DamageCalculator } from './components/damage-calculator';
 
 type CharacterTableProps = Actions;
 
@@ -31,10 +32,12 @@ export const View: React.FunctionComponent<CharacterTableProps> = (props: Charac
     console.log(charactersTableState);
 
     const {
-        state: { sessionName, characters },
-        current: { currentGuildId, unsaved },
+        state: { sessionName, characters, damage },
+        current: { currentGuildId, unsaved, rollResult },
         dom: { modal },
     } = charactersTableState;
+
+    const diceSum = rollResult.reduce((acc, v) => acc + v);
 
     const nextActionPriority = Math.max(...characters.filter(x => !x.isActed).map(x => x.actionPriority));
 
@@ -129,7 +132,14 @@ export const View: React.FunctionComponent<CharacterTableProps> = (props: Charac
                     onClick={() => props.importCharactersByGuildId(currentGuildId, characters)}
                 />
             </CardContainer>
-            <DiceRoller />
+            <DiceRoller rollResult={rollResult} />
+            <DamageCalculator
+                roleResult={diceSum}
+                fixedDamage={damage.fixedDamage}
+                damageAttribute={damage.damageAttribute}
+                characters={characters}
+                attackTarget={damage.attackTarget}
+            />
             <ToastContainer position={'top-center'} autoClose={2000} />
         </Beforeunload>
     );

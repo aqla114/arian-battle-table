@@ -598,7 +598,7 @@
 }
 .input-field__number {
   font-size: 16px;
-  height: 20px;
+  height: 32px;
   width: 50px;
   border-radius: 3px;
   border: none;
@@ -630,7 +630,7 @@
 }
 .input-field__text {
   font-size: 16px;
-  height: 24px;
+  height: 32px;
   border-radius: 3px;
   border: none;
   background-color: transparent;
@@ -660,7 +660,6 @@
   margin-left: 20px;
 }
 .dropdown {
-  margin: 10px;
   width: 55px;
   height: 30px;
   border: 1px solid #bbb;
@@ -914,6 +913,47 @@ input[class=text-checkbox] {
 }
 .dice-roller__result__fanble {
   color: #f00;
+}
+.damage-calculator__container {
+  column-gap: 12px;
+  display: flex;
+}
+.damage-role-referer__label {
+  text-align: center;
+}
+.damage-role-referer__value {
+  margin-top: 4px;
+  text-align: center;
+}
+.fixed-damage__label {
+  text-align: center;
+}
+.fixed-damage__value {
+  margin-top: 4px;
+  text-align: center;
+}
+.calculated-damage__label {
+  text-align: center;
+}
+.calculated-damage__value {
+  margin-top: 4px;
+  text-align: center;
+}
+.damage-attribute__label {
+  text-align: center;
+}
+.damage-attribute__value {
+  margin-top: 4px;
+  text-align: center;
+  width: 80px;
+}
+.damage-target__label {
+  text-align: center;
+}
+.damage-target__value {
+  margin-top: 4px;
+  text-align: center;
+  width: 120px;
 }
 .battle-sessions-list {
   width: 800px;
