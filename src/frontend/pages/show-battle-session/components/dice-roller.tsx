@@ -13,6 +13,8 @@ import * as uuid from 'uuid';
 import { Dropdown } from '../../../components/atoms/dropdown';
 import { Button } from '../../../components/atoms/button';
 import { CardContainer } from '../../../components/card-container';
+import { useDispatch } from 'react-redux';
+import { actions } from '../actions/actions';
 
 const diceCountOptions = [...Array(40).keys()].map(x => (
     <option value={x + 1} key={x + 1}>
@@ -29,25 +31,21 @@ const diceMaxOptions = [6, 10, 100].map(x => (
 const INIT_MAX_DICE = 6;
 const INIT_COUNT = 1;
 
-function useDiceRoll(
-    maxDice: number,
-): [number, number, boolean, number[], React.Dispatch<React.SetStateAction<number[]>>] {
-    const [rollResult, setResult] = React.useState<number[]>([0]);
+type Props = {
+    rollResult: number[];
+};
+
+export const DiceRoller: React.FC<Props> = ({ rollResult }) => {
+    const [maxDice, setMaxDice] = React.useState<number>(INIT_MAX_DICE);
+    const [diceNum, setDiceNum] = React.useState<number>(INIT_COUNT);
 
     const maxDiceCount = rollResult.filter(dice => dice === maxDice).length;
     const diceSum = rollResult.reduce((acc, v) => acc + v);
     const isFanble = rollResult.every(dice => dice === 1);
 
-    return [maxDiceCount, diceSum, isFanble, rollResult, setResult];
-}
-
-export const DiceRoller: React.FunctionComponent = () => {
-    const [maxDice, setMaxDice] = React.useState<number>(INIT_MAX_DICE);
-    const [diceNum, setDiceNum] = React.useState<number>(INIT_COUNT);
-
-    const [maxDiceCount, diceSum, isFanble, rollResult, setResult] = useDiceRoll(maxDice);
-
     const isCritical = maxDiceCount >= 2;
+
+    const dispatch = useDispatch();
 
     return (
         <CardContainer>
@@ -64,7 +62,7 @@ export const DiceRoller: React.FunctionComponent = () => {
                     kind="primary"
                     name="roll-button"
                     value="ロール"
-                    onClick={() => setResult(roll(maxDice, diceNum))}
+                    onClick={() => dispatch(actions.updateRollResult({ rollResult: roll(maxDice, diceNum) }))}
                 />
                 <div className="dice-roller__result">
                     <span className="dice-roller__result__dices">

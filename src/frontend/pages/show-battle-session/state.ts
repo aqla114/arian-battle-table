@@ -13,6 +13,7 @@ export type State = {
         currentGuildId: GuildId;
         deleteCharacterID: CharacterId;
         modalCharacterID: CharacterId;
+        rollResult: number[];
         unsaved: boolean;
         history: _State[];
     };
@@ -30,6 +31,7 @@ export const initialState: State = {
         currentGuildId: '',
         deleteCharacterID: '',
         modalCharacterID: '',
+        rollResult: [0],
         unsaved: false,
         history: [],
     },

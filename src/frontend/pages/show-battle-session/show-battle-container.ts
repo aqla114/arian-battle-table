@@ -24,6 +24,7 @@ import { UpdateCurrentGuildIdProps } from './actions/update-current-guild-id';
 import { State } from './state';
 import { State as GlobalState } from '../../store';
 import { View } from './view';
+import { UpdateRollResultProps } from './actions/update-roll-result';
 export interface Actions {
     updateSessionName: (v: UpdateSessionNameTextProps) => Action<string>;
     updateCharacterAttributeNumber: (v: UpdateCharacterAttributeNumberProps) => Action<string>;
@@ -48,6 +49,7 @@ export interface Actions {
     loadSkillsCsv: (characterId: CharacterId, files: FileList | null) => void;
     importCharactersByGuildId: (guildId: GuildId, characters: FrontendCharacter[]) => void;
     restoreHistory: () => Action<string>;
+    updateRollResult: (v: UpdateRollResultProps) => Action<string>;
 }
 
 function mapStateToProps(state: GlobalState): State {
@@ -83,6 +85,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
         loadSkillsCsv: loadSkillsCsvMapper(dispatch),
         importCharactersByGuildId: importCharactersMapper(dispatch),
         restoreHistory: () => dispatch(actions.restoreHistory()),
+        updateRollResult: (v: UpdateRollResultProps) => dispatch(actions.updateRollResult(v)),
     };
 }
 
