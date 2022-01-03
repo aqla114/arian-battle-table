@@ -500,6 +500,7 @@
   animation-name: Toastify__slideOutDown;
 }
 .button__delete {
+  border-radius: 4px;
   padding: 6px;
   color: #fff;
   width: 100px;
@@ -510,6 +511,7 @@
   cursor: pointer;
 }
 .button__primary {
+  border-radius: 4px;
   padding: 6px;
   color: #fff;
   background-color: #4c94ff;
@@ -519,6 +521,7 @@
   cursor: pointer;
 }
 .button__secondary {
+  border-radius: 4px;
   padding: 6px;
   color: #292b2c;
   width: 100px;
