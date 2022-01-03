@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
+import { Button } from '../../../components/atoms/button';
 import { Dropdown } from '../../../components/atoms/dropdown';
 import { InputField } from '../../../components/atoms/input-field';
 import { CardContainer } from '../../../components/card-container';
@@ -75,15 +76,21 @@ export const DamageCalculator: React.FC<Props> = ({
                 </div>
                 <div className="damage-target">
                     <div className="damage-target__label">対象</div>
-                    {attackTarget !== null ? (
+                    {attackTargetCharacter !== null ? (
                         <Dropdown
                             options={characterOptions}
-                            value={attackTargetCharacter?.frontendId || ''}
+                            value={attackTargetCharacter.frontendId}
                             onChange={e => dispatch(actions.updateDamageState({ attackTarget: e.target.value }))}
                             className="damage-target__value"
                         />
                     ) : null}
                 </div>
+                <Button
+                    name="attack-button"
+                    value="攻撃"
+                    kind="delete"
+                    onClick={() => dispatch(actions.attackCharacter({ calculatedDamage }))}
+                />
             </div>
         </CardContainer>
     );

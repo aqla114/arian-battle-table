@@ -26,6 +26,7 @@ import { State as GlobalState } from '../../store';
 import { View } from './view';
 import { UpdateRollResultProps } from './actions/update-roll-result';
 import { UpdateDamageStateProps } from './actions/update-damage-state';
+import { AttackCharacterProps } from './actions/attack-character';
 export interface Actions {
     updateSessionName: (v: UpdateSessionNameTextProps) => Action<string>;
     updateCharacterAttributeNumber: (v: UpdateCharacterAttributeNumberProps) => Action<string>;
@@ -52,6 +53,7 @@ export interface Actions {
     restoreHistory: () => Action<string>;
     updateRollResult: (v: UpdateRollResultProps) => Action<string>;
     updateDamageState: (v: UpdateDamageStateProps) => Action<string>;
+    attackCharacter: (v: AttackCharacterProps) => Action<string>;
 }
 
 function mapStateToProps(state: GlobalState): State {
@@ -89,6 +91,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
         restoreHistory: () => dispatch(actions.restoreHistory()),
         updateRollResult: (v: UpdateRollResultProps) => dispatch(actions.updateRollResult(v)),
         updateDamageState: (v: UpdateDamageStateProps) => dispatch(actions.updateDamageState(v)),
+        attackCharacter: (v: AttackCharacterProps) => dispatch(actions.attackCharacter(v)),
     };
 }
 

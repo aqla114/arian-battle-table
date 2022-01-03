@@ -161,9 +161,15 @@ export const deleteCharacter: (state: State, props: void) => State = (state, _) 
 };
 
 export const doneLoadingCharacters: (state: State, props: DoneLoadingCharactersSuccess) => State = (state, props) => {
+    const firstCharacterId = props.result.characters.length > 0 ? props.result.characters[0].frontendId : '';
+
     return {
         ...state,
-        state: { ...state.state, ...props.result },
+        state: {
+            ...state.state,
+            ...props.result,
+            damage: updateObject(state.state.damage, { attackTarget: firstCharacterId }),
+        },
         current: { ...state.current, history: [{ ...state.state, ...props.result }] },
     };
 };
