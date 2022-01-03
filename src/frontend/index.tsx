@@ -1,5 +1,4 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 import { ShowBattleContainer } from './pages/show-battle-session/show-battle-container';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -29,4 +28,4 @@ function Container() {
     );
 }
 
-ReactDOM.render(<Container />, document.getElementById('root'));
+render(<Container />, document.getElementById('root'));

@@ -7,12 +7,13 @@ import { OpenDeletionModalProps } from './actions/open-deletion-modal';
 import { routeFunctions, routes } from '../../../types/routes';
 import { State as GlobalState } from '../../store';
 import { State } from './state';
+import { ChangeEvent } from 'react';
 
 export interface Actions {
     loadBattleSessions: () => void;
     createBattleSession: (sessionName: string) => void;
     deleteBattleSession: (sessionId: number) => void;
-    updateCurrentSessionName: (v: React.ChangeEvent<HTMLInputElement>) => Action<string>;
+    updateCurrentSessionName: (v: ChangeEvent<HTMLInputElement>) => Action<string>;
     openDeletionModal: (v: OpenDeletionModalProps) => Action<string>;
     closeDeletionModal: () => Action<string>;
 }
@@ -25,8 +26,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<string>>): Actions {
     return {
         loadBattleSessions: loadBattleSessionsMapper(dispatch),
         createBattleSession: createBattleSessionMapper(dispatch),
-        updateCurrentSessionName: (e: React.ChangeEvent<HTMLInputElement>) =>
-            dispatch(actions.updateCurrentSessionName(e)),
+        updateCurrentSessionName: (e: ChangeEvent<HTMLInputElement>) => dispatch(actions.updateCurrentSessionName(e)),
         deleteBattleSession: deleteBattleSessionMapper(dispatch),
         openDeletionModal: (v: OpenDeletionModalProps) => dispatch(actions.openDeletionModal(v)),
         closeDeletionModal: () => dispatch(actions.closeDeletionModal()),

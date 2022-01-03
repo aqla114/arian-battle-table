@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Action } from 'redux';
 import { Actions } from './battle-sessions-list-container';
 import { InputFieldWithButton } from '../../components/molecules/input-field-with-button';
@@ -9,6 +8,7 @@ import { Dialog } from '../../components/molecules/dialog';
 import { OpenDeletionModalProps } from './actions/open-deletion-modal';
 import { useSelector } from 'react-redux';
 import { BattleSession } from './state';
+import { FC, useEffect } from 'react';
 
 type BattlesListProps = Actions;
 
@@ -16,8 +16,8 @@ function formatDate(date: Date): string {
     return `${date.getFullYear()}/${date.getMonth()}/${date.getDate()}`;
 }
 
-export const View: React.FunctionComponent<BattlesListProps> = (props: BattlesListProps) => {
-    React.useEffect(() => {
+export const View: FC<BattlesListProps> = (props: BattlesListProps) => {
+    useEffect(() => {
         props.loadBattleSessions();
     }, []);
 
@@ -65,7 +65,7 @@ type BattleSessionsListItemProps = {
     openDeletionModal: (v: OpenDeletionModalProps) => Action<string>;
 };
 
-const BattleSessionsListItem: React.FC<BattleSessionsListItemProps> = ({
+const BattleSessionsListItem: FC<BattleSessionsListItemProps> = ({
     session,
     openDeletionModal,
 }: BattleSessionsListItemProps) => {

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { FC } from 'react';
 import { Dialog } from '../../../components/molecules/dialog';
 import { FrontendCharacter } from '../../../types/character';
 import { Actions } from '../show-battle-container';
@@ -19,7 +19,7 @@ type Props = {
     loadSkillsCsv: Actions['loadSkillsCsv'];
 };
 
-export const Modal: React.FC<Props> = ({
+export const Modal: FC<Props> = ({
     modal,
     characters,
     deleteCharacter,

@@ -1,4 +1,4 @@
-import parse = require('csv-parse/lib/sync');
+import parse from 'csv-parse/lib/sync';
 import { FrontendSkill } from '../types/skill';
 
 export function parseCsv(csvString: string): Omit<FrontendSkill, 'frontendId'>[] {

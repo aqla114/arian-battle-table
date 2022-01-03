@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { Button } from '../../../components/atoms/button';
 import { Dropdown } from '../../../components/atoms/dropdown';
@@ -16,13 +16,7 @@ type Props = {
     characters: Pick<FrontendCharacter, 'frontendId' | 'name'>[];
 };
 
-export const DamageCalculator: React.FC<Props> = ({
-    roleResult,
-    damageAttribute,
-    fixedDamage,
-    characters,
-    attackTarget,
-}) => {
+export const DamageCalculator: FC<Props> = ({ roleResult, damageAttribute, fixedDamage, characters, attackTarget }) => {
     const attributeOptions = Object.entries(damageAttributeLabels).map(([key, label]) => (
         <option value={key} key={key}>
             {label}

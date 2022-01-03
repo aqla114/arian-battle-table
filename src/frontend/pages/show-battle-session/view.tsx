@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { useSelector } from 'react-redux';
 import { Beforeunload } from 'react-beforeunload';
@@ -15,11 +14,12 @@ import { IconButton } from '../../components/atoms/icon-button';
 import { DiceRoller } from './components/dice-roller';
 import { Modal } from './components/modal';
 import { DamageCalculator } from './components/damage-calculator';
+import { FC, useEffect } from 'react';
 
 type CharacterTableProps = Actions;
 
-export const View: React.FunctionComponent<CharacterTableProps> = (props: CharacterTableProps) => {
-    React.useEffect(() => {
+export const View: FC<CharacterTableProps> = (props: CharacterTableProps) => {
+    useEffect(() => {
         props.loadCharacters();
     }, []);
 

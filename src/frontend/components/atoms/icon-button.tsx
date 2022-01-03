@@ -1,6 +1,6 @@
-import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition } from '@fortawesome/free-regular-svg-icons';
+import { FC } from 'react';
 
 type Size = 'small' | 'middle';
 
@@ -12,7 +12,7 @@ type Props = {
     onClick: (e: any) => void;
 };
 
-export const IconButton: React.FunctionComponent<Props> = ({ size = 'middle', ...props }: Props) => {
+export const IconButton: FC<Props> = ({ size = 'middle', ...props }: Props) => {
     return (
         <button type="button" className={`icon-button ${`--${size}`}`} {...props}>
             <FontAwesomeIcon icon={props.icon} className={`icon-button__icon`} />

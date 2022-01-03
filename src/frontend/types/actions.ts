@@ -1,3 +1,5 @@
+import { ChangeEvent, MouseEvent } from 'react';
+
 export type ActionProps<S, T = undefined> = T extends undefined
     ? {
           e: S;
@@ -7,12 +9,9 @@ export type ActionProps<S, T = undefined> = T extends undefined
           payload: T;
       };
 
-export type ChangeActionProps<T = undefined> = ActionProps<
-    React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    T
->;
+export type ChangeActionProps<T = undefined> = ActionProps<ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, T>;
 
 export type MouseActionProps<T> = {
-    e: React.MouseEvent<HTMLInputElement | HTMLLIElement, MouseEvent>;
+    e: MouseEvent<HTMLInputElement | HTMLLIElement, MouseEvent>;
     payload: T;
 };

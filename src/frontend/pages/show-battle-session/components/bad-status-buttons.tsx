@@ -1,7 +1,7 @@
-import * as React from 'react';
 import { TextCheckBox } from '../../../components/atoms/text-checkbox';
 import * as uuid from 'uuid';
 import { ButtonDropdown, OnClickDropdownListItem } from '../../../components/atoms/button-dropdown';
+import { ChangeEvent, FC, Fragment } from 'react';
 
 export type BadStatusButtonsProps = {
     badStatusList: BadStatusProps[];
@@ -16,7 +16,7 @@ type BooleanBadStatus = {
     name: string;
     value: boolean;
     statusType: 'boolean';
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
 type NumberBadStatus = {
@@ -29,9 +29,9 @@ type NumberBadStatus = {
 
 const BADSTATUS_STRENGTH_OPTIONS = [...Array(40).keys()];
 
-export const BadStatusButtons: React.FunctionComponent<BadStatusButtonsProps> = (props: BadStatusButtonsProps) => {
+export const BadStatusButtons: FC<BadStatusButtonsProps> = (props: BadStatusButtonsProps) => {
     return (
-        <React.Fragment>
+        <Fragment>
             {props.badStatusList.map(prop => {
                 if (prop.statusType === 'number') {
                     return (
@@ -56,6 +56,6 @@ export const BadStatusButtons: React.FunctionComponent<BadStatusButtonsProps> = 
                     );
                 }
             })}
-        </React.Fragment>
+        </Fragment>
     );
 };

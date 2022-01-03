@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { ChangeEvent, FC } from 'react';
 import { InputField } from '../atoms/input-field';
 
 type Props = {
@@ -12,10 +12,10 @@ type Props = {
         value: string | number | string[];
         placeholder?: string;
     };
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
-export const ComibnedInputField: React.FunctionComponent<Props> = (props: Props) => {
+export const ComibnedInputField: FC<Props> = (props: Props) => {
     return (
         <div className="combined-input-field">
             <InputField

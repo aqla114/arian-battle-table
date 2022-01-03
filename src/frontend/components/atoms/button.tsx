@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { FC } from 'react';
 
 type Kind = 'primary' | 'secondary' | 'delete';
 
@@ -10,7 +10,7 @@ type Props = {
     onClick: (e: any) => void;
 };
 
-export const Button: React.FunctionComponent<Props> = (props: Props) => {
+export const Button: FC<Props> = (props: Props) => {
     return (
         <input
             type="button"

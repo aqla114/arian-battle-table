@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { ChangeEvent, DetailedHTMLProps, FunctionComponent, TextareaHTMLAttributes } from 'react';
 
 type Props = {
     name: string;
@@ -6,9 +6,9 @@ type Props = {
     className?: string;
     showBorder?: boolean;
     placeholder?: string;
-    onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-} & React.DetailedHTMLProps<React.TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>;
+    onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+} & DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>;
 
-export const Textarea: React.FunctionComponent<Props> = ({ showBorder = true, ...props }: Props) => {
+export const Textarea: FunctionComponent<Props> = ({ showBorder = true, ...props }: Props) => {
     return <textarea {...props} className={`textarea ${showBorder ? '--show-border' : ''} ${props.className}`} />;
 };

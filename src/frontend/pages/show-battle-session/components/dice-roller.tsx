@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faDiceFive,
@@ -15,6 +14,7 @@ import { Button } from '../../../components/atoms/button';
 import { CardContainer } from '../../../components/card-container';
 import { useDispatch } from 'react-redux';
 import { actions } from '../actions/actions';
+import { FC, useState } from 'react';
 
 const diceCountOptions = [...Array(40).keys()].map(x => (
     <option value={x + 1} key={x + 1}>
@@ -35,9 +35,9 @@ type Props = {
     rollResult: number[];
 };
 
-export const DiceRoller: React.FC<Props> = ({ rollResult }) => {
-    const [maxDice, setMaxDice] = React.useState<number>(INIT_MAX_DICE);
-    const [diceNum, setDiceNum] = React.useState<number>(INIT_COUNT);
+export const DiceRoller: FC<Props> = ({ rollResult }) => {
+    const [maxDice, setMaxDice] = useState<number>(INIT_MAX_DICE);
+    const [diceNum, setDiceNum] = useState<number>(INIT_COUNT);
 
     const maxDiceCount = rollResult.filter(dice => dice === maxDice).length;
     const diceSum = rollResult.reduce((acc, v) => acc + v);

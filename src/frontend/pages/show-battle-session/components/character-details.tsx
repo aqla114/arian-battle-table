@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { faTrashAlt, faPlusSquare } from '@fortawesome/free-regular-svg-icons';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -11,20 +10,21 @@ import { CharacterId } from '../actions/actions';
 import { IconButton } from '../../../components/atoms/icon-button';
 import { FrontendSkill, SkillId } from '../../../types/skill';
 import { Textarea } from '../../../components/atoms/textarea';
+import { ChangeEvent, MouseEvent, FC } from 'react';
 
 export type CharacterDetailsProps = {
     character: FrontendCharacter;
-    onChangeElementSkillText: (e: React.ChangeEvent<HTMLInputElement>, idx: number) => void;
-    onChangeNumberInputField: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    onChangeTextInputField: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-    onClickAddSkillButton: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
-    onClickDeleteSkillButton: (e: React.MouseEvent<HTMLInputElement, MouseEvent>, skillId: SkillId) => void;
+    onChangeElementSkillText: (e: ChangeEvent<HTMLInputElement>, idx: number) => void;
+    onChangeNumberInputField: (e: ChangeEvent<HTMLInputElement>) => void;
+    onChangeTextInputField: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+    onClickAddSkillButton: (e: MouseEvent<HTMLInputElement, MouseEvent>) => void;
+    onClickDeleteSkillButton: (e: MouseEvent<HTMLInputElement, MouseEvent>, skillId: SkillId) => void;
     onMoveSkill: (dragIdx: number, dropIdx: number) => void;
     onCloseModal: () => void;
     onLoadSkillsCsv: (characterId: CharacterId, files: FileList | null) => void;
 };
 
-export const CharacterDetails: React.FunctionComponent<CharacterDetailsProps> = (props: CharacterDetailsProps) => {
+export const CharacterDetails: FC<CharacterDetailsProps> = (props: CharacterDetailsProps) => {
     return (
         <div
             className="side-modal-wrapper"
@@ -45,7 +45,7 @@ export const CharacterDetails: React.FunctionComponent<CharacterDetailsProps> = 
     );
 };
 
-const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = (props: CharacterDetailsProps) => {
+const CharacterDetailsContent: FC<CharacterDetailsProps> = (props: CharacterDetailsProps) => {
     const {
         character,
         onChangeNumberInputField,
@@ -251,7 +251,7 @@ const CharacterDetailsContent: React.FunctionComponent<CharacterDetailsProps> = 
 const ParameterInputField = (props: {
     name: string;
     value: number;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }) => {
     return (
         <InputField
@@ -268,8 +268,8 @@ const ParameterInputField = (props: {
 const DraggableSkillTableRow = (props: {
     skill: FrontendSkill;
     idx: number;
-    onChangeElementSkillText: (e: React.ChangeEvent<HTMLInputElement>, idx: number) => void;
-    onClickDeleteSkillButton: (e: React.MouseEvent<HTMLInputElement, MouseEvent>, skillId: SkillId) => void;
+    onChangeElementSkillText: (e: ChangeEvent<HTMLInputElement>, idx: number) => void;
+    onClickDeleteSkillButton: (e: MouseEvent<HTMLInputElement, MouseEvent>, skillId: SkillId) => void;
     onMoveSkill: (dragIdx: number, dropIdx: number) => void;
 }) => {
     const { skill, idx, onChangeElementSkillText, onClickDeleteSkillButton, onMoveSkill } = props;

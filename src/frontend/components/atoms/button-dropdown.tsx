@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { FC, useEffect, useState } from 'react';
 
 export type ButtonDropdownValue = string | number;
 type Options = Array<ButtonDropdownValue>;
@@ -11,10 +11,10 @@ type Props = {
     onClick: OnClickDropdownListItem;
 };
 
-export const ButtonDropdown: React.FunctionComponent<Props> = (props: Props) => {
-    const [open, toggleOpen] = React.useState(false);
+export const ButtonDropdown: FC<Props> = (props: Props) => {
+    const [open, toggleOpen] = useState(false);
 
-    React.useEffect(() => {
+    useEffect(() => {
         const handler = (e: MouseEvent) => {
             open && toggleOpen(false);
         };
@@ -43,7 +43,7 @@ export const ButtonDropdown: React.FunctionComponent<Props> = (props: Props) => 
 
 export type OnClickDropdownListItem = (key: string, value: ButtonDropdownValue) => void;
 
-const DropdownOptions: React.FunctionComponent<{
+const DropdownOptions: FC<{
     options: Options;
     dropdownKey: string;
     onClickListItem: OnClickDropdownListItem;

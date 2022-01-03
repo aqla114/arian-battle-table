@@ -1,15 +1,15 @@
-import * as React from 'react';
+import { ChangeEvent, FC } from 'react';
 import { Button } from '../atoms/button';
 
 type Props = {
     description: string;
     enterLabel: string;
     cancelLabel: string;
-    onClickEnter: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onClickEnter: (e: ChangeEvent<HTMLInputElement>) => void;
     onClickCancel: (e: any) => void;
 };
 
-export const Dialog: React.FunctionComponent<Props> = (props: Props) => {
+export const Dialog: FC<Props> = (props: Props) => {
     return (
         <div className="modal-wrapper">
             <div className="dialog-window">

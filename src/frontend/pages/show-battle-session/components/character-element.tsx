@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import { CheckBox } from '../../../components/atoms/checkbox';
 import { BadStatusButtons, BadStatusProps } from './bad-status-buttons';
 import { getBadStatusLabels } from '../../../types/bad-status';
@@ -13,17 +11,18 @@ import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import { OnClickDropdownListItem } from '../../../components/atoms/button-dropdown';
 import { Textarea } from '../../../components/atoms/textarea';
 import { FrontendCharacter } from '../../../types/character';
+import { ChangeEvent, MouseEvent } from 'react';
 
 type CharacterElementProps = FrontendCharacter & {
     isNextPrior: boolean;
-    onChangeElementText: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-    onChangeElementNumber: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChangeElementText: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+    onChangeElementNumber: (e: ChangeEvent<HTMLInputElement>) => void;
     onClickDropdownItem: OnClickDropdownListItem;
-    onChangeElementCheckbox: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    onChangeElementDropdown: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    onCopyCharacter: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
-    onDeleteCharacter: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
-    onClickCharacterDetailsButton: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
+    onChangeElementCheckbox: (e: ChangeEvent<HTMLInputElement>) => void;
+    onChangeElementDropdown: (e: ChangeEvent<HTMLInputElement>) => void;
+    onCopyCharacter: (e: MouseEvent<HTMLInputElement, MouseEvent>) => void;
+    onDeleteCharacter: (e: MouseEvent<HTMLInputElement, MouseEvent>) => void;
+    onClickCharacterDetailsButton: (e: MouseEvent<HTMLInputElement, MouseEvent>) => void;
 };
 
 export function CharacterElement(props: CharacterElementProps) {

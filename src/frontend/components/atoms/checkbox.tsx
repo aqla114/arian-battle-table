@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { FC } from 'react';
 
 type Props = {
     name: string;
@@ -6,6 +6,6 @@ type Props = {
     onChange: (e: any) => void;
 };
 
-export const CheckBox: React.FunctionComponent<Props> = (props: Props) => {
+export const CheckBox: FC<Props> = (props: Props) => {
     return <input type="checkbox" className="checkbox" value="checked" {...props} />;
 };

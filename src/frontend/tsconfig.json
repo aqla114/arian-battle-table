@@ -15,6 +15,7 @@
       "pretty": true,
       "noEmitOnError": true,
       "noUnusedLocals": true,
+      "esModuleInterop": true,
       "allowSyntheticDefaultImports": true,
       "target": "es2017",
       "typeRoots": [

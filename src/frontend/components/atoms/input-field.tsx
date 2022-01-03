@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { ChangeEvent, FocusEvent, FC, useEffect, useState } from 'react';
 
 type Kind = 'number' | 'text';
 type TextAlign = 'left' | 'center' | 'right';
@@ -14,26 +14,26 @@ type Props = {
     placeholder?: string;
     size?: Size;
     changeOnBlur?: boolean; // onBlur のタイミングで `onChange` のコールバックが呼ばれるかどうか。
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
-export const InputField: React.FunctionComponent<Props> = ({
+export const InputField: FC<Props> = ({
     textAlign = 'left',
     showBorder = true,
     size = 'midddle',
     changeOnBlur = true,
     ...props
 }: Props) => {
-    const [curretntValue, setValue] = React.useState(props.value);
-    React.useEffect(() => {
+    const [curretntValue, setValue] = useState(props.value);
+    useEffect(() => {
         setValue(props.value);
     }, [props.value]);
 
     const onChangeCallback = changeOnBlur
-        ? (e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value)
+        ? (e: ChangeEvent<HTMLInputElement>) => setValue(e.target.value)
         : props.onChange;
 
-    const onBlurCallback = changeOnBlur ? (e: React.FocusEvent<HTMLInputElement>) => props.onChange(e) : () => {};
+    const onBlurCallback = changeOnBlur ? (e: FocusEvent<HTMLInputElement>) => props.onChange(e) : () => {};
 
     return (
         <input
