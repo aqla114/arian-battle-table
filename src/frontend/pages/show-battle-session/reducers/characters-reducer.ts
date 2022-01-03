@@ -161,7 +161,11 @@ export const deleteCharacter: (state: State, props: void) => State = (state, _) 
 };
 
 export const doneLoadingCharacters: (state: State, props: DoneLoadingCharactersSuccess) => State = (state, props) => {
-    return { ...state, state: props.result.state, current: { ...state.current, history: [props.result.state] } };
+    return {
+        ...state,
+        state: { ...state.state, ...props.result },
+        current: { ...state.current, history: [{ ...state.state, ...props.result }] },
+    };
 };
 
 export const doneSaving: (state: State, props: DoneSaveCharactersSuccess) => State = (state, _) => {
