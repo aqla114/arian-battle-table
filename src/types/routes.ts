@@ -5,7 +5,8 @@ export type APIRoute =
     | 'createBattleSession'
     | 'updateBattleSession'
     | 'deleteBattleSession'
-    | 'loadCharactersFromSheet';
+    | 'loadCharactersFromSheet'
+    | 'createCharacter';
 
 export type Route = {
     page: {
@@ -28,6 +29,7 @@ export const routes: Route = {
         updateBattleSession: '/api/:id/update',
         deleteBattleSession: '/api/:id/delete',
         loadCharactersFromSheet: '/api/:id/load-characters-from-sheet',
+        createCharacter: '/api/:sessionId/characters',
     },
 };
 
@@ -37,9 +39,13 @@ export type RouteFunctions = {
     };
     api: {
         [key in APIRoute &
-            ('getBattleSession' | 'updateBattleSession' | 'deleteBattleSession' | 'loadCharactersFromSheet')]: (
-            id: string,
-        ) => string;
+            (
+                | 'getBattleSession'
+                | 'updateBattleSession'
+                | 'deleteBattleSession'
+                | 'loadCharactersFromSheet'
+                | 'createCharacter'
+            )]: (id: string) => string;
     };
 };
 
@@ -52,5 +58,6 @@ export const routeFunctions: RouteFunctions = {
         updateBattleSession: (id: string) => routes.api.updateBattleSession.replace(':id', id),
         deleteBattleSession: (id: string) => routes.api.deleteBattleSession.replace(':id', id),
         loadCharactersFromSheet: (id: string) => routes.api.loadCharactersFromSheet.replace(':id', id),
+        createCharacter: (id: string) => routes.api.createCharacter.replace(':id', id),
     },
 };

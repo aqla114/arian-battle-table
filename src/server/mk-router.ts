@@ -7,6 +7,7 @@ import { pageRenderer } from './page-renderer';
 import { deleteBattleSession } from './api/delete-battle-session';
 import { loadCharactersFromSheet } from './api/load-characters-from-sheet';
 import { routes } from '../types/routes';
+import { createCharacter } from './api/create-character';
 
 export function mkRouter(router: MiddleWare): MiddleWare {
     router.get('/', pageRenderer, (ctx, next) => {
@@ -98,6 +99,21 @@ export function mkRouter(router: MiddleWare): MiddleWare {
         } else {
             ctx.status = 200;
             ctx.body = battleSession;
+        }
+
+        return next();
+    });
+
+    router.post(routes.api.createCharacter, async (ctx, next) => {
+        console.log('create character');
+
+        const resopnse = await createCharacter(ctx, ctx.params['sessionId']);
+
+        if (!resopnse) {
+            ctx.status = 500;
+        } else {
+            ctx.status = 200;
+            ctx.body = resopnse;
         }
 
         return next();
