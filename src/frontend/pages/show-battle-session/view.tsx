@@ -15,6 +15,7 @@ import { IconButton } from '../../components/atoms/icon-button';
 import { DiceRoller } from './components/dice-roller';
 import { Modal } from './components/modal';
 import { DamageCalculator } from './components/damage-calculator';
+import { FrontendCharacter } from '../../types/character';
 
 type CharacterTableProps = Actions;
 
@@ -111,7 +112,7 @@ export const View: React.FunctionComponent<CharacterTableProps> = (props: Charac
                                 onChangeElementDropdown={e =>
                                     props.updateCharacterAttributeDropdown({ e, payload: character.frontendId })
                                 }
-                                onCopyCharacter={_ => props.copyCharacter({ character })}
+                                onCopyCharacter={(character: FrontendCharacter) => props.copyCharacter({ character })}
                                 onDeleteCharacter={e => props.openDeletionModal({ e, payload: character.frontendId })}
                                 onClickCharacterDetailsButton={e =>
                                     props.openCharacterDetails({ e, payload: character.frontendId })
