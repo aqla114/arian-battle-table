@@ -25,7 +25,7 @@ export function mkRouter(router: MiddleWare): MiddleWare {
 
     // TODO : getBattleSession までは要らなくて存在するかどうかで場合分けしたい。
     router.get(routes.page.showBattleSession, pageRenderer, async (ctx, next) => {
-        const battleSession = await getBattleSession(ctx, ctx.params['id']);
+        const battleSession = await getBattleSession(ctx, parseInt(ctx.params['id']));
 
         if (battleSession) {
             ctx.status = 200;
@@ -50,7 +50,7 @@ export function mkRouter(router: MiddleWare): MiddleWare {
     });
 
     router.get(routes.api.getBattleSession, async (ctx, next) => {
-        const battleSession = await getBattleSession(ctx, ctx.params['id']);
+        const battleSession = await getBattleSession(ctx, parseInt(ctx.params['id']));
 
         if (battleSession) {
             ctx.body = battleSession;
@@ -65,7 +65,7 @@ export function mkRouter(router: MiddleWare): MiddleWare {
     router.post(routes.api.deleteBattleSession, async (ctx, next) => {
         console.log('/delete');
 
-        await deleteBattleSession(ctx, ctx.params['id']);
+        await deleteBattleSession(ctx, parseInt(ctx.params['id']));
 
         ctx.status = 200;
 
