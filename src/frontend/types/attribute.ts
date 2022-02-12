@@ -44,7 +44,8 @@ export const AttributeRegistry: { [key in DamageAttributeRaw]: DamageAttributeRa
 
 export function calculateMagicDefenceFactor(damageAttribute: DamageAttributeRaw, characterAttribute: Attribute) {
     // こうかはばつぐんだ！
-    if (AttributeWeakness[damageAttribute] === characterAttribute) {
+    // 雑に貫通ダメージは魔法ダメージとして扱って魔防0にしてしまっている。
+    if (AttributeWeakness[damageAttribute] === characterAttribute || damageAttribute === 'Penetrate') {
         return 0;
     }
 

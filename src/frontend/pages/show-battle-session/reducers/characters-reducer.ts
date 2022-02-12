@@ -1,4 +1,3 @@
-import * as uuid from 'uuid';
 import { toast } from 'react-toastify';
 
 import { updateItemInArray, updateObject } from '../../../utils/reducer-commons';
@@ -131,17 +130,7 @@ export const addNewCharacter: (state: State) => State = state => {
 };
 
 export const copyCharacter: (state: State, props: CopyCharacterProps) => State = (state, props) => {
-    let { character } = props;
-
-    const { id: _, ...badStatusWithoutId } = character.badStatus;
-    const newCharacter: FrontendCharacter = {
-        ...character,
-        id: undefined,
-        badStatus: badStatusWithoutId,
-        frontendId: uuid.v4(),
-    };
-
-    const characters: FrontendCharacter[] = [...state.state.characters, newCharacter].slice().map(x => ({ ...x }));
+    const characters: FrontendCharacter[] = [...state.state.characters, props.character].slice().map(x => ({ ...x }));
 
     return { ...state, state: { ...state.state, characters } };
 };

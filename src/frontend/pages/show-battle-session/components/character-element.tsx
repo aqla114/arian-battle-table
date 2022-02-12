@@ -13,6 +13,7 @@ import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import { OnClickDropdownListItem } from '../../../components/atoms/button-dropdown';
 import { Textarea } from '../../../components/atoms/textarea';
 import { FrontendCharacter } from '../../../types/character';
+import * as Request from 'superagent';
 
 type CharacterElementProps = FrontendCharacter & {
     isNextPrior: boolean;
@@ -21,7 +22,7 @@ type CharacterElementProps = FrontendCharacter & {
     onClickDropdownItem: OnClickDropdownListItem;
     onChangeElementCheckbox: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onChangeElementDropdown: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    onCopyCharacter: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
+    onCopyCharacter: (character: FrontendCharacter) => void;
     onDeleteCharacter: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
     onClickCharacterDetailsButton: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
 };
@@ -30,6 +31,24 @@ export function CharacterElement(props: CharacterElementProps) {
     const { id, ...badStatusWithoutId } = props.badStatus;
 
     const badStatusLabels = getBadStatusLabels({ ...props.badStatus });
+
+    const onCopyCharacter = React.useCallback(
+        async (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+            const sessionId = location.pathname.split('/').slice(-1)[0];
+
+            Request.post(`/api/${sessionId}/characters`)
+                .send({ characterId: props.id })
+                .end((err, res) => {
+                    if (err) {
+                        console.error(err);
+                    } else {
+                        console.log(res.body);
+                        props.onCopyCharacter(res.body);
+                    }
+                });
+        },
+        [props.id],
+    );
 
     const badStatusList: BadStatusProps[] = Object.entries(badStatusWithoutId).map(([key, value]) => {
         if (key === 'poisoned' || key === 'knockback') {
@@ -141,7 +160,7 @@ export function CharacterElement(props: CharacterElementProps) {
                 />
             </td>
             <td className="character-table__table__character__delete-button">
-                <IconButton name="copy" icon={faCopy} onClick={props.onCopyCharacter} />
+                <IconButton name="copy" icon={faCopy} onClick={onCopyCharacter} />
                 <IconButton name="delete" icon={faTrashAlt} onClick={props.onDeleteCharacter} />
                 <IconButton name="detail" icon={faEllipsisV} onClick={props.onClickCharacterDetailsButton} />
             </td>
