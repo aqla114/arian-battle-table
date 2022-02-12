@@ -25,9 +25,9 @@ export async function createCharacter(ctx: Context, sessionId: string) {
         return;
     }
 
+    // chracterId が含まれていれば copy、そうでなければ create の挙動を示す。
     if (!req.characterId) {
-        console.error('The character is not found.');
-        return;
+        console.log('The character is not found.');
     }
 
     const character = battleSession.characters.find(x => x.id === req.characterId) || Character.mk({});
