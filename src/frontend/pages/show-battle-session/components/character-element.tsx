@@ -70,12 +70,6 @@ export function CharacterElement(props: CharacterElementProps) {
         }
     });
 
-    const attributeOptions = Object.entries(attributeLabels).map(([key, label]) => (
-        <option value={key} key={key}>
-            {label}
-        </option>
-    ));
-
     return (
         <tr className={`character-table__table__character ${props.isNextPrior ? '--next' : ''}`}>
             <td className="character-table__table__character__is-acted">
@@ -146,7 +140,13 @@ export function CharacterElement(props: CharacterElementProps) {
                 />
             </td>
             <td className="character-table__table__character__attribute">
-                <Dropdown value={props.attribute} options={attributeOptions} onChange={props.onChangeElementDropdown} />
+                <Dropdown value={props.attribute} onChange={props.onChangeElementDropdown}>
+                    {Object.entries(attributeLabels).map(([key, label]) => (
+                        <option value={key} key={key}>
+                            {label}
+                        </option>
+                    ))}
+                </Dropdown>
             </td>
             <td className="character-table__table__character__badstatus">
                 <BadStatusButtons badStatusList={badStatusList} />

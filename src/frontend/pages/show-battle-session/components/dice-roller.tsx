@@ -16,18 +16,6 @@ import { CardContainer } from '../../../components/card-container';
 import { useDispatch } from 'react-redux';
 import { actions } from '../actions/actions';
 
-const diceCountOptions = [...Array(40).keys()].map(x => (
-    <option value={x + 1} key={x + 1}>
-        {x + 1}
-    </option>
-));
-
-const diceMaxOptions = [6, 10, 100].map(x => (
-    <option key={x} value={x}>
-        {x}
-    </option>
-));
-
 const INIT_MAX_DICE = 6;
 const INIT_COUNT = 1;
 
@@ -50,13 +38,21 @@ export const DiceRoller: React.FC<Props> = ({ rollResult }) => {
     return (
         <CardContainer>
             <div className="dice-roller">
-                <Dropdown
-                    value={diceNum}
-                    options={diceCountOptions}
-                    onChange={e => setDiceNum(Number(e.target.value))}
-                />
+                <Dropdown value={diceNum} onChange={e => setDiceNum(Number(e.target.value))}>
+                    {[...Array(40).keys()].map(x => (
+                        <option value={x + 1} key={x + 1}>
+                            {x + 1}
+                        </option>
+                    ))}
+                </Dropdown>
                 <span>D</span>
-                <Dropdown value={maxDice} options={diceMaxOptions} onChange={e => setMaxDice(Number(e.target.value))} />
+                <Dropdown value={maxDice} onChange={e => setMaxDice(Number(e.target.value))}>
+                    {[6, 10, 100].map(x => (
+                        <option key={x} value={x}>
+                            {x}
+                        </option>
+                    ))}
+                </Dropdown>
                 <Button
                     className="dice-roller__roll-button"
                     kind="primary"

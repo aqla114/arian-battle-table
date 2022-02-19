@@ -23,18 +23,6 @@ export const DamageCalculator: React.FC<Props> = ({
     characters,
     attackTarget,
 }) => {
-    const attributeOptions = Object.entries(damageAttributeLabels).map(([key, label]) => (
-        <option value={key} key={key}>
-            {label}
-        </option>
-    ));
-
-    const characterOptions = characters.map(character => (
-        <option key={character.frontendId} value={character.frontendId}>
-            {character.name}
-        </option>
-    ));
-
     const attackTargetCharacter =
         characters.length > 0 ? characters.find(x => x.frontendId === attackTarget) || characters[0] : null;
 
@@ -69,20 +57,30 @@ export const DamageCalculator: React.FC<Props> = ({
                     <div className="damage-attribute__label">属性</div>
                     <Dropdown
                         className="damage-attribute__value"
-                        options={attributeOptions}
                         value={damageAttribute}
                         onChange={e => dispatch(actions.updateDamageState({ damageAttribute: e.target.value }))}
-                    />
+                    >
+                        {Object.entries(damageAttributeLabels).map(([key, label]) => (
+                            <option value={key} key={key}>
+                                {label}
+                            </option>
+                        ))}
+                    </Dropdown>
                 </div>
                 <div className="damage-target">
                     <div className="damage-target__label">対象</div>
                     {attackTargetCharacter !== null ? (
                         <Dropdown
-                            options={characterOptions}
                             value={attackTargetCharacter.frontendId}
                             onChange={e => dispatch(actions.updateDamageState({ attackTarget: e.target.value }))}
                             className="damage-target__value"
-                        />
+                        >
+                            {characters.map(character => (
+                                <option key={character.frontendId} value={character.frontendId}>
+                                    {character.name}
+                                </option>
+                            ))}
+                        </Dropdown>
                     ) : null}
                 </div>
                 <Button
