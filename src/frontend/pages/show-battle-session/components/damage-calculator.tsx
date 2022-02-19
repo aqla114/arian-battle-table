@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import { Button } from '../../../components/atoms/button';
+import { CheckBox } from '../../../components/atoms/checkbox';
 import { Dropdown } from '../../../components/atoms/dropdown';
 import { InputField } from '../../../components/atoms/input-field';
 import { CardContainer } from '../../../components/card-container';
@@ -17,27 +18,20 @@ type Props = {
 };
 
 export const DamageCalculator: React.FC<Props> = ({
-    roleResult,
+    roleResult: _roleResult,
     damageAttribute,
     fixedDamage,
     characters,
     attackTarget,
 }) => {
-    const attributeOptions = Object.entries(damageAttributeLabels).map(([key, label]) => (
-        <option value={key} key={key}>
-            {label}
-        </option>
-    ));
-
-    const characterOptions = characters.map(character => (
-        <option key={character.frontendId} value={character.frontendId}>
-            {character.name}
-        </option>
-    ));
-
     const attackTargetCharacter =
         characters.length > 0 ? characters.find(x => x.frontendId === attackTarget) || characters[0] : null;
 
+    const [usingRoleResult, setUsingRoleResult] = React.useState(true);
+
+    const roleResult = _roleResult * Number(usingRoleResult);
+
+    // Number(true) === 1, Number(false) === 0 を利用している。
     const calculatedDamage = roleResult + fixedDamage;
 
     const dispatch = useDispatch();
@@ -45,9 +39,19 @@ export const DamageCalculator: React.FC<Props> = ({
     return (
         <CardContainer className="damage-calculator">
             <div className="damage-calculator__container">
+                <div className="using-damage-role">
+                    <div className="using-damage-role__label">DRを参照</div>
+                    <div className="using-damage-role__value">
+                        <CheckBox
+                            name={'using-damage-role'}
+                            checked={usingRoleResult}
+                            onChange={() => setUsingRoleResult(!usingRoleResult)}
+                        />
+                    </div>
+                </div>
                 <div className="damage-role-referer">
                     <div className="damage-role-referer__label">ダメージロール</div>
-                    <div className="damage-role-referer__value">{roleResult}</div>
+                    <div className="damage-role-referer__value">{usingRoleResult ? roleResult : '-'}</div>
                 </div>
                 <div>+</div>
                 <div className="fixed-damage">
@@ -69,20 +73,30 @@ export const DamageCalculator: React.FC<Props> = ({
                     <div className="damage-attribute__label">属性</div>
                     <Dropdown
                         className="damage-attribute__value"
-                        options={attributeOptions}
                         value={damageAttribute}
                         onChange={e => dispatch(actions.updateDamageState({ damageAttribute: e.target.value }))}
-                    />
+                    >
+                        {Object.entries(damageAttributeLabels).map(([key, label]) => (
+                            <option value={key} key={key}>
+                                {label}
+                            </option>
+                        ))}
+                    </Dropdown>
                 </div>
                 <div className="damage-target">
                     <div className="damage-target__label">対象</div>
                     {attackTargetCharacter !== null ? (
                         <Dropdown
-                            options={characterOptions}
                             value={attackTargetCharacter.frontendId}
                             onChange={e => dispatch(actions.updateDamageState({ attackTarget: e.target.value }))}
                             className="damage-target__value"
-                        />
+                        >
+                            {characters.map(character => (
+                                <option key={character.frontendId} value={character.frontendId}>
+                                    {character.name}
+                                </option>
+                            ))}
+                        </Dropdown>
                     ) : null}
                 </div>
                 <Button

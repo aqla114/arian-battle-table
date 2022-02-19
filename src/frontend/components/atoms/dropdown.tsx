@@ -2,16 +2,14 @@ import * as React from 'react';
 
 type Props = {
     value: string | number | string[];
-    options: JSX.Element[];
     onChange: (e: any) => void;
     className?: string;
 };
 
-export const Dropdown: React.FunctionComponent<Props> = (props: Props) => {
-    // TODO: options、children の形式で受け取るようにする。
+export const Dropdown: React.FC<Props> = props => {
     return (
         <select className={`dropdown ${props.className}`} value={props.value} onChange={props.onChange}>
-            {props.options}
+            {props.children}
         </select>
     );
 };
