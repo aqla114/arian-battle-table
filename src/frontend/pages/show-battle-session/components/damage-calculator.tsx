@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import { Button } from '../../../components/atoms/button';
+import { CheckBox } from '../../../components/atoms/checkbox';
 import { Dropdown } from '../../../components/atoms/dropdown';
 import { InputField } from '../../../components/atoms/input-field';
 import { CardContainer } from '../../../components/card-container';
@@ -17,7 +18,7 @@ type Props = {
 };
 
 export const DamageCalculator: React.FC<Props> = ({
-    roleResult,
+    roleResult: _roleResult,
     damageAttribute,
     fixedDamage,
     characters,
@@ -26,6 +27,11 @@ export const DamageCalculator: React.FC<Props> = ({
     const attackTargetCharacter =
         characters.length > 0 ? characters.find(x => x.frontendId === attackTarget) || characters[0] : null;
 
+    const [usingRoleResult, setUsingRoleResult] = React.useState(true);
+
+    const roleResult = _roleResult * Number(usingRoleResult);
+
+    // Number(true) === 1, Number(false) === 0 を利用している。
     const calculatedDamage = roleResult + fixedDamage;
 
     const dispatch = useDispatch();
@@ -33,9 +39,19 @@ export const DamageCalculator: React.FC<Props> = ({
     return (
         <CardContainer className="damage-calculator">
             <div className="damage-calculator__container">
+                <div className="using-damage-role">
+                    <div className="using-damage-role__label">DRを参照</div>
+                    <div className="using-damage-role__value">
+                        <CheckBox
+                            name={'using-damage-role'}
+                            checked={usingRoleResult}
+                            onChange={() => setUsingRoleResult(!usingRoleResult)}
+                        />
+                    </div>
+                </div>
                 <div className="damage-role-referer">
                     <div className="damage-role-referer__label">ダメージロール</div>
-                    <div className="damage-role-referer__value">{roleResult}</div>
+                    <div className="damage-role-referer__value">{usingRoleResult ? roleResult : '-'}</div>
                 </div>
                 <div>+</div>
                 <div className="fixed-damage">

@@ -916,6 +916,13 @@ input[class=text-checkbox] {
 .dice-roller__result__fanble {
   color: #f00;
 }
+.using-damage-role__label {
+  text-align: center;
+}
+.using-damage-role__value {
+  margin-top: 4px;
+  text-align: center;
+}
 .damage-calculator__container {
   column-gap: 12px;
   display: flex;
